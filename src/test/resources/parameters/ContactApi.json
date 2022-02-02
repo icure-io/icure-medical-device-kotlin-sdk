@@ -1,0 +1,147 @@
+{
+  "beforeElements": {
+    "bodies": [
+      {"id": "968619d0-5e9c-49d6-b140-7eb6b93c5c37", "externalId": "c066cd40-384a-4fcc-844c-7c41af1f23b1","associationId": "7edf48c6-e1e8-48d9-964a-22b95ec40c47","codes": [], "tags": [], "secretForeignKeys": ["26f056c8-52e4-4b1d-920a-104e13a7ec72"], "cryptedForeignKeys": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "63bd52d69c766bfbd58ceb4f4f3dbf17616919e10b7d2987baadaf0a6058de8793c4d7d670f6f110dce3e55a5c0cf4124ca84470f45fb0e815ad1465e5e716ec61ac8f68eb1281652110a24a43507fd0df3d02f3e1b3e760a2fa61b92e2242be"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "5130ae69a31bd0e00e6181ae0cff2796af22a9afcf85c5aa337e57af9d12c14a659e7852db0556e42d836b0d1d282023490647a53de010a478eea1d6faa75216759ffa1b0d288573e7b4855cf7c2c2c0ae81fa35f01e697b4ffdbb49834d3f85"}]}, "delegations": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "dbf623f2d4e04954ce92341669bbc63231340883239a7049e27f3dcc8052ec0e79bef1a763eaa5b6192701bc9527873edcac6792a87d3ed46cb6e40e78cfd8dac082e71287acbf3ae65bee752eb5dc79e591c3cf9e14d7a4aad051e0cc5e2a59"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "28d51eb09275d2708859018785270cb47e85f5f081243f39d3ae0d8bb189c604cf0e09d761aa98f349bc6c09ea035bf9fdc25fa9a00704c6712d188d0ad2908a06e1f1fcb37eca3479e7972e1c24a65e161278643352d97113d7f1fb34ab4751"}]}, "openingDate": 20171214, "closingDate": 20171214153600, "descr": "Contact du 14/12/17", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "subContacts": [{"codes":[],"tags":[],"formId":"49c76ad9-732b-4a41-81ea-4d2a2cabdf80","planOfActionId":"a5caf58c-a11b-4841-9208-19a9d3195c58","services":[{"serviceId":"caf57348-e79e-411c-9aa2-22236a235792"}]}], "services": [{"label":"BMI","dataClassName":"TKNumber","index":2,"content":{"fr":{"n":0}},"textIndexes":{},"valueDate":20170515151507,"formId":"b52007fe-ff75-49ae-96f5-68b601842ba5","created":1494854114248,"modified":1494854114105,"author":"ebd30407-9f33-4cd5-9999-079f334cd5e8","responsible":"782f1bcd-9f3f-408a-af1b-cd9f3f908a98","invoicingCodes":[],"codes":[],"tags":[{"type":"SOAP","code":"Objective","version":"1","_attachments":{},"_id":"SOAP|Objective|1","java_type":"org.taktik.icure.entities.base.Code","rev_history":{}},{"type":"CD-ITEM","code":"parameter","version":"1","_attachments":{},"_id":"CD-ITEM|parameter|1","java_type":"org.taktik.icure.entities.base.Code","rev_history":{}},{"type":"CD-PARAMETER","code":"bmi","version":"1","_attachments":{},"_id":"CD-PARAMETER|bmi|1","java_type":"org.taktik.icure.entities.base.Code","rev_history":{}}],"id":"caf57348-e79e-411c-9aa2-22236a235792"}]},
+      {"id": "cb30b865-3c24-463c-a61a-42fb0a4ea910", "codes": [], "tags": [], "secretForeignKeys": ["26f056c8-52e4-4b1d-920a-104e13a7ec72"], "cryptedForeignKeys": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "63bd52d69c766bfbd58ceb4f4f3dbf17616919e10b7d2987baadaf0a6058de8793c4d7d670f6f110dce3e55a5c0cf4124ca84470f45fb0e815ad1465e5e716ec61ac8f68eb1281652110a24a43507fd0df3d02f3e1b3e760a2fa61b92e2242be"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "5130ae69a31bd0e00e6181ae0cff2796af22a9afcf85c5aa337e57af9d12c14a659e7852db0556e42d836b0d1d282023490647a53de010a478eea1d6faa75216759ffa1b0d288573e7b4855cf7c2c2c0ae81fa35f01e697b4ffdbb49834d3f85"}]}, "delegations": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "dbf623f2d4e04954ce92341669bbc63231340883239a7049e27f3dcc8052ec0e79bef1a763eaa5b6192701bc9527873edcac6792a87d3ed46cb6e40e78cfd8dac082e71287acbf3ae65bee752eb5dc79e591c3cf9e14d7a4aad051e0cc5e2a59"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "28d51eb09275d2708859018785270cb47e85f5f081243f39d3ae0d8bb189c604cf0e09d761aa98f349bc6c09ea035bf9fdc25fa9a00704c6712d188d0ad2908a06e1f1fcb37eca3479e7972e1c24a65e161278643352d97113d7f1fb34ab4751"}]}, "openingDate": 20171214, "closingDate": 20171214153600, "descr": "Contact du 14/12/17", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "subContacts": [], "services": []},
+      {"id": "4b636e1b-9cd9-4a05-8291-02ca95d02bf7", "codes": [], "tags": [], "secretForeignKeys": ["26f056c8-52e4-4b1d-920a-104e13a7ec72"], "cryptedForeignKeys": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "63bd52d69c766bfbd58ceb4f4f3dbf17616919e10b7d2987baadaf0a6058de8793c4d7d670f6f110dce3e55a5c0cf4124ca84470f45fb0e815ad1465e5e716ec61ac8f68eb1281652110a24a43507fd0df3d02f3e1b3e760a2fa61b92e2242be"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "5130ae69a31bd0e00e6181ae0cff2796af22a9afcf85c5aa337e57af9d12c14a659e7852db0556e42d836b0d1d282023490647a53de010a478eea1d6faa75216759ffa1b0d288573e7b4855cf7c2c2c0ae81fa35f01e697b4ffdbb49834d3f85"}]}, "delegations": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "dbf623f2d4e04954ce92341669bbc63231340883239a7049e27f3dcc8052ec0e79bef1a763eaa5b6192701bc9527873edcac6792a87d3ed46cb6e40e78cfd8dac082e71287acbf3ae65bee752eb5dc79e591c3cf9e14d7a4aad051e0cc5e2a59"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "28d51eb09275d2708859018785270cb47e85f5f081243f39d3ae0d8bb189c604cf0e09d761aa98f349bc6c09ea035bf9fdc25fa9a00704c6712d188d0ad2908a06e1f1fcb37eca3479e7972e1c24a65e161278643352d97113d7f1fb34ab4751"}]}, "openingDate": 20171214, "closingDate": 20171214153600, "descr": "Contact du 14/12/17", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "subContacts": [], "services": []},
+      {"id": "9fb1f074-7b48-4fdf-a5c3-10fbbcedb0b8", "codes": [], "tags": [], "secretForeignKeys": ["26f056c8-52e4-4b1d-920a-104e13a7ec72"], "cryptedForeignKeys": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "63bd52d69c766bfbd58ceb4f4f3dbf17616919e10b7d2987baadaf0a6058de8793c4d7d670f6f110dce3e55a5c0cf4124ca84470f45fb0e815ad1465e5e716ec61ac8f68eb1281652110a24a43507fd0df3d02f3e1b3e760a2fa61b92e2242be"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "5130ae69a31bd0e00e6181ae0cff2796af22a9afcf85c5aa337e57af9d12c14a659e7852db0556e42d836b0d1d282023490647a53de010a478eea1d6faa75216759ffa1b0d288573e7b4855cf7c2c2c0ae81fa35f01e697b4ffdbb49834d3f85"}]}, "delegations": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "dbf623f2d4e04954ce92341669bbc63231340883239a7049e27f3dcc8052ec0e79bef1a763eaa5b6192701bc9527873edcac6792a87d3ed46cb6e40e78cfd8dac082e71287acbf3ae65bee752eb5dc79e591c3cf9e14d7a4aad051e0cc5e2a59"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "28d51eb09275d2708859018785270cb47e85f5f081243f39d3ae0d8bb189c604cf0e09d761aa98f349bc6c09ea035bf9fdc25fa9a00704c6712d188d0ad2908a06e1f1fcb37eca3479e7972e1c24a65e161278643352d97113d7f1fb34ab4751"}]}, "openingDate": 20171214, "closingDate": 20171214153600, "descr": "Contact du 14/12/17", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "subContacts": [], "services": []},
+      {"id": "661afaea-e81f-4e53-a023-2829641b8f5e", "codes": [], "tags": [], "secretForeignKeys": ["d04a6c6e-77f7-41d9-8b74-6aa335501b60"], "openingDate": 20171214, "closingDate": 20171214153600, "descr": "Contact du 14/12/17", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "subContacts": [], "services": []},
+      {"id": "44961ebc-94a2-42a6-b579-21169c13f543", "codes": [], "tags": [], "secretForeignKeys": ["26f056c8-52e4-4b1d-920a-104e13a7ec72"], "cryptedForeignKeys": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "63bd52d69c766bfbd58ceb4f4f3dbf17616919e10b7d2987baadaf0a6058de8793c4d7d670f6f110dce3e55a5c0cf4124ca84470f45fb0e815ad1465e5e716ec61ac8f68eb1281652110a24a43507fd0df3d02f3e1b3e760a2fa61b92e2242be"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "5130ae69a31bd0e00e6181ae0cff2796af22a9afcf85c5aa337e57af9d12c14a659e7852db0556e42d836b0d1d282023490647a53de010a478eea1d6faa75216759ffa1b0d288573e7b4855cf7c2c2c0ae81fa35f01e697b4ffdbb49834d3f85"}]}, "delegations": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "dbf623f2d4e04954ce92341669bbc63231340883239a7049e27f3dcc8052ec0e79bef1a763eaa5b6192701bc9527873edcac6792a87d3ed46cb6e40e78cfd8dac082e71287acbf3ae65bee752eb5dc79e591c3cf9e14d7a4aad051e0cc5e2a59"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "28d51eb09275d2708859018785270cb47e85f5f081243f39d3ae0d8bb189c604cf0e09d761aa98f349bc6c09ea035bf9fdc25fa9a00704c6712d188d0ad2908a06e1f1fcb37eca3479e7972e1c24a65e161278643352d97113d7f1fb34ab4751"}]}, "openingDate": 20171214, "closingDate": 20171214153600, "descr": "Contact du 14/12/17", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "subContacts": [], "services": []}
+    ]
+  },
+  "afterElements": {
+    "family": "healthdata",
+    "deleteIds": ["f7bfcc70-fbb1-4ac4-ae28-7237ef878550","968619d0-5e9c-49d6-b140-7eb6b93c5c37", "cb30b865-3c24-463c-a61a-42fb0a4ea910", "4b636e1b-9cd9-4a05-8291-02ca95d02bf7", "44961ebc-94a2-42a6-b579-21169c13f543", "9fb1f074-7b48-4fdf-a5c3-10fbbcedb0b8", "661afaea-e81f-4e53-a023-2829641b8f5e"]
+  },
+  "closeForHCPartyPatientForeignKeys": {
+    "hcPartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98",
+    "secretFKeys": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98"
+  },
+  "createContact": {
+    "contactDto": {"id": "f7bfcc70-fbb1-4ac4-ae28-7237ef878550", "codes": [], "tags": [], "secretForeignKeys": ["26f056c8-52e4-4b1d-920a-104e13a7ec72"], "cryptedForeignKeys": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "63bd52d69c766bfbd58ceb4f4f3dbf17616919e10b7d2987baadaf0a6058de8793c4d7d670f6f110dce3e55a5c0cf4124ca84470f45fb0e815ad1465e5e716ec61ac8f68eb1281652110a24a43507fd0df3d02f3e1b3e760a2fa61b92e2242be"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "5130ae69a31bd0e00e6181ae0cff2796af22a9afcf85c5aa337e57af9d12c14a659e7852db0556e42d836b0d1d282023490647a53de010a478eea1d6faa75216759ffa1b0d288573e7b4855cf7c2c2c0ae81fa35f01e697b4ffdbb49834d3f85"}]}, "delegations": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "dbf623f2d4e04954ce92341669bbc63231340883239a7049e27f3dcc8052ec0e79bef1a763eaa5b6192701bc9527873edcac6792a87d3ed46cb6e40e78cfd8dac082e71287acbf3ae65bee752eb5dc79e591c3cf9e14d7a4aad051e0cc5e2a59"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "28d51eb09275d2708859018785270cb47e85f5f081243f39d3ae0d8bb189c604cf0e09d761aa98f349bc6c09ea035bf9fdc25fa9a00704c6712d188d0ad2908a06e1f1fcb37eca3479e7972e1c24a65e161278643352d97113d7f1fb34ab4751"}]}, "openingDate": 20171214, "closingDate": 20171214153600, "descr": "Contact du 14/12/17", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "subContacts": [], "services": []},
+  },
+  "createContacts": {
+    "contactDto": [{"id": "f7bfcc70-fbb1-4ac4-ae28-7237ef878550", "codes": [], "tags": [], "secretForeignKeys": ["26f056c8-52e4-4b1d-920a-104e13a7ec72"], "cryptedForeignKeys": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "63bd52d69c766bfbd58ceb4f4f3dbf17616919e10b7d2987baadaf0a6058de8793c4d7d670f6f110dce3e55a5c0cf4124ca84470f45fb0e815ad1465e5e716ec61ac8f68eb1281652110a24a43507fd0df3d02f3e1b3e760a2fa61b92e2242be"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "5130ae69a31bd0e00e6181ae0cff2796af22a9afcf85c5aa337e57af9d12c14a659e7852db0556e42d836b0d1d282023490647a53de010a478eea1d6faa75216759ffa1b0d288573e7b4855cf7c2c2c0ae81fa35f01e697b4ffdbb49834d3f85"}]}, "delegations": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "dbf623f2d4e04954ce92341669bbc63231340883239a7049e27f3dcc8052ec0e79bef1a763eaa5b6192701bc9527873edcac6792a87d3ed46cb6e40e78cfd8dac082e71287acbf3ae65bee752eb5dc79e591c3cf9e14d7a4aad051e0cc5e2a59"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "28d51eb09275d2708859018785270cb47e85f5f081243f39d3ae0d8bb189c604cf0e09d761aa98f349bc6c09ea035bf9fdc25fa9a00704c6712d188d0ad2908a06e1f1fcb37eca3479e7972e1c24a65e161278643352d97113d7f1fb34ab4751"}]}, "openingDate": 20171214, "closingDate": 20171214153600, "descr": "Contact du 14/12/17", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "subContacts": [], "services": []}],
+  },
+  "deleteContacts": {
+    "listOfIdsDto": {
+      "ids": ["968619d0-5e9c-49d6-b140-7eb6b93c5c37"]
+    }
+  },
+  "filterContactsBy": {
+    "startKey": null,
+    "startDocumentId": null,
+    "limit": 20,
+    "filterChainContact": {"filter" :{"$type": "ContactByHcPartyPatientTagCodeDateFilter", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "startServiceValueDate": 12345}}
+  },
+  "filterServicesBy": {
+    "startKey": null,
+    "startDocumentId": null,
+    "limit": 20,
+    "filterChainService": {"filter" :{"$type": "ServiceByHcPartyTagCodeDateFilter", "startValueDate": 12345, "code": "Objective", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98"}}
+  },
+  "listContactsByHCPartyAndFormId": {
+    "hcPartyId": "70d2af51-545d-4124-92af-51545d1124d8",
+    "formId": "e980c6f8-00f1-4e2d-8f2a-f923154ada01"
+  },
+  "listContactsByHCPartyAndFormIds": {
+    "hcPartyId": "70d2af51-545d-4124-92af-51545d1124d8",
+    "listOfIdsDto": {
+      "ids": [
+        "e980c6f8-00f1-4e2d-8f2a-f923154ada01",
+        "22b8c678-3057-4140-bfde-ec3e67c72921"
+      ]
+    }
+  },
+  "listContactsByHCPartyAndPatientForeignKeys": {
+    "hcPartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98",
+    "listOfIdsDto": {
+      "ids": [
+        "fecceeb9-d4ca-42cf-8cee-b9d4ca92cf22"
+      ]
+    }
+  },
+  "listContactsByHCPartyAndPatientSecretFKeys": {
+    "hcPartyId": "70d2af51-545d-4124-92af-51545d1124d8",
+    "secretFKeys": "343bfe93-5643-4f41-a18f-b76cc62562b4",
+    "planOfActionIds": null,
+    "skipClosedContacts": true
+  },
+  "listContactsDelegationsStubsByHCPartyAndPatientForeignKeys": {
+    "hcPartyId": "cc4dab7e-fe83-41f0-8dab-7efe83e1f018",
+    "secretFKeys": "77b06f59-a584-403c-b522-407fc12e8b2e"
+  },
+  "getContact": {
+    "contactId": "00279fe4-214a-41f0-a79f-e4214ae1f088"
+  },
+  "getContacts": {
+    "listOfIdsDto": {
+      "ids" : ["00032064-cc62-4cf6-911f-199c3d0e6363"]
+    }
+  },
+  "getEmptyContent": {},
+  "getServiceCodesOccurences": {
+    "codeType": "CD-LIFECYCLE",
+    "minOccurences": 10
+  },
+  "findContactsByOpeningDate": {
+    "startKey": 20180130174103,
+    "endKey": 20190130174104,
+    "hcpartyid": "cc4dab7e-fe83-41f0-8dab-7efe83e1f018",
+    "startDocumentId": null,
+    "limit": 20
+  },
+  "matchContactsBy": {
+    "skipEndpoint": true,
+    "abstractFilterDtoContact": {"$type": "ContactByHcPartyPatientTagCodeDateFilter", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "startServiceValueDate": 12345}
+  },
+  "modifyContact": {
+    "autoRev" : true,
+    "contactDto": {"id": "cb30b865-3c24-463c-a61a-42fb0a4ea910", "codes": [], "tags": [], "secretForeignKeys": ["26f056c8-52e4-4b1d-920a-104e13a7ec72"], "cryptedForeignKeys": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "63bd52d69c766bfbd58ceb4f4f3dbf17616919e10b7d2987baadaf0a6058de8793c4d7d670f6f110dce3e55a5c0cf4124ca84470f45fb0e815ad1465e5e716ec61ac8f68eb1281652110a24a43507fd0df3d02f3e1b3e760a2fa61b92e2242be"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "5130ae69a31bd0e00e6181ae0cff2796af22a9afcf85c5aa337e57af9d12c14a659e7852db0556e42d836b0d1d282023490647a53de010a478eea1d6faa75216759ffa1b0d288573e7b4855cf7c2c2c0ae81fa35f01e697b4ffdbb49834d3f85"}]}, "delegations": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "dbf623f2d4e04954ce92341669bbc63231340883239a7049e27f3dcc8052ec0e79bef1a763eaa5b6192701bc9527873edcac6792a87d3ed46cb6e40e78cfd8dac082e71287acbf3ae65bee752eb5dc79e591c3cf9e14d7a4aad051e0cc5e2a59"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "28d51eb09275d2708859018785270cb47e85f5f081243f39d3ae0d8bb189c604cf0e09d761aa98f349bc6c09ea035bf9fdc25fa9a00704c6712d188d0ad2908a06e1f1fcb37eca3479e7972e1c24a65e161278643352d97113d7f1fb34ab4751"}]}, "openingDate": 20171214, "closingDate": 20171214153600, "descr": "modified from tests", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "subContacts": [], "services": []}
+  },
+  "modifyContacts": {
+    "autoRev" : true,
+    "contactDto": [
+      {"id": "4b636e1b-9cd9-4a05-8291-02ca95d02bf7", "codes": [], "tags": [], "secretForeignKeys": ["26f056c8-52e4-4b1d-920a-104e13a7ec72"], "cryptedForeignKeys": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "63bd52d69c766bfbd58ceb4f4f3dbf17616919e10b7d2987baadaf0a6058de8793c4d7d670f6f110dce3e55a5c0cf4124ca84470f45fb0e815ad1465e5e716ec61ac8f68eb1281652110a24a43507fd0df3d02f3e1b3e760a2fa61b92e2242be"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "5130ae69a31bd0e00e6181ae0cff2796af22a9afcf85c5aa337e57af9d12c14a659e7852db0556e42d836b0d1d282023490647a53de010a478eea1d6faa75216759ffa1b0d288573e7b4855cf7c2c2c0ae81fa35f01e697b4ffdbb49834d3f85"}]}, "delegations": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "dbf623f2d4e04954ce92341669bbc63231340883239a7049e27f3dcc8052ec0e79bef1a763eaa5b6192701bc9527873edcac6792a87d3ed46cb6e40e78cfd8dac082e71287acbf3ae65bee752eb5dc79e591c3cf9e14d7a4aad051e0cc5e2a59"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "28d51eb09275d2708859018785270cb47e85f5f081243f39d3ae0d8bb189c604cf0e09d761aa98f349bc6c09ea035bf9fdc25fa9a00704c6712d188d0ad2908a06e1f1fcb37eca3479e7972e1c24a65e161278643352d97113d7f1fb34ab4751"}]}, "openingDate": 20171214, "closingDate": 20171214153600, "descr": "from tests x", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "subContacts": [], "services": []},
+      {"id": "44961ebc-94a2-42a6-b579-21169c13f543", "codes": [], "tags": [], "secretForeignKeys": ["26f056c8-52e4-4b1d-920a-104e13a7ec72"], "cryptedForeignKeys": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "63bd52d69c766bfbd58ceb4f4f3dbf17616919e10b7d2987baadaf0a6058de8793c4d7d670f6f110dce3e55a5c0cf4124ca84470f45fb0e815ad1465e5e716ec61ac8f68eb1281652110a24a43507fd0df3d02f3e1b3e760a2fa61b92e2242be"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "5130ae69a31bd0e00e6181ae0cff2796af22a9afcf85c5aa337e57af9d12c14a659e7852db0556e42d836b0d1d282023490647a53de010a478eea1d6faa75216759ffa1b0d288573e7b4855cf7c2c2c0ae81fa35f01e697b4ffdbb49834d3f85"}]}, "delegations": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "dbf623f2d4e04954ce92341669bbc63231340883239a7049e27f3dcc8052ec0e79bef1a763eaa5b6192701bc9527873edcac6792a87d3ed46cb6e40e78cfd8dac082e71287acbf3ae65bee752eb5dc79e591c3cf9e14d7a4aad051e0cc5e2a59"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "28d51eb09275d2708859018785270cb47e85f5f081243f39d3ae0d8bb189c604cf0e09d761aa98f349bc6c09ea035bf9fdc25fa9a00704c6712d188d0ad2908a06e1f1fcb37eca3479e7972e1c24a65e161278643352d97113d7f1fb34ab4751"}]}, "openingDate": 20171214, "closingDate": 20171214153600, "descr": "from tests y", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "subContacts": [], "services": []}
+    ]
+  },
+  "newContactDelegations": {
+    "contactId": "9fb1f074-7b48-4fdf-a5c3-10fbbcedb0b8",
+    "delegationDto": {
+      "delegatedTo": "a30dc7ca-ffaa-49c4-b836-9c4edca27257",
+      "key": "key",
+      "owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439"
+    }
+  },
+  "modifyContactsDelegations": {
+    "icureStubDto": [{"id": "968619d0-5e9c-49d6-b140-7eb6b93c5c37", "rev": "47-ade6e9ebff9aeddbb3a3d8c47d96a96b", "codes": [], "tags": [], "secretForeignKeys": ["26f056c8-52e4-4b1d-920a-104e13a7ec72"], "cryptedForeignKeys": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "63bd52d69c766bfbd58ceb4f4f3dbf17616919e10b7d2987baadaf0a6058de8793c4d7d670f6f110dce3e55a5c0cf4124ca84470f45fb0e815ad1465e5e716ec61ac8f68eb1281652110a24a43507fd0df3d02f3e1b3e760a2fa61b92e2242be"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "5130ae69a31bd0e00e6181ae0cff2796af22a9afcf85c5aa337e57af9d12c14a659e7852db0556e42d836b0d1d282023490647a53de010a478eea1d6faa75216759ffa1b0d288573e7b4855cf7c2c2c0ae81fa35f01e697b4ffdbb49834d3f85"}]}, "delegations": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "adelegatoto", "key": "akey"}], "49b3287e-8586-4f59-a2d5-0d52c361da2c": [{"owner": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "delegatedTo": "bdelegateto", "key": "bkey"}]}, "openingDate": 20171214, "closingDate": 20171214153600, "descr": "Contact du 14/12/17", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "subContacts": [], "services": []}]
+  },
+  "getServices": {
+    "listOfIdsDto": {
+      "ids": ["caf57348-e79e-411c-9aa2-22236a235792"]
+    }
+  },
+  "getServicesLinkedTo": {
+    "listOfIdsDto": {
+      "ids": [
+        "968619d0-5e9c-49d6-b140-7eb6b93c5c37"
+      ]
+    }
+  },
+  "listContactByHCPartyServiceId": {
+    "hcPartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98",
+    "serviceId": "caf57348-e79e-411c-9aa2-22236a235792"
+  },
+  "listContactsByExternalId": {
+    "externalId": "c066cd40-384a-4fcc-844c-7c41af1f23b1"
+  },
+  "listServicesByAssociationId": {
+    "associationId": "7edf48c6-e1e8-48d9-964a-22b95ec40c47"
+  },
+  "setContactsDelegations": {
+    "skipEndpoint": true
+  },
+  "fallback": {
+  }
+}

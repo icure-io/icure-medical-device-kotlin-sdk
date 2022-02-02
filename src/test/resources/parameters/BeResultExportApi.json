@@ -1,0 +1,36 @@
+{
+  "beforeElements": {
+    "bodies": null
+  },
+  "afterElements": {
+    "family": null,
+    "deleteIds": null
+  },
+  "exportHealthOne": {
+    "fromHcpId": null, 
+    "toHcpId": null, 
+    "patId": null, 
+    "date": null, 
+    "ref": null, 
+    "body": null
+  },
+  "exportKmehrReport": {
+    "fromHcpId": null, 
+    "toHcpId": null, 
+    "patId": null, 
+    "date": null, 
+    "ref": null, 
+    "mimeType": null, 
+    "body": null
+  },
+  "exportMedidoc": {
+    "fromHcpId": null, 
+    "toHcpId": null, 
+    "patId": null, 
+    "date": null, 
+    "ref": null, 
+    "body": null
+  },
+  "fallback": {
+  }
+}

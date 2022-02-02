@@ -1,0 +1,17 @@
+{
+  "beforeElements": {
+    "bodies": null
+  },
+  "afterElements": {
+    "family": null,
+    "deleteIds": null
+  },
+  "createBatchAndMessage": {
+    "insuranceId": null, 
+    "newMessageId": null, 
+    "numericalRef": null, 
+    "body": null
+  },
+  "fallback": {
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "beforeElements": {
+    "bodies": null
+  },
+  "afterElements": {
+    "family": null,
+    "deleteIds": null
+  },
+  "canHandle": {
+    "id": null, 
+    "enckeys": null
+  },
+  "doImport": {
+    "documentId": null, 
+    "hcpId": null, 
+    "language": null, 
+    "protocolIds": null, 
+    "formIds": null, 
+    "planOfActionId": null, 
+    "enckeys": null, 
+    "body": null
+  },
+  "getInfos": {
+    "id": null, 
+    "full": null, 
+    "language": null, 
+    "enckeys": null
+  },
+  "fallback": {
+  }
+}

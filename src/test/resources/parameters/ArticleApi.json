@@ -1,0 +1,42 @@
+{
+  "createArticle": {
+    "articleDto": {
+      "id": "0bf2ac3d-a572-47d0-ad49-a33fba991005",
+      "classification": "created From tests12"
+    }
+  },
+  "deleteArticles": {
+    "listOfIdsDto": {
+      "ids": ["0bf2ac3d-a572-47d0-ad49-a33fba990296"]
+    }
+  },
+  "getArticle": {
+    "articleId": "0bf2ac3d-a572-47d0-ad49-a33fba990296"
+  },
+  "getArticles": {
+  },
+  "modifyArticle": {
+    "autoRev" : true,
+    "articleDto": {
+      "id" : "b46d3afd-1de5-448d-a99a-c025de040622",
+      "classification": "classModified2"
+    }
+  },
+  
+  "fallback": {
+  },
+  "beforeElements": {
+    "bodies": [
+      {
+        "id" : "0bf2ac3d-a572-47d0-ad49-a33fba990296"
+      },
+      {
+        "id" : "b46d3afd-1de5-448d-a99a-c025de040622"
+      }
+    ]
+  },
+  "afterElements": {
+    "family": "healthdata",
+    "deleteIds": ["0bf2ac3d-a572-47d0-ad49-a33fba990296", "b46d3afd-1de5-448d-a99a-c025de040622", "0bf2ac3d-a572-47d0-ad49-a33fba991005"]
+  }
+}

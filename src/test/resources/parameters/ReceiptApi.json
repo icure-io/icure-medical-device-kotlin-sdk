@@ -1,0 +1,54 @@
+{
+  "afterElements": {
+    "family": "healthdata",
+    "deleteIds": ["4e72e172-38ae-4858-9b8d-8b76fa5558e1", "4e72e172-38ae-4858-9b8d-8b76fa5558e2", "4919839c-b3a9-43e1-bdac-596eb4893642", "be5e355a-866e-42d7-9ee8-56a0a84b0ff4"]
+  },
+  "createReceipt": {
+    "receiptDto": {"id" : "4919839c-b3a9-43e1-bdac-596eb4893642", "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "codes": [], "tags": [], "secretForeignKeys": [], "cryptedForeignKeys": {}, "category": "dmg", "subCategory": "consult", "java_type": "org.taktik.icure.entities.Receipt", "rev_history": {}}
+  },
+  "deleteReceipt": {
+    "receiptIds": "4e72e172-38ae-4858-9b8d-8b76fa5558e2"
+  },
+  "deleteReceipts": {
+    "listOfIdsDto": {
+      "ids": [
+        "4e72e172-38ae-4858-9b8d-8b76fa5558e2"
+      ]
+    }
+  },
+  "getReceiptAttachment": {
+    "skipEndpoint": true,
+    "receiptId": "004787e1-7861-4ac1-b621-a4a70a0e44a6",
+    "attachmentId": "163ad071bde19185ef1658c689ddf69869a7acd8148990f486acbe2e445a254a",
+    "enckeys": "ccd36d62-7759-4121-8eac-ee7a67eeba23"
+  },
+  "getReceipt": {
+    "receiptId": "004787e1-7861-4ac1-b621-a4a70a0e44a6"
+  },
+  "listByReference": {
+    "ref": "date:20190228134749"
+  },
+  "modifyReceipt": {
+    "autoRev" : true,
+    "receiptDto": {
+      "id" : "4e72e172-38ae-4858-9b8d-8b76fa5558e1",
+      "category": "dmg"
+    }
+  },
+  "setReceiptAttachment": {
+    "receiptId": "be5e355a-866e-42d7-9ee8-56a0a84b0ff4",
+    "blobType": "tack",
+    "enckeys": "ccd36d62-7759-4121-8eac-ee7a67eeba23",
+    "body": ["the money is under my desk"]
+  },
+  
+  "fallback": {
+  },
+  "beforeElements": {
+    "bodies": [
+      {"id" : "4e72e172-38ae-4858-9b8d-8b76fa5558e2", "responsible": "4abee21e-5655-48ba-96cd-1e3216fdcfc5", "codes": [], "tags": [], "secretForeignKeys": [], "cryptedForeignKeys": {}, "delegations": {"4abee21e-5655-48ba-96cd-1e3216fdcfc5": [{"owner": "4abee21e-5655-48ba-96cd-1e3216fdcfc5", "delegatedTo": "4abee21e-5655-48ba-96cd-1e3216fdcfc5", "key": "62458dc388d54cf290b732fbe5935f617ffda2d54ed167ad4c0c39efccf7b27abd38c27eb54b73744083e01c22615cc8601d69e3ac9a73899622196fa0d76bba1e738a2e18f3bb61708e192cd33208a71f8f406554ec6e2b46c7b796c40d70cf"}]}, "encryptionKeys": {"4abee21e-5655-48ba-96cd-1e3216fdcfc5": [{"owner": "4abee21e-5655-48ba-96cd-1e3216fdcfc5", "delegatedTo": "4abee21e-5655-48ba-96cd-1e3216fdcfc5", "key": "a048468d98200dfb41dde1a82df094a789deeddc860184cff69a7689b3a607f1cc82a993eb0af19754bb4dc674569a006db12fee7c3a0082b5b10d689a7e39e780fb9d07f4b91c1ea256dc9d3449a34fd4d6e0adf9a95bcc4bb165f6e8e10673"}]}, "attachmentIds": {"soapConversation": "163ad071bde19185ef1658c689ddf69869a7acd8148990f486acbe2e445a254a"}, "references": ["date:20190228134749"], "documentId": "80221a98-ad10-46eb-9915-9a401b8c730a", "category": "dmg", "subCategory": "consult", "java_type": "org.taktik.icure.entities.Receipt", "rev_history": {}, "_attachments": {"163ad071bde19185ef1658c689ddf69869a7acd8148990f486acbe2e445a254a": {"content_type": "application/octet-stream", "revpos": 3, "digest": "md5-qCNKzLj0WPmZHsqO9EatOw==", "length": 17273, "stub": true}}},
+      {"id" : "4e72e172-38ae-4858-9b8d-8b76fa5558e1", "responsible": "4abee21e-5655-48ba-96cd-1e3216fdcfc5", "codes": [], "tags": [], "secretForeignKeys": [], "cryptedForeignKeys": {}, "delegations": {"4abee21e-5655-48ba-96cd-1e3216fdcfc5": [{"owner": "4abee21e-5655-48ba-96cd-1e3216fdcfc5", "delegatedTo": "4abee21e-5655-48ba-96cd-1e3216fdcfc5", "key": "62458dc388d54cf290b732fbe5935f617ffda2d54ed167ad4c0c39efccf7b27abd38c27eb54b73744083e01c22615cc8601d69e3ac9a73899622196fa0d76bba1e738a2e18f3bb61708e192cd33208a71f8f406554ec6e2b46c7b796c40d70cf"}]}, "encryptionKeys": {"4abee21e-5655-48ba-96cd-1e3216fdcfc5": [{"owner": "4abee21e-5655-48ba-96cd-1e3216fdcfc5", "delegatedTo": "4abee21e-5655-48ba-96cd-1e3216fdcfc5", "key": "a048468d98200dfb41dde1a82df094a789deeddc860184cff69a7689b3a607f1cc82a993eb0af19754bb4dc674569a006db12fee7c3a0082b5b10d689a7e39e780fb9d07f4b91c1ea256dc9d3449a34fd4d6e0adf9a95bcc4bb165f6e8e10673"}]}, "attachmentIds": {"soapConversation": "163ad071bde19185ef1658c689ddf69869a7acd8148990f486acbe2e445a254a"}, "references": ["date:20190228134749"], "documentId": "80221a98-ad10-46eb-9915-9a401b8c730a", "category": "dmg", "subCategory": "consult", "java_type": "org.taktik.icure.entities.Receipt", "rev_history": {}, "_attachments": {"163ad071bde19185ef1658c689ddf69869a7acd8148990f486acbe2e445a254a": {"content_type": "application/octet-stream", "revpos": 3, "digest": "md5-qCNKzLj0WPmZHsqO9EatOw==", "length": 17273, "stub": true}}},
+      {"id" : "be5e355a-866e-42d7-9ee8-56a0a84b0ff4", "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "codes": [], "tags": [], "secretForeignKeys": [], "cryptedForeignKeys": {}, "category": "dmg", "subCategory": "consult", "java_type": "org.taktik.icure.entities.Receipt", "rev_history": {}}
+    ]
+  }
+}

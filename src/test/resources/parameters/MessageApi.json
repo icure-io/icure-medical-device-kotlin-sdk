@@ -1,0 +1,107 @@
+{
+  "beforeElements": {
+    "bodies": [
+      {"id": "46e9e86f-3e5e-40bc-8607-559c05c54abd", "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "codes": [], "tags": [], "secretForeignKeys": ["ee4233e0-e2aa-4273-8233-e0e2aa527347"], "cryptedForeignKeys": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "2811535608c3dfab324a19a1be2e6ede4a1d93038b7f5646b37fa807976a24a7099c5e0a1c5278ae9faa634f939941c08ff2df66597f3ffd2eb44d15db39ac71d20e7a3c63f77ab8ce232129e2799557f931ab85cff5d7b78e28b723ac09a685"}], "a7dd149c-8977-4e74-9ba9-8bd143372bb4": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "a7dd149c-8977-4e74-9ba9-8bd143372bb4", "key": "b36651db8f8130e64b4a406fe5d0ae706b59e0722868eba2396eff238fc394cf6fe7f66a0de1be5cedf002db13d7c2c0bc3025abd38d4b6a625e9f79a19edbde9d568adbc6ad6464a79d3cec262566008ed29fa70bc24c24a1beda3ec3a0fed8"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "67e73e17b3b4654a7e00165aa335b54921a9a35ea9b99fd6c3d97864f1db36722291e2eb03c1c5d84f046ba70dd13d1ef7105db90e46c10ff1802327ba1e84861899a972e272c19fdbfae16965fdfc21f90992b8ef24e16cf69619cee766ca14"}]}, "delegations": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "7c023152f1549f16bf2ba8bcb9fc019f9b254a972ef9036a13583139ee52d45825ba2fdd13bf34fbbffa181ba45da2db2af1b5ab62f43e49cd65aada4793d6d109ccbbe06ae9534331771e1b51e3eeafd13df9fe18df6c54bfa243d143d12d94"}], "a7dd149c-8977-4e74-9ba9-8bd143372bb4": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "a7dd149c-8977-4e74-9ba9-8bd143372bb4", "key": "3fd7fd6e8b72bdc0f3e802d95710391498c18046713af76ca87b62da9ff51a858351952df62201494796ac9de6e3b888040f0d8a7b438aeb596bfa1e759b5a4b9a120f51d5579d04033cc17e3b47f2f5f04ea7bb847383c6a6adf9a61d1c2196"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "6e6d805f5a01b7d8f2976281585e361c0d0b0bc461195d5671a8027231c80403a42d0a2e0f36a2e1e87d8ff4cfc22d033c02bbdf2cf5329594476bc0df41b17756c9c3e28684485cfd4e3ffe2abc048dec3124d3825eeaf77e44f3d0bdf7f91f"}]}, "openingDate": 20170123, "closingDate": 20170210115832, "descr": "Contact du 23/01/17", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "subContacts": [], "services": [], "java_type": "org.taktik.icure.entities.Contact", "rev_history": {}},
+      {"id": "0a52a4e0-ca3b-4577-8066-2c56ebe777de", "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "codes": [], "tags": [], "secretForeignKeys": ["ee4233e0-e2aa-4273-8233-e0e2aa527347"], "cryptedForeignKeys": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "2811535608c3dfab324a19a1be2e6ede4a1d93038b7f5646b37fa807976a24a7099c5e0a1c5278ae9faa634f939941c08ff2df66597f3ffd2eb44d15db39ac71d20e7a3c63f77ab8ce232129e2799557f931ab85cff5d7b78e28b723ac09a685"}], "a7dd149c-8977-4e74-9ba9-8bd143372bb4": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "a7dd149c-8977-4e74-9ba9-8bd143372bb4", "key": "b36651db8f8130e64b4a406fe5d0ae706b59e0722868eba2396eff238fc394cf6fe7f66a0de1be5cedf002db13d7c2c0bc3025abd38d4b6a625e9f79a19edbde9d568adbc6ad6464a79d3cec262566008ed29fa70bc24c24a1beda3ec3a0fed8"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "67e73e17b3b4654a7e00165aa335b54921a9a35ea9b99fd6c3d97864f1db36722291e2eb03c1c5d84f046ba70dd13d1ef7105db90e46c10ff1802327ba1e84861899a972e272c19fdbfae16965fdfc21f90992b8ef24e16cf69619cee766ca14"}]}, "delegations": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "7c023152f1549f16bf2ba8bcb9fc019f9b254a972ef9036a13583139ee52d45825ba2fdd13bf34fbbffa181ba45da2db2af1b5ab62f43e49cd65aada4793d6d109ccbbe06ae9534331771e1b51e3eeafd13df9fe18df6c54bfa243d143d12d94"}], "a7dd149c-8977-4e74-9ba9-8bd143372bb4": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "a7dd149c-8977-4e74-9ba9-8bd143372bb4", "key": "3fd7fd6e8b72bdc0f3e802d95710391498c18046713af76ca87b62da9ff51a858351952df62201494796ac9de6e3b888040f0d8a7b438aeb596bfa1e759b5a4b9a120f51d5579d04033cc17e3b47f2f5f04ea7bb847383c6a6adf9a61d1c2196"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "6e6d805f5a01b7d8f2976281585e361c0d0b0bc461195d5671a8027231c80403a42d0a2e0f36a2e1e87d8ff4cfc22d033c02bbdf2cf5329594476bc0df41b17756c9c3e28684485cfd4e3ffe2abc048dec3124d3825eeaf77e44f3d0bdf7f91f"}]}, "openingDate": 20170123, "closingDate": 20170210115832, "descr": "Contact du 23/01/17", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "subContacts": [], "services": [], "java_type": "org.taktik.icure.entities.Contact", "rev_history": {}},
+      {"id": "37162e19-0336-4923-bad0-bbfebe84c9e4", "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "codes": [], "tags": [], "secretForeignKeys": ["ee4233e0-e2aa-4273-8233-e0e2aa527347"], "cryptedForeignKeys": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "2811535608c3dfab324a19a1be2e6ede4a1d93038b7f5646b37fa807976a24a7099c5e0a1c5278ae9faa634f939941c08ff2df66597f3ffd2eb44d15db39ac71d20e7a3c63f77ab8ce232129e2799557f931ab85cff5d7b78e28b723ac09a685"}], "a7dd149c-8977-4e74-9ba9-8bd143372bb4": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "a7dd149c-8977-4e74-9ba9-8bd143372bb4", "key": "b36651db8f8130e64b4a406fe5d0ae706b59e0722868eba2396eff238fc394cf6fe7f66a0de1be5cedf002db13d7c2c0bc3025abd38d4b6a625e9f79a19edbde9d568adbc6ad6464a79d3cec262566008ed29fa70bc24c24a1beda3ec3a0fed8"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "67e73e17b3b4654a7e00165aa335b54921a9a35ea9b99fd6c3d97864f1db36722291e2eb03c1c5d84f046ba70dd13d1ef7105db90e46c10ff1802327ba1e84861899a972e272c19fdbfae16965fdfc21f90992b8ef24e16cf69619cee766ca14"}]}, "delegations": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "7c023152f1549f16bf2ba8bcb9fc019f9b254a972ef9036a13583139ee52d45825ba2fdd13bf34fbbffa181ba45da2db2af1b5ab62f43e49cd65aada4793d6d109ccbbe06ae9534331771e1b51e3eeafd13df9fe18df6c54bfa243d143d12d94"}], "a7dd149c-8977-4e74-9ba9-8bd143372bb4": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "a7dd149c-8977-4e74-9ba9-8bd143372bb4", "key": "3fd7fd6e8b72bdc0f3e802d95710391498c18046713af76ca87b62da9ff51a858351952df62201494796ac9de6e3b888040f0d8a7b438aeb596bfa1e759b5a4b9a120f51d5579d04033cc17e3b47f2f5f04ea7bb847383c6a6adf9a61d1c2196"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "6e6d805f5a01b7d8f2976281585e361c0d0b0bc461195d5671a8027231c80403a42d0a2e0f36a2e1e87d8ff4cfc22d033c02bbdf2cf5329594476bc0df41b17756c9c3e28684485cfd4e3ffe2abc048dec3124d3825eeaf77e44f3d0bdf7f91f"}]}, "openingDate": 20170123, "closingDate": 20170210115832, "descr": "Contact du 23/01/17", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "subContacts": [], "services": [], "java_type": "org.taktik.icure.entities.Contact", "rev_history": {}},
+      {"id": "c75ce6e8-6c0d-43d2-9c6a-7a7441ebda51", "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "codes": [], "tags": [], "secretForeignKeys": ["ee4233e0-e2aa-4273-8233-e0e2aa527347"], "cryptedForeignKeys": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "2811535608c3dfab324a19a1be2e6ede4a1d93038b7f5646b37fa807976a24a7099c5e0a1c5278ae9faa634f939941c08ff2df66597f3ffd2eb44d15db39ac71d20e7a3c63f77ab8ce232129e2799557f931ab85cff5d7b78e28b723ac09a685"}], "a7dd149c-8977-4e74-9ba9-8bd143372bb4": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "a7dd149c-8977-4e74-9ba9-8bd143372bb4", "key": "b36651db8f8130e64b4a406fe5d0ae706b59e0722868eba2396eff238fc394cf6fe7f66a0de1be5cedf002db13d7c2c0bc3025abd38d4b6a625e9f79a19edbde9d568adbc6ad6464a79d3cec262566008ed29fa70bc24c24a1beda3ec3a0fed8"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "67e73e17b3b4654a7e00165aa335b54921a9a35ea9b99fd6c3d97864f1db36722291e2eb03c1c5d84f046ba70dd13d1ef7105db90e46c10ff1802327ba1e84861899a972e272c19fdbfae16965fdfc21f90992b8ef24e16cf69619cee766ca14"}]}, "delegations": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "7c023152f1549f16bf2ba8bcb9fc019f9b254a972ef9036a13583139ee52d45825ba2fdd13bf34fbbffa181ba45da2db2af1b5ab62f43e49cd65aada4793d6d109ccbbe06ae9534331771e1b51e3eeafd13df9fe18df6c54bfa243d143d12d94"}], "a7dd149c-8977-4e74-9ba9-8bd143372bb4": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "a7dd149c-8977-4e74-9ba9-8bd143372bb4", "key": "3fd7fd6e8b72bdc0f3e802d95710391498c18046713af76ca87b62da9ff51a858351952df62201494796ac9de6e3b888040f0d8a7b438aeb596bfa1e759b5a4b9a120f51d5579d04033cc17e3b47f2f5f04ea7bb847383c6a6adf9a61d1c2196"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "6e6d805f5a01b7d8f2976281585e361c0d0b0bc461195d5671a8027231c80403a42d0a2e0f36a2e1e87d8ff4cfc22d033c02bbdf2cf5329594476bc0df41b17756c9c3e28684485cfd4e3ffe2abc048dec3124d3825eeaf77e44f3d0bdf7f91f"}]}, "openingDate": 20170123, "closingDate": 20170210115832, "descr": "Contact du 23/01/17", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "subContacts": [], "services": [], "java_type": "org.taktik.icure.entities.Contact", "rev_history": {}},
+      {"id": "46802607-af89-4d1f-8768-4882e9916459", "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "codes": [], "tags": [], "secretForeignKeys": ["ee4233e0-e2aa-4273-8233-e0e2aa527347"], "cryptedForeignKeys": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "2811535608c3dfab324a19a1be2e6ede4a1d93038b7f5646b37fa807976a24a7099c5e0a1c5278ae9faa634f939941c08ff2df66597f3ffd2eb44d15db39ac71d20e7a3c63f77ab8ce232129e2799557f931ab85cff5d7b78e28b723ac09a685"}], "a7dd149c-8977-4e74-9ba9-8bd143372bb4": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "a7dd149c-8977-4e74-9ba9-8bd143372bb4", "key": "b36651db8f8130e64b4a406fe5d0ae706b59e0722868eba2396eff238fc394cf6fe7f66a0de1be5cedf002db13d7c2c0bc3025abd38d4b6a625e9f79a19edbde9d568adbc6ad6464a79d3cec262566008ed29fa70bc24c24a1beda3ec3a0fed8"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "67e73e17b3b4654a7e00165aa335b54921a9a35ea9b99fd6c3d97864f1db36722291e2eb03c1c5d84f046ba70dd13d1ef7105db90e46c10ff1802327ba1e84861899a972e272c19fdbfae16965fdfc21f90992b8ef24e16cf69619cee766ca14"}]}, "delegations": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "7c023152f1549f16bf2ba8bcb9fc019f9b254a972ef9036a13583139ee52d45825ba2fdd13bf34fbbffa181ba45da2db2af1b5ab62f43e49cd65aada4793d6d109ccbbe06ae9534331771e1b51e3eeafd13df9fe18df6c54bfa243d143d12d94"}], "a7dd149c-8977-4e74-9ba9-8bd143372bb4": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "a7dd149c-8977-4e74-9ba9-8bd143372bb4", "key": "3fd7fd6e8b72bdc0f3e802d95710391498c18046713af76ca87b62da9ff51a858351952df62201494796ac9de6e3b888040f0d8a7b438aeb596bfa1e759b5a4b9a120f51d5579d04033cc17e3b47f2f5f04ea7bb847383c6a6adf9a61d1c2196"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "6e6d805f5a01b7d8f2976281585e361c0d0b0bc461195d5671a8027231c80403a42d0a2e0f36a2e1e87d8ff4cfc22d033c02bbdf2cf5329594476bc0df41b17756c9c3e28684485cfd4e3ffe2abc048dec3124d3825eeaf77e44f3d0bdf7f91f"}]}, "openingDate": 20170123, "closingDate": 20170210115832, "descr": "Contact du 23/01/17", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "subContacts": [], "services": [], "java_type": "org.taktik.icure.entities.Contact", "rev_history": {}},
+      {"id": "64af2dab-e862-4835-901c-5ef06cadfb7d", "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "codes": [], "tags": [], "secretForeignKeys": ["ee4233e0-e2aa-4273-8233-e0e2aa527347"], "cryptedForeignKeys": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "2811535608c3dfab324a19a1be2e6ede4a1d93038b7f5646b37fa807976a24a7099c5e0a1c5278ae9faa634f939941c08ff2df66597f3ffd2eb44d15db39ac71d20e7a3c63f77ab8ce232129e2799557f931ab85cff5d7b78e28b723ac09a685"}], "a7dd149c-8977-4e74-9ba9-8bd143372bb4": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "a7dd149c-8977-4e74-9ba9-8bd143372bb4", "key": "b36651db8f8130e64b4a406fe5d0ae706b59e0722868eba2396eff238fc394cf6fe7f66a0de1be5cedf002db13d7c2c0bc3025abd38d4b6a625e9f79a19edbde9d568adbc6ad6464a79d3cec262566008ed29fa70bc24c24a1beda3ec3a0fed8"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "67e73e17b3b4654a7e00165aa335b54921a9a35ea9b99fd6c3d97864f1db36722291e2eb03c1c5d84f046ba70dd13d1ef7105db90e46c10ff1802327ba1e84861899a972e272c19fdbfae16965fdfc21f90992b8ef24e16cf69619cee766ca14"}]}, "delegations": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "7c023152f1549f16bf2ba8bcb9fc019f9b254a972ef9036a13583139ee52d45825ba2fdd13bf34fbbffa181ba45da2db2af1b5ab62f43e49cd65aada4793d6d109ccbbe06ae9534331771e1b51e3eeafd13df9fe18df6c54bfa243d143d12d94"}], "a7dd149c-8977-4e74-9ba9-8bd143372bb4": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "a7dd149c-8977-4e74-9ba9-8bd143372bb4", "key": "3fd7fd6e8b72bdc0f3e802d95710391498c18046713af76ca87b62da9ff51a858351952df62201494796ac9de6e3b888040f0d8a7b438aeb596bfa1e759b5a4b9a120f51d5579d04033cc17e3b47f2f5f04ea7bb847383c6a6adf9a61d1c2196"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "6e6d805f5a01b7d8f2976281585e361c0d0b0bc461195d5671a8027231c80403a42d0a2e0f36a2e1e87d8ff4cfc22d033c02bbdf2cf5329594476bc0df41b17756c9c3e28684485cfd4e3ffe2abc048dec3124d3825eeaf77e44f3d0bdf7f91f"}]}, "openingDate": 20170123, "closingDate": 20170210115832, "descr": "Contact du 23/01/17", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "subContacts": [], "services": [], "java_type": "org.taktik.icure.entities.Contact", "rev_history": {}}
+    ]
+  },
+  "afterElements": {
+    "family": "healthdata",
+    "deleteIds": ["46e9e86f-3e5e-40bc-8607-559c05c54abd", "f85bdc40-92d2-4987-98e8-66755488245d", "0a52a4e0-ca3b-4577-8066-2c56ebe777de", "37162e19-0336-4923-bad0-bbfebe84c9e4", "c75ce6e8-6c0d-43d2-9c6a-7a7441ebda51", "46802607-af89-4d1f-8768-4882e9916459", "64af2dab-e862-4835-901c-5ef06cadfb7d"]
+  },
+  "createMessage": {
+    "messageDto":
+      {"id": "f85bdc40-92d2-4987-98e8-66755488245d", "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "codes": [], "tags": [], "secretForeignKeys": ["ee4233e0-e2aa-4273-8233-e0e2aa527347"], "cryptedForeignKeys": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "2811535608c3dfab324a19a1be2e6ede4a1d93038b7f5646b37fa807976a24a7099c5e0a1c5278ae9faa634f939941c08ff2df66597f3ffd2eb44d15db39ac71d20e7a3c63f77ab8ce232129e2799557f931ab85cff5d7b78e28b723ac09a685"}], "a7dd149c-8977-4e74-9ba9-8bd143372bb4": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "a7dd149c-8977-4e74-9ba9-8bd143372bb4", "key": "b36651db8f8130e64b4a406fe5d0ae706b59e0722868eba2396eff238fc394cf6fe7f66a0de1be5cedf002db13d7c2c0bc3025abd38d4b6a625e9f79a19edbde9d568adbc6ad6464a79d3cec262566008ed29fa70bc24c24a1beda3ec3a0fed8"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "67e73e17b3b4654a7e00165aa335b54921a9a35ea9b99fd6c3d97864f1db36722291e2eb03c1c5d84f046ba70dd13d1ef7105db90e46c10ff1802327ba1e84861899a972e272c19fdbfae16965fdfc21f90992b8ef24e16cf69619cee766ca14"}]}, "delegations": {"d9f61fcd-2b3c-4e8b-9b7d-9671ec525439": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "d9f61fcd-2b3c-4e8b-9b7d-9671ec525439", "key": "7c023152f1549f16bf2ba8bcb9fc019f9b254a972ef9036a13583139ee52d45825ba2fdd13bf34fbbffa181ba45da2db2af1b5ab62f43e49cd65aada4793d6d109ccbbe06ae9534331771e1b51e3eeafd13df9fe18df6c54bfa243d143d12d94"}], "a7dd149c-8977-4e74-9ba9-8bd143372bb4": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "a7dd149c-8977-4e74-9ba9-8bd143372bb4", "key": "3fd7fd6e8b72bdc0f3e802d95710391498c18046713af76ca87b62da9ff51a858351952df62201494796ac9de6e3b888040f0d8a7b438aeb596bfa1e759b5a4b9a120f51d5579d04033cc17e3b47f2f5f04ea7bb847383c6a6adf9a61d1c2196"}], "782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "6e6d805f5a01b7d8f2976281585e361c0d0b0bc461195d5671a8027231c80403a42d0a2e0f36a2e1e87d8ff4cfc22d033c02bbdf2cf5329594476bc0df41b17756c9c3e28684485cfd4e3ffe2abc048dec3124d3825eeaf77e44f3d0bdf7f91f"}]}, "openingDate": 20170123, "closingDate": 20170210115832, "descr": "Contact du 23/01/17", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "subContacts": [], "services": [], "java_type": "org.taktik.icure.entities.Contact", "rev_history": {}}
+  },
+  "deleteDelegation": {
+    "messageId": "64af2dab-e862-4835-901c-5ef06cadfb7d",
+    "delegateId": "a7dd149c-8977-4e74-9ba9-8bd143372bb4"
+  },
+  "deleteMessages": {
+    "listOfIdsDto": {
+      "ids": ["0a52a4e0-ca3b-4577-8066-2c56ebe777de"]
+    }
+  },
+  "findMessagesByHCPartyPatientForeignKeys": {
+    "secretFKeys": "ee4233e0-e2aa-4273-8233-e0e2aa527347"
+  },
+  "findMessages": {
+    "startKey": null,
+    "startDocumentId": "00767fc2-46c9-4ce1-a135-53ab88e76432",
+    "limit": null
+  },
+  "findMessagesByFromAddress": {
+    "fromAddress": "LABO LBS, 1190 BRUSSEL",
+    "startKey": null, 
+    "startDocumentId": "009a5705-7eb0-459f-9a57-057eb0059fbf",
+    "limit": null,
+    "hcpId": null
+  },
+  "findMessagesByToAddress": {
+    "toAddress": "INBOX",
+    "startKey": null, 
+    "startDocumentId": null, 
+    "limit": null, 
+    "reverse": null,
+    "hcpId": null
+  },
+  "listMessagesByTransportGuids": {
+    "listOfIdsDto": {
+      "ids":["LINKING-LETTER:PATIENT:ARCHIVE"]
+    },
+    "received": null, 
+    "startKey": null, 
+    "startDocumentId": null, 
+    "limit": null, 
+    "hcpId": "70d2af51-545d-4124-92af-51545d1124d8"
+  },
+  "findMessagesByTransportGuidSentDate": {
+    "transportGuid": "LINKING-LETTER:PATIENT:ARCHIVE",
+    "from": 20140000,
+    "to": 20170000,
+    "startKey": null, 
+    "startDocumentId": null, 
+    "limit": null, 
+    "hcpId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98"
+  },
+  "getChildrenMessages": {
+    "messageId": "46e9e86f-3e5e-40bc-8607-559c05c54abd"
+  },
+  "getMessagesChildren": {
+    "listOfIdsDto": {
+      "ids" : ["b439e553-7a8b-45f0-9e3d-b6dca6c9a031"]
+    }
+  },
+  "getMessage": {
+    "messageId": "000c1ec9-eabb-4d7d-8c1e-c9eabbfd7db1"
+  },
+  "listMessagesByInvoices": {
+    "listOfIdsDto": {
+      "ids" : ["307c6336-121b-4d7a-9329-9637f421f6ba"]
+    }
+  },
+  "modifyMessage": {
+    "autoRev" : true,
+    "messageDto": {
+      "fromAddress": "ad@taktik.iotest",
+      "id": "37162e19-0336-4923-bad0-bbfebe84c9e4"
+    }
+  },
+  "newMessageDelegations": {
+    "messageId": "64af2dab-e862-4835-901c-5ef06cadfb7d",
+    "delegationDto": [{"delegatedTo": "8d6e6fea-33c6-4f4f-b7ad-34e6e704bcb8", "key": "0626ee04-d6f8-43bf-83b4-5d6aa578a390", "owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "tag": "string"}]
+  },
+  "setMessagesReadStatus": {
+    "messagesReadStatusUpdate": {"ids": ["c75ce6e8-6c0d-43d2-9c6a-7a7441ebda51"], "time": 445, "status": 1, "userId": "ebd30407-9f33-4cd5-9999-079f334cd5e8"}
+  },
+  "setMessagesStatusBits": {
+    "status": 1,
+    "listOfIdsDto": {"ids": ["46802607-af89-4d1f-8768-4882e9916459"]}
+  },
+  "fallback": {
+  }
+}

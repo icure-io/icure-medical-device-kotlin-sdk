@@ -1,0 +1,92 @@
+{
+  "beforeElements": {
+    "bodies": null
+  },
+  "afterElements": {
+    "family": null,
+    "deleteIds": null
+  },
+  "fullTextSearch": {
+    "searchString": null, 
+    "lang": null, 
+    "classes": null, 
+    "types": null, 
+    "first": null, 
+    "count": null
+  },
+  "getCheapAlternativesBasedOnAtc": {
+    "medecinePackageId": null, 
+    "lang": null
+  },
+  "getCheapAlternativesBasedOnInn": {
+    "innClusterId": null, 
+    "lang": null
+  },
+  "getChildrenDocs": {
+    "docId": null, 
+    "lang": null
+  },
+  "getChildrenMps": {
+    "docId": null, 
+    "lang": null
+  },
+  "getDocOfMp": {
+    "medecineId": null, 
+    "lang": null
+  },
+  "getDocPreview": {
+    "docId": null, 
+    "lang": null
+  },
+  "getExtentedMpInfosWithPackage": {
+    "medecinePackageId": null, 
+    "lang": null
+  },
+  "getFullMpInfosWithPackage": {
+    "medecinePackageId": null, 
+    "lang": null
+  },
+  "getInnClusters": {
+    "searchString": null, 
+    "lang": null, 
+    "types": null, 
+    "first": null, 
+    "count": null
+  },
+  "getInteractions": {
+    "medecinePackageId": null, 
+    "lang": null, 
+    "otherCnks": null
+  },
+  "getMedecinePackages": {
+    "searchString": null, 
+    "lang": null, 
+    "types": null, 
+    "first": null, 
+    "count": null
+  },
+  "getMedecinePackagesFromIngredients": {
+    "searchString": null, 
+    "lang": null, 
+    "types": null, 
+    "first": null, 
+    "count": null
+  },
+  "getMpFromMpp": {
+    "medecinePackageId": null, 
+    "lang": null
+  },
+  "getMppInfos": {
+    "medecinePackageId": null, 
+    "lang": null
+  },
+  "getParentDoc": {
+    "docId": null, 
+    "lang": null
+  },
+  "getRootDocs": {
+    "lang": null
+  },
+  "fallback": {
+  }
+}

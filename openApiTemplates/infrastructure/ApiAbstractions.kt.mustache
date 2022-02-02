@@ -1,0 +1,37 @@
+package {{packageName}}.infrastructure
+
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
+
+{{#nonPublicApi}}internal {{/nonPublicApi}}typealias MultiValueMap = MutableMap<String,List<String>>
+
+{{#nonPublicApi}}internal {{/nonPublicApi}}fun collectionDelimiter(collectionFormat: String) = when(collectionFormat) {
+    "csv" -> ","
+    "tsv" -> "\t"
+    "pipe" -> "|"
+    "space" -> " "
+    else -> ""
+}
+
+{{#nonPublicApi}}internal {{/nonPublicApi}}val defaultMultiValueConverter: (item: Any?) -> String = { item ->
+   val itemString = if (item is Map.Entry<*, *>) {
+       if (item.value is List<*>) {
+           (item.value as List<*>).joinToString(",")
+       } else {
+           "$item"
+       }
+   } else {
+       "$item"
+   }
+   itemString
+}
+
+{{#nonPublicApi}}internal {{/nonPublicApi}}fun <T : Any?> toMultiValue(items: Array<T>, collectionFormat: String, map: (item: T) -> String = defaultMultiValueConverter)
+        = toMultiValue(items.asIterable(), collectionFormat, map)
+
+{{#nonPublicApi}}internal {{/nonPublicApi}}fun <T : Any?> toMultiValue(items: Iterable<T>, collectionFormat: String, map: (item: T) -> String = defaultMultiValueConverter): List<String> {
+    return when(collectionFormat) {
+        "multi" -> items.map(map)
+        else -> listOf(items.joinToString(separator = collectionDelimiter(collectionFormat), transform = map))
+    }
+}

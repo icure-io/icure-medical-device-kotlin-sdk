@@ -1,0 +1,45 @@
+{
+  "beforeElements": {
+    "bodies": null
+  },
+  "afterElements": {
+    "family": null,
+    "deleteIds": null
+  },
+  "getGroup": {
+    "skipEndpoint": true
+  },
+  "setGroupPassword": {
+    "skipEndpoint": true
+  },
+  "registerNewGroupAdministrator": {
+    "skipEndpoint": true
+  },
+  "resetStorage": {
+    "skipEndpoint": true
+  },
+  "modifyGroupProperties": {
+    "skipEndpoint": true
+  },
+  "getReplicationInfo1": {
+    "skipEndpoint": true
+  },
+  "initDesignDocs": {
+    "skipEndpoint": true
+  },
+  "solveConflicts": {
+    "skipEndpoint": true
+  },
+  "modifyGroupName": {
+    "skipEndpoint": true
+  },
+  "createGroup": {
+    "skipEndpoint": true,
+    "id": null, 
+    "name": null, 
+    "password": null, 
+    "body": null
+  },
+  "fallback": {
+  }
+}

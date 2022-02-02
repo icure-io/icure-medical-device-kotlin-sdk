@@ -1,0 +1,67 @@
+{
+  "beforeElements": {
+    "bodies": [
+      {
+        "id": "b520c002-7ced-42d9-b473-d9c1174c1e15",
+        "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98"
+      },
+      {
+        "id": "a3a49636-1a15-4c68-97a3-5730b1cea84c",
+        "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98"
+      },
+      {
+        "id": "b1011aeb-7f93-4150-a6f7-1ac3f6b999b4",
+        "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98"
+      },
+      {"id": "f1c3d8c7-a4ce-460a-8f13-5349f37f316a", "author": "a3a49636-1a15-4c68-97a3-5730b1cea84c", "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "codes": [], "tags": [], "secretForeignKeys": [], "cryptedForeignKeys": {}, "delegations": {}, "encryptionKeys": {}, "java_type": "org.taktik.icure.entities.Classification", "rev_history": {}}
+    ]
+  },
+  "afterElements": {
+    "family": "healthdata",
+    "deleteIds": ["b520c002-7ced-42d9-b473-d9c1174c1e15", "a3a49636-1a15-4c68-97a3-5730b1cea84c", "b1011aeb-7f93-4150-a6f7-1ac3f6b999b4", "f1c3d8c7-a4ce-460a-8f13-5349f37f316a", "fde6b6a5-565f-4953-91cc-e7b365dbc706"]
+  },
+  "createClassification": {
+    "classificationDto": {
+      "id": "fde6b6a5-565f-4953-91cc-e7b365dbc706",
+      "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98"
+    }
+  },
+  "deleteClassifications": {
+    "listOfIdsDto":{
+      "ids": [
+        "b520c002-7ced-42d9-b473-d9c1174c1e15"
+      ]
+    }
+  },
+  "findClassificationsByHCPartyPatientForeignKeys": {
+    "hcPartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98",
+    "secretFKeys": "40627245-9272-4652-b316-d9246c5b666a"
+  },
+  "getClassification": {
+    "credentialsFile": ".credentialsReadWrite",
+    "classificationId": "b1011aeb-7f93-4150-a6f7-1ac3f6b999b4"
+  },
+  "getClassificationByHcPartyId": {
+    "comment": "wrong, needs to be renamed! it's just getClassificationsByIds",
+    "credentialsFile": ".credentialsReadWrite",
+    "ids": "9fa6b64b-dec1-4da1-a6b6-4bdec11da18d"
+  },
+  "modifyClassification": {
+    "autoRev": true,
+    "classificationDto": {
+      "id": "e2e10ffa-4eed-4ff2-894f-450b0b27cd87",
+      "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98"
+    }
+  },
+  "newClassificationDelegations": {
+    "classificationId": "a3a49636-1a15-4c68-97a3-5730b1cea84c",
+    "delegationDto": [{"delegatedTo": "67fe7079-0fe9-4574-8665-23dcff91578d", "key": "f9cea2dc-5b06-47c4-a8ff-4a60e0849192", "owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "tag": "string"}]
+  },
+  "setClassificationsDelegations": {
+    "skipEndpoint": true,
+    "body": null
+  },
+  
+  "fallback": {
+  }
+}

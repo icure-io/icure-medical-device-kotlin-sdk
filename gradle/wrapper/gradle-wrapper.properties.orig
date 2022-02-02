@@ -1,0 +1,9 @@
+distributionBase=GRADLE_USER_HOME
+distributionPath=wrapper/dists
+<<<<<<< HEAD
+distributionUrl=https\://services.gradle.org/distributions/gradle-6.8.3-all.zip
+=======
+distributionUrl=https\://services.gradle.org/distributions/gradle-6.3-bin.zip
+>>>>>>> 2f10f848af7c8c162f2cba766b2459c5cf0a96a8
+zipStoreBase=GRADLE_USER_HOME
+zipStorePath=wrapper/dists
