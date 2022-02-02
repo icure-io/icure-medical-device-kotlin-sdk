@@ -1,0 +1,189 @@
+{
+  "beforeElements": {
+    "bodies": null
+  },
+  "afterElements": {
+    "family": null,
+    "deleteIds": null
+  },
+  "checkIfSMFPatientsExists": {
+    "documentId": null, 
+    "documentKey": null, 
+    "patientId": null, 
+    "language": null, 
+    "body": null
+  },
+  "generateContactreportExport": {
+    "patientId": null, 
+    "id": null, 
+    "date": null, 
+    "language": null, 
+    "recipientNihii": null, 
+    "recipientFirstName": null, 
+    "recipientLastName": null, 
+    "mimeType": null, 
+    "body": null
+  },
+  "generateDiaryNote": {
+    "patientId": null, 
+    "language": null, 
+    "body": null
+  },
+  "generateLabresultExport": {
+    "patientId": null, 
+    "id": null, 
+    "date": null, 
+    "language": null, 
+    "recipientNihii": null, 
+    "recipientFirstName": null, 
+    "recipientLastName": null, 
+    "mimeType": null, 
+    "body": null
+  },
+  "generateMedicationSchemeExport": {
+    "patientId": null, 
+    "language": null, 
+    "recipientSafe": null, 
+    "version": null, 
+    "body": null
+  },
+  "generateNoteExport": {
+    "patientId": null, 
+    "id": null, 
+    "date": null, 
+    "language": null, 
+    "recipientNihii": null, 
+    "recipientFirstName": null, 
+    "recipientLastName": null, 
+    "mimeType": null, 
+    "body": null
+  },
+  "generatePrescriptionExport": {
+    "patientId": null, 
+    "id": null, 
+    "date": null, 
+    "language": null, 
+    "recipientNihii": null, 
+    "recipientFirstName": null, 
+    "recipientLastName": null, 
+    "mimeType": null, 
+    "body": null
+  },
+  "generateReportExport": {
+    "patientId": null, 
+    "id": null, 
+    "date": null, 
+    "language": null, 
+    "recipientNihii": null, 
+    "recipientFirstName": null, 
+    "recipientLastName": null, 
+    "mimeType": null, 
+    "body": null
+  },
+  "generateRequestExport": {
+    "patientId": null, 
+    "id": null, 
+    "date": null, 
+    "language": null, 
+    "recipientNihii": null, 
+    "recipientFirstName": null, 
+    "recipientLastName": null, 
+    "mimeType": null, 
+    "body": null
+  },
+  "generateResultExport": {
+    "patientId": null, 
+    "id": null, 
+    "date": null, 
+    "language": null, 
+    "recipientNihii": null, 
+    "recipientFirstName": null, 
+    "recipientLastName": null, 
+    "mimeType": null, 
+    "body": null
+  },
+  "generateSmfExport": {
+    "patientId": null, 
+    "language": null, 
+    "body": null
+  },
+  "generateSumehr": {
+    "patientId": null, 
+    "language": null, 
+    "body": null
+  },
+  "generateSumehrV2": {
+    "patientId": null, 
+    "language": null, 
+    "body": null
+  },
+  "getSumehrContent": {
+    "patientId": null, 
+    "body": null
+  },
+  "getSumehrMd5": {
+    "patientId": null, 
+    "body": null
+  },
+  "getSumehrV2Content": {
+    "patientId": null, 
+    "body": null
+  },
+  "getSumehrV2Md5": {
+    "patientId": null, 
+    "body": null
+  },
+  "importMedicationScheme": {
+    "documentId": null, 
+    "documentKey": null, 
+    "dryRun": null, 
+    "patientId": null, 
+    "language": null, 
+    "body": null
+  },
+  "importSmf": {
+    "documentId": null, 
+    "documentKey": null, 
+    "dryRun": null, 
+    "patientId": null, 
+    "language": null, 
+    "body": null
+  },
+  "importSumehr": {
+    "documentId": null, 
+    "documentKey": null, 
+    "dryRun": null, 
+    "patientId": null, 
+    "language": null, 
+    "body": null
+  },
+  "importSumehrByItemId": {
+    "documentId": null, 
+    "documentKey": null, 
+    "dryRun": null, 
+    "itemId": null, 
+    "patientId": null, 
+    "language": null, 
+    "body": null
+  },
+  "isSumehrV2Valid": {
+    "patientId": null, 
+    "body": null
+  },
+  "isSumehrValid": {
+    "patientId": null, 
+    "body": null
+  },
+  "validateSumehr": {
+    "patientId": null, 
+    "language": null, 
+    "body": null
+  },
+  "validateSumehrV2": {
+    "patientId": null, 
+    "language": null, 
+    "body": null
+  },
+  "fallback": {
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "afterElements": {
+    "family": "base",
+    "deleteIds": ["customTests|1234|1.0", "customTests|12345|1.0"]
+  },
+  "createTarification": {
+    "tarificationDto": {
+      "id": "customTests|1234|1.0",
+      "regions": [
+        "be"
+      ],
+      "type": "customTests",
+      "version": "1.0",
+      "code": "1234"
+    }
+  },
+  "findPaginatedTarifications": {
+    "region": "fr",
+    "type": "customTests",
+    "tarification": null, 
+    "version": 1.0,
+    "startDocumentId": null, 
+    "limit": 10
+  },
+  "findPaginatedTarificationsByLabel": {
+    "region": "be",
+    "types": "customTests",
+    "language": "fr",
+    "label": "Kyste",
+    "startDocumentId": "customTests|12345|1.00",
+    "limit": 5
+  },
+  "findTarificationsBy": {
+    "region": "fr",
+    "type": "customTests",
+    "tarification": null,
+    "version": 1.0
+  },
+  "findTarificationsBy1": {
+    "region": "fr",
+    "type": "customTests",
+    "tarification": null,
+    "version": 1.0
+  },
+  "getTarification": {
+    "tarificationId": "customTests|12345|1.0"
+  },
+  "getTarificationWithParts": {
+    "type": "customTests",
+    "tarification": "12345",
+    "version": "1.0"
+  },
+  "getTarifications": {
+    "listOfIdsDto": {
+      "ids" : ["customTests|12345|1.0"]
+    }
+  },
+  "modifyTarification": {
+    "autoRev" : true,
+    "tarificationDto": {
+      "id" : "customTests|12345|1.0",
+      "type": "customTests",
+      "version": "1.0",
+      "code": "12345",
+      "regions" : [
+        "fr"
+      ]
+    }
+  },
+  
+  "fallback": {
+  },
+  "beforeElements": {
+    "bodies": [
+      {
+        "id": "customTests|12345|1.0",
+        "regions": [
+          "be"
+        ],
+        "type": "customTests",
+        "version": "1.0",
+        "code": "12345"
+      }
+    ]
+  }
+}

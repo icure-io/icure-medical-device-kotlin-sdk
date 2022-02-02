@@ -1,0 +1,40 @@
+{
+  "beforeElements": {
+    "bodies": null
+  },
+  "afterElements": {
+    "family": null,
+    "deleteIds": null
+  },
+  "appointmentsByDate": {
+    "date": null
+  },
+  "appointmentsByPatient": {
+    "patientId": null, 
+    "from": null, 
+    "from2": null
+  },
+  "createAppointmentTypes": {
+    "body": null
+  },
+  "createAppointments": {
+    "body": null
+  },
+  "notify": {
+    "appointmentId": null, 
+    "action": null
+  },
+  "register": {
+    "userId": null, 
+    "body": null
+  },
+  "sendMessage": {
+    "body": null
+  },
+  "setUserCredentials": {
+    "userId": null, 
+    "body": null
+  },
+  "fallback": {
+  }
+}

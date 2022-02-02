@@ -1,0 +1,31 @@
+{
+  "beforeElements": {
+    "bodies": [
+      {"id": "11b16ff3-639e-4e19-b089-40e78df4e9ad", "address": {"addressType": "home", "city": "string", "country": "string", "descr": "string", "encryptedSelf": "string", "houseNumber": "string", "note": "string", "objectType": "string", "postalCode": "string", "postboxNumber": "string", "street": "string", "telecoms": [{"encryptedSelf": "string", "telecomDescription": "string", "telecomNumber": "string", "telecomType": "mobile"}]}, "agendaIds": ["12b7b327-edda-470d-a7f6-1e52617418dc"], "bankAccount": "string", "bic": "string", "cbe": "string", "deletionDate": 0, "description": "string", "guardPost": true,  "name": "string", "nihii": "459cb3c5-b673-42ab-a585-b76b341756dd", "ssin": "06cbf6b4-8ba1-4c96-821b-090f5e2c1168"},
+      {"id": "9bc0f52b-f819-4644-a20c-c73e683f6719", "address": {"addressType": "home", "city": "string", "country": "string", "descr": "string", "encryptedSelf": "string", "houseNumber": "string", "note": "string", "objectType": "string", "postalCode": "string", "postboxNumber": "string", "street": "string", "telecoms": [{"encryptedSelf": "string", "telecomDescription": "string", "telecomNumber": "string", "telecomType": "mobile"}]}, "agendaIds": ["12b7b327-edda-470d-a7f6-1e52617418dc"], "bankAccount": "string", "bic": "string", "cbe": "string", "deletionDate": 0, "description": "string", "guardPost": true,  "name": "string", "nihii": "459cb3c5-b673-42ab-a585-b76b341756dd", "ssin": "06cbf6b4-8ba1-4c96-821b-090f5e2c1168"}
+    ]
+  },
+  "afterElements": {
+    "family": "base",
+    "deleteIds": ["a93155d5-dba1-4dc3-8c19-7b552701913f", "11b16ff3-639e-4e19-b089-40e78df4e9ad", "9bc0f52b-f819-4644-a20c-c73e683f6719"]
+  },
+  "createMedicalLocation": {
+    "medicalLocationDto": {"id": "a93155d5-dba1-4dc3-8c19-7b552701913f", "address": {"addressType": "home", "city": "string", "country": "string", "descr": "string", "encryptedSelf": "string", "houseNumber": "string", "note": "string", "objectType": "string", "postalCode": "string", "postboxNumber": "string", "street": "string", "telecoms": [{"encryptedSelf": "string", "telecomDescription": "string", "telecomNumber": "string", "telecomType": "mobile"}]}, "agendaIds": ["12b7b327-edda-470d-a7f6-1e52617418dc"], "bankAccount": "string", "bic": "string", "cbe": "string", "deletionDate": 0, "description": "string", "guardPost": true,  "name": "string", "nihii": "459cb3c5-b673-42ab-a585-b76b341756dd", "ssin": "06cbf6b4-8ba1-4c96-821b-090f5e2c1168"}
+  },
+  "deleteMedicalLocations": {
+    "listOfIdsDto": {
+      "ids":["9bc0f52b-f819-4644-a20c-c73e683f6719"]
+    }
+  },
+  "getMedicalLocation": {
+    "locationId": "11b16ff3-639e-4e19-b089-40e78df4e9ad"
+  },
+  "getMedicalLocations": {
+  },
+  "modifyMedicalLocation": {
+    "autoRev" : true,
+    "medicalLocationDto": {"id": "9bc0f52b-f819-4644-a20c-c73e683f6719", "address": {"addressType": "home", "city": "string", "country": "string", "descr": "string", "encryptedSelf": "string", "houseNumber": "string", "note": "string", "objectType": "string", "postalCode": "string", "postboxNumber": "string", "street": "string", "telecoms": [{"encryptedSelf": "string", "telecomDescription": "string", "telecomNumber": "string", "telecomType": "mobile"}]}, "agendaIds": ["12b7b327-edda-470d-a7f6-1e52617418dc"], "bankAccount": "string", "bic": "string", "cbe": "string", "deletionDate": 0, "description": "anotherNameFromTests", "guardPost": true, "name": "string", "nihii": "459cb3c5-b673-42ab-a585-b76b341756dd", "ssin": "06cbf6b4-8ba1-4c96-821b-090f5e2c1168"}
+  },
+  "fallback": {
+  }
+}

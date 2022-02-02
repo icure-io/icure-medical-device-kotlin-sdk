@@ -1,0 +1,17 @@
+{
+  "beforeElements": {
+    "bodies": null
+  },
+  "afterElements": {
+    "family": null,
+    "deleteIds": null
+  },
+  "createEntityReference": {
+    "body": null
+  },
+  "getLatest": {
+    "prefix": null
+  },
+  "fallback": {
+  }
+}

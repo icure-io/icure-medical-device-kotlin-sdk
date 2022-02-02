@@ -1,0 +1,53 @@
+{
+  "beforeElements": {
+    "bodies": [
+      {"id": "06a8b70b-9332-48a2-a8b7-0b933268a000","accessType": "LOGIN_ACCESS", "date": 1578471493000, "patientId": "5d02073e-6f4d-403a-8207-3e6f4de03a9f", "user": "ebd30407-9f33-4cd5-9999-079f334cd5e8", "codes": [], "tags": [], "secretForeignKeys": ["6257401b-d977-4b3b-84b3-1a1703808b79"], "cryptedForeignKeys": {}, "delegations": {}, "encryptionKeys": {}},
+      {"id": "06a8b70b-9332-48a2-a8b7-0b933268a001","accessType": "LOGIN_ACCESS", "date": 1578471493001, "patientId": "5d02073e-6f4d-403a-8207-3e6f4de03a9f", "user": "ebd30407-9f33-4cd5-9999-079f334cd5e8", "codes": [], "tags": [], "secretForeignKeys": ["6257401b-d977-4b3b-84b3-1a1703808b79"], "cryptedForeignKeys": {}, "delegations": {}, "encryptionKeys": {}}
+    ]
+  },
+  "afterElements": {
+    "family": "patient",
+    "deleteIds": ["06a8b70b-9332-48a2-a8b7-0b933268a000", "06a8b70b-9332-48a2-a8b7-0b933268a001", "06a8b70b-9332-48a2-a8b7-0b933268a005"]
+  },
+  "createAccessLog": {
+    "accessLogDto": {"id": "06a8b70b-9332-48a2-a8b7-0b933268a005", "accessType": "LOGIN_ACCESS", "date": 1578471493005, "patientId": "5d02073e-6f4d-403a-8207-3e6f4de03a9f", "user": "ebd30407-9f33-4cd5-9999-079f334cd5e8", "codes": [], "tags": [], "secretForeignKeys": [], "cryptedForeignKeys": {}, "delegations": {}, "encryptionKeys": {}}
+  },
+  "deleteAccessLogs": {
+    "listOfIdsDto": {
+      "ids":["06a8b70b-9332-48a2-a8b7-0b933268a001"]
+    }
+  },
+  "findAccessLogsByUserAfterDate": {
+    "userId": "ebd30407-9f33-4cd5-9999-079f334cd5e8",
+    "accessType": "COMPUTER_ACCESS",
+    "startDate": 1575470436992,
+    "startKey": null,
+    "startDocumentId": null,
+    "limit": null,
+    "descending": null
+  },
+  "findAccessLogsBy": {
+    "startDocumentId": "06a8b70b-9332-48a2-a8b7-0b933268a001"
+  },
+  "getAccessLog": {
+    "accessLogId": "94fb88f8-b865-4fbb-bb88-f8b8652fbbf5"
+  },
+  "listAccessLogsByHCPartyAndPatientForeignKeys": {
+    "hcPartyId": "56cd68ab-9078-4e00-8d68-ab9078de002f",
+    "secretFKeys": "6257401b-d977-4b3b-84b3-1a1703808b79"
+  },
+  "listAccessLogs": {
+    "fromEpoch": null,
+    "toEpoch": null,
+    "startKey": null,
+    "startDocumentId": null,
+    "limit": null,
+    "descending": null
+  },
+  "modifyAccessLog": {
+    "autoRev": true,
+    "accessLogDto": {"id": "06a8b70b-9332-48a2-a8b7-0b933268a000","accessType": "COMPUTER_ACCESS", "date": 1578471493009, "patientId": "5d02073e-6f4d-403a-8207-3e6f4de03a9f", "user": "ebd30407-9f33-4cd5-9999-079f334cd5e8", "codes": [], "tags": [], "secretForeignKeys": [], "cryptedForeignKeys": {}, "delegations": {}, "encryptionKeys": {}}
+  },
+  "fallback": {
+  }
+}

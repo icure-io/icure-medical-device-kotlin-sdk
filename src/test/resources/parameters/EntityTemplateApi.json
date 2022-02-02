@@ -1,0 +1,68 @@
+{
+  "beforeElements": {
+    "bodies": [
+      {"id": "824c56ee-0987-46c8-8d37-2068e0be6b9a", "entity": [{"name": "testEntityTemplate"}], "keywords": ["test"], "type": "org.taktik.icure.entities.HealthElement"},
+      {"id": "f5a828c3-8282-4cd6-b630-0bb925f6f29f", "entity": [{"name": "testEntityTemplateForDeletion"}],"type": "org.taktik.icure.entities.HealthElement"},
+      {"id": "19be161c-c402-4e48-bc97-46b1941a22e2", "entity": [{"name": "testEntityTemplateForModification"}],"type": "org.taktik.icure.entities.HealthElement"}
+    ]
+  },
+  "afterElements": {
+    "family": "healthdata",
+    "deleteIds": ["19be161c-c402-4e48-bc97-46b1941a22e2", "824c56ee-0987-46c8-8d37-2068e0be6b9a", "f5a828c3-8282-4cd6-b630-0bb925f6f29f", "78c8442a-b641-4be1-86b1-0a0e45d4c896"]
+  },
+  "createEntityTemplate": {
+    "skipEndpoint" : false,
+    "entityTemplateDto": {"id": "78c8442a-b641-4be1-86b1-0a0e45d4c896", "entity": [{"name": "testEntityTemplateForCreation"}]}
+  },
+  "createEntityTemplates": {
+    "skipEndpoint" : false,
+    "entityTemplateDto": [{"id": "78c8442a-b641-4be1-86b1-0a0e45d4c896", "entity": [{"name": "testEntityTemplateForCreation"}]}]
+  },
+  "findAllEntityTemplatesByKeyword": {
+    "type": "org.taktik.icure.entities.HealthElement",
+    "includeEntities": false,
+    "keyword": "test"
+  },
+  "listEntityTemplatesByKeyword": {
+    "userId": "6a827943-68ed-474c-8279-4368ed774c2d",
+    "type": "org.taktik.icure.entities.HealthElement",
+    "includeEntities": false,
+    "keyword": "test"
+  },
+  "listEntityTemplatesBy": {
+    "userId": "6a827943-68ed-474c-8279-4368ed774c2d",
+    "type": "org.taktik.icure.entities.embed.Medication",
+    "searchString": null, 
+    "includeEntities": true
+  },
+  "listAllEntityTemplatesBy": {
+    "type": "org.taktik.icure.entities.embed.Medication",
+    "searchString": null,
+    "includeEntities": true
+  },
+  "getEntityTemplate": {
+    "entityTemplateId": "19be161c-c402-4e48-bc97-46b1941a22e2"
+  },
+  "getEntityTemplates": {
+    "listOfIdsDto": {
+      "ids":["19be161c-c402-4e48-bc97-46b1941a22e2", "824c56ee-0987-46c8-8d37-2068e0be6b9a"]
+    }
+  },
+  "deleteEntityTemplate": {
+    "listOfIdsDto": {
+      "ids":["f5a828c3-8282-4cd6-b630-0bb925f6f29f"]
+    }
+  },
+  "modifyEntityTemplates": {
+    "skipEndpoint" : false,
+    "entityTemplateDto": [{"id": "19be161c-c402-4e48-bc97-46b1941a22e2", "entity": [{"name": "modifiedEntityTemplate"}]}],
+    "autoRev": true
+  },
+  "modifyEntityTemplate": {
+    "skipEndpoint" : false,
+    "entityTemplateDto": {"id": "19be161c-c402-4e48-bc97-46b1941a22e2", "entity": [{"name": "modifiedEntityTemplate"}]},
+    "autoRev": true
+  },
+  "fallback": {
+  }
+}

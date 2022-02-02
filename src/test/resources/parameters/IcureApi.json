@@ -1,0 +1,46 @@
+{
+  "beforeElements": {
+    "bodies": null
+  },
+  "afterElements": {
+    "family": null,
+    "deleteIds": null
+  },
+  "getIndexingInfo": {
+  },
+  "getProcessInfo": {
+  },
+  "getPropertyTypes": {
+    "type": null
+  },
+  "getReplicationInfo": {
+  },
+  "getUsers": {
+  },
+  "getVersion": {
+  },
+  "isPatientReady": {
+  },
+  "isReady": {
+  },
+  "resolveContactsConflicts": {
+  },
+  "resolveDocumentsConflicts": {
+    "ids": null
+  },
+  "resolveFormsConflicts": {
+  },
+  "resolveHealthElementsConflicts": {
+  },
+  "resolveInvoicesConflicts": {
+  },
+  "resolveMessagesConflicts": {
+  },
+  "resolvePatientsConflicts": {
+  },
+  "updateDesignDoc": {
+    "entityName": null
+  },
+  "fallback": {
+  }
+}

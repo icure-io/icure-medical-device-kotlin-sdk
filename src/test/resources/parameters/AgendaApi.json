@@ -1,0 +1,52 @@
+{
+  "beforeElements": {
+    "bodies": [
+      {
+        "id": "21216e7d-2ac2-4686-b310-02d6225f80ac",
+        "userId": "ebd30407-9f33-4cd5-9999-079f334cd5e8",
+        "name": "Simon"
+      },
+      {
+        "id": "968b7082-8e0a-49cb-bc0c-ef066ff7f9d5",
+        "userId": "ebd30407-9f33-4cd5-9999-079f334cd5e8",
+        "name": "Michal"
+      }
+    ]
+  },
+  "afterElements": {
+    "family": "healthdata",
+    "deleteIds": ["21216e7d-2ac2-4686-b310-02d6225f80ac", "968b7082-8e0a-49cb-bc0c-ef066ff7f9d5", "bfaf4b19-2e99-49ba-bc5d-3e739e4fb6c4"]
+  },
+  "createAgenda": {
+    "agendaDto": {
+      "id": "bfaf4b19-2e99-49ba-bc5d-3e739e4fb6c4",
+      "name": "Vladimir"
+    }
+  },
+  "deleteAgendas": {
+    "listOfIdsDto": {
+      "ids": ["968b7082-8e0a-49cb-bc0c-ef066ff7f9d5"]
+    }
+  },
+  "getAgenda": {
+    "agendaId": "968b7082-8e0a-49cb-bc0c-ef066ff7f9d5"
+  },
+  "getAgendas": {
+  },
+  "getAgendasForUser": {
+    "userId": "ebd30407-9f33-4cd5-9999-079f334cd5e8"
+  },
+  "getReadableAgendasForUser": {
+    "userId": "ebd30407-9f33-4cd5-9999-079f334cd5e8"
+  },
+  "modifyAgenda": {
+    "autoRev": true,
+    "agendaDto": {
+      "id": "21216e7d-2ac2-4686-b310-02d6225f80ac",
+      "name": "sha"
+    }
+  },
+  
+  "fallback": {
+  }
+}

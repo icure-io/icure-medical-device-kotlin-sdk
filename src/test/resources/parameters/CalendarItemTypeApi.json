@@ -1,0 +1,51 @@
+{
+  "beforeElements": {
+    "bodies": [
+      {
+        "id": "2256191a-c0e1-42d0-89a4-89abd288b000",
+        "name": "test0"
+      },
+      {
+        "id": "2256191a-c0e1-42d0-89a4-89abd288b001",
+        "name": "test1"
+      },
+      {
+        "id": "2256191a-c0e1-42d0-89a4-89abd288b002",
+        "name": "test2"
+      }
+    ]
+  },
+  "afterElements": {
+    "family": "healthdata",
+    "deleteIds": ["2256191a-c0e1-42d0-89a4-89abd288b000", "2256191a-c0e1-42d0-89a4-89abd288b001", "2256191a-c0e1-42d0-89a4-89abd288b002", "2256191a-c0e1-42d0-89a4-89abd288b005"]
+  },
+  "createCalendarItemType": {
+    "calendarItemTypeDto": {
+      "id": "2256191a-c0e1-42d0-89a4-89abd288b005",
+      "name": "test5-created"
+    }
+  },
+  "deleteCalendarItemTypes": {
+
+    "listOfIdsDto": {
+      "ids":"2256191a-c0e1-42d0-89a4-89abd288b001"
+    }
+  },
+  "getCalendarItemType": {
+    "calendarItemTypeId": "2256191a-c0e1-42d0-89a4-89abd288b001"
+  },
+  "getCalendarItemTypes": {
+  },
+  "getCalendarItemTypesIncludeDeleted": {
+  },
+  "modifyCalendarItemType": {
+    "autoRev": true,
+    "calendarItemTypeDto": {
+      "id": "2256191a-c0e1-42d0-89a4-89abd288b000",
+      "name": "test0-modified"
+    }
+  },
+  
+  "fallback": {
+  }
+}

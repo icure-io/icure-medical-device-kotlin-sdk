@@ -1,0 +1,34 @@
+{
+  "beforeElements": {
+    "bodies": [
+      {"id": "17b50e16-cf89-4506-891b-e113431cbed5", "rev": null, "deletionDate": null, "value": "testKeyword", "subWords": [{"value": "testKeyword", "subWords": [{"value": "Examen du dofin : ", "subWords": []}]}], "userId": "DrDujardinFrederic"},
+      {"id": "9f52b4d5-f395-46e0-8137-edaa6336e60c", "rev": null, "deletionDate": null, "value": "testKeywordForDeletion", "subWords": [{"value": "testKeywordForDeletion", "subWords": [{"value": "Examen du dofin : ", "subWords": []}]}], "userId": "DrDujardinJanette"}
+    ]
+  },
+  "afterElements": {
+    "family": "base",
+    "deleteIds": ["17b50e16-cf89-4506-891b-e113431cbed5", "4f1ce937-db36-419a-805d-242512b74589", "9f52b4d5-f395-46e0-8137-edaa6336e60c"]
+  },
+  "createKeyword": {
+    "keywordDto": {"id": "4f1ce937-db36-419a-805d-242512b74589", "rev": null, "deletionDate": null, "value": "testKeyword", "subWords": [{"value": "testKeyword", "subWords": [{"value": "Examen du dofin : ", "subWords": []}]}], "userId": "DrDujardinFrederic"}
+  },
+  "deleteKeywords": {
+    "listOfIdsDto": {
+      "ids":["9f52b4d5-f395-46e0-8137-edaa6336e60c"]
+    }
+  },
+  "getKeyword": {
+    "keywordId": "17b50e16-cf89-4506-891b-e113431cbed5"
+  },
+  "getKeywords": {
+  },
+  "getKeywordsByUser": {
+    "userId": "DrDujardinFrederic"
+  },
+  "modifyKeyword": {
+    "keywordDto": {"id": "17b50e16-cf89-4506-891b-e113431cbed5","value": "mofifiedFromTests", "subWords": [{"value": "lombalgie basse  médiane", "subWords": [{}, {"value": "type mécanique", "subWords": []}, {"value": "type inflammatoire", "subWords": []}]}], "userId": "testRunner"},
+    "autoRev" : true
+  },
+  "fallback": {
+  }
+}

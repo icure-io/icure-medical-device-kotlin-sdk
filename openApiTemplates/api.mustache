@@ -1,0 +1,48 @@
+{{>licenseInfo}}
+package {{apiPackage}}
+
+{{#imports}}import {{import}}
+{{/imports}}
+
+{{^doNotUseRxAndCoroutines}}
+{{#useCoroutines}}
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+{{/useCoroutines}}
+{{/doNotUseRxAndCoroutines}}
+
+import {{packageName}}.infrastructure.ClientException
+import {{packageName}}.infrastructure.ServerException
+
+import kotlinx.coroutines.flow.flowOf
+import java.nio.ByteBuffer
+import java.util.*
+import javax.inject.Named
+import kotlinx.coroutines.flow.Flow
+import java.net.URLEncoder
+
+{{#operations}}
+@Named
+@ExperimentalStdlibApi
+@ExperimentalCoroutinesApi
+{{#nonPublicApi}}internal {{/nonPublicApi}}interface {{classname}} {
+
+    {{#operation}}
+    /**
+    * {{summary}}
+    * {{notes}}
+    {{#allParams}}* @param {{{paramName}}} {{description}} {{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
+    {{/allParams}}* @return {{#returnType}}{{{returnType}}}{{#nullableReturnType}} or null{{/nullableReturnType}}{{/returnType}}{{^returnType}}void{{/returnType}}
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */{{#returnType}}
+    @Suppress("UNCHECKED_CAST"){{/returnType}}
+    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    {{#isDeprecated}}
+    @Deprecated(message = "This operation is deprecated.")
+    {{/isDeprecated}}
+    {{^doNotUseRxAndCoroutines}}{{#useCoroutines}}suspend {{/useCoroutines}}{{/doNotUseRxAndCoroutines}}fun {{operationId}}({{#allParams}}{{{paramName}}}: {{{dataType}}}{{^required}}?{{/required}}{{^-last}}, {{/-last}}{{/allParams}}) : {{#returnType}}{{{returnType}}}{{#nullableReturnType}}?{{/nullableReturnType}}{{/returnType}}{{^returnType}}Unit?{{/returnType}}{{^doNotUseRxAndCoroutines}}{{#useCoroutines}} {{/useCoroutines}}{{/doNotUseRxAndCoroutines}}
+
+    {{/operation}}
+}
+{{/operations}}

@@ -1,0 +1,67 @@
+{
+  "afterElements": {
+    "family": "healthdata",
+    "deleteIds": ["cfbee13e-fee3-4713-80af-39f101bb3a12", "86bf29a1-80f0-4c3e-8587-270a26c7a8eb", "2741b3a2-2a35-4ef5-8961-42a5f2cd393a"]
+  },
+  "createTimeTable": {
+    "timeTableDto": {
+      "id" : "2741b3a2-2a35-4ef5-8961-42a5f2cd393a",
+      "name": "fromTests",
+      "agendaId": "fromTestsAgenda",
+      "startTime": 3,
+      "endTime": 5,
+      "items": [
+        {
+          "days": [
+            "day5"
+          ],
+          "hours": [
+            {
+              "startHour": 4,
+              "endHour": 5
+            }
+          ],
+          "calendarItemTypeId": "string",
+          "homeVisit": false,
+          "unavailable": true,
+          "placeId": "string"
+        }
+      ]
+
+    }
+  },
+  "deleteTimeTable": {
+    "listOfIdsDto": {
+      "ids": ["cfbee13e-fee3-4713-80af-39f101bb3a12"]
+    }
+  },
+  "getTimeTable": {
+    "timeTableId": "86bf29a1-80f0-4c3e-8587-270a26c7a8eb"
+  },
+  "getTimeTablesByAgendaId": {
+    "agendaId": "agenda1"
+  },
+  "getTimeTablesByPeriodAndAgendaId": {
+    "startDate": 3,
+    "endDate": 5,
+    "agendaId": "agenda1"
+  },
+  "modifyTimeTable": {
+    "timeTableDto": {
+      "id" : "86bf29a1-80f0-4c3e-8587-270a26c7a8eb",
+      "name" : "modifiedFromTests",
+      "startTime": 3,
+      "endTime": 5
+    },
+    "autoRev" : true
+  },
+  
+  "fallback": {
+  },
+  "beforeElements": {
+    "bodies": [
+      {"id" : "cfbee13e-fee3-4713-80af-39f101bb3a12", "name": "forTestDeletion", "agendaId": "fromTestsAgenda", "startTime": 3, "endTime": 5, "items": [{"days": ["day1"], "hours": [{"startHour": 4, "endHour": 5}], "calendarItemTypeId": "string", "homeVisit": false, "unavailable": true, "placeId": "string"}]},
+      {"id" : "86bf29a1-80f0-4c3e-8587-270a26c7a8eb", "name": "forTestModification", "agendaId": "fromTestsAgenda", "startTime": 3, "endTime": 5, "items": [{"days": ["day1"], "hours": [{"startHour": 4, "endHour": 5}], "calendarItemTypeId": "string", "homeVisit": false, "unavailable": true, "placeId": "string"}]}
+    ]
+  }
+}

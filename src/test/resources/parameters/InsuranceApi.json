@@ -1,0 +1,43 @@
+{
+  "beforeElements": {
+    "bodies": [
+      {"id": "176386e8-a446-493a-bb20-e53ac5515071", "privateInsurance": false, "hospitalisationInsurance": false, "ambulatoryInsurance": false, "code": "100", "parent": "23c5e26f386036d991671985c4000223", "address": {"street": "Chaussée de Haecht 579, boite 40", "postalCode": "1031", "city": "Bruxelles", "telecoms": [{"telecomNumber": "(02) 243 20 99"}, {"telecomNumber": "(02) 246 41 11"}, {"telecomNumber": "alliance@mc.be"}]}, "name": {"fr": "Alliance nationale des mutualités chrétiennes", "nl": "Landsbond der christelijke mutualiteiten"}},
+      {"id": "30c712a8-25fc-4a36-aa40-4f670c39cf0d", "privateInsurance": false, "hospitalisationInsurance": false, "ambulatoryInsurance": false, "code": "100", "parent": "23c5e26f386036d991671985c4000223", "address": {"street": "Chaussée de Haecht 579, boite 40", "postalCode": "1031", "city": "Bruxelles", "telecoms": [{"telecomNumber": "(02) 243 20 99"}, {"telecomNumber": "(02) 246 41 11"}, {"telecomNumber": "alliance@mc.be"}]}, "name": {"fr": "Alliance nationale des mutualités chrétiennes", "nl": "Landsbond der christelijke mutualiteiten"}},
+      {"id": "eb847fd1-dce9-440b-8fe0-09954432bf2d", "privateInsurance": false, "hospitalisationInsurance": true, "ambulatoryInsurance": true, "code": "100", "parent": "23c5e26f386036d991671985c4000223", "address": {"street": "Chaussée de Haecht 579, boite 40", "postalCode": "1031", "city": "Bruxelles", "telecoms": [{"telecomNumber": "(02) 243 20 99"}, {"telecomNumber": "(02) 246 41 11"}, {"telecomNumber": "alliance@mc.be"}]}, "name": {"fr": "Alliance nationale des mutualités chrétiennes", "nl": "Landsbond der christelijke mutualiteiten"}}
+    ]
+  },
+  "afterElements": {
+    "family": "base",
+    "deleteIds": ["176386e8-a446-493a-bb20-e53ac5515071", "30c712a8-25fc-4a36-aa40-4f670c39cf0d", "73b804b5-ec0d-4791-9c1e-3f7ca9339341", "eb847fd1-dce9-440b-8fe0-09954432bf2d"]
+  },
+  "createInsurance": {
+    "insuranceDto": {"id": "73b804b5-ec0d-4791-9c1e-3f7ca9339341", "privateInsurance": false, "hospitalisationInsurance": false, "ambulatoryInsurance": false, "code": "100", "parent": "23c5e26f386036d991671985c4000223", "address": {"street": "Chaussée de Haecht 579, boite 40", "postalCode": "1031", "city": "Bruxelles", "telecoms": [{"telecomNumber": "(02) 243 20 99"}, {"telecomNumber": "(02) 246 41 11"}, {"telecomNumber": "alliance@mc.be"}]}, "name": {"fr": "Alliance nationale des mutualités chrétiennes", "nl": "Landsbond der christelijke mutualiteiten"}}
+  },
+  "deleteInsurance": {
+    "insuranceId": "176386e8-a446-493a-bb20-e53ac5515071"
+  },
+  "getInsurance": {
+    "insuranceId": "eb847fd1-dce9-440b-8fe0-09954432bf2d"
+  },
+  "getInsurances": {
+    "listOfIdsDto": {
+      "ids": [
+        "176386e8-a446-493a-bb20-e53ac5515071",
+        "eb847fd1-dce9-440b-8fe0-09954432bf2d",
+        "30c712a8-25fc-4a36-aa40-4f670c39cf0d"
+      ]
+    }
+  },
+  "listInsurancesByCode": {
+    "insuranceCode": "100"
+  },
+  "listInsurancesByName": {
+    "insuranceName": "Alliance"
+  },
+  "modifyInsurance": {
+    "autoRev": true,
+    "insuranceDto": {"id": "30c712a8-25fc-4a36-aa40-4f670c39cf0d", "privateInsurance": true, "hospitalisationInsurance": false, "ambulatoryInsurance": false, "code": "100", "parent": "23c5e26f386036d991671985c4000223", "address": {"street": "Chaussée de Haecht 579, boite 40", "postalCode": "1031", "city": "Bruxelles", "telecoms": [{"telecomNumber": "(02) 243 20 99"}, {"telecomNumber": "(02) 246 41 11"}, {"telecomNumber": "alliance@mc.be"}]}, "name": {"fr": "another Name fr", "nl": "Landsbond der christelijke mutualiteiten"}}
+  },
+  "fallback": {
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "beforeElements": {
+    "bodies": null
+  },
+  "afterElements": {
+    "family": null,
+    "deleteIds": null
+  },
+  "deleteDoc": {
+    "className": null, 
+    "ids": null
+  },
+  "getDoc": {
+    "className": null, 
+    "id": null
+  },
+  "listDocs": {
+    "className": null
+  },
+  "listEnum": {
+    "className": null
+  },
+  "fallback": {
+  }
+}

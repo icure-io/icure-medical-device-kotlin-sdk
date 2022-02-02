@@ -1,0 +1,106 @@
+{
+  "afterElements": {
+    "family": "healthdata",
+    "deleteIds": ["0c7811c6-33b4-41c7-baa3-173378e11a09", "0c7811c6-33b4-41c7-baa3-173378e11a10", "0c7811c6-33b4-41c7-baa3-173378e11a11"]
+  },
+  "createPlace": {
+    "placeDto": {
+      "id" : "0c7811c6-33b4-41c7-baa3-173378e11a11",
+      "name": "createdPlace",
+      "address": {
+        "objectType": "string",
+        "addressType": "home",
+        "descr": "string",
+        "street": "string",
+        "houseNumber": "string",
+        "postboxNumber": "string",
+        "postalCode": "string",
+        "city": "string",
+        "country": "string",
+        "encryptedSelf": "string",
+        "note": "string",
+        "telecoms": [
+          {
+            "telecomType": "mobile",
+            "telecomNumber": "string",
+            "telecomDescription": "string",
+            "encryptedSelf": "string"
+          }
+        ]
+      }
+    }
+  },
+  "deletePlaces": {
+    "listOfIdsDto": {
+      "ids": ["0c7811c6-33b4-41c7-baa3-173378e11a10"]
+    }
+  },
+  "getPlace": {
+    "placeId": "0c7811c6-33b4-41c7-baa3-173378e11a09"
+  },
+  "getPlaces": {
+  },
+  "modifyPlace": {
+    "autoRev" : true,
+    "placeDto": {
+      "id" : "0c7811c6-33b4-41c7-baa3-173378e11a09",
+      "name": "nameChangedFromTests"
+    }
+  },
+  "fallback": {
+  },
+  "beforeElements": {
+    "bodies": [
+      {
+        "id" : "0c7811c6-33b4-41c7-baa3-173378e11a09",
+        "name": "testingPlace",
+        "address": {
+          "objectType": "string",
+          "addressType": "home",
+          "descr": "string",
+          "street": "string",
+          "houseNumber": "string",
+          "postboxNumber": "string",
+          "postalCode": "string",
+          "city": "string",
+          "country": "string",
+          "encryptedSelf": "string",
+          "note": "string",
+          "telecoms": [
+            {
+              "telecomType": "mobile",
+              "telecomNumber": "string",
+              "telecomDescription": "string",
+              "encryptedSelf": "string"
+            }
+          ]
+        }
+      },
+      {
+        "id" : "0c7811c6-33b4-41c7-baa3-173378e11a10",
+        "name": "testingPlace",
+        "address": {
+          "objectType": "string",
+          "addressType": "home",
+          "descr": "string",
+          "street": "string",
+          "houseNumber": "string",
+          "postboxNumber": "string",
+          "postalCode": "string",
+          "city": "string",
+          "country": "string",
+          "encryptedSelf": "string",
+          "note": "string",
+          "telecoms": [
+            {
+              "telecomType": "mobile",
+              "telecomNumber": "string",
+              "telecomDescription": "string",
+              "encryptedSelf": "string"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

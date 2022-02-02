@@ -1,0 +1,168 @@
+{
+  "beforeElements": {
+    "bodies": [
+      {"id": "9ee75961-0c5c-49ec-9c3b-973fd9d5345f", "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "codes": [], "tags": [], "secretForeignKeys": ["3689b696-6375-44d7-854c-a210028a3107"], "cryptedForeignKeys": {"782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "8ec6bd289bd357a10818aa73165e6a8960ab35cf64300411cc2a86b868f55ade2a47a103f2ec4f900fa98d7ebe20b7fbd61bfc4a3ac4bb1c4bc3799b0cdcbbdebe0967e30adf8e522dc6d19212a342dae8d565b60b5bc03c46bfa2ed503ed401"}]}, "delegations": {"782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "3fbf7aea904e9442595c0b946f6031f7c4bb8f9a797d22961c2a8483b5db87b882d13d4e6c8f7dde9890ecb9dc96d543290e0dfdb41089108473283ab411abf55a394000339a67985fda2c65bc2fba559da8e324435e00983ee25774e6cc11d5"}]}, "encryptionKeys": {"782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "b7be84bfcb7d4cbb2025ff8944650d8fdf19cb56cd514500381623ae8b04636837265adc1b303ed9dffa89157b6d907358ae688aecce9d9786587eab5ecccf12dc29f6488578c5ddcfe4844c66b7d8dd0351cb45e06093e91d29761f15b8deb9"}]}, "invoiceDate": 20200106, "invoicingCodes": [{"dateCode": 20190206, "logicalId": "9f2a7c1d-8c50-4baa-b73e-b5299c2b806e", "label": "Dilatation de l'oesophage", "tarificationId": "INAMI-RIZIV|112210|1.0", "code": "112210", "totalAmount": 12.78, "reimbursement": 9.59, "patientIntervention": 3.19, "doctorSupplement": 0, "contract": "E13566C2B05CD272D488F2C1DFB84E4C0000000000002000", "units": 1, "override3rdPayerCode": 4, "prescriberNorm": 0, "derogationMaxNumber": 0, "canceled": false, "accepted": false, "pending": true, "resent": false, "_id": "16101110-708e-4b17-8ba3-4037430ad8be"}, {"dateCode": 20190206, "logicalId": "7fbb67c0-8fa5-442d-8785-407c1ae4f3b9", "label": "Majoration d'une consultation au cabinet par un médecin généraliste sur base de droits acquis (101010) si la consultation est effectuée la nuit entre 21 heures et 8 heures", "tarificationId": "INAMI-RIZIV|102476|1.0", "code": "102476", "totalAmount": 21.42, "reimbursement": 21.42, "patientIntervention": 0, "doctorSupplement": 0, "units": 1, "prescriberNorm": 0, "derogationMaxNumber": 0, "canceled": false, "accepted": false, "pending": false, "resent": false, "_id": "38c345ec-f16b-4d94-8a3e-11ad6fb42245"}], "receipts": {}, "recipientType": "org.taktik.icure.entities.Insurance", "recipientId": "23c5e26f386036d991671985c4004a9c", "invoiceReference": "000014", "thirdPartyPaymentJustification": "0", "invoiceType": "patient", "sentMediumType": "eattest", "groupId": "f0b608d5-2858-46ab-8a89-943c4b2e7721", "invoicePeriod": 0, "careProviderType": "persphysician", "encounterLocationNorm": 0, "longDelayJustification": 0, "creditNote": false, "java_type": "org.taktik.icure.entities.Invoice", "rev_history": {}},
+      {"id": "5f40e03f-15e6-4fca-ac0c-1061016d7f25", "responsible": "6c108832-11d2-43b8-b22c-1f5e9618e902", "codes": [], "tags": [], "secretForeignKeys": ["c0ab2b25-5eac-433f-8c34-9180ae90ebf2"], "cryptedForeignKeys": {"6c108832-11d2-43b8-b22c-1f5e9618e902": [{"owner": "6c108832-11d2-43b8-b22c-1f5e9618e902", "delegatedTo": "6c108832-11d2-43b8-b22c-1f5e9618e902", "key": "8ec6bd289bd357a10818aa73165e6a8960ab35cf64300411cc2a86b868f55ade2a47a103f2ec4f900fa98d7ebe20b7fbd61bfc4a3ac4bb1c4bc3799b0cdcbbdebe0967e30adf8e522dc6d19212a342dae8d565b60b5bc03c46bfa2ed503ed401"}]}, "delegations": {"6c108832-11d2-43b8-b22c-1f5e9618e902": [{"owner": "6c108832-11d2-43b8-b22c-1f5e9618e902", "delegatedTo": "6c108832-11d2-43b8-b22c-1f5e9618e902", "key": "3fbf7aea904e9442595c0b946f6031f7c4bb8f9a797d22961c2a8483b5db87b882d13d4e6c8f7dde9890ecb9dc96d543290e0dfdb41089108473283ab411abf55a394000339a67985fda2c65bc2fba559da8e324435e00983ee25774e6cc11d5"}]}, "encryptionKeys": {"6c108832-11d2-43b8-b22c-1f5e9618e902": [{"owner": "6c108832-11d2-43b8-b22c-1f5e9618e902", "delegatedTo": "6c108832-11d2-43b8-b22c-1f5e9618e902", "key": "b7be84bfcb7d4cbb2025ff8944650d8fdf19cb56cd514500381623ae8b04636837265adc1b303ed9dffa89157b6d907358ae688aecce9d9786587eab5ecccf12dc29f6488578c5ddcfe4844c66b7d8dd0351cb45e06093e91d29761f15b8deb9"}]}, "invoiceDate": 20200106, "invoicingCodes": [{"dateCode": 20190206, "logicalId": "4274edf0-19cc-4151-a298-e0073dda21b3", "label": "Dilatation de l'oesophage", "tarificationId": "INAMI-RIZIV|112210|1.0", "code": "112210", "totalAmount": 12.78, "reimbursement": 9.59, "patientIntervention": 3.19, "doctorSupplement": 0, "contract": "E13566C2B05CD272D488F2C1DFB84E4C0000000000002000", "units": 1, "override3rdPayerCode": 4, "prescriberNorm": 0, "derogationMaxNumber": 0, "canceled": false, "accepted": false, "pending": true, "resent": false, "_id": "32c17566-c664-4bf0-8940-c3951fc7473e"}, {"dateCode": 20190206, "logicalId": "67a0281e-58f1-4b43-afe9-30cb9395edee", "label": "Majoration d'une consultation au cabinet par un médecin généraliste sur base de droits acquis (101010) si la consultation est effectuée la nuit entre 21 heures et 8 heures", "tarificationId": "INAMI-RIZIV|102476|1.0", "code": "102476", "totalAmount": 21.42, "reimbursement": 21.42, "patientIntervention": 0, "doctorSupplement": 0, "units": 1, "prescriberNorm": 0, "derogationMaxNumber": 0, "canceled": false, "accepted": false, "pending": false, "resent": false, "_id": "bab1c7f5-3cb8-4311-9677-c1bd1d257bbc"}], "receipts": {}, "recipientType": "org.taktik.icure.entities.Insurance", "recipientId": "ec0a6ec9-28f3-4fee-85ea-c3871ae2d68c", "invoiceReference": "000014", "thirdPartyPaymentJustification": "0", "invoiceType": "patient", "sentMediumType": "eattest", "groupId": "e04e9943-25b8-4f40-80e9-6ab63096dcdc", "invoicePeriod": 0, "careProviderType": "persphysician", "encounterLocationNorm": 0, "longDelayJustification": 0, "creditNote": false, "java_type": "org.taktik.icure.entities.Invoice", "rev_history": {}}
+    ]
+  },
+  "afterElements": {
+    "family": "healthdata",
+    "deleteIds": ["ae9c5cdb-d757-4a89-b2d3-8fdb88afd789", "5f40e03f-15e6-4fca-ac0c-1061016d7f25", "9ee75961-0c5c-49ec-9c3b-973fd9d5345f"]
+  },
+  "appendCodes": {
+    "userId": "ebd30407-9f33-4cd5-9999-079f334cd5e8",
+    "type": "patient",
+    "sentMediumType": "cdrom",
+    "insuranceId": "insuranceId",
+    "secretFKeys": "secretFkeyTest",
+    "invoiceId": "invoiceId",
+    "gracePriod": null, 
+    "invoicingCodeDto": [{"accepted": true, "cancelPatientInterventionReason": 0, "canceled": true, "code": "moncode", "contactId": "string", "contract": "string", "contractDate": 0, "conventionAmount": 0, "dateCode": 0, "derogationMaxNumber": 0, "doctorSupplement": 0, "eidReadingHour": 0, "eidReadingValue": "string", "error": "string", "id": "string", "insuranceJustification": 0, "label": "string", "locationCdHcParty": "string", "locationNihii": "string", "logicalId": "string", "lost": true, "override3rdPayerCode": 0, "override3rdPayerReason": "string", "paid": 0, "patientIntervention": 0, "paymentType": "wired", "pending": true, "percentNorm": 0, "prescriberCdHcParty": "string", "prescriberFirstName": "string", "prescriberLastName": "string", "prescriberNihii": "string", "prescriberNorm": 0, "prescriberSsin": "string", "prescriptionDate": 0, "reimbursement": 0, "relatedCode": "string", "resent": true, "serviceId": "string", "side": 0, "status": 0, "tarificationId": "string", "timeOfDay": 0, "totalAmount": 0, "units": 0, "vat": 0}]
+  },
+  "createInvoice": {
+    "invoiceDto": {"id": "ae9c5cdb-d757-4a89-b2d3-8fdb88afd789", "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "codes": [], "tags": [], "secretForeignKeys": ["3689b696-6375-44d7-854c-a210028a3107"], "cryptedForeignKeys": {"782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "8ec6bd289bd357a10818aa73165e6a8960ab35cf64300411cc2a86b868f55ade2a47a103f2ec4f900fa98d7ebe20b7fbd61bfc4a3ac4bb1c4bc3799b0cdcbbdebe0967e30adf8e522dc6d19212a342dae8d565b60b5bc03c46bfa2ed503ed401"}]}, "delegations": {"782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "3fbf7aea904e9442595c0b946f6031f7c4bb8f9a797d22961c2a8483b5db87b882d13d4e6c8f7dde9890ecb9dc96d543290e0dfdb41089108473283ab411abf55a394000339a67985fda2c65bc2fba559da8e324435e00983ee25774e6cc11d5"}]}, "encryptionKeys": {"782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "b7be84bfcb7d4cbb2025ff8944650d8fdf19cb56cd514500381623ae8b04636837265adc1b303ed9dffa89157b6d907358ae688aecce9d9786587eab5ecccf12dc29f6488578c5ddcfe4844c66b7d8dd0351cb45e06093e91d29761f15b8deb9"}]}, "invoiceDate": 20200106, "invoicingCodes": [{"dateCode": 20190206, "logicalId": "9f2a7c1d-8c50-4baa-b73e-b5299c2b806e", "label": "Dilatation de l'oesophage", "tarificationId": "INAMI-RIZIV|112210|1.0", "code": "112210", "totalAmount": 12.78, "reimbursement": 9.59, "patientIntervention": 3.19, "doctorSupplement": 0, "contract": "E13566C2B05CD272D488F2C1DFB84E4C0000000000002000", "units": 1, "override3rdPayerCode": 4, "prescriberNorm": 0, "derogationMaxNumber": 0, "canceled": false, "accepted": false, "pending": true, "resent": false, "_id": "16101110-708e-4b17-8ba3-4037430ad8be"}, {"dateCode": 20190206, "logicalId": "7fbb67c0-8fa5-442d-8785-407c1ae4f3b9", "label": "Majoration d'une consultation au cabinet par un médecin généraliste sur base de droits acquis (101010) si la consultation est effectuée la nuit entre 21 heures et 8 heures", "tarificationId": "INAMI-RIZIV|102476|1.0", "code": "102476", "totalAmount": 21.42, "reimbursement": 21.42, "patientIntervention": 0, "doctorSupplement": 0, "units": 1, "prescriberNorm": 0, "derogationMaxNumber": 0, "canceled": false, "accepted": false, "pending": false, "resent": false, "_id": "38c345ec-f16b-4d94-8a3e-11ad6fb42245"}], "receipts": {}, "recipientType": "org.taktik.icure.entities.Insurance", "recipientId": "23c5e26f386036d991671985c4004a9c", "invoiceReference": "000014", "thirdPartyPaymentJustification": "0", "invoiceType": "patient", "sentMediumType": "eattest", "groupId": "f0b608d5-2858-46ab-8a89-943c4b2e7721", "invoicePeriod": 0, "careProviderType": "persphysician", "encounterLocationNorm": 0, "longDelayJustification": 0, "creditNote": false, "java_type": "org.taktik.icure.entities.Invoice", "rev_history": {}}
+  },
+  "createInvoices": {
+    "invoiceDto": [{"id": "ae9c5cdb-d757-4a89-b2d3-8fdb88afd789", "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "codes": [], "tags": [], "secretForeignKeys": ["3689b696-6375-44d7-854c-a210028a3107"], "cryptedForeignKeys": {"782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "8ec6bd289bd357a10818aa73165e6a8960ab35cf64300411cc2a86b868f55ade2a47a103f2ec4f900fa98d7ebe20b7fbd61bfc4a3ac4bb1c4bc3799b0cdcbbdebe0967e30adf8e522dc6d19212a342dae8d565b60b5bc03c46bfa2ed503ed401"}]}, "delegations": {"782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "3fbf7aea904e9442595c0b946f6031f7c4bb8f9a797d22961c2a8483b5db87b882d13d4e6c8f7dde9890ecb9dc96d543290e0dfdb41089108473283ab411abf55a394000339a67985fda2c65bc2fba559da8e324435e00983ee25774e6cc11d5"}]}, "encryptionKeys": {"782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "b7be84bfcb7d4cbb2025ff8944650d8fdf19cb56cd514500381623ae8b04636837265adc1b303ed9dffa89157b6d907358ae688aecce9d9786587eab5ecccf12dc29f6488578c5ddcfe4844c66b7d8dd0351cb45e06093e91d29761f15b8deb9"}]}, "invoiceDate": 20200106, "invoicingCodes": [{"dateCode": 20190206, "logicalId": "9f2a7c1d-8c50-4baa-b73e-b5299c2b806e", "label": "Dilatation de l'oesophage", "tarificationId": "INAMI-RIZIV|112210|1.0", "code": "112210", "totalAmount": 12.78, "reimbursement": 9.59, "patientIntervention": 3.19, "doctorSupplement": 0, "contract": "E13566C2B05CD272D488F2C1DFB84E4C0000000000002000", "units": 1, "override3rdPayerCode": 4, "prescriberNorm": 0, "derogationMaxNumber": 0, "canceled": false, "accepted": false, "pending": true, "resent": false, "_id": "16101110-708e-4b17-8ba3-4037430ad8be"}, {"dateCode": 20190206, "logicalId": "7fbb67c0-8fa5-442d-8785-407c1ae4f3b9", "label": "Majoration d'une consultation au cabinet par un médecin généraliste sur base de droits acquis (101010) si la consultation est effectuée la nuit entre 21 heures et 8 heures", "tarificationId": "INAMI-RIZIV|102476|1.0", "code": "102476", "totalAmount": 21.42, "reimbursement": 21.42, "patientIntervention": 0, "doctorSupplement": 0, "units": 1, "prescriberNorm": 0, "derogationMaxNumber": 0, "canceled": false, "accepted": false, "pending": false, "resent": false, "_id": "38c345ec-f16b-4d94-8a3e-11ad6fb42245"}], "receipts": {}, "recipientType": "org.taktik.icure.entities.Insurance", "recipientId": "23c5e26f386036d991671985c4004a9c", "invoiceReference": "000014", "thirdPartyPaymentJustification": "0", "invoiceType": "patient", "sentMediumType": "eattest", "groupId": "f0b608d5-2858-46ab-8a89-943c4b2e7721", "invoicePeriod": 0, "careProviderType": "persphysician", "encounterLocationNorm": 0, "longDelayJustification": 0, "creditNote": false, "java_type": "org.taktik.icure.entities.Invoice", "rev_history": {}}]
+  },
+  "deleteInvoice": {
+    "invoiceId": "9ee75961-0c5c-49ec-9c3b-973fd9d5345f"
+  },
+  "filterInvoicesBy": {
+    "filterChainInvoice": {"filter": {"$type" : "InvoiceByHcPartyCodeDateFilter", "healthcarePartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "code" : "102476", "startInvoiceDate" : "1", "endInvoiceDate" : "20200206"}}
+  },
+  "findInvoicesByAuthor": {
+    "hcPartyId": "6c108832-11d2-43b8-b22c-1f5e9618e902",
+    "fromDate": null, 
+    "toDate": null, 
+    "startKey": null, 
+    "startDocumentId": null, 
+    "limit": null
+  },
+  "listInvoicesByHCPartyAndPatientForeignKeys": {
+    "hcPartyId": "6c108832-11d2-43b8-b22c-1f5e9618e902",
+    "secretFKeys": "c0ab2b25-5eac-433f-8c34-9180ae90ebf2"
+  },
+  "listInvoicesDelegationsStubsByHCPartyAndPatientForeignKeys": {
+    "hcPartyId": "6c108832-11d2-43b8-b22c-1f5e9618e902",
+    "secretFKeys": "c0ab2b25-5eac-433f-8c34-9180ae90ebf2"
+  },
+  "getInvoice": {
+    "invoiceId": "05ce5432-15bb-49d8-9428-5da06cc3c04f"
+  },
+  "getInvoices": {
+    "listOfIdsDto": {
+      "ids": [
+        "c53b4638-4633-4b09-8efc-8657bbc9df31",
+        "f42f903e-0a63-4e08-9b63-b11da95abaa2",
+        "ba618f3e-1f8e-42b8-b4e6-eb20277e97ab"
+      ]
+    }
+  },
+  "getTarificationsCodesOccurences": {
+    "minOccurences": 1
+  },
+  "listAllHcpsByStatus": {
+    "status": "pending",
+    "from": null, 
+    "to": null, 
+    "listOfIdsDto": {"ids": ["90904230-9161-4e16-9d27-0eade38f05ef"]}
+  },
+  "listInvoicesByContactIds": {
+    "listOfIdsDto": {
+      "ids": [
+        "0003de50-d93b-479d-83de-50d93b079d2c"
+      ]
+    }
+  },
+  "listInvoicesByHcPartyAndGroupId": {
+    "hcPartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98",
+    "groupId": "f0b608d5-2858-46ab-8a89-943c4b2e7721"
+  },
+  "listInvoicesByHcPartySentMediumTypeInvoiceTypeSentDate": {
+    "hcPartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98",
+    "sentMediumType": "eattest",
+    "invoiceType": "patient",
+    "sent": false,
+    "from": null, 
+    "to": null
+  },
+  "listInvoicesByHcpartySendingModeStatusDate": {
+    "hcPartyId": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98",
+    "sendingMode": "EATTEST",
+    "status": "pending",
+    "from": null, 
+    "to": null
+  },
+  "listInvoicesByIds": {
+    "invoiceIds": "ea54cdc2-0f59-4270-87c5-6d9e06c6e26e"
+  },
+  "listInvoicesByRecipientsIds": {
+    "recipientIds": "23c5e26f386036d991671985c4004a9c"
+  },
+  "listInvoicesByServiceIds": {
+    "serviceIds": "string"
+  },
+  "listToInsurances": {
+    "userIds": null
+  },
+  "listToInsurancesUnsent": {
+    "userIds": null
+  },
+  "listToPatients": {
+    "hcPartyId": "90904230-9161-4e16-9d27-0eade38f05ef"
+  },
+  "listToPatientsUnsent": {
+    "hcPartyId": "90904230-9161-4e16-9d27-0eade38f05ef"
+  },
+  "mergeTo": {
+    "invoiceId": "9ee75961-0c5c-49ec-9c3b-973fd9d5345f",
+    "listOfIdsDto": {
+      "ids": ["5f40e03f-15e6-4fca-ac0c-1061016d7f25"]
+    }
+  },
+  "modifyInvoice": {
+    "autoRev": true,
+    "invoiceDto": {"id": "5f40e03f-15e6-4fca-ac0c-1061016d7f25", "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "codes": [], "tags": [], "secretForeignKeys": ["3689b696-6375-44d7-854c-a210028a3107"], "cryptedForeignKeys": {"782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "8ec6bd289bd357a10818aa73165e6a8960ab35cf64300411cc2a86b868f55ade2a47a103f2ec4f900fa98d7ebe20b7fbd61bfc4a3ac4bb1c4bc3799b0cdcbbdebe0967e30adf8e522dc6d19212a342dae8d565b60b5bc03c46bfa2ed503ed401"}]}, "delegations": {"782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "3fbf7aea904e9442595c0b946f6031f7c4bb8f9a797d22961c2a8483b5db87b882d13d4e6c8f7dde9890ecb9dc96d543290e0dfdb41089108473283ab411abf55a394000339a67985fda2c65bc2fba559da8e324435e00983ee25774e6cc11d5"}]}, "encryptionKeys": {"782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "b7be84bfcb7d4cbb2025ff8944650d8fdf19cb56cd514500381623ae8b04636837265adc1b303ed9dffa89157b6d907358ae688aecce9d9786587eab5ecccf12dc29f6488578c5ddcfe4844c66b7d8dd0351cb45e06093e91d29761f15b8deb9"}]}, "invoiceDate": 20200106, "invoicingCodes": [{"dateCode": 20190206, "logicalId": "9f2a7c1d-8c50-4baa-b73e-b5299c2b806e", "label": "Dilatation de l'oesophage test", "tarificationId": "INAMI-RIZIV|112210|1.0", "code": "112210", "totalAmount": 12.78, "reimbursement": 9.59, "patientIntervention": 3.19, "doctorSupplement": 0, "contract": "E13566C2B05CD272D488F2C1DFB84E4C0000000000002000", "units": 1, "override3rdPayerCode": 4, "prescriberNorm": 0, "derogationMaxNumber": 0, "canceled": false, "accepted": false, "pending": true, "resent": false, "_id": "16101110-708e-4b17-8ba3-4037430ad8be"}, {"dateCode": 20190206, "logicalId": "7fbb67c0-8fa5-442d-8785-407c1ae4f3b9", "label": "Majoration d'une consultation au cabinet par un médecin généraliste sur base de droits acquis (101010) si la consultation est effectuée la nuit entre 21 heures et 8 heures", "tarificationId": "INAMI-RIZIV|102476|1.0", "code": "102476", "totalAmount": 21.42, "reimbursement": 21.42, "patientIntervention": 0, "doctorSupplement": 0, "units": 1, "prescriberNorm": 0, "derogationMaxNumber": 0, "canceled": false, "accepted": false, "pending": false, "resent": false, "_id": "38c345ec-f16b-4d94-8a3e-11ad6fb42245"}], "receipts": {}, "recipientType": "org.taktik.icure.entities.Insurance", "recipientId": "23c5e26f386036d991671985c4004a9c", "invoiceReference": "000014", "thirdPartyPaymentJustification": "0", "invoiceType": "patient", "sentMediumType": "eattest", "groupId": "f0b608d5-2858-46ab-8a89-943c4b2e7721", "invoicePeriod": 0, "careProviderType": "persphysician", "encounterLocationNorm": 0, "longDelayJustification": 0, "creditNote": false, "java_type": "org.taktik.icure.entities.Invoice", "rev_history": {}}
+  },
+  "modifyInvoices": {
+    "autoRev": true,
+    "invoiceDto": [{"id": "5f40e03f-15e6-4fca-ac0c-1061016d7f25", "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "codes": [], "tags": [], "secretForeignKeys": ["3689b696-6375-44d7-854c-a210028a3107"], "cryptedForeignKeys": {"782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "8ec6bd289bd357a10818aa73165e6a8960ab35cf64300411cc2a86b868f55ade2a47a103f2ec4f900fa98d7ebe20b7fbd61bfc4a3ac4bb1c4bc3799b0cdcbbdebe0967e30adf8e522dc6d19212a342dae8d565b60b5bc03c46bfa2ed503ed401"}]}, "delegations": {"782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "3fbf7aea904e9442595c0b946f6031f7c4bb8f9a797d22961c2a8483b5db87b882d13d4e6c8f7dde9890ecb9dc96d543290e0dfdb41089108473283ab411abf55a394000339a67985fda2c65bc2fba559da8e324435e00983ee25774e6cc11d5"}]}, "encryptionKeys": {"782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "b7be84bfcb7d4cbb2025ff8944650d8fdf19cb56cd514500381623ae8b04636837265adc1b303ed9dffa89157b6d907358ae688aecce9d9786587eab5ecccf12dc29f6488578c5ddcfe4844c66b7d8dd0351cb45e06093e91d29761f15b8deb9"}]}, "invoiceDate": 20200106, "invoicingCodes": [{"dateCode": 20190206, "logicalId": "9f2a7c1d-8c50-4baa-b73e-b5299c2b806e", "label": "Dilatation de l'oesophage test", "tarificationId": "INAMI-RIZIV|112210|1.0", "code": "112210", "totalAmount": 12.78, "reimbursement": 9.59, "patientIntervention": 3.19, "doctorSupplement": 0, "contract": "E13566C2B05CD272D488F2C1DFB84E4C0000000000002000", "units": 1, "override3rdPayerCode": 4, "prescriberNorm": 0, "derogationMaxNumber": 0, "canceled": false, "accepted": false, "pending": true, "resent": false, "_id": "16101110-708e-4b17-8ba3-4037430ad8be"}, {"dateCode": 20190206, "logicalId": "7fbb67c0-8fa5-442d-8785-407c1ae4f3b9", "label": "Majoration d'une consultation au cabinet par un médecin généraliste sur base de droits acquis (101010) si la consultation est effectuée la nuit entre 21 heures et 8 heures", "tarificationId": "INAMI-RIZIV|102476|1.0", "code": "102476", "totalAmount": 21.42, "reimbursement": 21.42, "patientIntervention": 0, "doctorSupplement": 0, "units": 1, "prescriberNorm": 0, "derogationMaxNumber": 0, "canceled": false, "accepted": false, "pending": false, "resent": false, "_id": "38c345ec-f16b-4d94-8a3e-11ad6fb42245"}], "receipts": {}, "recipientType": "org.taktik.icure.entities.Insurance", "recipientId": "23c5e26f386036d991671985c4004a9c", "invoiceReference": "000014", "thirdPartyPaymentJustification": "0", "invoiceType": "patient", "sentMediumType": "eattest", "groupId": "f0b608d5-2858-46ab-8a89-943c4b2e7721", "invoicePeriod": 0, "careProviderType": "persphysician", "encounterLocationNorm": 0, "longDelayJustification": 0, "creditNote": false, "java_type": "org.taktik.icure.entities.Invoice", "rev_history": {}}]
+  },
+  "newInvoiceDelegations": {
+    "invoiceId": "5f40e03f-15e6-4fca-ac0c-1061016d7f25",
+    "delegationDto": [{"delegatedTo": "8c9292c0-dcaf-4d62-bc5b-7cd8bedcf38a", "key": "c01888da-72a7-4f3d-86b8-48c1ccac5449", "owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "tag": "string"}]
+  },
+  "reassignInvoice": {
+    "invoiceDto": {"id": "9ee75961-0c5c-49ec-9c3b-973fd9d5345f", "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "codes": [], "tags": [], "secretForeignKeys": ["3689b696-6375-44d7-854c-a210028a3107"], "cryptedForeignKeys": {"782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "8ec6bd289bd357a10818aa73165e6a8960ab35cf64300411cc2a86b868f55ade2a47a103f2ec4f900fa98d7ebe20b7fbd61bfc4a3ac4bb1c4bc3799b0cdcbbdebe0967e30adf8e522dc6d19212a342dae8d565b60b5bc03c46bfa2ed503ed401"}]}, "delegations": {"782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "3fbf7aea904e9442595c0b946f6031f7c4bb8f9a797d22961c2a8483b5db87b882d13d4e6c8f7dde9890ecb9dc96d543290e0dfdb41089108473283ab411abf55a394000339a67985fda2c65bc2fba559da8e324435e00983ee25774e6cc11d5"}]}, "encryptionKeys": {"782f1bcd-9f3f-408a-af1b-cd9f3f908a98": [{"owner": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "delegatedTo": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "key": "b7be84bfcb7d4cbb2025ff8944650d8fdf19cb56cd514500381623ae8b04636837265adc1b303ed9dffa89157b6d907358ae688aecce9d9786587eab5ecccf12dc29f6488578c5ddcfe4844c66b7d8dd0351cb45e06093e91d29761f15b8deb9"}]}, "invoiceDate": 20200106, "invoicingCodes": [{"dateCode": 20190206, "logicalId": "9f2a7c1d-8c50-4baa-b73e-b5299c2b806e", "label": "Dilatation de l'oesophage", "tarificationId": "INAMI-RIZIV|112210|1.0", "code": "112210", "totalAmount": 12.78, "reimbursement": 9.59, "patientIntervention": 3.19, "doctorSupplement": 0, "contract": "E13566C2B05CD272D488F2C1DFB84E4C0000000000002000", "units": 1, "override3rdPayerCode": 4, "prescriberNorm": 0, "derogationMaxNumber": 0, "canceled": false, "accepted": false, "pending": true, "resent": false, "_id": "16101110-708e-4b17-8ba3-4037430ad8be"}, {"dateCode": 20190206, "logicalId": "7fbb67c0-8fa5-442d-8785-407c1ae4f3b9", "label": "Majoration d'une consultation au cabinet par un médecin généraliste sur base de droits acquis (101010) si la consultation est effectuée la nuit entre 21 heures et 8 heures", "tarificationId": "INAMI-RIZIV|102476|1.0", "code": "102476", "totalAmount": 21.42, "reimbursement": 21.42, "patientIntervention": 0, "doctorSupplement": 0, "units": 1, "prescriberNorm": 0, "derogationMaxNumber": 0, "canceled": false, "accepted": false, "pending": false, "resent": false, "_id": "38c345ec-f16b-4d94-8a3e-11ad6fb42245"}], "receipts": {}, "recipientType": "org.taktik.icure.entities.Insurance", "recipientId": "23c5e26f386036d991671985c4004a9c", "invoiceReference": "000014", "thirdPartyPaymentJustification": "0", "invoiceType": "patient", "sentMediumType": "eattest", "groupId": "f0b608d5-2858-46ab-8a89-943c4b2e7721", "invoicePeriod": 0, "careProviderType": "persphysician", "encounterLocationNorm": 0, "longDelayJustification": 0, "creditNote": false, "java_type": "org.taktik.icure.entities.Invoice", "rev_history": {}}
+  },
+  "removeCodes": {
+    "skipEndpoint": true,
+    "userId": null, 
+    "serviceId": null, 
+    "secretFKeys": null, 
+    "body": null
+  },
+  "setInvoicesDelegations": {
+    "icureStubDto": {
+      "id": "5f40e03f-15e6-4fca-ac0c-1061016d7f25",
+      "delegations": {
+        "6c108832-11d2-43b8-b22c-1f5e9618e902": [
+          {
+            "owner": "6c108832-11d2-43b8-b22c-1f5e9618e902",
+            "delegatedTo": "6c108832-11d2-43b8-b22c-1f5e9618e902",
+            "key": "3fbf7aea904e9442595c0b946f6031f7c4bb8f9a797d22961c2a8483b5db87b882d13d4e6c8f7dde9890ecb9dc96d543290e0dfdb41089108473283ab411abf55a394000339a67985fda2c65bc2fba559da8e324435e00983ee25774e6cc11d5",
+            "tag": "test"
+          }
+        ]
+      }
+    }
+  },
+  "validate": {
+    "invoiceId": "9ee75961-0c5c-49ec-9c3b-973fd9d5345f",
+    "scheme": "yyyy00000",
+    "forcedValue": "test"
+  },
+  "fallback": {
+  }
+}

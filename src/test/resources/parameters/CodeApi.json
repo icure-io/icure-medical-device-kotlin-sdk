@@ -1,0 +1,124 @@
+{
+  "beforeElements": {
+    "bodies": [
+      {
+        "id": "normal|A0|1",
+        "author": "Simon",
+        "regions": ["BE", "FR"],
+        "type": "normal",
+        "code": "A0",
+        "version": 1,
+        "label": {
+          "fr": "Bonjour le monde",
+          "en": "Hello world"
+        },
+        "links": ["L", "M"]
+      },
+      {
+        "id": "anormal|A1|1",
+        "author": "Simon",
+        "regions": ["BE"],
+        "type": "anormal",
+        "code": "A1",
+        "version": 1,
+        "links": ["L"]
+      },
+      {"id":"normal|A2|1", "version": 1,"author": "Simon", "regions": ["UK"], "type": "normal", "code": "A2", "label": {"additionalProp1": "p1", "additionalProp2": "p2"}}
+    ]
+  },
+  "afterElements": {
+    "family": "base",
+    "deleteIds": ["normal|A0|1", "anormal|A1|1", "normal|A2|1", "normal|A5|1"]
+  },
+  "createCode": {
+    "codeDto": {
+      "id": "normal|A5|1",
+      "author": "Simon",
+      "regions": ["BE", "FR", "UK", "USA"],
+      "type": "normal",
+      "code": "A5",
+      "version": 1
+    }
+  },
+  "filterCodesBy": {
+    "skipEndpoint": true,
+    "startKey": null, 
+    "startDocumentId": null,
+    "limit": 10,
+    "skip": null, 
+    "sort": null, 
+    "desc": null, 
+    "filterChainCode":{
+      "filter": {
+        "$type": "CodeByRegionTypeLabelLanguageFilter",
+        "region": "BE",
+        "type": "normal",
+        "code": "A0",
+        "label": "Bonjour le monde"
+      }
+    }
+  },
+  "listCodeTypesBy": {
+    "skipEndpoint": true,
+    "region": "BE",
+    "type": "normal"
+  },
+  "listCodesByRegionTypeCodeVersion": {
+    "region": "BE",
+    "type": "normal",
+    "code": "A0",
+    "version": "1"
+  },
+  "findCodesByLabel": {
+    "skipEndpoint": true,
+    "region": "be",
+    "types": "CD-HCPARTY",
+    "language": "fr",
+    "label": "pers",
+    "startKey": null, 
+    "startDocumentId": null, 
+    "limit": 100
+  },
+  "findCodesByLink": {
+    "skipEndpoint": true,
+    "linkType": "L",
+    "linkedId": null, 
+    "startKey": null, 
+    "startDocumentId": null, 
+    "limit": null
+  },
+  "listTagTypesBy": {
+    "skipEndpoint": true,
+    "region": "BE",
+    "type": "normal"
+  },
+  "getCode": {
+    "codeId": "normal|A0|1"
+  },
+  "getCodeWithParts": {
+    "type": "normal",
+    "code": "A0",
+    "version": "1"
+  },
+  "getCodes": {
+    "listOfIdsDto": {
+      "ids":["normal|A0|1"]
+    }
+  },
+  "modifyCode": {
+    "autoRev": true,
+    "codeDto": {
+      "id": "normal|A0|1",
+      "author": "SHA",
+      "regions": ["BE", "FR"],
+      "type": "normal",
+      "code": "A0",
+      "label": {
+        "fr": "Bonjour le monde!"
+      },
+      "links": ["L", "M", "N"]
+    }
+  },
+  "fallback": {
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "beforeElements": {
+    "bodies": [
+      {
+        "id": "456b1ce9-2425-41a5-8b6b-15dde9db73b0",
+        "responsible": "Simon",
+        "label": "test"
+      },
+      {
+        "id": "d13b59ad-1d05-4821-b18f-192bdff4303a",
+        "responsible": "Michal",
+        "label": "test"
+      },
+      {
+        "id": "09c93fa6-ef49-450a-8c39-0d2a24028f43",
+        "responsible": "Olivier",
+        "label": "test"
+      }
+    ]
+  },
+  "afterElements": {
+    "family": "base",
+    "deleteIds": ["456b1ce9-2425-41a5-8b6b-15dde9db73b0", "d13b59ad-1d05-4821-b18f-192bdff4303a", "09c93fa6-ef49-450a-8c39-0d2a24028f43", "3b09132e-d0e4-4fcf-a182-d22a63433594"]
+  },
+  "createClassificationTemplate": {
+    "skipEndpoint": true,
+    "classificationTemplateDto": {
+      "id": "3b09132e-d0e4-4fcf-a182-d22a63433594",
+      "responsible": "Clément",
+      "label": "test"
+    }
+  },
+  "deleteClassificationTemplates": {
+    "skipEndpoint": true,
+    "classificationTemplateIds": "d13b59ad-1d05-4821-b18f-192bdff4303a"
+  },
+  "listClassificationTemplatesByHCPartyPatientForeignKeys": {
+    "skipEndpoint": true,
+    "hcPartyId": null, 
+    "secretFKeys": null
+  },
+  "getClassificationTemplate": {
+    "skipEndpoint": true,
+    "classificationTemplateId": "ClTp_2000121613505142303"
+  },
+  "getClassificationTemplateByIds": {
+    "skipEndpoint": true,
+    "ids": "ClTp_2000121613505142303,09c93fa6-ef49-450a-8c39-0d2a24028f43"
+  },
+  "listClassificationTemplates": {
+    "skipEndpoint": true,
+    "startKey": null, 
+    "startDocumentId": "ClTp_2000121613505350908",
+    "limit": "10"
+  },
+  "modifyClassificationTemplate": {
+    "skipEndpoint": true,
+    "autoRev": true,
+    "body": {
+      "id": "456b1ce9-2425-41a5-8b6b-15dde9db73b0",
+      "responsible": "SHA"
+    }
+  },
+  "findClassificationTemplatesBy": {
+    "skipEndpoint": true
+  },
+  "newClassificationTemplateDelegations": {
+    "skipEndpoint": true,
+    "classificationTemplateId": null, 
+    "delegationDto": null
+  },
+  
+  "fallback": {
+  }
+}

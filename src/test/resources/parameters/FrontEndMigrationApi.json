@@ -1,0 +1,34 @@
+{
+  "beforeElements": {
+    "bodies": null
+  },
+  "afterElements": {
+    "family": null,
+    "deleteIds": null
+  },
+  "createFrontEndMigration": {
+    "skipEndpoint": true,
+    "body": null
+  },
+  "deleteFrontEndMigration": {
+    "skipEndpoint": true,
+    "frontEndMigrationId": null
+  },
+  "getFrontEndMigration": {
+    "skipEndpoint": true,
+    "frontEndMigrationId": null
+  },
+  "getFrontEndMigrationByName": {
+    "skipEndpoint": true,
+    "frontEndMigrationName": null
+  },
+  "getFrontEndMigrations": {
+    "skipEndpoint": true
+  },
+  "modifyFrontEndMigration": {
+    "skipEndpoint": true,
+    "body": null
+  },
+  "fallback": {
+  }
+}

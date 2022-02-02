@@ -1,0 +1,16 @@
+{
+  "beforeElements": {
+    "bodies": null
+  },
+  "afterElements": {
+    "family": null,
+    "deleteIds": null
+  },
+  {{#operations}}{{#operation}}"{{operationId}}": {
+    {{#allParams}}
+    "{{paramName}}": null{{#hasMore}}, {{/hasMore}}
+	{{/allParams}}
+  },
+  {{/operation}}{{/operations}}"fallback": {
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "beforeElements": {
+    "bodies": [
+      {"id": "406fa7e7-79b0-4adc-9f3c-3a400b31b1b9", "layoutAttachmentId": "18a4c054058fb88f81d7d32a36d90e483ffe04ad200e9bf54cedd2319b62a82f", "logicalUuid": "f3022b9b-b08c-4d4d-b701-aa7cde00fb43", "group": {"guid": "86fa8b48-be94-4c49-93a5-82a3bf93aa02", "name": "Topaz"}, "name": "Cheville/Pied/oeil", "specialty": {"type": "CD-HCPARTY", "code": "deptgeneralpractice", "version": "1"}, "guid": "8aef6be3-615a-412a-9e92-4935c52a7c64", "author": "beead3d0-f0a9-4502-9adf-10de593e9110", "java_type": "org.taktik.icure.entities.FormTemplate", "rev_history": {}, "_attachments": {"18a4c054058fb88f81d7d32a36d90e483ffe04ad200e9bf54cedd2319b62a82f": {"content_type": "application/json", "revpos": 44, "digest": "md5-CfbWUBUa+fToxPbArU5Gnw==", "length": 1332, "stub": true}}},
+      {"id": "1880910e-94f0-4ff8-b8ae-45433e413a11", "layoutAttachmentId": "18a4c054058fb88f81d7d32a36d90e483ffe04ad200e9bf54cedd2319b62a82f", "logicalUuid": "47078767-c710-4f4e-97a5-5bf5ac30ef14", "group": {"guid": "86fa8b48-be94-4c49-93a5-82a3bf93aa02", "name": "Topaz"}, "name": "Cheville/Pied/oeil", "specialty": {"type": "CD-HCPARTY", "code": "deptgeneralpractice", "version": "1"}, "guid": "8aef6be3-615a-412a-9e92-4935c52a7c64", "author": "beead3d0-f0a9-4502-9adf-10de593e9110", "java_type": "org.taktik.icure.entities.FormTemplate", "rev_history": {}, "_attachments": {"18a4c054058fb88f81d7d32a36d90e483ffe04ad200e9bf54cedd2319b62a82f": {"content_type": "application/json", "revpos": 44, "digest": "md5-CfbWUBUa+fToxPbArU5Gnw==", "length": 1332, "stub": true}}}
+    ]
+  },
+  "afterElements": {
+    "family": "healthdata",
+    "deleteIds": ["e283f27b-47d5-40a7-8154-d466a287ede8", "1880910e-94f0-4ff8-b8ae-45433e413a11", "406fa7e7-79b0-4adc-9f3c-3a400b31b1b9"]
+  },
+  "convertLegacyFormTemplates": {
+    "skipEndpoint": true,
+    "body": null
+  },
+  "createForm": {
+    "skipEndpoint": true,
+    "formDto": {"id": "e283f27b-47d5-40a7-8154-d466a287ede8", "layoutAttachmentId": "18a4c054058fb88f81d7d32a36d90e483ffe04ad200e9bf54cedd2319b62a82f", "group": {"guid": "86fa8b48-be94-4c49-93a5-82a3bf93aa02", "name": "Topaz"}, "name": "Cheville/Pied/oeil", "specialty": {"type": "CD-HCPARTY", "code": "deptgeneralpractice", "version": "1"}, "guid": "8aef6be3-615a-412a-9e92-4935c52a7c64", "author": "beead3d0-f0a9-4502-9adf-10de593e9110", "java_type": "org.taktik.icure.entities.FormTemplate", "rev_history": {}, "_attachments": {"18a4c054058fb88f81d7d32a36d90e483ffe04ad200e9bf54cedd2319b62a82f": {"content_type": "application/json", "revpos": 44, "digest": "md5-CfbWUBUa+fToxPbArU5Gnw==", "length": 1332, "stub": true}}}
+  },
+  "createForms": {
+    "skipEndpoint": true,
+    "formDto": [{"id": "e283f27b-47d5-40a7-8154-d466a287ede8", "layoutAttachmentId": "18a4c054058fb88f81d7d32a36d90e483ffe04ad200e9bf54cedd2319b62a82f", "group": {"guid": "86fa8b48-be94-4c49-93a5-82a3bf93aa02", "name": "Topaz"}, "name": "Cheville/Pied/oeil", "specialty": {"type": "CD-HCPARTY", "code": "deptgeneralpractice", "version": "1"}, "guid": "8aef6be3-615a-412a-9e92-4935c52a7c64", "author": "beead3d0-f0a9-4502-9adf-10de593e9110", "java_type": "org.taktik.icure.entities.FormTemplate", "rev_history": {}, "_attachments": {"18a4c054058fb88f81d7d32a36d90e483ffe04ad200e9bf54cedd2319b62a82f": {"content_type": "application/json", "revpos": 44, "digest": "md5-CfbWUBUa+fToxPbArU5Gnw==", "length": 1332, "stub": true}}}]
+  },
+  "createFormTemplate": {
+    "skipEndpoint": true,
+    "body": null
+  },
+  "deleteFormTemplate": {
+    "skipEndpoint": true,
+    "formTemplateId": null
+  },
+  "deleteForms": {
+    "skipEndpoint": true,
+    "listOfIdsDto": {
+      "ids": ["406fa7e7-79b0-4adc-9f3c-3a400b31b1b9"]
+    }
+  },
+  "findByHCPartyPatientSecretFKeys": {
+    "skipEndpoint": true,
+    "hcPartyId": null, 
+    "secretFKeys": null, 
+    "healthElementId": null, 
+    "planOfActionId": null, 
+    "formTemplateId": null
+  },
+  "findDelegationsStubsByHCPartyPatientSecretFKeys": {
+    "skipEndpoint": true,
+    "hcPartyId": "a7dd149c-8977-4e74-9ba9-8bd143372bb4",
+    "secretFKeys": "fd8f697f-3eea-4701-8f69-7f3eea97013e"
+  },
+  "findFormTemplates": {
+    "skipEndpoint": true,
+    "loadLayout": true
+  },
+  "findFormTemplatesBySpeciality": {
+    "skipEndpoint": true,
+    "specialityCode": "deptgeneralpractice",
+    "loadLayout": true
+  },
+  "getChildren": {
+    "skipEndpoint": true,
+    "formId": null, 
+    "hcPartyId": null
+  },
+  "getChildrenForms": {
+    "skipEndpoint": true
+  },
+  "getForm": {
+    "skipEndpoint": true,
+    "formId": "00018982-33ef-4e09-8189-8233ef5e0935"
+  },
+  "getFormTemplate": {
+    "skipEndpoint": true,
+    "formTemplateId": "0762f19b-6886-4dfd-a2f1-9b68869dfda2"
+  },
+  "getFormTemplates": {
+    "skipEndpoint": true
+  },
+  "getFormTemplatesByGuid": {
+    "skipEndpoint": true,
+    "formTemplateGuid": "2c07b938-f6dd-4ba7-9d21-70824249936a",
+    "specialityCode": "deptgeneralpractice"
+  },
+  "getFormByLogicalUuid": {
+    "skipEndpoint": true
+  },
+  "getFormByUniqueId": {
+    "skipEndpoint": true
+  },
+  "getFormsByUniqueId": {
+    "skipEndpoint": true
+  },
+  "getForms": {
+    "skipEndpoint": true,
+    "body": {
+      "ids": [
+        "00018982-33ef-4e09-8189-8233ef5e0935",
+        "0023a21b-0e51-4a79-973f-fa07583f1fb5"
+      ]
+    }
+  },
+  "modifyForm": {
+    "skipEndpoint": true,
+    "body": {"id": "e283f27b-47d5-40a7-8154-d466a287ede8", "rev": "1-58f4a37b08ac594ea5eb99eeada26afa", "author": "ebd30407-9f33-4cd5-9999-079f334cd5e8", "responsible": "782f1bcd-9f3f-408a-af1b-cd9f3f908a98", "codes": [], "secretForeignKeys": [], "cryptedForeignKeys": {}, "delegations": {}, "encryptionKeys": {}, "dashboardIds": [], "java_type": "org.taktik.icure.entities.Form", "rev_history": {}, "descr": "testDescription"}
+  },
+  "modifyForms": {
+    "skipEndpoint": true,
+    "body": null
+  },
+  "newDelegations": {
+    "skipEndpoint": true,
+    "formId": null, 
+    "body": null
+  },
+  "setAttachmentMulti": {
+    "skipEndpoint": true,
+    "formTemplateId": null, 
+    "attachment": null
+  },
+  "setFormsDelegations": {
+    "skipEndpoint": true,
+    "body": null
+  },
+  "updateFormTemplate": {
+    "skipEndpoint": true,
+    "formTemplateId": null, 
+    "body": null
+  },
+  "getFormsByLogicalUuid": {
+    "skipEndpoint": true,
+    "logicalUuid": "f3022b9b-b08c-4d4d-b701-aa7cde00fb43"
+  },
+  "listFormsByHCPartyAndPatientForeignKeys": {
+    "skipEndpoint": true
+  },
+  "listFormsDelegationsStubsByHCPartyAndPatientForeignKeys": {
+    "skipEndpoint": true
+  },
+  "listFormTemplatesBySpeciality": {
+    "skipEndpoint": true
+  },
+  "newFormDelegations": {
+    "skipEndpoint": true
+  },
+  "setTemplateAttachmentMulti": {
+    "skipEndpoint": true
+  },
+  "fallback": {
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "beforeElements": {
+    "bodies": null
+  },
+  "afterElements": {
+    "family": null,
+    "deleteIds": null
+  },
+  "generateMedex": {
+    "body": null
+  },
+  "fallback": {
+  }
+}

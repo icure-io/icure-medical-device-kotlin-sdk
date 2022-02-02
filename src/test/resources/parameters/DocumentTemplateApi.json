@@ -1,0 +1,71 @@
+{
+  "beforeElements": {
+    "bodies": [
+      {"id": "3472f6b8-6bdc-4fa3-8574-2a1305a90ab1", "owner": "d8c2a571-4d93-4b85-886b-bba7cf7a4caa", "guid": "5b8f4af4-f1f7-46dd-99bd-99190f360dbf", "documentType": "template", "mainUti": "public.plain-text", "group": {"guid": "0bc921f1-76c5-4437-8a51-bbc4abc4292c", "name": "TEST"}, "name": "Demande de forfait palliatif (Prolongation)", "disabled": "disabled", "rev_history": {}, "attachmentId": "68f617fd-1a5b-42c1-935d-27892686b899", "_attachments": {"68f617fd-1a5b-42c1-935d-27892686b899": {"content_type": "text/plain", "revpos": 3, "digest": "md5-JVPQ5L3G3/ShQ5yNAIRiFQ==", "length": 1868, "stub": true}}},
+      {"id": "9cca43a8-8304-44ab-817d-afbfa2b299d2", "owner": "a5225e5e-2ae5-4dca-b420-1f377ca1cd20", "guid": "eeb9d8ad-afaf-42ce-86f5-fea2d8d6d02b", "documentType": "template", "mainUti": "public.plain-text", "group": {"guid": "57744829-f461-404c-a95d-f272b7b8b6c0", "name": "TEST"}, "name": "Demande de forfait palliatif (Prolongation)", "disabled": "disabled", "rev_history": {}},
+      {"id": "805c23ce-eaff-4a7d-a710-25c09d984871","owner":"3bf82b8c-72d1-4a8c-9667-b571c130f7a7","guid":"dbd6e451-5f76-4006-89d7-5581fc3886af","attachmentId":"56885a90-2cb7-4adc-8dcb-c6f6afbdc86b","documentType":"report","mainUti":"org.taktik.icure.report.v2","group":{"guid":"7b2c51cf-dfcc-4610-8234-842adcdef59e","name":"General"},"name":"Echelle de Katz","specialty":{"type":"CD-HCPARTY","code":"deptgeneralpractice","version":"1","rev_history":{}},"rev_history":{},"_attachments":{"56885a90-2cb7-4adc-8dcb-c6f6afbdc86b":{"content_type":"application/xml","revpos":3,"digest":"md5-2LUFvuu3B/G3T3lN5fJ4rA==","length":120429,"stub":true}}}
+    ]
+  },
+  "afterElements": {
+    "family": "base",
+    "deleteIds": ["3472f6b8-6bdc-4fa3-8574-2a1305a90ab1", "9cca43a8-8304-44ab-817d-afbfa2b299d2", "f9289273-b29c-4035-a842-a31bca865e00", "805c23ce-eaff-4a7d-a710-25c09d984871"]
+  },
+  "createDocumentTemplate": {
+    "documentTemplateDto": {"id": "f9289273-b29c-4035-a842-a31bca865e00", "owner": "e3522bd6-41b6-40b7-9dbd-d06b080394bf", "guid": "451c1f39-8389-4aa6-be0a-d2a3a7fe4ed8", "documentType": "template", "mainUti": "public.plain-text", "group": {"guid": "87b5718a-2e19-4ea9-b019-344b63ca3808", "name": "TEST"}, "name": "Demande de forfait palliatif (Prolongation)", "disabled": "disabled", "rev_history": {}}
+  },
+  "deleteDocumentTemplates": {
+    "listOfIdsDto": {
+      "ids": ["9cca43a8-8304-44ab-817d-afbfa2b299d2"]
+    }
+  },
+  "findAllDocumentTemplates": {
+  },
+  "listDocumentTemplates": {
+    "skipEndpoint": true
+  },
+  "listDocumentTemplatesByDocumentType": {
+    "skipEndpoint": true,
+    "documentTypeCode": "CD-HCPARTY"
+  },
+  "listDocumentTemplatesByDocumentTypeForCurrentUser": {
+    "skipEndpoint": true,
+    "documentTypeCode": "CD-HCPARTY"
+  },
+  "listDocumentTemplatesBySpeciality": {
+    "skipEndpoint": true,
+    "specialityCode": "deptgeneralpractice"
+  },
+  "getDocumentTemplateAttachment": {
+    "skipEndpoint": true,
+    "documentTemplateId": "3472f6b8-6bdc-4fa3-8574-2a1305a90ab1",
+    "attachmentId": "68f617fd-1a5b-42c1-935d-27892686b899"
+  },
+  "getAttachmentText": {
+    "skipEndpoint": true,
+    "documentTemplateId": "3472f6b8-6bdc-4fa3-8574-2a1305a90ab1",
+    "attachmentId": "68f617fd-1a5b-42c1-935d-27892686b899"
+  },
+  "getDocumentTemplate": {
+    "skipEndpoint": true,
+    "documentTemplateId": "805c23ce-eaff-4a7d-a710-25c09d984871"
+  },
+  "setDocumentTemplateAttachment": {
+    "skipEndpoint": true,
+    "documentTemplateId": "3472f6b8-6bdc-4fa3-8574-2a1305a90ab1",
+    "ioIcureKrakenClientInfrastructureByteArrayWrapper": ["aGVsbG8gd29ybGQ="]
+  },
+  "setDocumentTemplateAttachmentJson": {
+    "skipEndpoint": true,
+    "documentTemplateId": "3472f6b8-6bdc-4fa3-8574-2a1305a90ab1",
+    "byteArrayDto": {
+      "data":["aGVsbG8gd29ybGQ="]
+    }
+  },
+  "modifyDocumentTemplate": {
+    "autoRev": true,
+    "documentTemplateId": "9cca43a8-8304-44ab-817d-afbfa2b299d2",
+    "documentTemplateDto": {"id": "9cca43a8-8304-44ab-817d-afbfa2b299d2", "owner": "a5225e5e-2ae5-4dca-b420-1f377ca1cd20", "guid": "eeb9d8ad-afaf-42ce-86f5-fea2d8d6d02b", "documentType": "template", "mainUti": "public.plain-text", "group": {"guid": "57744829-f461-404c-a95d-f272b7b8b6c0", "name": "TEST"}, "name": "Demande de forfait palliatif (Prolongation)", "disabled": "disabled", "rev_history": {}}
+  },
+  "fallback": {
+  }
+}
