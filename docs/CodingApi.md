@@ -21,8 +21,8 @@ Create a Coding
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = CodingApi()
 val coding : Coding =  // Coding | 
@@ -66,8 +66,8 @@ Create a Coding
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = CodingApi()
 val coding : kotlin.collections.List<Coding> =  // kotlin.collections.List<Coding> | 
@@ -111,8 +111,8 @@ Delete a Coding
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = CodingApi()
 val id : kotlin.String = id_example // kotlin.String | 
@@ -156,8 +156,8 @@ Find Codings using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = CodingApi()
 val filter : Filter =  // Filter | 
@@ -201,8 +201,8 @@ Get a Coding
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = CodingApi()
 val id : kotlin.String = id_example // kotlin.String | 
@@ -246,8 +246,8 @@ Find Codings using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = CodingApi()
 val filter : Filter =  // Filter | 

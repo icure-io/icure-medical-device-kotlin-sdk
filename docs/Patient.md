@@ -51,7 +51,7 @@ Name | Type | Description | Notes
 **nationality** | **kotlin.String** | The nationality of the patient. |  [optional]
 **race** | **kotlin.String** | The race of the patient. |  [optional]
 **ethnicity** | **kotlin.String** | The ethnicity of the patient. |  [optional]
-**picture** | [**io.icure.kraken.client.infrastructure.ByteArrayWrapper**](io.icure.kraken.client.infrastructure.ByteArrayWrapper.md) | A picture usually saved in JPEG format. |  [optional]
+**picture** | [**io.icure.md.client.infrastructure.ByteArrayWrapper**](io.icure.md.client.infrastructure.ByteArrayWrapper.md) | A picture usually saved in JPEG format. |  [optional]
 **externalId** | **kotlin.String** | An external (from another source) id with no guarantee or requirement for unicity . |  [optional]
 
 

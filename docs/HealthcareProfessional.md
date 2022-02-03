@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **civility** | **kotlin.String** | Mr., Ms., Pr., Dr. ... |  [optional]
 **speciality** | **kotlin.String** | Medical specialty of the healthcare party |  [optional]
 **parentId** | **kotlin.String** | Id of parent of the user representing the healthcare party. |  [optional]
-**picture** | [**io.icure.kraken.client.infrastructure.ByteArrayWrapper**](io.icure.kraken.client.infrastructure.ByteArrayWrapper.md) | A picture usually saved in JPEG format. |  [optional]
+**picture** | [**io.icure.md.client.infrastructure.ByteArrayWrapper**](io.icure.md.client.infrastructure.ByteArrayWrapper.md) | A picture usually saved in JPEG format. |  [optional]
 **notes** | **kotlin.String** | Text notes. |  [optional]
 
 

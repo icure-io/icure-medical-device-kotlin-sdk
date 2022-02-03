@@ -26,8 +26,8 @@ Create a DataSample
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
 val dataSample : DataSample =  // DataSample | 
@@ -71,8 +71,8 @@ Create a batch of Data samples
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
 val dataSample : kotlin.collections.List<DataSample> =  // kotlin.collections.List<DataSample> | 
@@ -116,8 +116,8 @@ Delete a Data sample attachment
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
 val id : kotlin.String = id_example // kotlin.String | 
@@ -163,8 +163,8 @@ Delete a DataSample
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
 val id : kotlin.String = id_example // kotlin.String | 
@@ -208,8 +208,8 @@ Delete a batch of Data samples
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
 val ids : kotlin.collections.List<kotlin.String> =  // kotlin.collections.List<kotlin.String> | 
@@ -253,8 +253,8 @@ Find Data samples using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
 val filter : Filter =  // Filter | 
@@ -298,8 +298,8 @@ Get a DataSample
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
 val id : kotlin.String = id_example // kotlin.String | 
@@ -343,8 +343,8 @@ Get a DataSample attachment metadata
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
 val id : kotlin.String = id_example // kotlin.String | 
@@ -390,8 +390,8 @@ Get a Data sample attachment metadata
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
 val id : kotlin.String = id_example // kotlin.String | 
@@ -439,8 +439,8 @@ Find Data samples using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
 val filter : Filter =  // Filter | 
@@ -484,8 +484,8 @@ Create a DataSample
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
 val id : kotlin.String = id_example // kotlin.String | 

@@ -21,8 +21,8 @@ Create a Healthcare Element
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = HealthcareElementApi()
 val healthcareElement : HealthcareElement =  // HealthcareElement | 
@@ -66,8 +66,8 @@ Create a Healthcare Element
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = HealthcareElementApi()
 val healthcareElement : kotlin.collections.List<HealthcareElement> =  // kotlin.collections.List<HealthcareElement> | 
@@ -111,8 +111,8 @@ Delete a Healthcare Element
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = HealthcareElementApi()
 val id : kotlin.String = id_example // kotlin.String | 
@@ -156,8 +156,8 @@ Find Healthcare Elements using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = HealthcareElementApi()
 val filter : Filter =  // Filter | 
@@ -201,8 +201,8 @@ Get a Healthcare Element
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = HealthcareElementApi()
 val id : kotlin.String = id_example // kotlin.String | 
@@ -246,8 +246,8 @@ Find Healthcare Elements using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = HealthcareElementApi()
 val filter : Filter =  // Filter | 

@@ -1,4 +1,4 @@
-package io.icure.md.client.infrastructure
+package io.icure.kraken.client.infrastructure
 
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.core.JsonParser

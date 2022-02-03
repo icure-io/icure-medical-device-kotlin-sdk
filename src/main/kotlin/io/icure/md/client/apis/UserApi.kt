@@ -18,8 +18,8 @@ import io.icure.md.client.models.User
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-import io.icure.kraken.client.infrastructure.ClientException
-import io.icure.kraken.client.infrastructure.ServerException
+import io.icure.md.client.infrastructure.ClientException
+import io.icure.md.client.infrastructure.ServerException
 
 import kotlinx.coroutines.flow.flowOf
 import java.nio.ByteBuffer
@@ -37,7 +37,7 @@ interface UserApi {
     * Find Users using a filter
     *
     * @param xIcureToken
-    * @param id
+    * @param userId
     * @return kotlin.Boolean
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
@@ -45,7 +45,7 @@ interface UserApi {
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun checkTokenValidity(xIcureToken: kotlin.String, id: kotlin.String) : kotlin.Boolean
+    suspend fun checkTokenValidity(userId: kotlin.String, token: kotlin.String) : kotlin.Boolean
 
     /**
     * Create a User
@@ -63,7 +63,7 @@ interface UserApi {
     /**
     * Find Users using a filter
     *
-    * @param id
+    * @param userId
     * @return kotlin.String
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
@@ -71,12 +71,12 @@ interface UserApi {
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun createToken(id: kotlin.String) : kotlin.String
+    suspend fun createToken(userId: kotlin.String) : kotlin.String
 
     /**
     * Delete a User
     *
-    * @param id
+    * @param userId
     * @return kotlin.String
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
@@ -84,7 +84,7 @@ interface UserApi {
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun deleteUser(id: kotlin.String) : kotlin.String
+    suspend fun deleteUser(userId: kotlin.String) : kotlin.String
 
     /**
     * Find Users using a filter
@@ -114,7 +114,7 @@ interface UserApi {
     /**
     * Get a User
     *
-    * @param id
+    * @param userId
     * @return User
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
@@ -122,7 +122,7 @@ interface UserApi {
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun getUser(id: kotlin.String) : User
+    suspend fun getUser(userId: kotlin.String) : User
 
     /**
     * Find Users using a filter

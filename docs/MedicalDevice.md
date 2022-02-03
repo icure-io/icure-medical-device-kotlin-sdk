@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 **model** | **kotlin.String** |  |  [optional]
 **serialNumber** | **kotlin.String** |  |  [optional]
 **parentId** | **kotlin.String** |  |  [optional]
-**picture** | [**kotlin.collections.List&lt;io.icure.kraken.client.infrastructure.ByteArrayWrapper&gt;**](io.icure.kraken.client.infrastructure.ByteArrayWrapper.md) |  |  [optional]
+**picture** | [**kotlin.collections.List&lt;io.icure.md.client.infrastructure.ByteArrayWrapper&gt;**](io.icure.md.client.infrastructure.ByteArrayWrapper.md) |  |  [optional]
 
 
 
