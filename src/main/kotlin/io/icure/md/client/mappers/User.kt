@@ -20,7 +20,6 @@ fun UserDto.toUser() = User(
             groupId = this.groupId,
             healthcarePartyId = this.healthcarePartyId,
             patientId = this.patientId,
-            deviceId = this.deviceId,
             email = this.email,
             mobilePhone = this.mobilePhone,
 )
@@ -42,7 +41,6 @@ fun User.toUserDto() = UserDto(
         groupId = this.groupId,
         healthcarePartyId = this.healthcarePartyId,
         patientId = this.patientId,
-        deviceId = this.deviceId,
         email = this.email,
         mobilePhone = this.mobilePhone,
 )
