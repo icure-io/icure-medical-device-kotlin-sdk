@@ -2,6 +2,7 @@ package io.icure.md.client.mappers
 
 import io.icure.kraken.client.models.HealthElementDto
 import io.icure.md.client.models.HealthcareElement
+import java.util.*
 
 fun HealthElementDto.toHealthcareElement() = HealthcareElement(
     id = this.id,
@@ -24,18 +25,19 @@ fun HealthElementDto.toHealthcareElement() = HealthcareElement(
     note = this.note,
 )
 
-fun HealthcareElement.toHealthcareElementDto() = HealthElementDto(
-    id = this.id,
-    identifiers = this.identifiers.map { it.toIdentifierDto() },
-    tags = this.tags.map { it.toCodeStubDto() },
-    codes = this.codes.map { it.toCodeStubDto() },
-    rev = this.rev,
-    created = this.created,
-    modified = this.modified,
-    author = this.author,
-    responsible = this.responsible,
-    medicalLocationId = this.medicalLocationId,
-    endOfLife = this.endOfLife,
+fun HealthcareElement.toHealthcareElementDto(healthcareElementId: String = UUID.randomUUID().toString()) =
+    HealthElementDto(
+        id = healthcareElementId,
+        identifiers = this.identifiers.map { it.toIdentifierDto() },
+        tags = this.tags.map { it.toCodeStubDto() },
+        codes = this.codes.map { it.toCodeStubDto() },
+        rev = this.rev,
+        created = this.created,
+        modified = this.modified,
+        author = this.author,
+        responsible = this.responsible,
+        medicalLocationId = this.medicalLocationId,
+        endOfLife = this.endOfLife,
     deletionDate = this.deletionDate,
     healthElementId = this.healthElementId,
     valueDate = this.valueDate,
