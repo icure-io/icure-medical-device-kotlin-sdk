@@ -56,6 +56,7 @@ dependencies {
     implementation(group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-jsr310", version = jacksonVersion)
 
     implementation(group = "io.icure", name = "async-jackson-http-client", version = "0.1.15-9cf193799d")
+    implementation(group = "io.icure", name = "icure-reactive-kotlin-client", version = "0.1.273-6aa49f7d45")
 
     implementation(group = "javax.inject", name = "javax.inject", version = "1")
     implementation(group = "org.mapstruct", name = "mapstruct", version = "1.3.1.Final")
@@ -111,9 +112,9 @@ tasks.register("apiGenerate", Jar::class) {
                 "-g", "kotlin",
                 "-o", "$rootDir",
 
-                "--model-package", "io.icure.kraken.client.models",
-                "--api-package", "io.icure.kraken.client.apis",
-                "--package-name", "io.icure.kraken.client",
+                "--model-package", "io.icure.md.client.models",
+                "--api-package", "io.icure.md.client.apis",
+                "--package-name", "io.icure.md.client",
                 "--group-id", "io.icure",
                 "--artifact-id", project.name,
                 "--artifact-version", "0.0.1-SNAPSHOT",
