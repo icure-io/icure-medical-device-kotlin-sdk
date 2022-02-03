@@ -2,6 +2,7 @@ package io.icure.md.client.mappers
 
 import io.icure.kraken.client.models.DocumentDto
 import io.icure.md.client.models.Document
+import java.util.*
 
 fun DocumentDto.toDocument() = Document(
     id = this.id,
@@ -27,8 +28,8 @@ fun DocumentDto.toDocument() = Document(
     attachmentId = this.attachmentId,
 )
 
-fun Document.toDocumentDto() = DocumentDto(
-    id = this.id,
+fun Document.toDocumentDto(documentId: String = UUID.randomUUID().toString()) = DocumentDto(
+    id = documentId,
     tags = this.labels.map { it.toCodeStubDto() },
     codes = this.codes.map { it.toCodeStubDto() },
     otherUtis = this.otherUtis,

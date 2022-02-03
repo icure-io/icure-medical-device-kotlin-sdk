@@ -6,6 +6,7 @@ import io.icure.kraken.client.models.decrypted.ServiceDto
 import io.icure.md.client.models.Content
 import io.icure.md.client.models.DataSample
 import io.icure.md.client.models.Measure
+import java.util.*
 
 fun ServiceDto.toDataSample(): DataSample = DataSample(
     id = this.id,
@@ -59,8 +60,8 @@ private fun MeasureDto.toMeasure() = Measure(
     comparator = this.comparator,
 )
 
-fun DataSample.toServiceDto(): ServiceDto = ServiceDto(
-    id = this.id,
+fun DataSample.toServiceDto(dataSampleId: String = UUID.randomUUID().toString()): ServiceDto = ServiceDto(
+    id = dataSampleId,
     identifier = this.identifier.map { it.toIdentifierDto() },
     content = this.content.mapValues { it.value.toContentDto() },
     qualifiedLinks = this.qualifiedLinks.map { (k, v) -> ServiceDto.LinkQualification.valueOf(k) to v }.toMap(),
