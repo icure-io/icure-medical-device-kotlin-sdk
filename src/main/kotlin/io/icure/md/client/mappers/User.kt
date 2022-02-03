@@ -24,3 +24,25 @@ fun UserDto.toUser() = User(
             email = this.email,
             mobilePhone = this.mobilePhone,
 )
+
+fun User.toUserDto() = UserDto(
+        id = this.id,
+        properties = this.properties.map { it.toPropertyStubDto() },
+        roles = this.roles,
+        autoDelegations = this.autoDelegations,
+        authenticationTokens = this.authenticationTokens.mapValues { (k,v) -> v.toAuthenticationTokenDto() },
+        rev = this.rev,
+        deletionDate = this.deletionDate,
+        created = this.created,
+        name = this.name,
+        login = this.login,
+        passwordHash = this.passwordHash,
+        secret = this.secret,
+        use2fa = this.use2fa,
+        groupId = this.groupId,
+        healthcarePartyId = this.healthcarePartyId,
+        patientId = this.patientId,
+        deviceId = this.deviceId,
+        email = this.email,
+        mobilePhone = this.mobilePhone,
+)

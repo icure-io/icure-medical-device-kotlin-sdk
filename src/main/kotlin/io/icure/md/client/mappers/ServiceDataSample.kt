@@ -58,3 +58,55 @@ private fun MeasureDto.toMeasure() = Measure(
     comment = this.comment,
     comparator = this.comparator,
 )
+
+fun DataSample.toServiceDto(): ServiceDto = ServiceDto(
+    id = this.id,
+    identifier = this.identifier.map { it.toIdentifierDto() },
+    content = this.content.mapValues { it.value.toContentDto() },
+    qualifiedLinks = this.qualifiedLinks.map { (k,v) -> ServiceDto.LinkQualification.valueOf(k) to v}.toMap(),
+    codes = this.codes.map { it.toCodeStubDto() },
+    tags = this.labels.map { it.toCodeStubDto() },
+    transactionId = this.transactionId,
+    contactId = this.batchId,
+    healthElementsIds = this.healthElementsIds,
+    formIds = this.canvasesIds,
+    index = this.index,
+    valueDate = this.valueDate,
+    openingDate = this.openingDate,
+    closingDate = this.closingDate,
+    created = this.created,
+    modified = this.modified,
+    endOfLife = this.endOfLife,
+    author = this.author,
+    responsible = this.responsible,
+    comment = this.comment
+)
+
+private fun Content.toContentDto(): ContentDto = ContentDto(
+    stringValue = this.stringValue,
+    numberValue = this.numberValue,
+    booleanValue = this.booleanValue,
+    instantValue = this.instantValue,
+    fuzzyDateValue = this.fuzzyDateValue,
+    binaryValue = this.binaryValue,
+    documentId = this.documentId,
+    measureValue = this.measureValue?.toMeasureDto(),
+    timeSeries = this.timeSeries?.toTimeSeriesDto(),
+    compoundValue = this.compoundValue?.map { it.toServiceDto() },
+    ratio = this.ratio?.map { it.toMeasureDto() },
+    range = this.ratio?.map { it.toMeasureDto() },
+)
+
+private fun Measure.toMeasureDto() = MeasureDto(
+    `value` = this.`value`,
+    min = this.min,
+    max = this.max,
+    ref = this.ref,
+    severity = this.severity,
+    severityCode = this.severityCode,
+    evolution = this.evolution,
+    unit = this.unit,
+    unitCodes = this.unitCodes?.map { it.toCodeStubDto() }?.toSet(),
+    comment = this.comment,
+    comparator = this.comparator,
+)

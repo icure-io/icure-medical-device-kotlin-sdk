@@ -9,3 +9,10 @@ fun PatientHealthCarePartyDto.toPatientHealthCareParty() = PatientHealthCarePart
 )
 
 private fun PatientHealthCarePartyDto.Type.toPatientHealthCarePartyType() = PatientHealthCareParty.Type.valueOf(this.name)
+
+fun PatientHealthCareParty.toPatientHealthCareParty() = PatientHealthCarePartyDto(
+    type = this.type.toPatientHealthCarePartyDto(),
+    healthcarePartyId = this.healthcarePartyId,
+)
+
+private fun PatientHealthCareParty.Type.toPatientHealthCarePartyDto() = PatientHealthCarePartyDto.Type.valueOf(this.name)

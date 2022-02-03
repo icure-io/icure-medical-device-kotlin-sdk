@@ -13,3 +13,14 @@ fun CodeDto.toCoding() = Coding(
     version = this.version,
     description = this.label,
 )
+
+fun Coding.toCodeDto() = CodeDto(
+    id = this.id,
+    qualifiedLinks = this.qualifiedLinks,
+    searchTerms = this.searchTerms,
+    rev = this.rev,
+    type = this.type,
+    code = this.code,
+    version = this.version,
+    label = this.description,
+)

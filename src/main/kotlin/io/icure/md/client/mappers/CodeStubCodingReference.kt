@@ -9,3 +9,10 @@ fun CodeStubDto.toCodingReference() = CodingReference(
     code = this.code,
     version = this.version,
 )
+
+fun CodingReference.toCodeStubDto() = CodeStubDto(
+    id = this.id,
+    type = this.type,
+    code = this.code,
+    version = this.version,
+)

@@ -8,3 +8,9 @@ fun AuthenticationTokenDto.toAuthenticationToken() = AuthenticationToken(
     creationTime = this.creationTime,
     validity = this.validity,
 )
+
+fun AuthenticationToken.toAuthenticationTokenDto() = AuthenticationTokenDto(
+    token = this.token,
+    creationTime = this.creationTime,
+    validity = this.validity,
+)

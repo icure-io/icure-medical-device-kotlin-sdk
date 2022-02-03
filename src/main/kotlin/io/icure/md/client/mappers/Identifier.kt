@@ -12,3 +12,13 @@ fun IdentifierDto.toIdentifier() = Identifier(
     type = this.type?.toCodingReference(),
     use = this.use,
 )
+
+fun Identifier.toIdentifierDto() = IdentifierDto(
+    id = this.id,
+    assigner = this.assigner,
+    start = this.start,
+    end = this.end,
+    system = this.system,
+    type = this.type?.toCodeStubDto(),
+    use = this.use,
+)

@@ -9,3 +9,10 @@ fun PropertyStubDto.toProperty() = Property(
     typedValue = this.typedValue?.toTypedValueObject(),
     deleted = this.deletionDate,
 )
+
+fun Property.toPropertyStubDto() = PropertyStubDto(
+    id = this.id,
+    type = this.type?.toPropertyTypeStubDto(),
+    typedValue = this.typedValue?.toTypedValueObject(),
+    deletionDate = this.deleted,
+)
