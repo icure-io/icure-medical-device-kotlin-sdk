@@ -9,7 +9,7 @@ fun UserDto.toUser() = User(
     properties = this.properties.map { it.toProperty() },
     roles = this.roles,
     autoDelegations = this.autoDelegations,
-    authenticationTokens = this.authenticationTokens.mapValues { (k,v) -> v.toAuthenticationToken() },
+    authenticationTokens = this.authenticationTokens.mapValues { (k, v) -> v.toAuthenticationToken() },
     rev = this.rev,
     deletionDate = this.deletionDate,
     created = this.created,
@@ -27,7 +27,7 @@ fun UserDto.toUser() = User(
 )
 
 fun User.toUserDto(id: String = UUID.randomUUID().toString()) = UserDto(
-        id = id,
+    id = id,
     properties = this.properties.map { it.toPropertyStubDto() },
     roles = this.roles,
     autoDelegations = this.autoDelegations,
