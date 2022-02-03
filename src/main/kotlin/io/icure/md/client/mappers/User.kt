@@ -26,8 +26,14 @@ fun UserDto.toUser() = User(
     mobilePhone = this.mobilePhone,
 )
 
-fun User.toUserDto(id: String = UUID.randomUUID().toString()) = UserDto(
-    id = id,
+fun User.toUserDto() = UserDto(
+    id = this.id?.also {
+        try {
+            UUID.fromString(it)
+        } catch (e: IllegalArgumentException) {
+            throw IllegalArgumentException("Invalid id, id must be a valid UUID")
+        }
+    } ?: UUID.randomUUID().toString(),
     properties = this.properties.map { it.toPropertyStubDto() },
     roles = this.roles,
     autoDelegations = this.autoDelegations,
