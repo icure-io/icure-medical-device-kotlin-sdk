@@ -29,9 +29,8 @@ interface HealthcareProfessionalApi {
      * Create a HealthcareProfessional
      *
      * @param healthcareProfessional
-     * @return HealthcareProfessional
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -42,9 +41,8 @@ interface HealthcareProfessionalApi {
      * Delete a HealthcareProfessional
      *
      * @param id
-     * @return kotlin.String
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -55,9 +53,8 @@ interface HealthcareProfessionalApi {
      * Find Healthcare Professional using a filter
      *
      * @param filter
-     * @return PaginatedListHealthcareProfessional
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -68,9 +65,8 @@ interface HealthcareProfessionalApi {
      * Get a HealthcareProfessional
      *
      * @param id
-     * @return HealthcareProfessional
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -81,9 +77,8 @@ interface HealthcareProfessionalApi {
      * Find Data samples using a filter
      *
      * @param filter
-     * @return kotlin.collections.List<kotlin.String>
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")

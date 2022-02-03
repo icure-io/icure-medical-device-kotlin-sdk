@@ -299,7 +299,7 @@ Each user is uniquely identified by a user id. The user id is a UUID. This userI
 //import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
-val userId : kotlin.String = userId_example // kotlin.String | 
+val userId : kotlin.String = userId_example // kotlin.String | The UUID that identifies the user uniquely
 try {
     val result : User = apiInstance.getUser(userId)
     println(result)
@@ -316,7 +316,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | **kotlin.String**|  |
+ **userId** | **kotlin.String**| The UUID that identifies the user uniquely |
 
 ### Return type
 

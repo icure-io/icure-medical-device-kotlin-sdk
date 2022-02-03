@@ -29,9 +29,8 @@ interface DeviceApi {
      * Create or update a Device
      *
      * @param medicalDevice
-     * @return MedicalDevice
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -42,9 +41,8 @@ interface DeviceApi {
      * Create or update a batch of Devices
      *
      * @param medicalDevice
-     * @return kotlin.collections.List<MedicalDevice>
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -55,9 +53,8 @@ interface DeviceApi {
      * Delete a Device
      *
      * @param medicalDeviceId
-     * @return kotlin.String
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -68,9 +65,8 @@ interface DeviceApi {
      * Delete Devices
      *
      * @param requestBody
-     * @return kotlin.collections.List<kotlin.String>
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -81,9 +77,8 @@ interface DeviceApi {
      * Find Devices using a filter
      *
      * @param filter
-     * @return PaginatedListMedicalDevice
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -94,9 +89,8 @@ interface DeviceApi {
      * Get a Medical Device
      *
      * @param medicalDeviceId
-     * @return MedicalDevice
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -107,9 +101,8 @@ interface DeviceApi {
      * Find Devices using a filter
      *
      * @param filter
-     * @return kotlin.collections.List<kotlin.String>
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")

@@ -29,9 +29,8 @@ interface CodingApi {
      * Create a Coding
      *
      * @param coding
-     * @return Coding
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -42,9 +41,8 @@ interface CodingApi {
      * Create a Coding
      *
      * @param coding
-     * @return kotlin.collections.List<Coding>
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -55,9 +53,8 @@ interface CodingApi {
      * Delete a Coding
      *
      * @param id
-     * @return kotlin.String
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -68,9 +65,8 @@ interface CodingApi {
      * Find Codings using a filter
      *
      * @param filter
-     * @return PaginatedListCoding
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -81,9 +77,8 @@ interface CodingApi {
      * Get a Coding
      *
      * @param id
-     * @return Coding
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -94,9 +89,8 @@ interface CodingApi {
      * Find Codings using a filter
      *
      * @param filter
-     * @return kotlin.collections.List<kotlin.String>
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
