@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
 
 /**
- *
+ * The user that must be created in the database.
  *
  * @param id the Id of the user. We encourage using either a v4 UUID or a HL7 Id.
  * @param rev the revision of the user in the database, used for conflict management / optimistic locking.

@@ -1,6 +1,6 @@
 {{>licenseInfo}}
 
-package io.icure.kraken.client.infrastructure
+package {{package}}.infrastructure
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
@@ -43,7 +43,6 @@ class TestUtils {
                 override fun setupModule(context: SetupContext?) {
                     addDeserializer(ByteArrayWrapper::class.java, ByteArrayWrapperDeserializer())
                     addSerializer(ByteArrayWrapper::class.java, ByteArrayWrapperSerializer())
-                    addDeserializer(AbstractFilterDto::class.java, FilterDeserializer())
                     super.setupModule(context)
                 }
             })
