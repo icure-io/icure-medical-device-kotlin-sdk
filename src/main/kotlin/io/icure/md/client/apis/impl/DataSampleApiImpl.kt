@@ -87,7 +87,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         dataSamples: List<DataSample>,
         existingContact: ContactDto? = null
     ): ContactDto {
-        val servicesToCreate = dataSamples.map { it.toServiceDto(it.id ?: UUID.randomUUID().toString()) }
+        val servicesToCreate = dataSamples.map { it.toServiceDto() }
         val baseContact =
             existingContact?.copy(id = UUID.randomUUID().toString(), rev = null, modified = System.currentTimeMillis())
                 ?: ContactDto(id = UUID.randomUUID().toString())
