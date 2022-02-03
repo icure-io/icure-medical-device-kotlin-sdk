@@ -1,24 +1,26 @@
 # UserApi
 
-All URIs are relative to *http://127.0.0.1:8912*
+All URIs are relative to *http://localhost:8912*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**checkTokenValidity**](UserApi.md#checkTokenValidity) | **GET** /rest/v2/user/token/{userId} | Find Users using a filter
-[**createOrModifyUser**](UserApi.md#createOrModifyUser) | **PUT** /rest/v2/user | Create a User
-[**createToken**](UserApi.md#createToken) | **POST** /rest/v2/user/token/{userId} | Find Users using a filter
-[**deleteUser**](UserApi.md#deleteUser) | **DELETE** /rest/v2/user/{userId} | Delete a User
-[**filterUser**](UserApi.md#filterUser) | **POST** /rest/v2/user/filter | Find Users using a filter
+[**checkTokenValidity**](UserApi.md#checkTokenValidity) | **GET** /rest/v2/user/token/{userId} | Check token validity for a user.
+[**createOrModifyUser**](UserApi.md#createOrModifyUser) | **PUT** /rest/v2/user | Create a new user or modify an existing one.
+[**createToken**](UserApi.md#createToken) | **POST** /rest/v2/user/token/{userId} | Create a token for a user.
+[**deleteUser**](UserApi.md#deleteUser) | **DELETE** /rest/v2/user/{userId} | Delete an existing user.
+[**filterUsers**](UserApi.md#filterUsers) | **POST** /rest/v2/user/filter | Load users from the database by filtering them using the provided Filter.
 [**getLoggedUser**](UserApi.md#getLoggedUser) | **GET** /rest/v2/user | Get the details of the logged User.
 [**getUser**](UserApi.md#getUser) | **GET** /rest/v2/user/{userId} | Get a User by id.
-[**matchUser**](UserApi.md#matchUser) | **POST** /rest/v2/user/match | Find Users using a filter
+[**matchUsers**](UserApi.md#matchUsers) | **POST** /rest/v2/user/match | Load user ids from the database by filtering them using the provided Filter.
 
 
 <a name="checkTokenValidity"></a>
 # **checkTokenValidity**
-> kotlin.Boolean checkTokenValidity(xIcureToken, userId)
+> kotlin.Boolean checkTokenValidity(userId, token)
 
-Find Users using a filter
+Check token validity for a user.
+
+Checks that the provided token is (still) valid for the provided user id (or user login).
 
 ### Example
 ```kotlin
@@ -27,10 +29,10 @@ Find Users using a filter
 //import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
-val xIcureToken : kotlin.String = xIcureToken_example // kotlin.String | 
-val userId : kotlin.String = userId_example // kotlin.String | 
+val userId : kotlin.String = userId_example // kotlin.String | The UUID that identifies the user uniquely
+val token : kotlin.String = token_example // kotlin.String | The token that will be checked
 try {
-    val result : kotlin.Boolean = apiInstance.checkTokenValidity(xIcureToken, userId)
+    val result : kotlin.Boolean = apiInstance.checkTokenValidity(userId, token)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling UserApi#checkTokenValidity")
@@ -45,8 +47,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xIcureToken** | **kotlin.String**|  |
- **userId** | **kotlin.String**|  |
+ **userId** | **kotlin.String**| The UUID that identifies the user uniquely |
+ **token** | **kotlin.String**| The token that will be checked |
 
 ### Return type
 
@@ -65,7 +67,9 @@ No authorization required
 # **createOrModifyUser**
 > User createOrModifyUser(user)
 
-Create a User
+Create a new user or modify an existing one.
+
+A user must have a login, an email or a mobilePhone defined, a user should be linked to either a Healthcare Professional, a Patient or a Device. When modifying an user, you must ensure that the rev obtained when getting or creating the user is present as the rev is used to guarantee that the user has not been modified by a third party.
 
 ### Example
 ```kotlin
@@ -110,7 +114,9 @@ No authorization required
 # **createToken**
 > kotlin.String createToken(userId)
 
-Find Users using a filter
+Create a token for a user.
+
+A token is used to authenticate the user. It is just like a password but it is destined to be used by programs instead of humans. Tokens have a limited validity period (one month).
 
 ### Example
 ```kotlin
@@ -119,7 +125,7 @@ Find Users using a filter
 //import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
-val userId : kotlin.String = userId_example // kotlin.String | 
+val userId : kotlin.String = userId_example // kotlin.String | The UUID that identifies the user uniquely
 try {
     val result : kotlin.String = apiInstance.createToken(userId)
     println(result)
@@ -136,7 +142,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | **kotlin.String**|  |
+ **userId** | **kotlin.String**| The UUID that identifies the user uniquely |
 
 ### Return type
 
@@ -155,7 +161,9 @@ No authorization required
 # **deleteUser**
 > kotlin.String deleteUser(userId)
 
-Delete a User
+Delete an existing user.
+
+Deletes the user identified by the provided unique userId.
 
 ### Example
 ```kotlin
@@ -164,7 +172,7 @@ Delete a User
 //import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
-val userId : kotlin.String = userId_example // kotlin.String | 
+val userId : kotlin.String = userId_example // kotlin.String | The UUID that identifies the user to be deleted uniquely
 try {
     val result : kotlin.String = apiInstance.deleteUser(userId)
     println(result)
@@ -181,7 +189,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | **kotlin.String**|  |
+ **userId** | **kotlin.String**| The UUID that identifies the user to be deleted uniquely |
 
 ### Return type
 
@@ -196,11 +204,13 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: */*
 
-<a name="filterUser"></a>
-# **filterUser**
-> PaginatedListUser filterUser(filter)
+<a name="filterUsers"></a>
+# **filterUsers**
+> PaginatedListUser filterUsers(filter, nextUserId, limit)
 
-Find Users using a filter
+Load users from the database by filtering them using the provided Filter.
+
+Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for Users are AllUsersFilter and UsersByIdsFilter. This method returns a paginated list of users (with a cursor that lets you query the following items).
 
 ### Example
 ```kotlin
@@ -209,15 +219,17 @@ Find Users using a filter
 //import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
-val filter : Filter =  // Filter | 
+val filter : Filter =  // Filter | The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+val nextUserId : kotlin.String = nextUserId_example // kotlin.String | The id of the first User in the next page
+val limit : kotlin.Int = 56 // kotlin.Int | The number of users to return in the queried page
 try {
-    val result : PaginatedListUser = apiInstance.filterUser(filter)
+    val result : PaginatedListUser = apiInstance.filterUsers(filter, nextUserId, limit)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling UserApi#filterUser")
+    println("4xx response calling UserApi#filterUsers")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling UserApi#filterUser")
+    println("5xx response calling UserApi#filterUsers")
     e.printStackTrace()
 }
 ```
@@ -226,7 +238,9 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | [**Filter**](Filter.md)|  |
+ **filter** | [**Filter**](Filter.md)| The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill |
+ **nextUserId** | **kotlin.String**| The id of the first User in the next page | [optional]
+ **limit** | **kotlin.Int**| The number of users to return in the queried page | [optional]
 
 ### Return type
 
@@ -331,11 +345,13 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: */*
 
-<a name="matchUser"></a>
-# **matchUser**
-> kotlin.collections.List&lt;kotlin.String&gt; matchUser(filter)
+<a name="matchUsers"></a>
+# **matchUsers**
+> kotlin.collections.List&lt;kotlin.String&gt; matchUsers(filter)
 
-Find Users using a filter
+Load user ids from the database by filtering them using the provided Filter.
+
+Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for Users are AllUsersFilter and UsersByIdsFilter. This method returns the list of the ids of the users matching the filter.
 
 ### Example
 ```kotlin
@@ -344,15 +360,15 @@ Find Users using a filter
 //import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
-val filter : Filter =  // Filter | 
+val filter : Filter =  // Filter | The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
 try {
-    val result : kotlin.collections.List<kotlin.String> = apiInstance.matchUser(filter)
+    val result : kotlin.collections.List<kotlin.String> = apiInstance.matchUsers(filter)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling UserApi#matchUser")
+    println("4xx response calling UserApi#matchUsers")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling UserApi#matchUser")
+    println("5xx response calling UserApi#matchUsers")
     e.printStackTrace()
 }
 ```
@@ -361,7 +377,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | [**Filter**](Filter.md)|  |
+ **filter** | [**Filter**](Filter.md)| The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill |
 
 ### Return type
 

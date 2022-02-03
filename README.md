@@ -31,7 +31,7 @@ This runs all tests and packages the library.
 <a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://127.0.0.1:8912*
+All URIs are relative to *http://localhost:8912*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -52,13 +52,13 @@ Class | Method | HTTP request | Description
 *DataSampleApi* | [**getDataSampleAttachmentContent**](docs/DataSampleApi.md#getdatasampleattachmentcontent) | **GET** /rest/v2/data/sample/{id}/attachment/{documentId}/{attachmentId} | Get a Data sample attachment metadata
 *DataSampleApi* | [**matchDataSample**](docs/DataSampleApi.md#matchdatasample) | **POST** /rest/v2/data/sample/match | Find Data samples using a filter
 *DataSampleApi* | [**setDataSampleAttachment**](docs/DataSampleApi.md#setdatasampleattachment) | **PUT** /rest/v2/data/sample/{id}/attachment/{documentId} | Create a DataSample
-*DeviceApi* | [**createOrModifyMedicalDevice**](docs/DeviceApi.md#createormodifymedicaldevice) | **PUT** /rest/v2/medical/device | Create or update a Device
-*DeviceApi* | [**createOrModifyMedicalDevices**](docs/DeviceApi.md#createormodifymedicaldevices) | **PUT** /rest/v2/medical/device/batch | Create or update a batch of Devices
-*DeviceApi* | [**deleteMedicalDevice**](docs/DeviceApi.md#deletemedicaldevice) | **DELETE** /rest/v2/medical/device/{medicalDeviceId} | Delete a Device
-*DeviceApi* | [**deleteMedicalDevices**](docs/DeviceApi.md#deletemedicaldevices) | **POST** /rest/v2/medical/device/batch | Delete Devices
-*DeviceApi* | [**filterMedicalDevices**](docs/DeviceApi.md#filtermedicaldevices) | **POST** /rest/v2/medical/device/filter | Find Devices using a filter
+*DeviceApi* | [**createOrModifyMedicalDevice**](docs/DeviceApi.md#createormodifymedicaldevice) | **PUT** /rest/v2/medical/device | Create or update a [MedicalDevice]
+*DeviceApi* | [**createOrModifyMedicalDevices**](docs/DeviceApi.md#createormodifymedicaldevices) | **PUT** /rest/v2/medical/device/batch | Create or update a batch of [MedicalDevice]
+*DeviceApi* | [**deleteMedicalDevice**](docs/DeviceApi.md#deletemedicaldevice) | **DELETE** /rest/v2/medical/device/{medicalDeviceId} | Delete a [MedicalDevice]
+*DeviceApi* | [**deleteMedicalDevices**](docs/DeviceApi.md#deletemedicaldevices) | **POST** /rest/v2/medical/device/batch | Delete a batch of [MedicalDevice]
+*DeviceApi* | [**filterMedicalDevices**](docs/DeviceApi.md#filtermedicaldevices) | **POST** /rest/v2/medical/device/filter | Load devices from the database by filtering them using the provided [filter].
 *DeviceApi* | [**getMedicalDevice**](docs/DeviceApi.md#getmedicaldevice) | **GET** /rest/v2/medical/device/{medicalDeviceId} | Get a Medical Device
-*DeviceApi* | [**matchMedicalDevices**](docs/DeviceApi.md#matchmedicaldevices) | **POST** /rest/v2/medical/device/match | Find Devices using a filter
+*DeviceApi* | [**matchMedicalDevices**](docs/DeviceApi.md#matchmedicaldevices) | **POST** /rest/v2/medical/device/match | Load medical device ids from the database by filtering them using the provided Filter.
 *HealthcareElementApi* | [**createOrModifyHealthcareElement**](docs/HealthcareElementApi.md#createormodifyhealthcareelement) | **PUT** /rest/v2/hce | Create a Healthcare Element
 *HealthcareElementApi* | [**createOrModifyHealthcareElements**](docs/HealthcareElementApi.md#createormodifyhealthcareelements) | **PUT** /rest/v2/hce/batch | Create a Healthcare Element
 *HealthcareElementApi* | [**deleteHealthcareElement**](docs/HealthcareElementApi.md#deletehealthcareelement) | **DELETE** /rest/v2/hce/{id} | Delete a Healthcare Element
@@ -75,14 +75,14 @@ Class | Method | HTTP request | Description
 *PatientApi* | [**filterPatients**](docs/PatientApi.md#filterpatients) | **POST** /rest/v2/patient/filter | Find Patients using a filter
 *PatientApi* | [**getPatient**](docs/PatientApi.md#getpatient) | **GET** /rest/v2/patient/{id} | Get a Patient
 *PatientApi* | [**matchPatients**](docs/PatientApi.md#matchpatients) | **POST** /rest/v2/patient/match | Find Patients using a filter
-*UserApi* | [**checkTokenValidity**](docs/UserApi.md#checktokenvalidity) | **GET** /rest/v2/user/token/{userId} | Find Users using a filter
-*UserApi* | [**createOrModifyUser**](docs/UserApi.md#createormodifyuser) | **PUT** /rest/v2/user | Create a User
-*UserApi* | [**createToken**](docs/UserApi.md#createtoken) | **POST** /rest/v2/user/token/{userId} | Find Users using a filter
-*UserApi* | [**deleteUser**](docs/UserApi.md#deleteuser) | **DELETE** /rest/v2/user/{userId} | Delete a User
-*UserApi* | [**filterUser**](docs/UserApi.md#filteruser) | **POST** /rest/v2/user/filter | Find Users using a filter
+*UserApi* | [**checkTokenValidity**](docs/UserApi.md#checktokenvalidity) | **GET** /rest/v2/user/token/{userId} | Check token validity for a user.
+*UserApi* | [**createOrModifyUser**](docs/UserApi.md#createormodifyuser) | **PUT** /rest/v2/user | Create a new user or modify an existing one.
+*UserApi* | [**createToken**](docs/UserApi.md#createtoken) | **POST** /rest/v2/user/token/{userId} | Create a token for a user.
+*UserApi* | [**deleteUser**](docs/UserApi.md#deleteuser) | **DELETE** /rest/v2/user/{userId} | Delete an existing user.
+*UserApi* | [**filterUsers**](docs/UserApi.md#filterusers) | **POST** /rest/v2/user/filter | Load users from the database by filtering them using the provided Filter.
 *UserApi* | [**getLoggedUser**](docs/UserApi.md#getloggeduser) | **GET** /rest/v2/user | Get the details of the logged User.
 *UserApi* | [**getUser**](docs/UserApi.md#getuser) | **GET** /rest/v2/user/{userId} | Get a User by id.
-*UserApi* | [**matchUser**](docs/UserApi.md#matchuser) | **POST** /rest/v2/user/match | Find Users using a filter
+*UserApi* | [**matchUsers**](docs/UserApi.md#matchusers) | **POST** /rest/v2/user/match | Load user ids from the database by filtering them using the provided Filter.
 
 
 <a name="documentation-for-models"></a>
