@@ -12,18 +12,15 @@
  */
 package io.icure.md.client.apis
 
+import io.icure.kraken.client.infrastructure.ClientException
+import io.icure.kraken.client.infrastructure.ServerException
 import io.icure.md.client.models.DataSample
 import io.icure.md.client.models.Document
 import io.icure.md.client.models.Filter
 import io.icure.md.client.models.PaginatedListDataSample
-
 import kotlinx.coroutines.ExperimentalCoroutinesApi
- 
-import io.icure.kraken.client.infrastructure.ClientException
-import io.icure.kraken.client.infrastructure.ServerException
 import kotlinx.coroutines.flow.Flow
 import java.nio.ByteBuffer
-
 import javax.inject.Named
 
 @Named
@@ -32,30 +29,31 @@ import javax.inject.Named
 interface DataSampleApi {
 
     /**
-    * Create a DataSample
-    * 
-    * @param dataSample  
-    * @return DataSample
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ClientException If the API returns a client error response
-    * @throws ServerException If the API returns a server error response
-    */
+     * Create a DataSample
+     *
+     * @param dataSample
+     * @return DataSample
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun createOrModifyDataSample(dataSample: DataSample) : DataSample 
+    suspend fun createOrModifyDataSampleFor(patientId: String, dataSample: DataSample): DataSample
 
     /**
-    * Create a batch of Data samples
-    * 
-    * @param dataSample  
-    * @return kotlin.collections.List<DataSample>
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ClientException If the API returns a client error response
-    * @throws ServerException If the API returns a server error response
-    */
+     * Create a batch of Data samples
+     *
+     * @param patientId
+     * @param dataSamples
+     * @return kotlin.collections.List<DataSample>
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun createOrModifyDataSamples(dataSample: List<DataSample>) : List<DataSample>
+    suspend fun createOrModifyDataSamplesFor(patientId: String, dataSamples: List<DataSample>): List<DataSample>
 
     /**
     * Delete a Data sample attachment
