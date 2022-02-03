@@ -20,8 +20,8 @@ Create or update a Patient
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = PatientApi()
 val patient : Patient =  // Patient | 
@@ -65,8 +65,8 @@ Delete a Patient
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = PatientApi()
 val id : kotlin.String = id_example // kotlin.String | 
@@ -110,8 +110,8 @@ Find Patients using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = PatientApi()
 val filter : Filter =  // Filter | 
@@ -155,8 +155,8 @@ Get a Patient
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = PatientApi()
 val id : kotlin.String = id_example // kotlin.String | 
@@ -200,8 +200,8 @@ Find Patients using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = PatientApi()
 val filter : Filter =  // Filter | 

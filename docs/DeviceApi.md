@@ -6,10 +6,10 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createOrModifyMedicalDevice**](DeviceApi.md#createOrModifyMedicalDevice) | **PUT** /rest/v2/medical/device | Create or update a Device
 [**createOrModifyMedicalDevices**](DeviceApi.md#createOrModifyMedicalDevices) | **PUT** /rest/v2/medical/device/batch | Create or update a batch of Devices
-[**deleteMedicalDevice**](DeviceApi.md#deleteMedicalDevice) | **DELETE** /rest/v2/medical/device/{id} | Delete a Device
+[**deleteMedicalDevice**](DeviceApi.md#deleteMedicalDevice) | **DELETE** /rest/v2/medical/device/{medicalDeviceId} | Delete a Device
 [**deleteMedicalDevices**](DeviceApi.md#deleteMedicalDevices) | **POST** /rest/v2/medical/device/batch | Delete Devices
 [**filterMedicalDevices**](DeviceApi.md#filterMedicalDevices) | **POST** /rest/v2/medical/device/filter | Find Devices using a filter
-[**getMedicalDevice**](DeviceApi.md#getMedicalDevice) | **GET** /rest/v2/medical/device/{id} | Get a Medical Device
+[**getMedicalDevice**](DeviceApi.md#getMedicalDevice) | **GET** /rest/v2/medical/device/{medicalDeviceId} | Get a Medical Device
 [**matchMedicalDevices**](DeviceApi.md#matchMedicalDevices) | **POST** /rest/v2/medical/device/match | Find Devices using a filter
 
 
@@ -22,8 +22,8 @@ Create or update a Device
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = DeviceApi()
 val medicalDevice : MedicalDevice =  // MedicalDevice | 
@@ -67,8 +67,8 @@ Create or update a batch of Devices
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = DeviceApi()
 val medicalDevice : kotlin.collections.List<MedicalDevice> =  // kotlin.collections.List<MedicalDevice> | 
@@ -105,20 +105,20 @@ No authorization required
 
 <a name="deleteMedicalDevice"></a>
 # **deleteMedicalDevice**
-> kotlin.String deleteMedicalDevice(id)
+> kotlin.String deleteMedicalDevice(medicalDeviceId)
 
 Delete a Device
 
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = DeviceApi()
-val id : kotlin.String = id_example // kotlin.String | 
+val medicalDeviceId : kotlin.String = medicalDeviceId_example // kotlin.String | 
 try {
-    val result : kotlin.String = apiInstance.deleteMedicalDevice(id)
+    val result : kotlin.String = apiInstance.deleteMedicalDevice(medicalDeviceId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling DeviceApi#deleteMedicalDevice")
@@ -133,7 +133,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **kotlin.String**|  |
+ **medicalDeviceId** | **kotlin.String**|  |
 
 ### Return type
 
@@ -157,8 +157,8 @@ Delete Devices
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = DeviceApi()
 val requestBody : kotlin.collections.List<kotlin.String> =  // kotlin.collections.List<kotlin.String> | 
@@ -202,8 +202,8 @@ Find Devices using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = DeviceApi()
 val filter : Filter =  // Filter | 
@@ -240,20 +240,20 @@ No authorization required
 
 <a name="getMedicalDevice"></a>
 # **getMedicalDevice**
-> MedicalDevice getMedicalDevice(id)
+> MedicalDevice getMedicalDevice(medicalDeviceId)
 
 Get a Medical Device
 
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = DeviceApi()
-val id : kotlin.String = id_example // kotlin.String | 
+val medicalDeviceId : kotlin.String = medicalDeviceId_example // kotlin.String | 
 try {
-    val result : MedicalDevice = apiInstance.getMedicalDevice(id)
+    val result : MedicalDevice = apiInstance.getMedicalDevice(medicalDeviceId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling DeviceApi#getMedicalDevice")
@@ -268,7 +268,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **kotlin.String**|  |
+ **medicalDeviceId** | **kotlin.String**|  |
 
 ### Return type
 
@@ -292,8 +292,8 @@ Find Devices using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = DeviceApi()
 val filter : Filter =  // Filter | 

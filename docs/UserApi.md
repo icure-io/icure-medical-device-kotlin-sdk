@@ -4,33 +4,33 @@ All URIs are relative to *http://127.0.0.1:8912*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**checkTokenValidity**](UserApi.md#checkTokenValidity) | **GET** /rest/v2/user/token/{id} | Find Users using a filter
+[**checkTokenValidity**](UserApi.md#checkTokenValidity) | **GET** /rest/v2/user/token/{userId} | Find Users using a filter
 [**createOrModifyUser**](UserApi.md#createOrModifyUser) | **PUT** /rest/v2/user | Create a User
-[**createToken**](UserApi.md#createToken) | **POST** /rest/v2/user/token/{id} | Find Users using a filter
-[**deleteUser**](UserApi.md#deleteUser) | **DELETE** /rest/v2/user/{id} | Delete a User
+[**createToken**](UserApi.md#createToken) | **POST** /rest/v2/user/token/{userId} | Find Users using a filter
+[**deleteUser**](UserApi.md#deleteUser) | **DELETE** /rest/v2/user/{userId} | Delete a User
 [**filterUser**](UserApi.md#filterUser) | **POST** /rest/v2/user/filter | Find Users using a filter
 [**getLoggedUser**](UserApi.md#getLoggedUser) | **GET** /rest/v2/user | Get the logged User
-[**getUser**](UserApi.md#getUser) | **GET** /rest/v2/user/{id} | Get a User
+[**getUser**](UserApi.md#getUser) | **GET** /rest/v2/user/{userId} | Get a User
 [**matchUser**](UserApi.md#matchUser) | **POST** /rest/v2/user/match | Find Users using a filter
 
 
 <a name="checkTokenValidity"></a>
 # **checkTokenValidity**
-> kotlin.Boolean checkTokenValidity(xIcureToken, id)
+> kotlin.Boolean checkTokenValidity(xIcureToken, userId)
 
 Find Users using a filter
 
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
 val xIcureToken : kotlin.String = xIcureToken_example // kotlin.String | 
-val id : kotlin.String = id_example // kotlin.String | 
+val userId : kotlin.String = userId_example // kotlin.String | 
 try {
-    val result : kotlin.Boolean = apiInstance.checkTokenValidity(xIcureToken, id)
+    val result : kotlin.Boolean = apiInstance.checkTokenValidity(xIcureToken, userId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling UserApi#checkTokenValidity")
@@ -46,7 +46,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xIcureToken** | **kotlin.String**|  |
- **id** | **kotlin.String**|  |
+ **userId** | **kotlin.String**|  |
 
 ### Return type
 
@@ -70,8 +70,8 @@ Create a User
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
 val user : User =  // User | 
@@ -108,20 +108,20 @@ No authorization required
 
 <a name="createToken"></a>
 # **createToken**
-> kotlin.String createToken(id)
+> kotlin.String createToken(userId)
 
 Find Users using a filter
 
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
-val id : kotlin.String = id_example // kotlin.String | 
+val userId : kotlin.String = userId_example // kotlin.String | 
 try {
-    val result : kotlin.String = apiInstance.createToken(id)
+    val result : kotlin.String = apiInstance.createToken(userId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling UserApi#createToken")
@@ -136,7 +136,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **kotlin.String**|  |
+ **userId** | **kotlin.String**|  |
 
 ### Return type
 
@@ -153,20 +153,20 @@ No authorization required
 
 <a name="deleteUser"></a>
 # **deleteUser**
-> kotlin.String deleteUser(id)
+> kotlin.String deleteUser(userId)
 
 Delete a User
 
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
-val id : kotlin.String = id_example // kotlin.String | 
+val userId : kotlin.String = userId_example // kotlin.String | 
 try {
-    val result : kotlin.String = apiInstance.deleteUser(id)
+    val result : kotlin.String = apiInstance.deleteUser(userId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling UserApi#deleteUser")
@@ -181,7 +181,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **kotlin.String**|  |
+ **userId** | **kotlin.String**|  |
 
 ### Return type
 
@@ -205,8 +205,8 @@ Find Users using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
 val filter : Filter =  // Filter | 
@@ -250,8 +250,8 @@ Get the logged User
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
 try {
@@ -284,20 +284,20 @@ No authorization required
 
 <a name="getUser"></a>
 # **getUser**
-> User getUser(id)
+> User getUser(userId)
 
 Get a User
 
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
-val id : kotlin.String = id_example // kotlin.String | 
+val userId : kotlin.String = userId_example // kotlin.String | 
 try {
-    val result : User = apiInstance.getUser(id)
+    val result : User = apiInstance.getUser(userId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling UserApi#getUser")
@@ -312,7 +312,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **kotlin.String**|  |
+ **userId** | **kotlin.String**|  |
 
 ### Return type
 
@@ -336,8 +336,8 @@ Find Users using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.kraken.client.models.*
+//import io.icure.md.client.infrastructure.*
+//import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
 val filter : Filter =  // Filter | 
