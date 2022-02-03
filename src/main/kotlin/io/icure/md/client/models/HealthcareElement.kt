@@ -47,7 +47,7 @@ data class HealthcareElement (
 
     /* The Id of the healthcare element. We encourage using either a v4 UUID or a HL7 Id. */
     @field:JsonProperty("id")
-    val id: String?,
+    val id: String? = null,
 
     @field:JsonProperty("identifiers")
     val identifiers: List<Identifier> = emptyList(),

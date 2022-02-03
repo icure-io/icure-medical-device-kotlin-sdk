@@ -50,7 +50,7 @@ data class Document (
 
     /* The Id of the document. We encourage using either a v4 UUID or a HL7 Id. */
     @field:JsonProperty("id")
-    val id: String?,
+    val id: String? = null,
 
     @field:JsonProperty("labels")
     val labels: List<CodingReference> = emptyList(),

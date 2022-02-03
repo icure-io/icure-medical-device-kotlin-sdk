@@ -48,7 +48,7 @@ data class User (
 
     /* the Id of the user. We encourage using either a v4 UUID or a HL7 Id. */
     @field:JsonProperty("id")
-    val id: String?,
+    val id: String? = null,
 
     /* Extra properties for the user. Those properties are typed (see class Property) */
     @field:JsonProperty("properties")
