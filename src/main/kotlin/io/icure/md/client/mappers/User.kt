@@ -53,3 +53,10 @@ fun User.toUserDto() = UserDto(
     email = this.email,
     mobilePhone = this.mobilePhone,
 )
+
+fun UserDto.findIdForEncryptionKey(): String {
+    return this.healthcarePartyId
+        ?: this.patientId
+        ?: this.deviceId
+        ?: throw IllegalCallerException("Can't find any ID to decrypt encryption keys")
+}

@@ -19,6 +19,8 @@ import io.icure.md.client.models.Document
 import io.icure.md.client.models.Filter
 import io.icure.md.client.models.PaginatedListDataSample
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import java.nio.ByteBuffer
 import javax.inject.Named
 
 @Named
@@ -36,7 +38,7 @@ interface DataSampleApi {
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun createOrModifyDataSample(dataSample: DataSample): DataSample
+    suspend fun createOrModifyDataSampleFor(patientId: String, dataSample: DataSample): DataSample
 
     /**
      * Create a batch of Data samples
@@ -48,7 +50,7 @@ interface DataSampleApi {
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun createOrModifyDataSamples(dataSample: kotlin.collections.List<DataSample>): kotlin.collections.List<DataSample>
+    suspend fun createOrModifyDataSamplesFor(patientId: String, dataSamples: List<DataSample>): List<DataSample>
 
     /**
      * Delete a Data sample attachment
