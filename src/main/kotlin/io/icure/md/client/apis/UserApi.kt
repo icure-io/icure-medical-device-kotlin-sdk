@@ -26,23 +26,27 @@ import javax.inject.Named
 interface UserApi {
 
     /**
-     * Find Users using a filter
-     *
-     * @param xIcureToken
-     * @param userId
-     * @return OK
+     * Check token validity for a user.
+     * Checks that the provided token is (still) valid for the provided user id (or user login).
+     * @param userId The UUID that identifies the user uniquely
+     * @param token The token that will be checked
+     * @return Returns a boolean (true/false). True if the token is valid, False otherwise
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is no user with the provided userId.
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun checkTokenValidity(xIcureToken: kotlin.String, userId: kotlin.String): kotlin.Boolean
+    suspend fun checkTokenValidity(userId: kotlin.String, token: kotlin.String): kotlin.Boolean
 
     /**
-     * Create a User
-     *
+     * Create a new user or modify an existing one.
+     * A user must have a login, an email or a mobilePhone defined, a user should be linked to either a Healthcare Professional, a Patient or a Device. When modifying an user, you must ensure that the rev obtained when getting or creating the user is present as the rev is used to guarantee that the user has not been modified by a third party.
      * @param user
-     * @return OK
+     * @return Returns the created or modified user as a User object, with an updated rev.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is no login,email or mobilePhone in the provided User
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
@@ -51,10 +55,12 @@ interface UserApi {
     suspend fun createOrModifyUser(user: User): User
 
     /**
-     * Find Users using a filter
-     *
-     * @param userId
-     * @return OK
+     * Create a token for a user.
+     * A token is used to authenticate the user. It is just like a password but it is destined to be used by programs instead of humans. Tokens have a limited validity period (one month).
+     * @param userId The UUID that identifies the user uniquely
+     * @return Returns the token that can be subsequently used to authenticate the user with id userId.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is no user with the provided userId.
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
@@ -63,10 +69,12 @@ interface UserApi {
     suspend fun createToken(userId: kotlin.String): kotlin.String
 
     /**
-     * Delete a User
-     *
-     * @param userId
-     * @return OK
+     * Delete an existing user.
+     * Deletes the user identified by the provided unique userId.
+     * @param userId The UUID that identifies the user to be deleted uniquely
+     * @return Returns the rev of the deleted object.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is no user with the provided userId.
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
@@ -75,22 +83,26 @@ interface UserApi {
     suspend fun deleteUser(userId: kotlin.String): kotlin.String
 
     /**
-     * Find Users using a filter
-     *
+     * Load users from the database by filtering them using the provided Filter.
+     * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for Users are AllUsersFilter and UsersByIdsFilter. This method returns a paginated list of users (with a cursor that lets you query the following items).
      * @param filter
-     * @return OK
+     * @param nextUserId The id of the first User in the next page (optional)
+     * @param limit The number of users to return in the queried page (optional)
+     * @return Returns a PaginatedList of Users.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is no user with the provided userId.
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun filterUser(filter: Filter): PaginatedListUser
+    suspend fun filterUsers(filter: Filter, nextUserId: kotlin.String?, limit: kotlin.Int?): PaginatedListUser
 
     /**
      * Get the details of the logged User.
      * When you make a call to the server, an authentication token is used to identify you. This call returns the complete User object that corresponds to your authentication credentials.
      * @return Returns the logged user in the body
-     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId)
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
@@ -103,8 +115,8 @@ interface UserApi {
      * Each user is uniquely identified by a user id. The user id is a UUID. This userId is the preferred method to retrieve one specific user.
      * @param userId The UUID that identifies the user uniquely
      * @return Returns the fetched user as a User object
-     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId)
-     * @throws ClientException if there is no user with the provided userId
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is no user with the provided userId.
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
@@ -113,15 +125,17 @@ interface UserApi {
     suspend fun getUser(userId: kotlin.String): User
 
     /**
-     * Find Users using a filter
-     *
+     * Load user ids from the database by filtering them using the provided Filter.
+     * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for Users are AllUsersFilter and UsersByIdsFilter. This method returns the list of the ids of the users matching the filter.
      * @param filter
-     * @return OK
+     * @return Returns a list of all user ids matching teh filter.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is no user with the provided userId.
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun matchUser(filter: Filter): kotlin.collections.List<kotlin.String>
+    suspend fun matchUsers(filter: Filter): kotlin.collections.List<kotlin.String>
 
 }

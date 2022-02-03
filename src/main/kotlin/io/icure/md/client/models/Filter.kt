@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
 
 /**
- *
+ * The Filter object that describes which condition(s) the elements that should be returned must fulfill
  *
  * @param description
  */
