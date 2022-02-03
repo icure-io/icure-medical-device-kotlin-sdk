@@ -2,6 +2,7 @@ package io.icure.md.client.mappers
 
 import io.icure.kraken.client.models.PatientDto
 import io.icure.md.client.models.Patient
+import java.util.*
 
 fun PatientDto.toPatient() = Patient(
     id = this.id,
@@ -60,8 +61,8 @@ private fun PatientDto.Gender.toGender() = Patient.Gender.valueOf(this.name)
 private fun PatientDto.BirthSex.toBirthSex() = Patient.BirthSex.valueOf(this.name)
 private fun PatientDto.PersonalStatus.toPersonalStatus() = Patient.PersonalStatus.valueOf(this.name)
 
-fun Patient.toPatientDto() = PatientDto(
-    id = this.id,
+fun Patient.toPatientDto(patientId: String = UUID.randomUUID().toString()) = PatientDto(
+    id = patientId,
     identifier = this.identifier.map { it.toIdentifierDto() },
     tags = this.labels.map { it.toCodeStubDto() },
     codes = this.codes.map { it.toCodeStubDto() },
