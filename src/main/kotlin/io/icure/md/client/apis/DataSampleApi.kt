@@ -21,13 +21,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  
 import io.icure.kraken.client.infrastructure.ClientException
 import io.icure.kraken.client.infrastructure.ServerException
-
-import kotlinx.coroutines.flow.flowOf
-import java.nio.ByteBuffer
-import java.util.*
-import javax.inject.Named
 import kotlinx.coroutines.flow.Flow
-import java.net.URLEncoder
+import java.nio.ByteBuffer
+
+import javax.inject.Named
 
 @Named
 @ExperimentalStdlibApi
@@ -58,12 +55,12 @@ interface DataSampleApi {
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun createOrModifyDataSamples(dataSample: kotlin.collections.List<DataSample>) : kotlin.collections.List<DataSample> 
+    suspend fun createOrModifyDataSamples(dataSample: List<DataSample>) : List<DataSample>
 
     /**
     * Delete a Data sample attachment
     * 
-    * @param id  
+    * @param dataSampleId
     * @param documentId  
     * @return kotlin.String
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -72,12 +69,12 @@ interface DataSampleApi {
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun deleteAttachment(id: kotlin.String, documentId: kotlin.String) : kotlin.String 
+    suspend fun deleteAttachment(dataSampleId: String, documentId: String) : String
 
     /**
     * Delete a DataSample
     * 
-    * @param id  
+    * @param dataSampleId
     * @return kotlin.String
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
@@ -85,12 +82,12 @@ interface DataSampleApi {
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun deleteDataSample(id: kotlin.String) : kotlin.String 
+    suspend fun deleteDataSample(dataSampleId: String) : String
 
     /**
     * Delete a batch of Data samples
     * 
-    * @param ids  
+    * @param dataSampleIds
     * @return kotlin.collections.List<kotlin.String>
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
@@ -98,7 +95,7 @@ interface DataSampleApi {
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun deleteDataSamples(ids: kotlin.collections.List<kotlin.String>) : kotlin.collections.List<kotlin.String> 
+    suspend fun deleteDataSamples(dataSampleIds: List<String>) : List<String>
 
     /**
     * Find Data samples using a filter
@@ -116,7 +113,7 @@ interface DataSampleApi {
     /**
     * Get a DataSample
     * 
-    * @param id  
+    * @param dataSampleId
     * @return DataSample
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
@@ -124,12 +121,12 @@ interface DataSampleApi {
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun getDataSample(id: kotlin.String) : DataSample 
+    suspend fun getDataSample(dataSampleId: String) : DataSample
 
     /**
     * Get a DataSample attachment metadata
     * 
-    * @param id  
+    * @param dataSampleId
     * @param documentId  
     * @return Document
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -138,12 +135,12 @@ interface DataSampleApi {
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun getDataSampleAttachment(id: kotlin.String, documentId: kotlin.String) : Document 
+    suspend fun getDataSampleAttachment(dataSampleId: String, documentId: String) : Document
 
     /**
     * Get a Data sample attachment metadata
     * 
-    * @param id  
+    * @param dataSampleId
     * @param documentId  
     * @param attachmentId  
     * @return kotlin.collections.List<kotlin.Any>
@@ -153,7 +150,7 @@ interface DataSampleApi {
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun getDataSampleAttachmentContent(id: kotlin.String, documentId: kotlin.String, attachmentId: kotlin.String) : kotlin.collections.List<kotlin.Any> 
+    suspend fun getDataSampleAttachmentContent(dataSampleId: String, documentId: String, attachmentId: String) : List<Any>
 
     /**
     * Find Data samples using a filter
@@ -166,14 +163,14 @@ interface DataSampleApi {
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun matchDataSample(filter: Filter) : kotlin.collections.List<kotlin.String> 
+    suspend fun matchDataSample(filter: Filter) : List<String>
 
     /**
     * Create a DataSample
     * 
-    * @param id  
+    * @param dataSampleId
     * @param documentId  
-    * @param body  
+    * @param attachment
     * @return Document
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
@@ -181,6 +178,6 @@ interface DataSampleApi {
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun setDataSampleAttachment(id: kotlin.String, documentId: kotlin.String, body: kotlinx.coroutines.flow.Flow<java.nio.ByteBuffer>) : Document 
+    suspend fun setDataSampleAttachment(dataSampleId: String, documentId: String, attachment: Flow<ByteBuffer>) : Document
 
 }
