@@ -15,3 +15,12 @@ suspend fun <K, V> Cache<K, Deferred<Optional<V>>>.defPut(key: K, loader: suspen
 fun <T> T.applyIf(predicate: (T) -> Boolean, action: (T) -> T): T {
     return if (predicate.invoke(this)) action.invoke(this) else this
 }
+
+fun String.isUUID(): Boolean{
+    return try{
+        UUID.fromString(this)
+        true
+    } catch (exception: IllegalArgumentException){
+        false
+    }
+}
