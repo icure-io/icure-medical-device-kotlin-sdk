@@ -13,11 +13,10 @@
 package io.icure.md.client.models
 
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * the list of all names of the patient, also containing the official full name information. Ordered by preference of use. First element is therefore the official name used for the patient in the application
@@ -38,28 +37,28 @@ import com.github.pozo.KotlinBuilder
 data class PersonName (
 
     @field:JsonProperty("firstNames")
-    val firstNames: kotlin.collections.List<kotlin.String> = emptyList(),
+    val firstNames: List<String> = emptyList(),
 
     @field:JsonProperty("prefix")
-    val prefix: kotlin.collections.List<kotlin.String> = emptyList(),
+    val prefix: List<String> = emptyList(),
 
     @field:JsonProperty("suffix")
-    val suffix: kotlin.collections.List<kotlin.String> = emptyList(),
+    val suffix: List<String> = emptyList(),
 
     @field:JsonProperty("lastName")
-    val lastName: kotlin.String? = null,
+    val lastName: String? = null,
 
     @field:JsonProperty("start")
-    val start: kotlin.Long? = null,
+    val start: Long? = null,
 
     @field:JsonProperty("end")
-    val end: kotlin.Long? = null,
+    val end: Long? = null,
 
     @field:JsonProperty("text")
-    val text: kotlin.String? = null,
+    val text: String? = null,
 
     @field:JsonProperty("use")
-    val use: PersonName.Use? = null
+    val use: Use? = null
 
 ) {
 
@@ -68,7 +67,7 @@ data class PersonName (
      *
      * Values: usual,official,temp,nickname,anonymous,maiden,old,other
      */
-    enum class Use(val value: kotlin.String) {
+    enum class Use(val value: String) {
         @JsonProperty(value = "usual") usual("usual"),
         @JsonProperty(value = "official") official("official"),
         @JsonProperty(value = "temp") temp("temp"),

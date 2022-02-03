@@ -12,14 +12,10 @@
  */
 package io.icure.md.client.models
 
-import io.icure.md.client.models.PropertyType
-import io.icure.md.client.models.TypedValueObject
-
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * Extra properties for the user. Those properties are typed (see class Property)
@@ -36,7 +32,7 @@ import com.github.pozo.KotlinBuilder
 data class Property (
 
     @field:JsonProperty("id")
-    val id: kotlin.String? = null,
+    val id: String? = null,
 
     @field:JsonProperty("type")
     val type: PropertyType? = null,
@@ -45,7 +41,7 @@ data class Property (
     val typedValue: TypedValueObject? = null,
 
     @field:JsonProperty("deleted")
-    val deleted: kotlin.Long? = null
+    val deleted: Long? = null
 
 )
 

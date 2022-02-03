@@ -12,13 +12,10 @@
  */
 package io.icure.md.client.models
 
-import io.icure.md.client.models.CodingReference
-
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * 
@@ -53,78 +50,78 @@ data class Document (
 
     /* The Id of the document. We encourage using either a v4 UUID or a HL7 Id. */
     @field:JsonProperty("id")
-    val id: kotlin.String,
+    val id: String? = null,
 
     @field:JsonProperty("labels")
-    val labels: kotlin.collections.List<CodingReference> = emptyList(),
+    val labels: List<CodingReference> = emptyList(),
 
     @field:JsonProperty("codes")
-    val codes: kotlin.collections.List<CodingReference> = emptyList(),
+    val codes: List<CodingReference> = emptyList(),
 
     /* Extra Uniform Type Identifiers */
     @field:JsonProperty("otherUtis")
-    val otherUtis: kotlin.collections.List<kotlin.String> = emptyList(),
+    val otherUtis: List<String> = emptyList(),
 
     /* The revision of the document in the database, used for conflict management / optimistic locking. */
     @field:JsonProperty("rev")
-    val rev: kotlin.String? = null,
+    val rev: String? = null,
 
     @field:JsonProperty("created")
-    val created: kotlin.Long? = null,
+    val created: Long? = null,
 
     @field:JsonProperty("modified")
-    val modified: kotlin.Long? = null,
+    val modified: Long? = null,
 
     @field:JsonProperty("author")
-    val author: kotlin.String? = null,
+    val author: String? = null,
 
     @field:JsonProperty("responsible")
-    val responsible: kotlin.String? = null,
+    val responsible: String? = null,
 
     @field:JsonProperty("medicalLocationId")
-    val medicalLocationId: kotlin.String? = null,
+    val medicalLocationId: String? = null,
 
     @field:JsonProperty("endOfLife")
-    val endOfLife: kotlin.Long? = null,
+    val endOfLife: Long? = null,
 
     @field:JsonProperty("deletionDate")
-    val deletionDate: kotlin.Long? = null,
+    val deletionDate: Long? = null,
 
     /* Reference in object store */
     @field:JsonProperty("objectStoreReference")
-    val objectStoreReference: kotlin.String? = null,
+    val objectStoreReference: String? = null,
 
     /* When the document is stored in an external repository, this is the uri of the document in that repository */
     @field:JsonProperty("externalUri")
-    val externalUri: kotlin.String? = null,
+    val externalUri: String? = null,
 
     /* The main Uniform Type Identifier of the document (https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/understanding_utis/understand_utis_conc/understand_utis_conc.html#//apple_ref/doc/uid/TP40001319-CH202-CHDHIJDE) */
     @field:JsonProperty("mainUti")
-    val mainUti: kotlin.String? = null,
+    val mainUti: String? = null,
 
     /* Name of the document */
     @field:JsonProperty("name")
-    val name: kotlin.String? = null,
+    val name: String? = null,
 
     /* The document version */
     @field:JsonProperty("version")
-    val version: kotlin.String? = null,
+    val version: String? = null,
 
     /* A unique external id (from another external source). */
     @field:JsonProperty("externalUuid")
-    val externalUuid: kotlin.String? = null,
+    val externalUuid: String? = null,
 
     /* Size of the document file */
     @field:JsonProperty("size")
-    val propertySize: kotlin.Long? = null,
+    val propertySize: Long? = null,
 
     /* Hashed version of the document */
     @field:JsonProperty("hash")
-    val hash: kotlin.String? = null,
+    val hash: String? = null,
 
     /* Id of attachment to this document */
     @field:JsonProperty("attachmentId")
-    val attachmentId: kotlin.String? = null
+    val attachmentId: String? = null
 
 )
 

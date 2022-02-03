@@ -20,15 +20,15 @@ class DataSampleApiImpl : DataSampleApi {
         TODO("Not yet implemented")
     }
 
-    override suspend fun deleteAttachment(id: String, documentId: String): String {
+    override suspend fun deleteAttachment(dataSampleId: String, documentId: String): String {
         TODO("Not yet implemented")
     }
 
-    override suspend fun deleteDataSample(id: String): String {
+    override suspend fun deleteDataSample(dataSampleId: String): String {
         TODO("Not yet implemented")
     }
 
-    override suspend fun deleteDataSamples(ids: List<String>): List<String> {
+    override suspend fun deleteDataSamples(dataSampleIds: List<String>): List<String> {
         TODO("Not yet implemented")
     }
 
@@ -36,15 +36,15 @@ class DataSampleApiImpl : DataSampleApi {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getDataSample(id: String): DataSample {
+    override suspend fun getDataSample(dataSampleId: String): DataSample {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getDataSampleAttachment(id: String, documentId: String): Document {
+    override suspend fun getDataSampleAttachment(dataSampleId: String, documentId: String): Document {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getDataSampleAttachmentContent(id: String, documentId: String, attachmentId: String): List<Any> {
+    override suspend fun getDataSampleAttachmentContent(dataSampleId: String, documentId: String, attachmentId: String): List<Any> {
         TODO("Not yet implemented")
     }
 
@@ -52,7 +52,7 @@ class DataSampleApiImpl : DataSampleApi {
         TODO("Not yet implemented")
     }
 
-    override suspend fun setDataSampleAttachment(id: String, documentId: String, body: Flow<ByteBuffer>): Document {
+    override suspend fun setDataSampleAttachment(dataSampleId: String, documentId: String, attachment: Flow<ByteBuffer>): Document {
         TODO("Not yet implemented")
     }
 }

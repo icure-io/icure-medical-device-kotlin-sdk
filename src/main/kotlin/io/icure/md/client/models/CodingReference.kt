@@ -13,11 +13,10 @@
 package io.icure.md.client.models
 
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * Codified list of professions exercised by this patient.
@@ -34,16 +33,16 @@ import com.github.pozo.KotlinBuilder
 data class CodingReference (
 
     @field:JsonProperty("id")
-    val id: kotlin.String,
+    val id: String,
 
     @field:JsonProperty("type")
-    val type: kotlin.String? = null,
+    val type: String? = null,
 
     @field:JsonProperty("code")
-    val code: kotlin.String? = null,
+    val code: String? = null,
 
     @field:JsonProperty("version")
-    val version: kotlin.String? = null
+    val version: String? = null
 
 )
 
