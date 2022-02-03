@@ -100,7 +100,7 @@ tasks.getByName("publish") {
 }
 
 tasks.register("apiGenerate", Jar::class) {
-    inputs.files(fileTree("openApiTemplates"))
+    inputs.files(fileTree("openApiTemplates"), File("${rootDir}/icure-medical-device-spec.json"))
         .withPropertyName("sourceFiles")
         .withPathSensitivity(PathSensitivity.RELATIVE)
     doLast {
@@ -172,6 +172,12 @@ tasks.create<Delete>("delete-unused-files") {
     delete(
         File("$rootDir/src/main/kotlin/io/icure/md/client/infrastructure"),
         File("$rootDir/src/test/resources/parameters"),
-        File("$rootDir/src/test/kotlin/io/icure/md/client/apis")
+        File("$rootDir/src/test/kotlin/io/icure/md/client/apis/CodingApiTest.kt"),
+        File("$rootDir/src/test/kotlin/io/icure/md/client/apis/DataSampleApiTest.kt"),
+        File("$rootDir/src/test/kotlin/io/icure/md/client/apis/DeviceApiTest.kt"),
+        File("$rootDir/src/test/kotlin/io/icure/md/client/apis/HealthcareElementApiTest.kt"),
+        File("$rootDir/src/test/kotlin/io/icure/md/client/apis/HealthcareProfessionalApiTest.kt"),
+        File("$rootDir/src/test/kotlin/io/icure/md/client/apis/PatientApiTest.kt"),
+        File("$rootDir/src/test/kotlin/io/icure/md/client/apis/UserApiTest.kt")
     )
 }
