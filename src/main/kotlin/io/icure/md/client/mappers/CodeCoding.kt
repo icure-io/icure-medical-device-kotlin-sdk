@@ -2,6 +2,7 @@ package io.icure.md.client.mappers
 
 import io.icure.kraken.client.models.CodeDto
 import io.icure.md.client.models.Coding
+import java.util.*
 
 fun CodeDto.toCoding() = Coding(
     id = this.id,
@@ -15,7 +16,13 @@ fun CodeDto.toCoding() = Coding(
 )
 
 fun Coding.toCodeDto() = CodeDto(
-    id = this.id,
+    id = this.id?.also {
+        try {
+            UUID.fromString(it)
+        } catch (e: IllegalArgumentException) {
+            throw IllegalArgumentException("Invalid id, id must be a valid UUID")
+        }
+    } ?: UUID.randomUUID().toString(),
     qualifiedLinks = this.qualifiedLinks,
     searchTerms = this.searchTerms,
     rev = this.rev,

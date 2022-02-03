@@ -60,8 +60,14 @@ private fun MeasureDto.toMeasure() = Measure(
     comparator = this.comparator,
 )
 
-fun DataSample.toServiceDto(dataSampleId: String = UUID.randomUUID().toString()): ServiceDto = ServiceDto(
-    id = dataSampleId,
+fun DataSample.toServiceDto(): ServiceDto = ServiceDto(
+    id = this.id?.also {
+        try {
+            UUID.fromString(it)
+        } catch (e: IllegalArgumentException) {
+            throw IllegalArgumentException("Invalid id, id must be a valid UUID")
+        }
+    } ?: UUID.randomUUID().toString(),
     identifier = this.identifier.map { it.toIdentifierDto() },
     content = this.content.mapValues { it.value.toContentDto() },
     qualifiedLinks = this.qualifiedLinks.map { (k, v) -> ServiceDto.LinkQualification.valueOf(k) to v }.toMap(),

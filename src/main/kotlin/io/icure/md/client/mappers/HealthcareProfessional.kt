@@ -26,9 +26,14 @@ fun HealthcarePartyDto.toHealthcareProfessional() = HealthcareProfessional(
 
 private fun HealthcarePartyDto.Gender.toGender() = HealthcareProfessional.Gender.valueOf(this.name)
 
-fun HealthcareProfessional.toHealthcarePartyDto(healthcareProfessionalId: String = UUID.randomUUID().toString()) =
-        HealthcarePartyDto(
-    id = healthcareProfessionalId,
+fun HealthcareProfessional.toHealthcarePartyDto() = HealthcarePartyDto(
+    id = this.id?.also {
+        try {
+            UUID.fromString(it)
+        } catch (e: IllegalArgumentException) {
+            throw IllegalArgumentException("Invalid id, id must be a valid UUID")
+        }
+    } ?: UUID.randomUUID().toString(),
     names = this.names.map { it.toPersonNameDto() },
     addresses = this.addresses.map { it.toAddressDto() },
     languages = this.languages,

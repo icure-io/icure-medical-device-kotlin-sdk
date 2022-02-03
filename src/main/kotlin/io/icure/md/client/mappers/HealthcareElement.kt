@@ -25,19 +25,24 @@ fun HealthElementDto.toHealthcareElement() = HealthcareElement(
     note = this.note,
 )
 
-fun HealthcareElement.toHealthcareElementDto(healthcareElementId: String = UUID.randomUUID().toString()) =
-    HealthElementDto(
-        id = healthcareElementId,
-        identifiers = this.identifiers.map { it.toIdentifierDto() },
-        tags = this.tags.map { it.toCodeStubDto() },
-        codes = this.codes.map { it.toCodeStubDto() },
-        rev = this.rev,
-        created = this.created,
-        modified = this.modified,
-        author = this.author,
-        responsible = this.responsible,
-        medicalLocationId = this.medicalLocationId,
-        endOfLife = this.endOfLife,
+fun HealthcareElement.toHealthcareElementDto() = HealthElementDto(
+    id = this.id?.also {
+        try {
+            UUID.fromString(it)
+        } catch (e: IllegalArgumentException) {
+            throw IllegalArgumentException("Invalid id, id must be a valid UUID")
+        }
+    } ?: UUID.randomUUID().toString(),
+    identifiers = this.identifiers.map { it.toIdentifierDto() },
+    tags = this.tags.map { it.toCodeStubDto() },
+    codes = this.codes.map { it.toCodeStubDto() },
+    rev = this.rev,
+    created = this.created,
+    modified = this.modified,
+    author = this.author,
+    responsible = this.responsible,
+    medicalLocationId = this.medicalLocationId,
+    endOfLife = this.endOfLife,
     deletionDate = this.deletionDate,
     healthElementId = this.healthElementId,
     valueDate = this.valueDate,
