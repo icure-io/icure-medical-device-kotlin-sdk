@@ -46,25 +46,18 @@ data class PatientHealthCareParty(
     enum class Type(val value: kotlin.String) {
         @JsonProperty(value = "doctor")
         doctor("doctor"),
-
         @JsonProperty(value = "referral")
         referral("referral"),
-
         @JsonProperty(value = "medicalhouse")
         medicalhouse("medicalhouse"),
-
         @JsonProperty(value = "retirementhome")
         retirementhome("retirementhome"),
-
         @JsonProperty(value = "hospital")
         hospital("hospital"),
-
         @JsonProperty(value = "other")
         other("other"),
-
         @JsonProperty(value = "referringphysician")
         referringphysician("referringphysician"),
-
         @JsonProperty(value = "managingorganization")
         managingorganization("managingorganization");
     }

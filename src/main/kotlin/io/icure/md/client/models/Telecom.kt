@@ -49,43 +49,30 @@ data class Telecom(
     enum class TelecomType(val value: kotlin.String) {
         @JsonProperty(value = "mobile")
         mobile("mobile"),
-
         @JsonProperty(value = "phone")
         phone("phone"),
-
         @JsonProperty(value = "email")
         email("email"),
-
         @JsonProperty(value = "fax")
         fax("fax"),
-
         @JsonProperty(value = "skype")
         skype("skype"),
-
         @JsonProperty(value = "im")
         im("im"),
-
         @JsonProperty(value = "medibridge")
         medibridge("medibridge"),
-
         @JsonProperty(value = "ehealthbox")
         ehealthbox("ehealthbox"),
-
         @JsonProperty(value = "apicrypt")
         apicrypt("apicrypt"),
-
         @JsonProperty(value = "web")
         web("web"),
-
         @JsonProperty(value = "print")
         print("print"),
-
         @JsonProperty(value = "disk")
         disk("disk"),
-
         @JsonProperty(value = "other")
         other("other"),
-
         @JsonProperty(value = "pager")
         pager("pager");
     }
