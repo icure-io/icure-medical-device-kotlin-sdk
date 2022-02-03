@@ -121,16 +121,22 @@ data class HealthcareProfessional(
     enum class Gender(val value: kotlin.String) {
         @JsonProperty(value = "M")
         m("M"),
+
         @JsonProperty(value = "F")
         f("F"),
+
         @JsonProperty(value = "I")
         i("I"),
+
         @JsonProperty(value = "C")
         c("C"),
+
         @JsonProperty(value = "Y")
         y("Y"),
+
         @JsonProperty(value = "X")
         x("X"),
+
         @JsonProperty(value = "U")
         u("U");
     }

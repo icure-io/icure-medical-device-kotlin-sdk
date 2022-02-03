@@ -81,24 +81,34 @@ data class Address(
     enum class AddressType(val value: kotlin.String) {
         @JsonProperty(value = "home")
         home("home"),
+
         @JsonProperty(value = "work")
         work("work"),
+
         @JsonProperty(value = "vacation")
         vacation("vacation"),
+
         @JsonProperty(value = "hospital")
         hospital("hospital"),
+
         @JsonProperty(value = "clinic")
         clinic("clinic"),
+
         @JsonProperty(value = "hq")
         hq("hq"),
+
         @JsonProperty(value = "other")
         other("other"),
+
         @JsonProperty(value = "temporary")
         temporary("temporary"),
+
         @JsonProperty(value = "postal")
         postal("postal"),
+
         @JsonProperty(value = "diplomatic")
         diplomatic("diplomatic"),
+
         @JsonProperty(value = "reference")
         reference("reference");
     }
