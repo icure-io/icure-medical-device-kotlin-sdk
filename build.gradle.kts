@@ -181,3 +181,7 @@ tasks.create<Delete>("delete-unused-files") {
         File("$rootDir/src/test/kotlin/io/icure/md/client/apis/UserApiTest.kt")
     )
 }
+
+tasks.test {
+    useJUnitPlatform()
+}
