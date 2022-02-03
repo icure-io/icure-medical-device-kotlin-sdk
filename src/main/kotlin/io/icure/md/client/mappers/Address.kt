@@ -28,3 +28,27 @@ private fun TelecomDto.toTelecom() = Telecom(
 )
 
 private fun TelecomDto.TelecomType.toTelecomType() = Telecom.TelecomType.valueOf(this.name)
+
+fun Address.toAddressDto() = AddressDto(
+        telecoms = this.telecoms.map { it.toTelecomDto() },
+        addressType = this.addressType?.toAddressTypeDto(),
+        descr = this.description,
+        street = this.street,
+        houseNumber = this.houseNumber,
+        postboxNumber = this.postboxNumber,
+        postalCode = this.postalCode,
+        city = this.city,
+        state = this.state,
+        country = this.country,
+        note = this.note
+)
+
+private fun Address.AddressType.toAddressTypeDto() = AddressDto.AddressType.valueOf(this.name)
+
+private fun Telecom.toTelecomDto() = TelecomDto(
+        telecomType = this.telecomType?.toTelecomTypeDto(),
+        telecomNumber = this.telecomNumber,
+        telecomDescription = this.telecomDescription,
+)
+
+private fun Telecom.TelecomType.toTelecomTypeDto() = TelecomDto.TelecomType.valueOf(this.name)

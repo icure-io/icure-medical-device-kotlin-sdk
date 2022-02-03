@@ -23,3 +23,26 @@ fun HealthElementDto.toHealthcareElement() = HealthcareElement(
     description = this.descr,
     note = this.note,
 )
+
+fun HealthcareElement.toHealthcareElementDto() = HealthElementDto(
+    id = this.id,
+    identifiers = this.identifiers.map { it.toIdentifierDto() },
+    tags = this.tags.map { it.toCodeStubDto() },
+    codes = this.codes.map { it.toCodeStubDto() },
+    rev = this.rev,
+    created = this.created,
+    modified = this.modified,
+    author = this.author,
+    responsible = this.responsible,
+    medicalLocationId = this.medicalLocationId,
+    endOfLife = this.endOfLife,
+    deletionDate = this.deletionDate,
+    healthElementId = this.healthElementId,
+    valueDate = this.valueDate,
+    openingDate = this.openingDate,
+    closingDate = this.closingDate,
+    descr = this.description,
+    note = this.note,
+    relevant = true,
+    status = 0
+)

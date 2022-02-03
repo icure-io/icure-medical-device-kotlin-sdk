@@ -9,3 +9,10 @@ fun PropertyTypeStubDto.toPropertyType() = PropertyType(
 )
 
 private fun PropertyTypeStubDto.Type.toPropertyTypeType() = PropertyType.Type.valueOf(this.name)
+
+fun PropertyType.toPropertyTypeStubDto() = PropertyTypeStubDto(
+    identifier = this.identifier,
+    type = this.type?.toPropertyTypeStubDtoType(),
+)
+
+private fun PropertyType.Type.toPropertyTypeStubDtoType() = PropertyTypeStubDto.Type.valueOf(this.name)

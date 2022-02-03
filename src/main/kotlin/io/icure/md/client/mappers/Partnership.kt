@@ -11,3 +11,12 @@ fun PartnershipDto.toPartnership() = Partnership(
 
 private fun PartnershipDto.Status.toPartnershipStatus() = Partnership.Status.valueOf(this.name)
 private fun PartnershipDto.Type.toPartnershipType() = Partnership.Type.valueOf(this.name)
+
+fun Partnership.toPartnershipDto() = PartnershipDto(
+    type = this.type?.toPartnershipType(),
+    status = this.status?.toPartnershipStatus(),
+    partnerId = this.partnerId,
+)
+
+private fun Partnership.Status.toPartnershipStatus() = PartnershipDto.Status.valueOf(this.name)
+private fun Partnership.Type.toPartnershipType() = PartnershipDto.Type.valueOf(this.name)
