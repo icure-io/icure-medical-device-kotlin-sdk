@@ -12,13 +12,10 @@
  */
 package io.icure.md.client.models
 
-import io.icure.md.client.models.Telecom
-
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * the list of addresses (with address type).
@@ -42,37 +39,37 @@ import com.github.pozo.KotlinBuilder
 data class Address (
 
     @field:JsonProperty("telecoms")
-    val telecoms: kotlin.collections.List<Telecom> = emptyList(),
+    val telecoms: List<Telecom> = emptyList(),
 
     @field:JsonProperty("addressType")
-    val addressType: Address.AddressType? = null,
+    val addressType: AddressType? = null,
 
     @field:JsonProperty("description")
-    val description: kotlin.String? = null,
+    val description: String? = null,
 
     @field:JsonProperty("street")
-    val street: kotlin.String? = null,
+    val street: String? = null,
 
     @field:JsonProperty("houseNumber")
-    val houseNumber: kotlin.String? = null,
+    val houseNumber: String? = null,
 
     @field:JsonProperty("postboxNumber")
-    val postboxNumber: kotlin.String? = null,
+    val postboxNumber: String? = null,
 
     @field:JsonProperty("postalCode")
-    val postalCode: kotlin.String? = null,
+    val postalCode: String? = null,
 
     @field:JsonProperty("city")
-    val city: kotlin.String? = null,
+    val city: String? = null,
 
     @field:JsonProperty("state")
-    val state: kotlin.String? = null,
+    val state: String? = null,
 
     @field:JsonProperty("country")
-    val country: kotlin.String? = null,
+    val country: String? = null,
 
     @field:JsonProperty("note")
-    val note: kotlin.String? = null
+    val note: String? = null
 
 ) {
 
@@ -81,7 +78,7 @@ data class Address (
      *
      * Values: home,work,vacation,hospital,clinic,hq,other,temporary,postal,diplomatic,reference
      */
-    enum class AddressType(val value: kotlin.String) {
+    enum class AddressType(val value: String) {
         @JsonProperty(value = "home") home("home"),
         @JsonProperty(value = "work") work("work"),
         @JsonProperty(value = "vacation") vacation("vacation"),

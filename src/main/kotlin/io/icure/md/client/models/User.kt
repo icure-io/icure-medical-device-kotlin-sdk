@@ -12,14 +12,10 @@
  */
 package io.icure.md.client.models
 
-import io.icure.md.client.models.AuthenticationToken
-import io.icure.md.client.models.Property
-
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * 
@@ -52,77 +48,77 @@ data class User (
 
     /* the Id of the user. We encourage using either a v4 UUID or a HL7 Id. */
     @field:JsonProperty("id")
-    val id: kotlin.String,
+    val id: String?,
 
     /* Extra properties for the user. Those properties are typed (see class Property) */
     @field:JsonProperty("properties")
-    val properties: kotlin.collections.List<Property> = emptyList(),
+    val properties: List<Property> = emptyList(),
 
     /* Roles assigned to this user */
     @field:JsonProperty("roles")
-    val roles: kotlin.collections.List<kotlin.String> = emptyList(),
+    val roles: List<String> = emptyList(),
 
     /* Delegations that are automatically generated client side when a new database object is created by this user */
     @field:JsonProperty("autoDelegations")
-    val autoDelegations: kotlin.collections.Map<kotlin.String, kotlin.collections.Set<kotlin.String>> = emptyMap(),
+    val autoDelegations: Map<String, Set<String>> = emptyMap(),
 
     /* Encrypted and time-limited Authentication tokens used for inter-applications authentication */
     @field:JsonProperty("authenticationTokens")
-    val authenticationTokens: kotlin.collections.Map<kotlin.String, AuthenticationToken> = emptyMap(),
+    val authenticationTokens: Map<String, AuthenticationToken> = emptyMap(),
 
     /* the revision of the user in the database, used for conflict management / optimistic locking. */
     @field:JsonProperty("rev")
-    val rev: kotlin.String? = null,
+    val rev: String? = null,
 
     @field:JsonProperty("deletionDate")
-    val deletionDate: kotlin.Long? = null,
+    val deletionDate: Long? = null,
 
     @field:JsonProperty("created")
-    val created: kotlin.Long? = null,
+    val created: Long? = null,
 
     /* Last name of the user. This is the official last name that should be used for official administrative purposes. */
     @field:JsonProperty("name")
-    val name: kotlin.String? = null,
+    val name: String? = null,
 
     /* Username for this user. We encourage using an email address */
     @field:JsonProperty("login")
-    val login: kotlin.String? = null,
+    val login: String? = null,
 
     /* Hashed version of the password (BCrypt is used for hashing) */
     @field:JsonProperty("passwordHash")
-    val passwordHash: kotlin.String? = null,
+    val passwordHash: String? = null,
 
     /* Secret token used to verify 2fa */
     @field:JsonProperty("secret")
-    val secret: kotlin.String? = null,
+    val secret: String? = null,
 
     /* Whether the user has activated two factors authentication */
     @field:JsonProperty("use2fa")
-    val use2fa: kotlin.Boolean? = null,
+    val use2fa: Boolean? = null,
 
     /* id of the group (practice/hospital) the user is member of */
     @field:JsonProperty("groupId")
-    val groupId: kotlin.String? = null,
+    val groupId: String? = null,
 
     /* Id of the healthcare party if the user is a healthcare party. */
     @field:JsonProperty("healthcarePartyId")
-    val healthcarePartyId: kotlin.String? = null,
+    val healthcarePartyId: String? = null,
 
     /* Id of the patient if the user is a patient */
     @field:JsonProperty("patientId")
-    val patientId: kotlin.String? = null,
+    val patientId: String? = null,
 
     /* Id of the patient if the user is a patient */
     @field:JsonProperty("deviceId")
-    val deviceId: kotlin.String? = null,
+    val deviceId: String? = null,
 
     /* email address of the user (used for token exchange or password recovery). */
     @field:JsonProperty("email")
-    val email: kotlin.String? = null,
+    val email: String? = null,
 
     /* mobile phone of the user (used for token exchange or password recovery). */
     @field:JsonProperty("mobilePhone")
-    val mobilePhone: kotlin.String? = null
+    val mobilePhone: String? = null
 
 )
 

@@ -12,15 +12,10 @@
  */
 package io.icure.md.client.models
 
-import io.icure.md.client.models.DataSample
-import io.icure.md.client.models.Measure
-import io.icure.md.client.models.TimeSeries
-
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * Information contained in the data sample. Content is localized, using ISO language code as key
@@ -45,27 +40,27 @@ import com.github.pozo.KotlinBuilder
 data class Content (
 
     @field:JsonProperty("stringValue")
-    val stringValue: kotlin.String? = null,
+    val stringValue: String? = null,
 
     @field:JsonProperty("numberValue")
-    val numberValue: kotlin.Double? = null,
+    val numberValue: Double? = null,
 
     @field:JsonProperty("booleanValue")
-    val booleanValue: kotlin.Boolean? = null,
+    val booleanValue: Boolean? = null,
 
     @field:JsonProperty("instantValue")
     val instantValue: java.time.OffsetDateTime? = null,
 
     /* Value as date. The format could have a all three (day, month and year) or values on any of these three, whatever is known. */
     @field:JsonProperty("fuzzyDateValue")
-    val fuzzyDateValue: kotlin.Long? = null,
+    val fuzzyDateValue: Long? = null,
 
     @field:JsonProperty("binaryValue")
     val binaryValue: io.icure.kraken.client.infrastructure.ByteArrayWrapper? = null,
 
     /* Linked document. */
     @field:JsonProperty("documentId")
-    val documentId: kotlin.String? = null,
+    val documentId: String? = null,
 
     @field:JsonProperty("measureValue")
     val measureValue: Measure? = null,
@@ -74,13 +69,13 @@ data class Content (
     val timeSeries: TimeSeries? = null,
 
     @field:JsonProperty("compoundValue")
-    val compoundValue: kotlin.collections.List<DataSample>? = null,
+    val compoundValue: List<DataSample>? = null,
 
     @field:JsonProperty("ratio")
-    val ratio: kotlin.collections.List<Measure>? = null,
+    val ratio: List<Measure>? = null,
 
     @field:JsonProperty("range")
-    val range: kotlin.collections.List<Measure>? = null
+    val range: List<Measure>? = null
 
 )
 

@@ -12,13 +12,10 @@
  */
 package io.icure.md.client.models
 
-import io.icure.md.client.models.CodingReference
-
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * 
@@ -42,37 +39,37 @@ import com.github.pozo.KotlinBuilder
 data class Measure (
 
     @field:JsonProperty("value")
-    val `value`: kotlin.Double? = null,
+    val `value`: Double? = null,
 
     @field:JsonProperty("min")
-    val min: kotlin.Double? = null,
+    val min: Double? = null,
 
     @field:JsonProperty("max")
-    val max: kotlin.Double? = null,
+    val max: Double? = null,
 
     @field:JsonProperty("ref")
-    val ref: kotlin.Double? = null,
+    val ref: Double? = null,
 
     @field:JsonProperty("severity")
-    val severity: kotlin.Int? = null,
+    val severity: Int? = null,
 
     @field:JsonProperty("severityCode")
-    val severityCode: kotlin.String? = null,
+    val severityCode: String? = null,
 
     @field:JsonProperty("evolution")
-    val evolution: kotlin.Int? = null,
+    val evolution: Int? = null,
 
     @field:JsonProperty("unit")
-    val unit: kotlin.String? = null,
+    val unit: String? = null,
 
     @field:JsonProperty("unitCodes")
-    val unitCodes: kotlin.collections.Set<CodingReference>? = null,
+    val unitCodes: Set<CodingReference>? = null,
 
     @field:JsonProperty("comment")
-    val comment: kotlin.String? = null,
+    val comment: String? = null,
 
     @field:JsonProperty("comparator")
-    val comparator: kotlin.String? = null
+    val comparator: String? = null
 
 )
 

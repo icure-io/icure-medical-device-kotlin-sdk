@@ -12,13 +12,10 @@
  */
 package io.icure.md.client.models
 
-import io.icure.md.client.models.CodingReference
-
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * 
@@ -39,28 +36,28 @@ import com.github.pozo.KotlinBuilder
 data class Identifier (
 
     @field:JsonProperty("id")
-    val id: kotlin.String? = null,
+    val id: String? = null,
 
     @field:JsonProperty("assigner")
-    val assigner: kotlin.String? = null,
+    val assigner: String? = null,
 
     @field:JsonProperty("start")
-    val start: kotlin.String? = null,
+    val start: String? = null,
 
     @field:JsonProperty("end")
-    val end: kotlin.String? = null,
+    val end: String? = null,
 
     @field:JsonProperty("system")
-    val system: kotlin.String? = null,
+    val system: String? = null,
 
     @field:JsonProperty("type")
     val type: CodingReference? = null,
 
     @field:JsonProperty("use")
-    val use: kotlin.String? = null,
+    val use: String? = null,
 
     @field:JsonProperty("value")
-    val `value`: kotlin.String? = null
+    val `value`: String? = null
 
 )
 
