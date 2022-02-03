@@ -21,7 +21,7 @@ Create a Healthcare Element
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareElementApi()
@@ -66,7 +66,7 @@ Create a Healthcare Element
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareElementApi()
@@ -111,7 +111,7 @@ Delete a Healthcare Element
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareElementApi()
@@ -156,7 +156,7 @@ Find Healthcare Elements using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareElementApi()
@@ -201,7 +201,7 @@ Get a Healthcare Element
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareElementApi()
@@ -246,7 +246,7 @@ Find Healthcare Elements using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareElementApi()

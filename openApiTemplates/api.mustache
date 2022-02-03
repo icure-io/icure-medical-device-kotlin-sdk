@@ -10,8 +10,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 {{/useCoroutines}}
 {{/doNotUseRxAndCoroutines}}
 
-import {{packageName}}.infrastructure.ClientException
-import {{packageName}}.infrastructure.ServerException
+import io.icure.kraken.client.infrastructure.ClientException
+import io.icure.kraken.client.infrastructure.ServerException
 
 import kotlinx.coroutines.flow.flowOf
 import java.nio.ByteBuffer
@@ -31,9 +31,8 @@ import java.net.URLEncoder
     * {{summary}}
     * {{notes}}
     {{#allParams}}* @param {{{paramName}}} {{description}} {{^required}}(optional{{#defaultValue}}, default to {{{.}}}{{/defaultValue}}){{/required}}
-    {{/allParams}}* @return {{#returnType}}{{{returnType}}}{{#nullableReturnType}} or null{{/nullableReturnType}}{{/returnType}}{{^returnType}}void{{/returnType}}
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ClientException If the API returns a client error response
+    {{/allParams}}{{#responses}}{{#is2xx}}* @return {{message}}{{/is2xx}}{{#is4xx}}* @throws ClientException {{message}}{{/is4xx}}
+    {{/responses}}* @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ServerException If the API returns a server error response
     */{{#returnType}}
     @Suppress("UNCHECKED_CAST"){{/returnType}}
