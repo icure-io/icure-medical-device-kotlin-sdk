@@ -21,7 +21,7 @@ Create a Coding
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = CodingApi()
@@ -66,7 +66,7 @@ Create a Coding
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = CodingApi()
@@ -111,7 +111,7 @@ Delete a Coding
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = CodingApi()
@@ -156,7 +156,7 @@ Find Codings using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = CodingApi()
@@ -201,7 +201,7 @@ Get a Coding
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = CodingApi()
@@ -246,7 +246,7 @@ Find Codings using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = CodingApi()

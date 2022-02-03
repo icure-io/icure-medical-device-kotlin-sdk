@@ -14,11 +14,14 @@ import java.util.*
 class UserApiImpl(val api: io.icure.kraken.client.apis.UserApi) : UserApi {
     override suspend fun checkTokenValidity(userId: String, token: String) = api.checkTokenValidity(userId, token)
 
-    override suspend fun createOrModifyUser(user: User) = (user.rev?.let { api.modifyUser(user.toUserDto()) } ?: api.createUser(user.toUserDto())).toUser()
+    override suspend fun createOrModifyUser(user: User) =
+        (user.rev?.let { api.modifyUser(user.toUserDto()) } ?: api.createUser(user.toUserDto())).toUser()
 
-    override suspend fun createToken(userId: String) = api.getToken(userId, UUID.randomUUID().toString(), 3600*24*30)
+    override suspend fun createToken(userId: String) =
+        api.getToken(userId, UUID.randomUUID().toString(), 3600 * 24 * 30)
 
-    override suspend fun deleteUser(userId: String) = api.deleteUser(userId).rev ?: throw IllegalArgumentException("Invalid user id")
+    override suspend fun deleteUser(userId: String) =
+        api.deleteUser(userId).rev ?: throw IllegalArgumentException("Invalid user id")
 
     override suspend fun filterUser(filter: Filter): PaginatedListUser {
         TODO("Not yet implemented")

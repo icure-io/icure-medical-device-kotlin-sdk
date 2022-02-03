@@ -20,7 +20,7 @@ Create or update a Patient
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = PatientApi()
@@ -65,7 +65,7 @@ Delete a Patient
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = PatientApi()
@@ -110,7 +110,7 @@ Find Patients using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = PatientApi()
@@ -155,7 +155,7 @@ Get a Patient
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = PatientApi()
@@ -200,7 +200,7 @@ Find Patients using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = PatientApi()

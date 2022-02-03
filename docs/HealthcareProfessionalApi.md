@@ -20,7 +20,7 @@ Create a HealthcareProfessional
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareProfessionalApi()
@@ -65,7 +65,7 @@ Delete a HealthcareProfessional
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareProfessionalApi()
@@ -110,7 +110,7 @@ Find Healthcare Professional using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareProfessionalApi()
@@ -155,7 +155,7 @@ Get a HealthcareProfessional
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareProfessionalApi()
@@ -200,7 +200,7 @@ Find Data samples using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareProfessionalApi()

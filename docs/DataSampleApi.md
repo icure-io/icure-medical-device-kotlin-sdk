@@ -26,7 +26,7 @@ Create a DataSample
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
@@ -71,7 +71,7 @@ Create a batch of Data samples
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
@@ -116,7 +116,7 @@ Delete a Data sample attachment
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
@@ -163,7 +163,7 @@ Delete a DataSample
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
@@ -208,7 +208,7 @@ Delete a batch of Data samples
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
@@ -253,7 +253,7 @@ Find Data samples using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
@@ -298,7 +298,7 @@ Get a DataSample
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
@@ -343,7 +343,7 @@ Get a DataSample attachment metadata
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
@@ -390,7 +390,7 @@ Get a Data sample attachment metadata
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
@@ -439,7 +439,7 @@ Find Data samples using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
@@ -484,7 +484,7 @@ Create a DataSample
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
