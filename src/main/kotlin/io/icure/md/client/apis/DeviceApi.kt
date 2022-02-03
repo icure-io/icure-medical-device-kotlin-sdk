@@ -18,8 +18,8 @@ import io.icure.md.client.models.PaginatedListMedicalDevice
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
  
-import io.icure.md.client.infrastructure.ClientException
-import io.icure.md.client.infrastructure.ServerException
+import io.icure.kraken.client.infrastructure.ClientException
+import io.icure.kraken.client.infrastructure.ServerException
 
 import kotlinx.coroutines.flow.flowOf
 import java.nio.ByteBuffer

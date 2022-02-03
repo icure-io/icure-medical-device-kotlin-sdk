@@ -110,7 +110,7 @@ data class MedicalDevice (
     val parentId: kotlin.String? = null,
 
     @field:JsonProperty("picture")
-    val picture: kotlin.collections.List<io.icure.md.client.infrastructure.ByteArrayWrapper>? = null
+    val picture: kotlin.collections.List<io.icure.kraken.client.infrastructure.ByteArrayWrapper>? = null
 
 )
 

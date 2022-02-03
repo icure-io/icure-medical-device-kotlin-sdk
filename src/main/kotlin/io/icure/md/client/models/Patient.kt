@@ -266,7 +266,7 @@ data class Patient (
 
     /* A picture usually saved in JPEG format. */
     @field:JsonProperty("picture")
-    val picture: io.icure.md.client.infrastructure.ByteArrayWrapper? = null,
+    val picture: io.icure.kraken.client.infrastructure.ByteArrayWrapper? = null,
 
     /* An external (from another source) id with no guarantee or requirement for unicity . */
     @field:JsonProperty("externalId")
