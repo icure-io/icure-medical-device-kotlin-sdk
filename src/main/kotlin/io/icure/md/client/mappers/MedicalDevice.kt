@@ -27,8 +27,8 @@ fun DeviceDto.toMedicalDevice() = MedicalDevice(
     picture = this.picture,
 )
 
-fun MedicalDevice.toDeviceDto(id: String = UUID.randomUUID().toString()) = DeviceDto(
-    id = id,
+fun MedicalDevice.toDeviceDto(deviceId: String = UUID.randomUUID().toString()) = DeviceDto(
+    id = deviceId,
     identifiers = this.identifiers.map { it.toIdentifierDto() },
     tags = this.labels.map { it.toCodeStubDto() },
     codes = this.codes.map { it.toCodeStubDto() },
