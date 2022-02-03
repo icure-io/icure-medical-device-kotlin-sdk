@@ -21,95 +21,95 @@ import com.github.pozo.KotlinBuilder
  *
  *
  * @param id the Id of the healthcare party. We encourage using either a v4 UUID or a HL7 Id.
- * @param names the list of all names of the healthcare party, also containing the official full name information. Ordered by preference of use. First element is therefore the official name used for the healthcare party in the application
- * @param addresses The list of addresses (with address type).
- * @param languages The list of languages spoken by the patient ordered by fluency (alpha-2 code http://www.loc.gov/standards/iso639-2/ascii_8bits.html).
- * @param specialityCodes Medical specialty of the healthcare party codified using FHIR or Kmehr codificaiton scheme
- * @param properties
  * @param rev the revision of the healthcare party in the database, used for conflict management / optimistic locking.
  * @param deletionDate hard delete (unix epoch in ms) timestamp of the object.
  * @param name The full name of the healthcare party, used mainly when the healthcare party is an organization
  * @param lastName the lastname (surname) of the healthcare party. This is the official lastname that should be used for official administrative purposes.
  * @param firstName the firstname (name) of the healthcare party.
+ * @param names the list of all names of the healthcare party, also containing the official full name information. Ordered by preference of use. First element is therefore the official name used for the healthcare party in the application
  * @param gender the gender of the healthcare party: male, female, indeterminate, changed, changedToMale, changedToFemale, unknown
  * @param civility Mr., Ms., Pr., Dr. ...
  * @param speciality Medical specialty of the healthcare party
  * @param parentId Id of parent of the user representing the healthcare party.
+ * @param addresses The list of addresses (with address type).
+ * @param languages The list of languages spoken by the patient ordered by fluency (alpha-2 code http://www.loc.gov/standards/iso639-2/ascii_8bits.html).
  * @param picture A picture usually saved in JPEG format.
+ * @param specialityCodes Medical specialty of the healthcare party codified using FHIR or Kmehr codificaiton scheme
  * @param notes Text notes.
+ * @param properties
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @KotlinBuilder
-data class HealthcareProfessional (
+data class HealthcareProfessional(
 
     /* the Id of the healthcare party. We encourage using either a v4 UUID or a HL7 Id. */
     @field:JsonProperty("id")
-    val id: String? = null,
-
-    /* the list of all names of the healthcare party, also containing the official full name information. Ordered by preference of use. First element is therefore the official name used for the healthcare party in the application */
-    @field:JsonProperty("names")
-    val names: List<PersonName> = emptyList(),
-
-    /* The list of addresses (with address type). */
-    @field:JsonProperty("addresses")
-    val addresses: List<Address> = emptyList(),
-
-    /* The list of languages spoken by the patient ordered by fluency (alpha-2 code http://www.loc.gov/standards/iso639-2/ascii_8bits.html). */
-    @field:JsonProperty("languages")
-    val languages: List<String> = emptyList(),
-
-    /* Medical specialty of the healthcare party codified using FHIR or Kmehr codificaiton scheme */
-    @field:JsonProperty("specialityCodes")
-    val specialityCodes: List<CodingReference> = emptyList(),
-
-    @field:JsonProperty("properties")
-    val properties: List<Property> = emptyList(),
+    val id: kotlin.String? = null,
 
     /* the revision of the healthcare party in the database, used for conflict management / optimistic locking. */
     @field:JsonProperty("rev")
-    val rev: String? = null,
+    val rev: kotlin.String? = null,
 
     /* hard delete (unix epoch in ms) timestamp of the object. */
     @field:JsonProperty("deletionDate")
-    val deletionDate: Long? = null,
+    val deletionDate: kotlin.Long? = null,
 
     /* The full name of the healthcare party, used mainly when the healthcare party is an organization */
     @field:JsonProperty("name")
-    val name: String? = null,
+    val name: kotlin.String? = null,
 
     /* the lastname (surname) of the healthcare party. This is the official lastname that should be used for official administrative purposes. */
     @field:JsonProperty("lastName")
-    val lastName: String? = null,
+    val lastName: kotlin.String? = null,
 
     /* the firstname (name) of the healthcare party. */
     @field:JsonProperty("firstName")
-    val firstName: String? = null,
+    val firstName: kotlin.String? = null,
+
+    /* the list of all names of the healthcare party, also containing the official full name information. Ordered by preference of use. First element is therefore the official name used for the healthcare party in the application */
+    @field:JsonProperty("names")
+    val names: kotlin.collections.List<PersonName> = emptyList(),
 
     /* the gender of the healthcare party: male, female, indeterminate, changed, changedToMale, changedToFemale, unknown */
     @field:JsonProperty("gender")
-    val gender: Gender? = null,
+    val gender: HealthcareProfessional.Gender? = null,
 
     /* Mr., Ms., Pr., Dr. ... */
     @field:JsonProperty("civility")
-    val civility: String? = null,
+    val civility: kotlin.String? = null,
 
     /* Medical specialty of the healthcare party */
     @field:JsonProperty("speciality")
-    val speciality: String? = null,
+    val speciality: kotlin.String? = null,
 
     /* Id of parent of the user representing the healthcare party. */
     @field:JsonProperty("parentId")
-    val parentId: String? = null,
+    val parentId: kotlin.String? = null,
+
+    /* The list of addresses (with address type). */
+    @field:JsonProperty("addresses")
+    val addresses: kotlin.collections.List<Address> = emptyList(),
+
+    /* The list of languages spoken by the patient ordered by fluency (alpha-2 code http://www.loc.gov/standards/iso639-2/ascii_8bits.html). */
+    @field:JsonProperty("languages")
+    val languages: kotlin.collections.List<kotlin.String> = emptyList(),
 
     /* A picture usually saved in JPEG format. */
     @field:JsonProperty("picture")
     val picture: io.icure.kraken.client.infrastructure.ByteArrayWrapper? = null,
 
+    /* Medical specialty of the healthcare party codified using FHIR or Kmehr codificaiton scheme */
+    @field:JsonProperty("specialityCodes")
+    val specialityCodes: kotlin.collections.List<CodingReference> = emptyList(),
+
     /* Text notes. */
     @field:JsonProperty("notes")
-    val notes: String? = null
+    val notes: kotlin.String? = null,
+
+    @field:JsonProperty("properties")
+    val properties: kotlin.collections.List<Property> = emptyList()
 
 ) {
 
@@ -118,14 +118,21 @@ data class HealthcareProfessional (
      *
      * Values: m,f,i,c,y,x,u
      */
-    enum class Gender(val value: String) {
-        @JsonProperty(value = "M") m("M"),
-        @JsonProperty(value = "F") f("F"),
-        @JsonProperty(value = "I") i("I"),
-        @JsonProperty(value = "C") c("C"),
-        @JsonProperty(value = "Y") y("Y"),
-        @JsonProperty(value = "X") x("X"),
-        @JsonProperty(value = "U") u("U");
+    enum class Gender(val value: kotlin.String) {
+        @JsonProperty(value = "M")
+        m("M"),
+        @JsonProperty(value = "F")
+        f("F"),
+        @JsonProperty(value = "I")
+        i("I"),
+        @JsonProperty(value = "C")
+        c("C"),
+        @JsonProperty(value = "Y")
+        y("Y"),
+        @JsonProperty(value = "X")
+        x("X"),
+        @JsonProperty(value = "U")
+        u("U");
     }
 }
 

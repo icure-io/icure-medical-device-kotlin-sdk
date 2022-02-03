@@ -119,7 +119,7 @@ tasks.register("apiGenerate", Jar::class) {
                 "--artifact-id", project.name,
                 "--artifact-version", "0.0.1-SNAPSHOT",
                 "--template-dir", "$rootDir/openApiTemplates",
-                "--additional-properties", "useCoroutines=true,serializationLibrary=jackson"
+                "--additional-properties", "useCoroutines=true,serializationLibrary=jackson,sortModelPropertiesByRequiredFlag=false"
             )
         }
     }

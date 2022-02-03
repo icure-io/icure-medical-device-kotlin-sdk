@@ -80,8 +80,8 @@ Class | Method | HTTP request | Description
 *UserApi* | [**createToken**](docs/UserApi.md#createtoken) | **POST** /rest/v2/user/token/{userId} | Find Users using a filter
 *UserApi* | [**deleteUser**](docs/UserApi.md#deleteuser) | **DELETE** /rest/v2/user/{userId} | Delete a User
 *UserApi* | [**filterUser**](docs/UserApi.md#filteruser) | **POST** /rest/v2/user/filter | Find Users using a filter
-*UserApi* | [**getLoggedUser**](docs/UserApi.md#getloggeduser) | **GET** /rest/v2/user | Get the logged User
-*UserApi* | [**getUser**](docs/UserApi.md#getuser) | **GET** /rest/v2/user/{userId} | Get a User
+*UserApi* | [**getLoggedUser**](docs/UserApi.md#getloggeduser) | **GET** /rest/v2/user | Get the details of the logged User.
+*UserApi* | [**getUser**](docs/UserApi.md#getuser) | **GET** /rest/v2/user/{userId} | Get a User by id.
 *UserApi* | [**matchUser**](docs/UserApi.md#matchuser) | **POST** /rest/v2/user/match | Find Users using a filter
 
 

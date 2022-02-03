@@ -12,21 +12,13 @@
  */
 package io.icure.md.client.apis
 
+import io.icure.kraken.client.infrastructure.ClientException
+import io.icure.kraken.client.infrastructure.ServerException
 import io.icure.md.client.models.Filter
 import io.icure.md.client.models.PaginatedListUser
 import io.icure.md.client.models.User
-
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-
-import io.icure.kraken.client.infrastructure.ClientException
-import io.icure.kraken.client.infrastructure.ServerException
-
-import kotlinx.coroutines.flow.flowOf
-import java.nio.ByteBuffer
-import java.util.*
 import javax.inject.Named
-import kotlinx.coroutines.flow.Flow
-import java.net.URLEncoder
 
 @Named
 @ExperimentalStdlibApi
@@ -34,107 +26,107 @@ import java.net.URLEncoder
 interface UserApi {
 
     /**
-    * Find Users using a filter
-    *
-    * @param xIcureToken
-    * @param userId
-    * @return kotlin.Boolean
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ClientException If the API returns a client error response
-    * @throws ServerException If the API returns a server error response
-    */
+     * Find Users using a filter
+     *
+     * @param xIcureToken
+     * @param userId
+     * @return kotlin.Boolean
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun checkTokenValidity(userId: kotlin.String, token: kotlin.String) : kotlin.Boolean
+    suspend fun checkTokenValidity(xIcureToken: kotlin.String, userId: kotlin.String): kotlin.Boolean
 
     /**
-    * Create a User
-    *
-    * @param user
-    * @return User
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ClientException If the API returns a client error response
-    * @throws ServerException If the API returns a server error response
-    */
+     * Create a User
+     *
+     * @param user
+     * @return User
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun createOrModifyUser(user: User) : User
+    suspend fun createOrModifyUser(user: User): User
 
     /**
-    * Find Users using a filter
-    *
-    * @param userId
-    * @return kotlin.String
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ClientException If the API returns a client error response
-    * @throws ServerException If the API returns a server error response
-    */
+     * Find Users using a filter
+     *
+     * @param userId
+     * @return kotlin.String
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun createToken(userId: kotlin.String) : kotlin.String
+    suspend fun createToken(userId: kotlin.String): kotlin.String
 
     /**
-    * Delete a User
-    *
-    * @param userId
-    * @return kotlin.String
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ClientException If the API returns a client error response
-    * @throws ServerException If the API returns a server error response
-    */
+     * Delete a User
+     *
+     * @param userId
+     * @return kotlin.String
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun deleteUser(userId: kotlin.String) : kotlin.String
+    suspend fun deleteUser(userId: kotlin.String): kotlin.String
 
     /**
-    * Find Users using a filter
-    *
-    * @param filter
-    * @return PaginatedListUser
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ClientException If the API returns a client error response
-    * @throws ServerException If the API returns a server error response
-    */
+     * Find Users using a filter
+     *
+     * @param filter
+     * @return PaginatedListUser
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun filterUser(filter: Filter) : PaginatedListUser
+    suspend fun filterUser(filter: Filter): PaginatedListUser
 
     /**
-    * Get the logged User
-    *
-    * @return User
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ClientException If the API returns a client error response
-    * @throws ServerException If the API returns a server error response
-    */
+     * Get the details of the logged User.
+     * When you make a call to the server, an authentication token is used to identify you. This call returns the complete User object that corresponds to your authentication credentials.
+     * @return User
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun getLoggedUser() : User
+    suspend fun getLoggedUser(): User
 
     /**
-    * Get a User
-    *
-    * @param userId
-    * @return User
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ClientException If the API returns a client error response
-    * @throws ServerException If the API returns a server error response
-    */
+     * Get a User by id.
+     * Each user is uniquely identified by a user id. The user id is a UUID. This userId is the preferred method to retrieve one specific user.
+     * @param userId
+     * @return User
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun getUser(userId: kotlin.String) : User
+    suspend fun getUser(userId: kotlin.String): User
 
     /**
-    * Find Users using a filter
-    *
-    * @param filter
-    * @return kotlin.collections.List<kotlin.String>
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ClientException If the API returns a client error response
-    * @throws ServerException If the API returns a server error response
-    */
+     * Find Users using a filter
+     *
+     * @param filter
+     * @return kotlin.collections.List<kotlin.String>
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ClientException If the API returns a client error response
+     * @throws ServerException If the API returns a server error response
+     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun matchUser(filter: Filter) : kotlin.collections.List<kotlin.String>
+    suspend fun matchUser(filter: Filter): kotlin.collections.List<kotlin.String>
 
 }
