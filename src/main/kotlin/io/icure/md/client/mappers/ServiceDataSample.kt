@@ -8,15 +8,15 @@ import io.icure.md.client.models.DataSample
 import io.icure.md.client.models.Measure
 import java.util.*
 
-fun ServiceDto.toDataSample(): DataSample = DataSample(
+fun ServiceDto.toDataSample(batchId: String? = null): DataSample = DataSample(
     id = this.id,
     identifier = this.identifier.map { it.toIdentifier() },
     content = this.content.mapValues { it.value.toContent() },
-    qualifiedLinks = this.qualifiedLinks.map { (k,v) -> k.name to v}.toMap(),
+    qualifiedLinks = this.qualifiedLinks.map { (k, v) -> k.name to v }.toMap(),
     codes = this.codes.map { it.toCodingReference() },
     labels = this.tags.map { it.toCodingReference() },
     transactionId = this.transactionId,
-    batchId = this.contactId,
+    batchId = this.contactId ?: batchId,
     healthElementsIds = this.healthElementsIds,
     canvasesIds = this.formIds,
     index = this.index,

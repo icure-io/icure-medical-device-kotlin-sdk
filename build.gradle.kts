@@ -133,3 +133,7 @@ tasks.register("download-openapi-spec") {
         ant.invokeMethod("get", mapOf("src" to url, "dest" to destFile))
     }
 }
+
+tasks.test {
+    useJUnitPlatform()
+}
