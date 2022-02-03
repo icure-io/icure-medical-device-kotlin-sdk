@@ -12,11 +12,10 @@
  */
 package io.icure.md.client.models
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  *
@@ -47,62 +46,62 @@ data class HealthcareProfessional (
 
     /* the Id of the healthcare party. We encourage using either a v4 UUID or a HL7 Id. */
     @field:JsonProperty("id")
-    val id: kotlin.String,
+    val id: String?,
 
     /* the list of all names of the healthcare party, also containing the official full name information. Ordered by preference of use. First element is therefore the official name used for the healthcare party in the application */
     @field:JsonProperty("names")
-    val names: kotlin.collections.List<PersonName> = emptyList(),
+    val names: List<PersonName> = emptyList(),
 
     /* The list of addresses (with address type). */
     @field:JsonProperty("addresses")
-    val addresses: kotlin.collections.List<Address> = emptyList(),
+    val addresses: List<Address> = emptyList(),
 
     /* The list of languages spoken by the patient ordered by fluency (alpha-2 code http://www.loc.gov/standards/iso639-2/ascii_8bits.html). */
     @field:JsonProperty("languages")
-    val languages: kotlin.collections.List<kotlin.String> = emptyList(),
+    val languages: List<String> = emptyList(),
 
     /* Medical specialty of the healthcare party codified using FHIR or Kmehr codificaiton scheme */
     @field:JsonProperty("specialityCodes")
-    val specialityCodes: kotlin.collections.List<CodingReference> = emptyList(),
+    val specialityCodes: List<CodingReference> = emptyList(),
 
     @field:JsonProperty("properties")
-    val properties: kotlin.collections.List<Property> = emptyList(),
+    val properties: List<Property> = emptyList(),
 
     /* the revision of the healthcare party in the database, used for conflict management / optimistic locking. */
     @field:JsonProperty("rev")
-    val rev: kotlin.String? = null,
+    val rev: String? = null,
 
     /* hard delete (unix epoch in ms) timestamp of the object. */
     @field:JsonProperty("deletionDate")
-    val deletionDate: kotlin.Long? = null,
+    val deletionDate: Long? = null,
 
     /* The full name of the healthcare party, used mainly when the healthcare party is an organization */
     @field:JsonProperty("name")
-    val name: kotlin.String? = null,
+    val name: String? = null,
 
     /* the lastname (surname) of the healthcare party. This is the official lastname that should be used for official administrative purposes. */
     @field:JsonProperty("lastName")
-    val lastName: kotlin.String? = null,
+    val lastName: String? = null,
 
     /* the firstname (name) of the healthcare party. */
     @field:JsonProperty("firstName")
-    val firstName: kotlin.String? = null,
+    val firstName: String? = null,
 
     /* the gender of the healthcare party: male, female, indeterminate, changed, changedToMale, changedToFemale, unknown */
     @field:JsonProperty("gender")
-    val gender: HealthcareProfessional.Gender? = null,
+    val gender: Gender? = null,
 
     /* Mr., Ms., Pr., Dr. ... */
     @field:JsonProperty("civility")
-    val civility: kotlin.String? = null,
+    val civility: String? = null,
 
     /* Medical specialty of the healthcare party */
     @field:JsonProperty("speciality")
-    val speciality: kotlin.String? = null,
+    val speciality: String? = null,
 
     /* Id of parent of the user representing the healthcare party. */
     @field:JsonProperty("parentId")
-    val parentId: kotlin.String? = null,
+    val parentId: String? = null,
 
     /* A picture usually saved in JPEG format. */
     @field:JsonProperty("picture")
@@ -110,7 +109,7 @@ data class HealthcareProfessional (
 
     /* Text notes. */
     @field:JsonProperty("notes")
-    val notes: kotlin.String? = null
+    val notes: String? = null
 
 ) {
 
@@ -119,7 +118,7 @@ data class HealthcareProfessional (
      *
      * Values: m,f,i,c,y,x,u
      */
-    enum class Gender(val value: kotlin.String) {
+    enum class Gender(val value: String) {
         @JsonProperty(value = "M") m("M"),
         @JsonProperty(value = "F") f("F"),
         @JsonProperty(value = "I") i("I"),

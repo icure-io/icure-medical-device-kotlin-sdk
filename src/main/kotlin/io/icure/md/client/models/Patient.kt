@@ -12,19 +12,10 @@
  */
 package io.icure.md.client.models
 
-import io.icure.md.client.models.Address
-import io.icure.md.client.models.CodingReference
-import io.icure.md.client.models.Identifier
-import io.icure.md.client.models.Partnership
-import io.icure.md.client.models.PatientHealthCareParty
-import io.icure.md.client.models.PersonName
-import io.icure.md.client.models.Property
-
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * 
@@ -87,182 +78,182 @@ data class Patient (
 
     /* the Id of the patient. We encourage using either a v4 UUID or a HL7 Id. */
     @field:JsonProperty("id")
-    val id: kotlin.String,
+    val id: String?,
 
     @field:JsonProperty("identifier")
-    val identifier: kotlin.collections.List<Identifier> = emptyList(),
+    val identifier: List<Identifier> = emptyList(),
 
     @field:JsonProperty("labels")
-    val labels: kotlin.collections.List<CodingReference> = emptyList(),
+    val labels: List<CodingReference> = emptyList(),
 
     @field:JsonProperty("codes")
-    val codes: kotlin.collections.List<CodingReference> = emptyList(),
+    val codes: List<CodingReference> = emptyList(),
 
     /* the list of all names of the patient, also containing the official full name information. Ordered by preference of use. First element is therefore the official name used for the patient in the application */
     @field:JsonProperty("names")
-    val names: kotlin.collections.List<PersonName> = emptyList(),
+    val names: List<PersonName> = emptyList(),
 
     /* the list of languages spoken by the patient ordered by fluency (alpha-2 code http://www.loc.gov/standards/iso639-2/ascii_8bits.html). */
     @field:JsonProperty("languages")
-    val languages: kotlin.collections.List<kotlin.String> = emptyList(),
+    val languages: List<String> = emptyList(),
 
     /* the list of addresses (with address type). */
     @field:JsonProperty("addresses")
-    val addresses: kotlin.collections.List<Address> = emptyList(),
+    val addresses: List<Address> = emptyList(),
 
     /* The ids of the patients that have been merged inside this patient. */
     @field:JsonProperty("mergedIds")
-    val mergedIds: kotlin.collections.List<kotlin.String> = emptyList(),
+    val mergedIds: List<String> = emptyList(),
 
     /* Is the patient active (boolean). */
     @field:JsonProperty("active")
-    val active: kotlin.Boolean = true,
+    val active: Boolean = true,
 
     /* When not active, the reason for deactivation. */
     @field:JsonProperty("deactivationReason")
-    val deactivationReason: Patient.DeactivationReason = DeactivationReason.none,
+    val deactivationReason: DeactivationReason = DeactivationReason.none,
 
     /* List of partners, or persons of contact (of class Partnership, see below). */
     @field:JsonProperty("partnerships")
-    val partnerships: kotlin.collections.List<Partnership> = emptyList(),
+    val partnerships: List<Partnership> = emptyList(),
 
     /* Links (usually for therapeutic reasons) between this patient and healthcare parties (of class PatientHealthcareParty). */
     @field:JsonProperty("patientHealthCareParties")
-    val patientHealthCareParties: kotlin.collections.List<PatientHealthCareParty> = emptyList(),
+    val patientHealthCareParties: List<PatientHealthCareParty> = emptyList(),
 
     /* Codified list of professions exercised by this patient. */
     @field:JsonProperty("patientProfessions")
-    val patientProfessions: kotlin.collections.List<CodingReference> = emptyList(),
+    val patientProfessions: List<CodingReference> = emptyList(),
 
     /* Extra parameters */
     @field:JsonProperty("parameters")
-    val parameters: kotlin.collections.Map<kotlin.String, kotlin.collections.List<kotlin.String>> = emptyMap(),
+    val parameters: Map<String, List<String>> = emptyMap(),
 
     /* Extra properties */
     @field:JsonProperty("properties")
-    val properties: kotlin.collections.List<Property> = emptyList(),
+    val properties: List<Property> = emptyList(),
 
     /* the revision of the patient in the database, used for conflict management / optimistic locking. */
     @field:JsonProperty("rev")
-    val rev: kotlin.String? = null,
+    val rev: String? = null,
 
     @field:JsonProperty("created")
-    val created: kotlin.Long? = null,
+    val created: Long? = null,
 
     @field:JsonProperty("modified")
-    val modified: kotlin.Long? = null,
+    val modified: Long? = null,
 
     @field:JsonProperty("author")
-    val author: kotlin.String? = null,
+    val author: String? = null,
 
     @field:JsonProperty("responsible")
-    val responsible: kotlin.String? = null,
+    val responsible: String? = null,
 
     @field:JsonProperty("endOfLife")
-    val endOfLife: kotlin.Long? = null,
+    val endOfLife: Long? = null,
 
     @field:JsonProperty("deletionDate")
-    val deletionDate: kotlin.Long? = null,
+    val deletionDate: Long? = null,
 
     /* the firstname (name) of the patient. */
     @field:JsonProperty("firstName")
-    val firstName: kotlin.String? = null,
+    val firstName: String? = null,
 
     /* the lastname (surname) of the patient. This is the official lastname that should be used for official administrative purposes. */
     @field:JsonProperty("lastName")
-    val lastName: kotlin.String? = null,
+    val lastName: String? = null,
 
     /* the name of the company this patient is member of. */
     @field:JsonProperty("companyName")
-    val companyName: kotlin.String? = null,
+    val companyName: String? = null,
 
     /* Mr., Ms., Pr., Dr. ... */
     @field:JsonProperty("civility")
-    val civility: kotlin.String? = null,
+    val civility: String? = null,
 
     /* the gender of the patient: male, female, indeterminate, changed, changedToMale, changedToFemale, unknown */
     @field:JsonProperty("gender")
-    val gender: Patient.Gender? = null,
+    val gender: Gender? = null,
 
     /* the birth sex of the patient: male, female, indeterminate, unknown */
     @field:JsonProperty("birthSex")
-    val birthSex: Patient.BirthSex? = null,
+    val birthSex: BirthSex? = null,
 
     /* The id of the patient this patient has been merged with. */
     @field:JsonProperty("mergeToPatientId")
-    val mergeToPatientId: kotlin.String? = null,
+    val mergeToPatientId: String? = null,
 
     /* An alias of the person, nickname, ... */
     @field:JsonProperty("alias")
-    val alias: kotlin.String? = null,
+    val alias: String? = null,
 
     /* Social security inscription number. */
     @field:JsonProperty("ssin")
-    val ssin: kotlin.String? = null,
+    val ssin: String? = null,
 
     /* Lastname at birth (can be different of the current name), depending on the country, must be used to design the patient . */
     @field:JsonProperty("maidenName")
-    val maidenName: kotlin.String? = null,
+    val maidenName: String? = null,
 
     /* Lastname of the spouse for a married woman, depending on the country, can be used to design the patient. */
     @field:JsonProperty("spouseName")
-    val spouseName: kotlin.String? = null,
+    val spouseName: String? = null,
 
     /* Lastname of the partner, should not be used to design the patient. */
     @field:JsonProperty("partnerName")
-    val partnerName: kotlin.String? = null,
+    val partnerName: String? = null,
 
     /* any of `single`, `in_couple`, `married`, `separated`, `divorced`, `divorcing`, `widowed`, `widower`, `complicated`, `unknown`, `contract`, `other`. */
     @field:JsonProperty("personalStatus")
-    val personalStatus: Patient.PersonalStatus? = null,
+    val personalStatus: PersonalStatus? = null,
 
     /* The birthdate encoded as a fuzzy date on 8 positions (YYYYMMDD) MM and/or DD can be set to 00 if unknown (19740000 is a valid date). */
     @field:JsonProperty("dateOfBirth")
-    val dateOfBirth: kotlin.Int? = null,
+    val dateOfBirth: Int? = null,
 
     /* The date of death encoded as a fuzzy date on 8 positions (YYYYMMDD) MM and/or DD can be set to 00 if unknown (19740000 is a valid date). */
     @field:JsonProperty("dateOfDeath")
-    val dateOfDeath: kotlin.Int? = null,
+    val dateOfDeath: Int? = null,
 
     /* The place of birth. */
     @field:JsonProperty("placeOfBirth")
-    val placeOfBirth: kotlin.String? = null,
+    val placeOfBirth: String? = null,
 
     /* The place of death. */
     @field:JsonProperty("placeOfDeath")
-    val placeOfDeath: kotlin.String? = null,
+    val placeOfDeath: String? = null,
 
     /* Is the patient deceased. */
     @field:JsonProperty("deceased")
-    val deceased: kotlin.Boolean? = null,
+    val deceased: Boolean? = null,
 
     /* The level of education (college degree, undergraduate, phd). */
     @field:JsonProperty("education")
-    val education: kotlin.String? = null,
+    val education: String? = null,
 
     /* The current professional activity. */
     @field:JsonProperty("profession")
-    val profession: kotlin.String? = null,
+    val profession: String? = null,
 
     /* A text note (can be confidential, encrypted by default). */
     @field:JsonProperty("note")
-    val note: kotlin.String? = null,
+    val note: String? = null,
 
     /* An administrative note, not confidential. */
     @field:JsonProperty("administrativeNote")
-    val administrativeNote: kotlin.String? = null,
+    val administrativeNote: String? = null,
 
     /* The nationality of the patient. */
     @field:JsonProperty("nationality")
-    val nationality: kotlin.String? = null,
+    val nationality: String? = null,
 
     /* The race of the patient. */
     @field:JsonProperty("race")
-    val race: kotlin.String? = null,
+    val race: String? = null,
 
     /* The ethnicity of the patient. */
     @field:JsonProperty("ethnicity")
-    val ethnicity: kotlin.String? = null,
+    val ethnicity: String? = null,
 
     /* A picture usually saved in JPEG format. */
     @field:JsonProperty("picture")
@@ -270,7 +261,7 @@ data class Patient (
 
     /* An external (from another source) id with no guarantee or requirement for unicity . */
     @field:JsonProperty("externalId")
-    val externalId: kotlin.String? = null
+    val externalId: String? = null
 
 ) {
 
@@ -279,7 +270,7 @@ data class Patient (
      *
      * Values: deceased,moved,otherDoctor,retired,noContact,unknown,none
      */
-    enum class DeactivationReason(val value: kotlin.String) {
+    enum class DeactivationReason(val value: String) {
         @JsonProperty(value = "deceased") deceased("deceased"),
         @JsonProperty(value = "moved") moved("moved"),
         @JsonProperty(value = "other_doctor") otherDoctor("other_doctor"),
@@ -293,7 +284,7 @@ data class Patient (
      *
      * Values: m,f,i,c,y,x,u
      */
-    enum class Gender(val value: kotlin.String) {
+    enum class Gender(val value: String) {
         @JsonProperty(value = "M") m("M"),
         @JsonProperty(value = "F") f("F"),
         @JsonProperty(value = "I") i("I"),
@@ -307,7 +298,7 @@ data class Patient (
      *
      * Values: m,f,i,c,y,x,u
      */
-    enum class BirthSex(val value: kotlin.String) {
+    enum class BirthSex(val value: String) {
         @JsonProperty(value = "M") m("M"),
         @JsonProperty(value = "F") f("F"),
         @JsonProperty(value = "I") i("I"),
@@ -321,7 +312,7 @@ data class Patient (
      *
      * Values: single,inCouple,married,separated,divorced,divorcing,widowed,widower,complicated,unknown,`contract`,other,annulled,polygamous
      */
-    enum class PersonalStatus(val value: kotlin.String) {
+    enum class PersonalStatus(val value: String) {
         @JsonProperty(value = "single") single("single"),
         @JsonProperty(value = "in_couple") inCouple("in_couple"),
         @JsonProperty(value = "married") married("married"),

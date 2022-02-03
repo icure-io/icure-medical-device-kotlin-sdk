@@ -12,15 +12,10 @@
  */
 package io.icure.md.client.models
 
-import io.icure.md.client.models.CodingReference
-import io.icure.md.client.models.Identifier
-import io.icure.md.client.models.Property
-
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * 
@@ -53,64 +48,64 @@ import com.github.pozo.KotlinBuilder
 data class MedicalDevice (
 
     @field:JsonProperty("id")
-    val id: kotlin.String,
+    val id: String?,
 
     @field:JsonProperty("identifiers")
-    val identifiers: kotlin.collections.List<Identifier> = emptyList(),
+    val identifiers: List<Identifier> = emptyList(),
 
     @field:JsonProperty("labels")
-    val labels: kotlin.collections.List<CodingReference> = emptyList(),
+    val labels: List<CodingReference> = emptyList(),
 
     @field:JsonProperty("codes")
-    val codes: kotlin.collections.List<CodingReference> = emptyList(),
+    val codes: List<CodingReference> = emptyList(),
 
     @field:JsonProperty("properties")
-    val properties: kotlin.collections.List<Property> = emptyList(),
+    val properties: List<Property> = emptyList(),
 
     @field:JsonProperty("rev")
-    val rev: kotlin.String? = null,
+    val rev: String? = null,
 
     @field:JsonProperty("deletionDate")
-    val deletionDate: kotlin.Long? = null,
+    val deletionDate: Long? = null,
 
     @field:JsonProperty("created")
-    val created: kotlin.Long? = null,
+    val created: Long? = null,
 
     @field:JsonProperty("modified")
-    val modified: kotlin.Long? = null,
+    val modified: Long? = null,
 
     @field:JsonProperty("author")
-    val author: kotlin.String? = null,
+    val author: String? = null,
 
     @field:JsonProperty("responsible")
-    val responsible: kotlin.String? = null,
+    val responsible: String? = null,
 
     @field:JsonProperty("endOfLife")
-    val endOfLife: kotlin.Long? = null,
+    val endOfLife: Long? = null,
 
     @field:JsonProperty("externalId")
-    val externalId: kotlin.String? = null,
+    val externalId: String? = null,
 
     @field:JsonProperty("name")
-    val name: kotlin.String? = null,
+    val name: String? = null,
 
     @field:JsonProperty("type")
-    val type: kotlin.String? = null,
+    val type: String? = null,
 
     @field:JsonProperty("brand")
-    val brand: kotlin.String? = null,
+    val brand: String? = null,
 
     @field:JsonProperty("model")
-    val model: kotlin.String? = null,
+    val model: String? = null,
 
     @field:JsonProperty("serialNumber")
-    val serialNumber: kotlin.String? = null,
+    val serialNumber: String? = null,
 
     @field:JsonProperty("parentId")
-    val parentId: kotlin.String? = null,
+    val parentId: String? = null,
 
     @field:JsonProperty("picture")
-    val picture: kotlin.collections.List<io.icure.kraken.client.infrastructure.ByteArrayWrapper>? = null
+    val picture: List<io.icure.kraken.client.infrastructure.ByteArrayWrapper>? = null
 
 )
 

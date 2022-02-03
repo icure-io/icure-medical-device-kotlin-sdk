@@ -13,11 +13,10 @@
 package io.icure.md.client.models
 
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * 
@@ -33,13 +32,13 @@ import com.github.pozo.KotlinBuilder
 data class Telecom (
 
     @field:JsonProperty("telecomType")
-    val telecomType: Telecom.TelecomType? = null,
+    val telecomType: TelecomType? = null,
 
     @field:JsonProperty("telecomNumber")
-    val telecomNumber: kotlin.String? = null,
+    val telecomNumber: String? = null,
 
     @field:JsonProperty("telecomDescription")
-    val telecomDescription: kotlin.String? = null
+    val telecomDescription: String? = null
 
 ) {
 
@@ -48,7 +47,7 @@ data class Telecom (
      *
      * Values: mobile,phone,email,fax,skype,im,medibridge,ehealthbox,apicrypt,web,print,disk,other,pager
      */
-    enum class TelecomType(val value: kotlin.String) {
+    enum class TelecomType(val value: String) {
         @JsonProperty(value = "mobile") mobile("mobile"),
         @JsonProperty(value = "phone") phone("phone"),
         @JsonProperty(value = "email") email("email"),

@@ -13,11 +13,10 @@
 package io.icure.md.client.models
 
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * Links (usually for therapeutic reasons) between this patient and healthcare parties (of class PatientHealthcareParty).
@@ -32,10 +31,10 @@ import com.github.pozo.KotlinBuilder
 data class PatientHealthCareParty (
 
     @field:JsonProperty("type")
-    val type: PatientHealthCareParty.Type,
+    val type: Type,
 
     @field:JsonProperty("healthcarePartyId")
-    val healthcarePartyId: kotlin.String? = null
+    val healthcarePartyId: String? = null
 
 ) {
 
@@ -44,7 +43,7 @@ data class PatientHealthCareParty (
      *
      * Values: doctor,referral,medicalhouse,retirementhome,hospital,other,referringphysician,managingorganization
      */
-    enum class Type(val value: kotlin.String) {
+    enum class Type(val value: String) {
         @JsonProperty(value = "doctor") doctor("doctor"),
         @JsonProperty(value = "referral") referral("referral"),
         @JsonProperty(value = "medicalhouse") medicalhouse("medicalhouse"),

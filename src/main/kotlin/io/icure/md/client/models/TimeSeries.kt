@@ -13,11 +13,10 @@
 package io.icure.md.client.models
 
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * A high frequency time-series containing the ts in ms from the start (double) and the values
@@ -37,25 +36,25 @@ import com.github.pozo.KotlinBuilder
 data class TimeSeries (
 
     @field:JsonProperty("fields")
-    val fields: kotlin.collections.List<kotlin.String> = emptyList(),
+    val fields: List<String> = emptyList(),
 
     @field:JsonProperty("samples")
-    val samples: kotlin.collections.List<kotlin.collections.List<kotlin.Double>> = emptyList(),
+    val samples: List<List<Double>> = emptyList(),
 
     @field:JsonProperty("min")
-    val min: kotlin.collections.List<kotlin.Double> = emptyList(),
+    val min: List<Double> = emptyList(),
 
     @field:JsonProperty("max")
-    val max: kotlin.collections.List<kotlin.Double> = emptyList(),
+    val max: List<Double> = emptyList(),
 
     @field:JsonProperty("mean")
-    val mean: kotlin.collections.List<kotlin.Double> = emptyList(),
+    val mean: List<Double> = emptyList(),
 
     @field:JsonProperty("median")
-    val median: kotlin.collections.List<kotlin.Double> = emptyList(),
+    val median: List<Double> = emptyList(),
 
     @field:JsonProperty("variance")
-    val variance: kotlin.collections.List<kotlin.Double> = emptyList()
+    val variance: List<Double> = emptyList()
 
 )
 
