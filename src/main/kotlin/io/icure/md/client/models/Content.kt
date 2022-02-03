@@ -61,7 +61,7 @@ data class Content (
     val fuzzyDateValue: kotlin.Long? = null,
 
     @field:JsonProperty("binaryValue")
-    val binaryValue: io.icure.md.client.infrastructure.ByteArrayWrapper? = null,
+    val binaryValue: io.icure.kraken.client.infrastructure.ByteArrayWrapper? = null,
 
     /* Linked document. */
     @field:JsonProperty("documentId")
