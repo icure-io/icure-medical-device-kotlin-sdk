@@ -1,0 +1,30 @@
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.war
+*.ear
+
+# exclude jar for gradle wrapper
+!gradle/wrapper/*.jar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# build files
+**/target
+target
+.idea/
+.gradle/
+build/
+
+# openapi generator
+.openapi-generator/
+api/
+icure-openapi-spec.json
+/.credentialsCouchDB
+/.credentialsReadOnly
+/.credentialsReadWrite
+out/
