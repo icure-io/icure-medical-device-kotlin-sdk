@@ -48,7 +48,7 @@ import com.github.pozo.KotlinBuilder
 data class MedicalDevice (
 
     @field:JsonProperty("id")
-    val id: String?,
+    val id: String? = null,
 
     @field:JsonProperty("identifiers")
     val identifiers: List<Identifier> = emptyList(),

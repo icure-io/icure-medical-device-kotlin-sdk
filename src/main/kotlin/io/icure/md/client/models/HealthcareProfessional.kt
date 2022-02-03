@@ -46,7 +46,7 @@ data class HealthcareProfessional (
 
     /* the Id of the healthcare party. We encourage using either a v4 UUID or a HL7 Id. */
     @field:JsonProperty("id")
-    val id: String?,
+    val id: String? = null,
 
     /* the list of all names of the healthcare party, also containing the official full name information. Ordered by preference of use. First element is therefore the official name used for the healthcare party in the application */
     @field:JsonProperty("names")

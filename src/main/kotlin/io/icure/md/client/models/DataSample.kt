@@ -49,7 +49,7 @@ data class DataSample (
 
     /* The Id of the Data sample. We encourage using either a v4 UUID or a HL7 Id. */
     @field:JsonProperty("id")
-    val id: String?,
+    val id: String? = null,
 
     @field:JsonProperty("identifier")
     val identifier: List<Identifier> = emptyList(),
