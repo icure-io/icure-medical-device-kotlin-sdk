@@ -61,8 +61,14 @@ private fun PatientDto.Gender.toGender() = Patient.Gender.valueOf(this.name)
 private fun PatientDto.BirthSex.toBirthSex() = Patient.BirthSex.valueOf(this.name)
 private fun PatientDto.PersonalStatus.toPersonalStatus() = Patient.PersonalStatus.valueOf(this.name)
 
-fun Patient.toPatientDto(patientId: String = UUID.randomUUID().toString()) = PatientDto(
-    id = patientId,
+fun Patient.toPatientDto() = PatientDto(
+    id = this.id?.also {
+        try {
+            UUID.fromString(it)
+        } catch (e: IllegalArgumentException) {
+            throw IllegalArgumentException("Invalid id, id must be a valid UUID")
+        }
+    } ?: UUID.randomUUID().toString(),
     identifier = this.identifier.map { it.toIdentifierDto() },
     tags = this.labels.map { it.toCodeStubDto() },
     codes = this.codes.map { it.toCodeStubDto() },

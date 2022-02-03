@@ -9,8 +9,8 @@ Method | HTTP request | Description
 [**createToken**](UserApi.md#createToken) | **POST** /rest/v2/user/token/{userId} | Find Users using a filter
 [**deleteUser**](UserApi.md#deleteUser) | **DELETE** /rest/v2/user/{userId} | Delete a User
 [**filterUser**](UserApi.md#filterUser) | **POST** /rest/v2/user/filter | Find Users using a filter
-[**getLoggedUser**](UserApi.md#getLoggedUser) | **GET** /rest/v2/user | Get the logged User
-[**getUser**](UserApi.md#getUser) | **GET** /rest/v2/user/{userId} | Get a User
+[**getLoggedUser**](UserApi.md#getLoggedUser) | **GET** /rest/v2/user | Get the details of the logged User.
+[**getUser**](UserApi.md#getUser) | **GET** /rest/v2/user/{userId} | Get a User by id.
 [**matchUser**](UserApi.md#matchUser) | **POST** /rest/v2/user/match | Find Users using a filter
 
 
@@ -23,7 +23,7 @@ Find Users using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
@@ -70,7 +70,7 @@ Create a User
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
@@ -115,7 +115,7 @@ Find Users using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
@@ -160,7 +160,7 @@ Delete a User
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
@@ -205,7 +205,7 @@ Find Users using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
@@ -245,12 +245,14 @@ No authorization required
 # **getLoggedUser**
 > User getLoggedUser()
 
-Get the logged User
+Get the details of the logged User.
+
+When you make a call to the server, an authentication token is used to identify you. This call returns the complete User object that corresponds to your authentication credentials.
 
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
@@ -286,16 +288,18 @@ No authorization required
 # **getUser**
 > User getUser(userId)
 
-Get a User
+Get a User by id.
+
+Each user is uniquely identified by a user id. The user id is a UUID. This userId is the preferred method to retrieve one specific user.
 
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
-val userId : kotlin.String = userId_example // kotlin.String | 
+val userId : kotlin.String = userId_example // kotlin.String | The UUID that identifies the user uniquely
 try {
     val result : User = apiInstance.getUser(userId)
     println(result)
@@ -312,7 +316,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | **kotlin.String**|  |
+ **userId** | **kotlin.String**| The UUID that identifies the user uniquely |
 
 ### Return type
 
@@ -336,7 +340,7 @@ Find Users using a filter
 ### Example
 ```kotlin
 // Import classes:
-//import io.icure.md.client.infrastructure.*
+//import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = UserApi()

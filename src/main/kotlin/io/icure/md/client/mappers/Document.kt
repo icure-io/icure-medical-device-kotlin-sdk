@@ -28,8 +28,14 @@ fun DocumentDto.toDocument() = Document(
     attachmentId = this.attachmentId,
 )
 
-fun Document.toDocumentDto(documentId: String = UUID.randomUUID().toString()) = DocumentDto(
-    id = documentId,
+fun Document.toDocumentDto() = DocumentDto(
+    id = this.id?.also {
+        try {
+            UUID.fromString(it)
+        } catch (e: IllegalArgumentException) {
+            throw IllegalArgumentException("Invalid id, id must be a valid UUID")
+        }
+    } ?: UUID.randomUUID().toString(),
     tags = this.labels.map { it.toCodeStubDto() },
     codes = this.codes.map { it.toCodeStubDto() },
     otherUtis = this.otherUtis,

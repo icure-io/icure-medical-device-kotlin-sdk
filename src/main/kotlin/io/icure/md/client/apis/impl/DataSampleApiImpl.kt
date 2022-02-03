@@ -125,7 +125,11 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getDataSampleAttachmentContent(dataSampleId: String, documentId: String, attachmentId: String): List<Any> {
+    override suspend fun getDataSampleAttachmentContent(
+        dataSampleId: String,
+        documentId: String,
+        attachmentId: String
+    ): List<Any> {
         TODO("Not yet implemented")
     }
 
@@ -133,7 +137,11 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         TODO("Not yet implemented")
     }
 
-    override suspend fun setDataSampleAttachment(dataSampleId: String, documentId: String, attachment: Flow<ByteBuffer>): Document {
+    override suspend fun setDataSampleAttachment(
+        dataSampleId: String,
+        documentId: String,
+        attachment: Flow<ByteBuffer>
+    ): Document {
         TODO("Not yet implemented")
     }
 }

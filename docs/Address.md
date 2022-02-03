@@ -4,7 +4,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**telecoms** | [**kotlin.collections.List&lt;Telecom&gt;**](Telecom.md) |  | 
 **addressType** | [**inline**](#AddressTypeEnum) |  |  [optional]
 **description** | **kotlin.String** |  |  [optional]
 **street** | **kotlin.String** |  |  [optional]
@@ -15,6 +14,7 @@ Name | Type | Description | Notes
 **state** | **kotlin.String** |  |  [optional]
 **country** | **kotlin.String** |  |  [optional]
 **note** | **kotlin.String** |  |  [optional]
+**telecoms** | [**kotlin.collections.List&lt;Telecom&gt;**](Telecom.md) |  | 
 
 
 <a name="AddressTypeEnum"></a>

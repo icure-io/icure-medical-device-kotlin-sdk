@@ -8,11 +8,13 @@ fun PatientHealthCarePartyDto.toPatientHealthCareParty() = PatientHealthCarePart
     healthcarePartyId = this.healthcarePartyId,
 )
 
-private fun PatientHealthCarePartyDto.Type.toPatientHealthCarePartyType() = PatientHealthCareParty.Type.valueOf(this.name)
+private fun PatientHealthCarePartyDto.Type.toPatientHealthCarePartyType() =
+    PatientHealthCareParty.Type.valueOf(this.name)
 
 fun PatientHealthCareParty.toPatientHealthCareParty() = PatientHealthCarePartyDto(
     type = this.type.toPatientHealthCarePartyDto(),
     healthcarePartyId = this.healthcarePartyId,
 )
 
-private fun PatientHealthCareParty.Type.toPatientHealthCarePartyDto() = PatientHealthCarePartyDto.Type.valueOf(this.name)
+private fun PatientHealthCareParty.Type.toPatientHealthCarePartyDto() =
+    PatientHealthCarePartyDto.Type.valueOf(this.name)

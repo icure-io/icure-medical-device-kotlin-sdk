@@ -27,8 +27,14 @@ fun DeviceDto.toMedicalDevice() = MedicalDevice(
     picture = this.picture,
 )
 
-fun MedicalDevice.toDeviceDto(deviceId: String = UUID.randomUUID().toString()) = DeviceDto(
-    id = deviceId,
+fun MedicalDevice.toDeviceDto() = DeviceDto(
+    id = this.id?.also {
+        try {
+            UUID.fromString(it)
+        } catch (e: IllegalArgumentException) {
+            throw IllegalArgumentException("Invalid id, id must be a valid UUID")
+        }
+    } ?: UUID.randomUUID().toString(),
     identifiers = this.identifiers.map { it.toIdentifierDto() },
     tags = this.labels.map { it.toCodeStubDto() },
     codes = this.codes.map { it.toCodeStubDto() },

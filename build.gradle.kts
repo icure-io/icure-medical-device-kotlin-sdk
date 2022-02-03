@@ -100,7 +100,7 @@ tasks.getByName("publish") {
 }
 
 tasks.register("apiGenerate", Jar::class) {
-    inputs.files(fileTree("openApiTemplates"))
+    inputs.files(fileTree("openApiTemplates"), File("${rootDir}/icure-medical-device-spec.json"))
         .withPropertyName("sourceFiles")
         .withPathSensitivity(PathSensitivity.RELATIVE)
     doLast {
@@ -119,11 +119,12 @@ tasks.register("apiGenerate", Jar::class) {
                 "--artifact-id", project.name,
                 "--artifact-version", "0.0.1-SNAPSHOT",
                 "--template-dir", "$rootDir/openApiTemplates",
-                "--additional-properties", "useCoroutines=true,serializationLibrary=jackson"
+                "--additional-properties", "useCoroutines=true,serializationLibrary=jackson,sortModelPropertiesByRequiredFlag=false"
             )
         }
     }
     dependsOn.add("download-openapi-spec") // required due to https://github.com/OpenAPITools/openapi-generator/issues/8255
+    finalizedBy("apply-custom-fixes", "delete-unused-files")
 }
 
 tasks.register("download-openapi-spec") {
@@ -132,6 +133,53 @@ tasks.register("download-openapi-spec") {
         val url = "${System.getProperty("API_URL")}/v3/api-docs/v2"
         ant.invokeMethod("get", mapOf("src" to url, "dest" to destFile))
     }
+}
+
+tasks.register("apply-custom-fixes") {
+    doLast {
+        // Use manually added filter classes instead of the generated ones
+        val replacements = mapOf(
+            "io.icure.md.client.infrastructure" to "io.icure.kraken.client.infrastructure"
+        )
+
+        // in Folders
+        val folders = listOf(
+            "${rootDir}/src/main/kotlin/io/icure/md/client/apis",
+            "${rootDir}/docs",
+            "${rootDir}/src/main/kotlin/io/icure/md/client/models"
+        )
+
+        for (folder in folders) {
+            for ((match, replace) in replacements) {
+                ant.withGroovyBuilder {
+                    "replaceregexp"(
+                        "match" to "(?<!\\.)$match",
+                        "replace" to replace,
+                        "flags" to "g",
+                        "byline" to "true"
+                    ) {
+                        "fileset"(
+                            "dir" to File(folder)
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+tasks.create<Delete>("delete-unused-files") {
+    delete(
+        File("$rootDir/src/main/kotlin/io/icure/md/client/infrastructure"),
+        File("$rootDir/src/test/resources/parameters"),
+        File("$rootDir/src/test/kotlin/io/icure/md/client/apis/CodingApiTest.kt"),
+        File("$rootDir/src/test/kotlin/io/icure/md/client/apis/DataSampleApiTest.kt"),
+        File("$rootDir/src/test/kotlin/io/icure/md/client/apis/DeviceApiTest.kt"),
+        File("$rootDir/src/test/kotlin/io/icure/md/client/apis/HealthcareElementApiTest.kt"),
+        File("$rootDir/src/test/kotlin/io/icure/md/client/apis/HealthcareProfessionalApiTest.kt"),
+        File("$rootDir/src/test/kotlin/io/icure/md/client/apis/PatientApiTest.kt"),
+        File("$rootDir/src/test/kotlin/io/icure/md/client/apis/UserApiTest.kt")
+    )
 }
 
 tasks.test {
