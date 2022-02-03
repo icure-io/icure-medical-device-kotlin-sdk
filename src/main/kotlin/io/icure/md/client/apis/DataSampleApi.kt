@@ -30,9 +30,8 @@ interface DataSampleApi {
      * Create a DataSample
      *
      * @param dataSample
-     * @return DataSample
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -43,9 +42,8 @@ interface DataSampleApi {
      * Create a batch of Data samples
      *
      * @param dataSample
-     * @return kotlin.collections.List<DataSample>
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -57,9 +55,8 @@ interface DataSampleApi {
      *
      * @param id
      * @param documentId
-     * @return kotlin.String
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -70,9 +67,8 @@ interface DataSampleApi {
      * Delete a DataSample
      *
      * @param id
-     * @return kotlin.String
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -83,9 +79,8 @@ interface DataSampleApi {
      * Delete a batch of Data samples
      *
      * @param ids
-     * @return kotlin.collections.List<kotlin.String>
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -96,9 +91,8 @@ interface DataSampleApi {
      * Find Data samples using a filter
      *
      * @param filter
-     * @return PaginatedListDataSample
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -109,9 +103,8 @@ interface DataSampleApi {
      * Get a DataSample
      *
      * @param id
-     * @return DataSample
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -123,9 +116,8 @@ interface DataSampleApi {
      *
      * @param id
      * @param documentId
-     * @return Document
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -138,9 +130,8 @@ interface DataSampleApi {
      * @param id
      * @param documentId
      * @param attachmentId
-     * @return kotlin.collections.List<kotlin.Any>
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -155,9 +146,8 @@ interface DataSampleApi {
      * Find Data samples using a filter
      *
      * @param filter
-     * @return kotlin.collections.List<kotlin.String>
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -170,9 +160,8 @@ interface DataSampleApi {
      * @param id
      * @param documentId
      * @param body
-     * @return Document
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")

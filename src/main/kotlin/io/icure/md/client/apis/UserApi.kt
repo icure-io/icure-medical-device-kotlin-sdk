@@ -30,9 +30,8 @@ interface UserApi {
      *
      * @param xIcureToken
      * @param userId
-     * @return kotlin.Boolean
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -43,9 +42,8 @@ interface UserApi {
      * Create a User
      *
      * @param user
-     * @return User
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -56,9 +54,8 @@ interface UserApi {
      * Find Users using a filter
      *
      * @param userId
-     * @return kotlin.String
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -69,9 +66,8 @@ interface UserApi {
      * Delete a User
      *
      * @param userId
-     * @return kotlin.String
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -82,9 +78,8 @@ interface UserApi {
      * Find Users using a filter
      *
      * @param filter
-     * @return PaginatedListUser
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -94,9 +89,9 @@ interface UserApi {
     /**
      * Get the details of the logged User.
      * When you make a call to the server, an authentication token is used to identify you. This call returns the complete User object that corresponds to your authentication credentials.
-     * @return User
+     * @return Returns the logged user in the body
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId)
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -106,10 +101,11 @@ interface UserApi {
     /**
      * Get a User by id.
      * Each user is uniquely identified by a user id. The user id is a UUID. This userId is the preferred method to retrieve one specific user.
-     * @param userId
-     * @return User
+     * @param userId The UUID that identifies the user uniquely
+     * @return Returns the fetched user as a User object
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId)
+     * @throws ClientException if there is no user with the provided userId
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -120,9 +116,8 @@ interface UserApi {
      * Find Users using a filter
      *
      * @param filter
-     * @return kotlin.collections.List<kotlin.String>
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")

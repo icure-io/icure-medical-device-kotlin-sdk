@@ -29,9 +29,8 @@ interface HealthcareElementApi {
      * Create a Healthcare Element
      *
      * @param healthcareElement
-     * @return HealthcareElement
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -42,9 +41,8 @@ interface HealthcareElementApi {
      * Create a Healthcare Element
      *
      * @param healthcareElement
-     * @return kotlin.collections.List<HealthcareElement>
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -55,9 +53,8 @@ interface HealthcareElementApi {
      * Delete a Healthcare Element
      *
      * @param id
-     * @return kotlin.String
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -68,9 +65,8 @@ interface HealthcareElementApi {
      * Find Healthcare Elements using a filter
      *
      * @param filter
-     * @return PaginatedListHealthcareElement
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -81,9 +77,8 @@ interface HealthcareElementApi {
      * Get a Healthcare Element
      *
      * @param id
-     * @return HealthcareElement
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
@@ -94,9 +89,8 @@ interface HealthcareElementApi {
      * Find Healthcare Elements using a filter
      *
      * @param filter
-     * @return kotlin.collections.List<kotlin.String>
+     * @return OK
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ClientException If the API returns a client error response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")

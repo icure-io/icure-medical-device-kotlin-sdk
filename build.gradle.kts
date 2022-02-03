@@ -124,6 +124,7 @@ tasks.register("apiGenerate", Jar::class) {
         }
     }
     dependsOn.add("download-openapi-spec") // required due to https://github.com/OpenAPITools/openapi-generator/issues/8255
+    finalizedBy("apply-custom-fixes", "delete-unused-files")
 }
 
 tasks.register("download-openapi-spec") {
@@ -132,4 +133,45 @@ tasks.register("download-openapi-spec") {
         val url = "${System.getProperty("API_URL")}/v3/api-docs/v2"
         ant.invokeMethod("get", mapOf("src" to url, "dest" to destFile))
     }
+}
+
+tasks.register("apply-custom-fixes") {
+    doLast {
+        // Use manually added filter classes instead of the generated ones
+        val replacements = mapOf(
+            "io.icure.md.client.infrastructure" to "io.icure.kraken.client.infrastructure"
+        )
+
+        // in Folders
+        val folders = listOf(
+            "${rootDir}/src/main/kotlin/io/icure/md/client/apis",
+            "${rootDir}/docs",
+            "${rootDir}/src/main/kotlin/io/icure/md/client/models"
+        )
+
+        for (folder in folders) {
+            for ((match, replace) in replacements) {
+                ant.withGroovyBuilder {
+                    "replaceregexp"(
+                        "match" to "(?<!\\.)$match",
+                        "replace" to replace,
+                        "flags" to "g",
+                        "byline" to "true"
+                    ) {
+                        "fileset"(
+                            "dir" to File(folder)
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+tasks.create<Delete>("delete-unused-files") {
+    delete(
+        File("$rootDir/src/main/kotlin/io/icure/md/client/infrastructure"),
+        File("$rootDir/src/test/resources/parameters"),
+        File("$rootDir/src/test/kotlin/io/icure/md/client/apis")
+    )
 }
