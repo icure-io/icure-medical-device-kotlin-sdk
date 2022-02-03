@@ -13,11 +13,10 @@
 package io.icure.md.client.models
 
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * 
@@ -32,10 +31,10 @@ import com.github.pozo.KotlinBuilder
 data class PropertyType (
 
     @field:JsonProperty("identifier")
-    val identifier: kotlin.String? = null,
+    val identifier: String? = null,
 
     @field:JsonProperty("type")
-    val type: PropertyType.Type? = null
+    val type: Type? = null
 
 ) {
 
@@ -44,7 +43,7 @@ data class PropertyType (
      *
      * Values: bOOLEAN,iNTEGER,dOUBLE,sTRING,dATE,cLOB,jSON
      */
-    enum class Type(val value: kotlin.String) {
+    enum class Type(val value: String) {
         @JsonProperty(value = "BOOLEAN") bOOLEAN("BOOLEAN"),
         @JsonProperty(value = "INTEGER") iNTEGER("INTEGER"),
         @JsonProperty(value = "DOUBLE") dOUBLE("DOUBLE"),

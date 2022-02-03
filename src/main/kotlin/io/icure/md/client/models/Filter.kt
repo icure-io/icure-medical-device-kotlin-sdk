@@ -13,11 +13,10 @@
 package io.icure.md.client.models
 
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * 
@@ -31,7 +30,7 @@ import com.github.pozo.KotlinBuilder
 data class Filter (
 
     @field:JsonProperty("description")
-    val description: kotlin.String
+    val description: String
 
 )
 

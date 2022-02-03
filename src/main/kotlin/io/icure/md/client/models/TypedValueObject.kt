@@ -13,11 +13,10 @@
 package io.icure.md.client.models
 
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * 
@@ -36,19 +35,19 @@ import com.github.pozo.KotlinBuilder
 data class TypedValueObject (
 
     @field:JsonProperty("type")
-    val type: TypedValueObject.Type? = null,
+    val type: Type? = null,
 
     @field:JsonProperty("booleanValue")
-    val booleanValue: kotlin.Boolean? = null,
+    val booleanValue: Boolean? = null,
 
     @field:JsonProperty("integerValue")
-    val integerValue: kotlin.Int? = null,
+    val integerValue: Int? = null,
 
     @field:JsonProperty("doubleValue")
-    val doubleValue: kotlin.Double? = null,
+    val doubleValue: Double? = null,
 
     @field:JsonProperty("stringValue")
-    val stringValue: kotlin.String? = null,
+    val stringValue: String? = null,
 
     @field:JsonProperty("dateValue")
     val dateValue: java.time.OffsetDateTime? = null
@@ -60,7 +59,7 @@ data class TypedValueObject (
      *
      * Values: bOOLEAN,iNTEGER,dOUBLE,sTRING,dATE,cLOB,jSON
      */
-    enum class Type(val value: kotlin.String) {
+    enum class Type(val value: String) {
         @JsonProperty(value = "BOOLEAN") bOOLEAN("BOOLEAN"),
         @JsonProperty(value = "INTEGER") iNTEGER("INTEGER"),
         @JsonProperty(value = "DOUBLE") dOUBLE("DOUBLE"),

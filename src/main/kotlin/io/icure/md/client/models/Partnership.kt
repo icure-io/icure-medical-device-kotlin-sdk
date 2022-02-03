@@ -13,11 +13,10 @@
 package io.icure.md.client.models
 
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * List of partners, or persons of contact (of class Partnership, see below).
@@ -39,7 +38,7 @@ data class Partnership (
     val status: Partnership.Status? = null,
 
     @field:JsonProperty("partnerId")
-    val partnerId: kotlin.String? = null
+    val partnerId: String? = null
 
 ) {
 
@@ -48,7 +47,7 @@ data class Partnership (
      *
      * Values: primaryContact,primaryContactFor,family,friend,counselor,contact,brother,brotherinlaw,child,daughter,employer,father,grandchild,grandparent,husband,lawyer,mother,neighbour,notary,partner,sister,sisterinlaw,son,spouse,stepdaughter,stepfather,stepmother,stepson,tutor,nextOfKin,federalAgency,insuranceCompany,stateAgency,unknown,seealso,refer
      */
-    enum class Type(val value: kotlin.String) {
+    enum class Type(val value: String) {
         @JsonProperty(value = "primary_contact") primaryContact("primary_contact"),
         @JsonProperty(value = "primary_contact_for") primaryContactFor("primary_contact_for"),
         @JsonProperty(value = "family") family("family"),
@@ -91,7 +90,7 @@ data class Partnership (
      *
      * Values: active,complicated,past
      */
-    enum class Status(val value: kotlin.String) {
+    enum class Status(val value: String) {
         @JsonProperty(value = "active") active("active"),
         @JsonProperty(value = "complicated") complicated("complicated"),
         @JsonProperty(value = "past") past("past");

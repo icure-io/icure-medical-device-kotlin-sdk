@@ -12,14 +12,10 @@
  */
 package io.icure.md.client.models
 
-import io.icure.md.client.models.CodingReference
-import io.icure.md.client.models.Identifier
-
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * 
@@ -51,65 +47,65 @@ data class HealthcareElement (
 
     /* The Id of the healthcare element. We encourage using either a v4 UUID or a HL7 Id. */
     @field:JsonProperty("id")
-    val id: kotlin.String,
+    val id: String? = null,
 
     @field:JsonProperty("identifiers")
-    val identifiers: kotlin.collections.List<Identifier> = emptyList(),
+    val identifiers: List<Identifier> = emptyList(),
 
     @field:JsonProperty("tags")
-    val tags: kotlin.collections.List<CodingReference> = emptyList(),
+    val tags: List<CodingReference> = emptyList(),
 
     @field:JsonProperty("codes")
-    val codes: kotlin.collections.List<CodingReference> = emptyList(),
+    val codes: List<CodingReference> = emptyList(),
 
     /* The revision of the healthcare element in the database, used for conflict management / optimistic locking. */
     @field:JsonProperty("rev")
-    val rev: kotlin.String? = null,
+    val rev: String? = null,
 
     @field:JsonProperty("created")
-    val created: kotlin.Long? = null,
+    val created: Long? = null,
 
     @field:JsonProperty("modified")
-    val modified: kotlin.Long? = null,
+    val modified: Long? = null,
 
     @field:JsonProperty("author")
-    val author: kotlin.String? = null,
+    val author: String? = null,
 
     @field:JsonProperty("responsible")
-    val responsible: kotlin.String? = null,
+    val responsible: String? = null,
 
     @field:JsonProperty("medicalLocationId")
-    val medicalLocationId: kotlin.String? = null,
+    val medicalLocationId: String? = null,
 
     @field:JsonProperty("endOfLife")
-    val endOfLife: kotlin.Long? = null,
+    val endOfLife: Long? = null,
 
     @field:JsonProperty("deletionDate")
-    val deletionDate: kotlin.Long? = null,
+    val deletionDate: Long? = null,
 
     /* The logical id of the healthcare element, used to link together different versions of the same healthcare element. We encourage using either a v4 UUID or a HL7 Id. */
     @field:JsonProperty("healthElementId")
-    val healthElementId: kotlin.String? = null,
+    val healthElementId: String? = null,
 
     /* The date (unix epoch in ms) when the healthcare element is noted to have started and also closes on the same date */
     @field:JsonProperty("valueDate")
-    val valueDate: kotlin.Long? = null,
+    val valueDate: Long? = null,
 
     /* The date (unix epoch in ms) of the start of the healthcare element. */
     @field:JsonProperty("openingDate")
-    val openingDate: kotlin.Long? = null,
+    val openingDate: Long? = null,
 
     /* The date (unix epoch in ms) marking the end of the healthcare element. */
     @field:JsonProperty("closingDate")
-    val closingDate: kotlin.Long? = null,
+    val closingDate: Long? = null,
 
     /* Description of the healthcare element. */
     @field:JsonProperty("description")
-    val description: kotlin.String? = null,
+    val description: String? = null,
 
     /* A text note (can be confidential, encrypted by default). */
     @field:JsonProperty("note")
-    val note: kotlin.String? = null
+    val note: String? = null
 
 )
 

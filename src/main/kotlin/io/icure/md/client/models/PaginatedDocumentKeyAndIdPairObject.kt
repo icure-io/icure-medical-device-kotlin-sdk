@@ -13,11 +13,10 @@
 package io.icure.md.client.models
 
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * 
@@ -32,10 +31,10 @@ import com.github.pozo.KotlinBuilder
 data class PaginatedDocumentKeyAndIdPairObject (
 
     @field:JsonProperty("startKey")
-    val startKey: kotlin.Any? = null,
+    val startKey: Any? = null,
 
     @field:JsonProperty("startKeyDocId")
-    val startKeyDocId: kotlin.String? = null
+    val startKeyDocId: String? = null
 
 )
 

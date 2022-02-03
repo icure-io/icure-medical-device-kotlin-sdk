@@ -2,6 +2,7 @@ package io.icure.md.client.mappers
 
 import io.icure.kraken.client.models.DeviceDto
 import io.icure.md.client.models.MedicalDevice
+import java.util.*
 
 fun DeviceDto.toMedicalDevice() = MedicalDevice(
     id = this.id,
@@ -26,8 +27,8 @@ fun DeviceDto.toMedicalDevice() = MedicalDevice(
     picture = this.picture,
 )
 
-fun MedicalDevice.toDeviceDto() = DeviceDto(
-    id = this.id,
+fun MedicalDevice.toDeviceDto(id: String = UUID.randomUUID().toString()) = DeviceDto(
+    id = id,
     identifiers = this.identifiers.map { it.toIdentifierDto() },
     tags = this.labels.map { it.toCodeStubDto() },
     codes = this.codes.map { it.toCodeStubDto() },

@@ -13,11 +13,10 @@
 package io.icure.md.client.models
 
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * 
@@ -38,28 +37,28 @@ import com.github.pozo.KotlinBuilder
 data class Coding (
 
     @field:JsonProperty("id")
-    val id: kotlin.String,
+    val id: String,
 
     @field:JsonProperty("qualifiedLinks")
-    val qualifiedLinks: kotlin.collections.Map<kotlin.String, kotlin.collections.List<kotlin.String>> = emptyMap(),
+    val qualifiedLinks: Map<String, List<String>> = emptyMap(),
 
     @field:JsonProperty("searchTerms")
-    val searchTerms: kotlin.collections.Map<kotlin.String, kotlin.collections.Set<kotlin.String>> = emptyMap(),
+    val searchTerms: Map<String, Set<String>> = emptyMap(),
 
     @field:JsonProperty("rev")
-    val rev: kotlin.String? = null,
+    val rev: String? = null,
 
     @field:JsonProperty("type")
-    val type: kotlin.String? = null,
+    val type: String? = null,
 
     @field:JsonProperty("code")
-    val code: kotlin.String? = null,
+    val code: String? = null,
 
     @field:JsonProperty("version")
-    val version: kotlin.String? = null,
+    val version: String? = null,
 
     @field:JsonProperty("description")
-    val description: kotlin.collections.Map<kotlin.String, kotlin.String>? = null
+    val description: Map<String, String>? = null
 
 )
 

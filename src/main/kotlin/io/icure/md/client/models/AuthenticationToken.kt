@@ -13,11 +13,10 @@
 package io.icure.md.client.models
 
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
-
 
 /**
  * Encrypted and time-limited Authentication tokens used for inter-applications authentication
@@ -34,15 +33,15 @@ data class AuthenticationToken (
 
     /* Encrypted token */
     @field:JsonProperty("token")
-    val token: kotlin.String,
+    val token: String,
 
     /* Validity starting time of the token */
     @field:JsonProperty("creationTime")
-    val creationTime: kotlin.Long,
+    val creationTime: Long,
 
     /* Token validity in seconds */
     @field:JsonProperty("validity")
-    val validity: kotlin.Long
+    val validity: Long
 
 )
 
