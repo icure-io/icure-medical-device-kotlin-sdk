@@ -1,6 +1,6 @@
 {{>licenseInfo}}
 
-package {{package}}.infrastructure
+package {{packageName}}.infrastructure
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
@@ -13,6 +13,9 @@ import com.fasterxml.jackson.databind.module.SimpleModule
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.readValue
+import io.icure.kraken.client.infrastructure.ByteArrayWrapper
+import io.icure.kraken.client.infrastructure.ByteArrayWrapperDeserializer
+import io.icure.kraken.client.infrastructure.ByteArrayWrapperSerializer
 import io.icure.kraken.client.models.filter.AbstractFilterDto
 import io.netty.buffer.ByteBuf
 import kotlinx.coroutines.flow.Flow
