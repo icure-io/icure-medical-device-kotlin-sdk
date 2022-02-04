@@ -26,10 +26,11 @@ import javax.inject.Named
 interface CodingApi {
 
     /**
-     * Create a Coding
-     *
+     * Create or update a [Coding]
+     * When modifying a coding, you must ensure that the rev obtained when getting or creating the coding is present as the rev is used to guarantee that the coding has not been modified by a third party.
      * @param coding
-     * @return OK
+     * @return Returns the created or modified coding as a [Coding] object, with an updated rev.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SessionId).
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
@@ -38,10 +39,11 @@ interface CodingApi {
     suspend fun createOrModifyCoding(coding: Coding): Coding
 
     /**
-     * Create a Coding
-     *
+     * Create or update a batch of [Coding]
+     * When modifying codings, you must ensure that the rev obtained when getting or creating the coding is present as the rev is used to guarantee that the coding has not been modified by a third party.
      * @param coding
-     * @return OK
+     * @return Returns the created or modified codings as a [Coding] objects, with updated revs.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SessionId).
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
@@ -50,46 +52,54 @@ interface CodingApi {
     suspend fun createOrModifyCodings(coding: kotlin.collections.List<Coding>): kotlin.collections.List<Coding>
 
     /**
-     * Delete a Coding
-     *
-     * @param id
-     * @return OK
+     * Delete a [Coding]
+     * Deletes the coding identified by the provided unique [codingId].
+     * @param codingId
+     * @return Returns the rev of the deleted object.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SessionId).
+     * @throws ClientException if there is no coding with the provided [codingId].
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun deleteCoding(id: kotlin.String): kotlin.String
+    suspend fun deleteCoding(codingId: kotlin.String): kotlin.String
 
     /**
-     * Find Codings using a filter
-     *
-     * @param filter
-     * @return OK
+     * Load codings from the database by filtering them using the provided [filter].
+     * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [Coding] are AllCodingsFilter and CodingsByIdsFilter. This method returns a paginated list of coding (with a cursor that lets you query the following items).
+     * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+     * @param nextCodingId The id of the first coding in the next page (optional)
+     * @param limit The number of codings to return in the queried page (optional)
+     * @return Returns a PaginatedList of [Coding].
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SessionId).
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun filterCoding(filter: Filter): PaginatedListCoding
+    suspend fun filterCoding(filter: Filter, nextCodingId: kotlin.String?, limit: kotlin.Int?): PaginatedListCoding
 
     /**
-     * Get a Coding
-     *
-     * @param id
-     * @return OK
+     * Get a [Coding]
+     * Each coding is uniquely identified by a coding id. The coding id is a UUID. This [codingId] is the preferred method to retrieve one specific coding.
+     * @param codingId
+     * @return Returns the fetched coding as a [Coding] object
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SessionId).
+     * @throws ClientException if there is no coding with the provided [codingId].
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun getCoding(id: kotlin.String): Coding
+    suspend fun getCoding(codingId: kotlin.String): Coding
 
     /**
-     * Find Codings using a filter
-     *
-     * @param filter
-     * @return OK
+     * Load coding ids from the database by filtering them using the provided [filter].
+     * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [Coding] are AllCodingsFilter and CodingsByIdsFilter. This method returns a paginated list of coding (with a cursor that lets you query the following items).
+     * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+     * @return Returns a list of all [Coding] ids matching the [filter].
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SessionId).
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
