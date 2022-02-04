@@ -16,20 +16,29 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
 class HealthcareProfessionalApiImpl(val api: MedTechApi) : HealthcareProfessionalApi {
     override suspend fun createOrModifyHealthcareProfessional(healthcareProfessional: HealthcareProfessional) =
-        (healthcareProfessional.rev?.let { api.hcpApi().modifyHealthcareParty(healthcareProfessional.toHealthcarePartyDto()) } ?: api.hcpApi()
+        (healthcareProfessional.rev?.let {
+            api.hcpApi().modifyHealthcareParty(healthcareProfessional.toHealthcarePartyDto())
+        } ?: api.hcpApi()
             .createHealthcareParty(healthcareProfessional.toHealthcarePartyDto())).toHealthcareProfessional()
 
     override suspend fun deleteHealthcareProfessional(hcpId: String) =
-        api.hcpApi().deleteHealthcareParties(ListOfIdsDto(ids = listOf(hcpId))).firstOrNull()?.rev ?: throw IllegalArgumentException("Invalid user id")
+        api.hcpApi().deleteHealthcareParties(ListOfIdsDto(ids = listOf(hcpId))).firstOrNull()?.rev
+            ?: throw IllegalArgumentException("Invalid user id")
 
     override suspend fun filterHealthcareProfessionalBy(
         filter: Filter,
         nextHcpId: String?,
         limit: Int?
-    ) = api.hcpApi().filterHealthPartiesBy(FilterChainHealthcareParty(filter.toAbstractFilterDtoHealthcareParty(), null), nextHcpId, limit)
+    ) = api.hcpApi().filterHealthPartiesBy(
+        FilterChainHealthcareParty(filter.toAbstractFilterDtoHealthcareParty(), null),
+        nextHcpId,
+        limit
+    )
         .toPaginatedListHealthcareProfessional()
 
-    override suspend fun getHealthcareProfessional(hcpId: String) = api.hcpApi().getHealthcareParty(hcpId).toHealthcareProfessional()
+    override suspend fun getHealthcareProfessional(hcpId: String) =
+        api.hcpApi().getHealthcareParty(hcpId).toHealthcareProfessional()
 
-    override suspend fun matchHealthcareProfessionalBy(filter: Filter) = api.hcpApi().matchHealthcarePartiesBy(filter.toAbstractFilterDtoHealthcareParty())
+    override suspend fun matchHealthcareProfessionalBy(filter: Filter) =
+        api.hcpApi().matchHealthcarePartiesBy(filter.toAbstractFilterDtoHealthcareParty())
 }

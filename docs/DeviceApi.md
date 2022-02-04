@@ -254,7 +254,7 @@ No authorization required
 
 Get a Medical Device
 
-Each medical device is uniquely identified by a device id. The user id is a UUID. This [medicalDeviceId] is the preferred method to retrieve one specific device.
+Each medical device is uniquely identified by a device id. The device id is a UUID. This [medicalDeviceId] is the preferred method to retrieve one specific device.
 
 ### Example
 ```kotlin

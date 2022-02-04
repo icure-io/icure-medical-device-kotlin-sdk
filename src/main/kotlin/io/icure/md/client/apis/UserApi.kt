@@ -130,7 +130,6 @@ interface UserApi {
      * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
      * @return Returns a list of all user ids matching the filter.
      * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
-     * @throws ClientException if there is no user with the provided userId.
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
