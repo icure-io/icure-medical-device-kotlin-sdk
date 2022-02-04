@@ -26,10 +26,12 @@ import javax.inject.Named
 interface HealthcareProfessionalApi {
 
     /**
-     * Create a HealthcareProfessional
-     *
-     * @param healthcareProfessional
-     * @return OK
+     * Create a newhealthcare professional or modify an existing one.
+     * Ahealthcare professional must have a login, an email or a mobilePhone defined, ahealthcare professional should be linked to either a Healthcare Professional, a Patient or a Device. When modifying an healthcare professional, you must ensure that the rev obtained when getting or creating thehealthcare professional is present as the rev is used to guarantee that thehealthcare professional has not been modified by a third party.
+     * @param healthcareProfessional Thehealthcare professional that must be created in the database.
+     * @return Returns the created or modifiedhealthcare professional as a Healthcare professional object, with an updated rev.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is no login,email or mobilePhone in the provided Healthcare professional
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
@@ -38,46 +40,60 @@ interface HealthcareProfessionalApi {
     suspend fun createOrModifyHealthcareProfessional(healthcareProfessional: HealthcareProfessional): HealthcareProfessional
 
     /**
-     * Delete a HealthcareProfessional
-     *
-     * @param id
-     * @return OK
+     * Delete an existing healthcare professional.
+     * Deletes thehealthcare professional identified by the provided unique hcpId.
+     * @param hcpId The UUID that uniquely identifies thehealthcare professional to be deleted.
+     * @return Returns the rev of the deleted object.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is nohealthcare professional with the provided hcpId.
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun deleteHealthcareProfessional(id: kotlin.String): kotlin.String
+    suspend fun deleteHealthcareProfessional(hcpId: kotlin.String): kotlin.String
 
     /**
-     * Find Healthcare Professional using a filter
-     *
-     * @param filter
-     * @return OK
+     * Load healthcare professionals from the database by filtering them using the provided Filter.
+     * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for Healthcare professionals are AllHealthcareProfessionalsFilter and HealthcarProfessionalsByIdsFilter. This method returns a paginated list of healthcare professionals (with a cursor that lets you query the following items).
+     * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+     * @param nextHcpId The id of the first Healthcare professional in the next page (optional)
+     * @param limit The number of healthcare professionals to return in the queried page (optional)
+     * @return Returns a PaginatedList of Healthcare professionals.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is nohealthcare professional with the provided hcpId.
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun filterHealthcareProfessionalBy(filter: Filter): PaginatedListHealthcareProfessional
+    suspend fun filterHealthcareProfessionalBy(
+        filter: Filter,
+        nextHcpId: kotlin.String?,
+        limit: kotlin.Int?
+    ): PaginatedListHealthcareProfessional
 
     /**
-     * Get a HealthcareProfessional
-     *
-     * @param id
-     * @return OK
+     * Get a Healthcare professional by id.
+     * Eachhealthcare professional is uniquely identified by ahealthcare professional id. Thehealthcare professional id is a UUID. This hcpId is the preferred method to retrieve one specific healthcare professional.
+     * @param hcpId The UUID that identifies thehealthcare professional uniquely
+     * @return Returns the fetchedhealthcare professional as a Healthcare professional object
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is nohealthcare professional with the provided hcpId.
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun getHealthcareProfessional(id: kotlin.String): HealthcareProfessional
+    suspend fun getHealthcareProfessional(hcpId: kotlin.String): HealthcareProfessional
 
     /**
-     * Find Data samples using a filter
-     *
-     * @param filter
-     * @return OK
+     * Loadhealthcare professional ids from the database by filtering them using the provided Filter.
+     * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for Healthcare professionals are AllHealthcare professionalsFilter and Healthcare professionalsByIdsFilter. This method returns the list of the ids of the healthcare professionals matching the filter.
+     * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+     * @return Returns a list of allhealthcare professional ids matching the filter.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is nohealthcare professional with the provided hcpId.
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */

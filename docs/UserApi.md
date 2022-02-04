@@ -78,7 +78,7 @@ A user must have a login, an email or a mobilePhone defined, a user should be li
 //import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
-val user : User =  // User | 
+val user : User =  // User | The user that must be created in the database.
 try {
     val result : User = apiInstance.createOrModifyUser(user)
     println(result)
@@ -95,7 +95,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user** | [**User**](User.md)|  |
+ **user** | [**User**](User.md)| The user that must be created in the database. |
 
 ### Return type
 
@@ -172,7 +172,7 @@ Deletes the user identified by the provided unique userId.
 //import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
-val userId : kotlin.String = userId_example // kotlin.String | The UUID that identifies the user to be deleted uniquely
+val userId : kotlin.String = userId_example // kotlin.String | The UUID that uniquely identifies the user to be deleted.
 try {
     val result : kotlin.String = apiInstance.deleteUser(userId)
     println(result)
@@ -189,7 +189,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | **kotlin.String**| The UUID that identifies the user to be deleted uniquely |
+ **userId** | **kotlin.String**| The UUID that uniquely identifies the user to be deleted. |
 
 ### Return type
 
@@ -219,7 +219,7 @@ Filters are complex selectors that are built by combining basic building blocks.
 //import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
-val filter : Filter =  // Filter | 
+val filter : Filter =  // Filter | The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
 val nextUserId : kotlin.String = nextUserId_example // kotlin.String | The id of the first User in the next page
 val limit : kotlin.Int = 56 // kotlin.Int | The number of users to return in the queried page
 try {
@@ -238,7 +238,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | [**Filter**](Filter.md)|  |
+ **filter** | [**Filter**](Filter.md)| The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill |
  **nextUserId** | **kotlin.String**| The id of the first User in the next page | [optional]
  **limit** | **kotlin.Int**| The number of users to return in the queried page | [optional]
 
@@ -360,7 +360,7 @@ Filters are complex selectors that are built by combining basic building blocks.
 //import io.icure.md.client.models.*
 
 val apiInstance = UserApi()
-val filter : Filter =  // Filter | 
+val filter : Filter =  // Filter | The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
 try {
     val result : kotlin.collections.List<kotlin.String> = apiInstance.matchUsers(filter)
     println(result)
@@ -377,7 +377,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | [**Filter**](Filter.md)|  |
+ **filter** | [**Filter**](Filter.md)| The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill |
 
 ### Return type
 

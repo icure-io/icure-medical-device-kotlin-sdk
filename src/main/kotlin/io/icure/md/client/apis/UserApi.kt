@@ -43,7 +43,7 @@ interface UserApi {
     /**
      * Create a new user or modify an existing one.
      * A user must have a login, an email or a mobilePhone defined, a user should be linked to either a Healthcare Professional, a Patient or a Device. When modifying an user, you must ensure that the rev obtained when getting or creating the user is present as the rev is used to guarantee that the user has not been modified by a third party.
-     * @param user
+     * @param user The user that must be created in the database.
      * @return Returns the created or modified user as a User object, with an updated rev.
      * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
      * @throws ClientException if there is no login,email or mobilePhone in the provided User
@@ -71,7 +71,7 @@ interface UserApi {
     /**
      * Delete an existing user.
      * Deletes the user identified by the provided unique userId.
-     * @param userId The UUID that identifies the user to be deleted uniquely
+     * @param userId The UUID that uniquely identifies the user to be deleted.
      * @return Returns the rev of the deleted object.
      * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
      * @throws ClientException if there is no user with the provided userId.
@@ -85,7 +85,7 @@ interface UserApi {
     /**
      * Load users from the database by filtering them using the provided Filter.
      * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for Users are AllUsersFilter and UsersByIdsFilter. This method returns a paginated list of users (with a cursor that lets you query the following items).
-     * @param filter
+     * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
      * @param nextUserId The id of the first User in the next page (optional)
      * @param limit The number of users to return in the queried page (optional)
      * @return Returns a PaginatedList of Users.
@@ -127,8 +127,8 @@ interface UserApi {
     /**
      * Load user ids from the database by filtering them using the provided Filter.
      * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for Users are AllUsersFilter and UsersByIdsFilter. This method returns the list of the ids of the users matching the filter.
-     * @param filter
-     * @return Returns a list of all user ids matching teh filter.
+     * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+     * @return Returns a list of all user ids matching the filter.
      * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
      * @throws ClientException if there is no user with the provided userId.
      * @throws UnsupportedOperationException If the API returns an informational or redirection response

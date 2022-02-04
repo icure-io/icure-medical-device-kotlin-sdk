@@ -4,18 +4,20 @@ All URIs are relative to *http://127.0.0.1:8912*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createOrModifyHealthcareProfessional**](HealthcareProfessionalApi.md#createOrModifyHealthcareProfessional) | **PUT** /rest/v2/healthcareprofessional | Create a HealthcareProfessional
-[**deleteHealthcareProfessional**](HealthcareProfessionalApi.md#deleteHealthcareProfessional) | **DELETE** /rest/v2/healthcareprofessional/{id} | Delete a HealthcareProfessional
-[**filterHealthcareProfessionalBy**](HealthcareProfessionalApi.md#filterHealthcareProfessionalBy) | **POST** /rest/v2/healthcareprofessional/filter | Find Healthcare Professional using a filter
-[**getHealthcareProfessional**](HealthcareProfessionalApi.md#getHealthcareProfessional) | **GET** /rest/v2/healthcareprofessional/{id} | Get a HealthcareProfessional
-[**matchHealthcareProfessionalBy**](HealthcareProfessionalApi.md#matchHealthcareProfessionalBy) | **POST** /rest/v2/healthcareprofessional/match | Find Data samples using a filter
+[**createOrModifyHealthcareProfessional**](HealthcareProfessionalApi.md#createOrModifyHealthcareProfessional) | **PUT** /rest/v2/healthcareprofessional | Create a newhealthcare professional or modify an existing one.
+[**deleteHealthcareProfessional**](HealthcareProfessionalApi.md#deleteHealthcareProfessional) | **DELETE** /rest/v2/healthcareprofessional/{hcpId} | Delete an existing healthcare professional.
+[**filterHealthcareProfessionalBy**](HealthcareProfessionalApi.md#filterHealthcareProfessionalBy) | **POST** /rest/v2/healthcareprofessional/filter | Load healthcare professionals from the database by filtering them using the provided Filter.
+[**getHealthcareProfessional**](HealthcareProfessionalApi.md#getHealthcareProfessional) | **GET** /rest/v2/healthcareprofessional/{hcpId} | Get a Healthcare professional by id.
+[**matchHealthcareProfessionalBy**](HealthcareProfessionalApi.md#matchHealthcareProfessionalBy) | **POST** /rest/v2/healthcareprofessional/match | Loadhealthcare professional ids from the database by filtering them using the provided Filter.
 
 
 <a name="createOrModifyHealthcareProfessional"></a>
 # **createOrModifyHealthcareProfessional**
 > HealthcareProfessional createOrModifyHealthcareProfessional(healthcareProfessional)
 
-Create a HealthcareProfessional
+Create a newhealthcare professional or modify an existing one.
+
+Ahealthcare professional must have a login, an email or a mobilePhone defined, ahealthcare professional should be linked to either a Healthcare Professional, a Patient or a Device. When modifying an healthcare professional, you must ensure that the rev obtained when getting or creating thehealthcare professional is present as the rev is used to guarantee that thehealthcare professional has not been modified by a third party.
 
 ### Example
 ```kotlin
@@ -24,7 +26,7 @@ Create a HealthcareProfessional
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareProfessionalApi()
-val healthcareProfessional : HealthcareProfessional =  // HealthcareProfessional | 
+val healthcareProfessional : HealthcareProfessional =  // HealthcareProfessional | Thehealthcare professional that must be created in the database.
 try {
     val result : HealthcareProfessional = apiInstance.createOrModifyHealthcareProfessional(healthcareProfessional)
     println(result)
@@ -41,7 +43,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **healthcareProfessional** | [**HealthcareProfessional**](HealthcareProfessional.md)|  |
+ **healthcareProfessional** | [**HealthcareProfessional**](HealthcareProfessional.md)| Thehealthcare professional that must be created in the database. |
 
 ### Return type
 
@@ -58,9 +60,11 @@ No authorization required
 
 <a name="deleteHealthcareProfessional"></a>
 # **deleteHealthcareProfessional**
-> kotlin.String deleteHealthcareProfessional(id)
+> kotlin.String deleteHealthcareProfessional(hcpId)
 
-Delete a HealthcareProfessional
+Delete an existing healthcare professional.
+
+Deletes thehealthcare professional identified by the provided unique hcpId.
 
 ### Example
 ```kotlin
@@ -69,9 +73,9 @@ Delete a HealthcareProfessional
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareProfessionalApi()
-val id : kotlin.String = id_example // kotlin.String | 
+val hcpId : kotlin.String = hcpId_example // kotlin.String | The UUID that uniquely identifies thehealthcare professional to be deleted.
 try {
-    val result : kotlin.String = apiInstance.deleteHealthcareProfessional(id)
+    val result : kotlin.String = apiInstance.deleteHealthcareProfessional(hcpId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling HealthcareProfessionalApi#deleteHealthcareProfessional")
@@ -86,7 +90,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **kotlin.String**|  |
+ **hcpId** | **kotlin.String**| The UUID that uniquely identifies thehealthcare professional to be deleted. |
 
 ### Return type
 
@@ -103,9 +107,11 @@ No authorization required
 
 <a name="filterHealthcareProfessionalBy"></a>
 # **filterHealthcareProfessionalBy**
-> PaginatedListHealthcareProfessional filterHealthcareProfessionalBy(filter)
+> PaginatedListHealthcareProfessional filterHealthcareProfessionalBy(filter, nextHcpId, limit)
 
-Find Healthcare Professional using a filter
+Load healthcare professionals from the database by filtering them using the provided Filter.
+
+Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for Healthcare professionals are AllHealthcareProfessionalsFilter and HealthcarProfessionalsByIdsFilter. This method returns a paginated list of healthcare professionals (with a cursor that lets you query the following items).
 
 ### Example
 ```kotlin
@@ -114,9 +120,11 @@ Find Healthcare Professional using a filter
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareProfessionalApi()
-val filter : Filter =  // Filter | 
+val filter : Filter =  // Filter | The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+val nextHcpId : kotlin.String = nextHcpId_example // kotlin.String | The id of the first Healthcare professional in the next page
+val limit : kotlin.Int = 56 // kotlin.Int | The number of healthcare professionals to return in the queried page
 try {
-    val result : PaginatedListHealthcareProfessional = apiInstance.filterHealthcareProfessionalBy(filter)
+    val result : PaginatedListHealthcareProfessional = apiInstance.filterHealthcareProfessionalBy(filter, nextHcpId, limit)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling HealthcareProfessionalApi#filterHealthcareProfessionalBy")
@@ -131,7 +139,9 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | [**Filter**](Filter.md)|  |
+ **filter** | [**Filter**](Filter.md)| The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill |
+ **nextHcpId** | **kotlin.String**| The id of the first Healthcare professional in the next page | [optional]
+ **limit** | **kotlin.Int**| The number of healthcare professionals to return in the queried page | [optional]
 
 ### Return type
 
@@ -148,9 +158,11 @@ No authorization required
 
 <a name="getHealthcareProfessional"></a>
 # **getHealthcareProfessional**
-> HealthcareProfessional getHealthcareProfessional(id)
+> HealthcareProfessional getHealthcareProfessional(hcpId)
 
-Get a HealthcareProfessional
+Get a Healthcare professional by id.
+
+Eachhealthcare professional is uniquely identified by ahealthcare professional id. Thehealthcare professional id is a UUID. This hcpId is the preferred method to retrieve one specific healthcare professional.
 
 ### Example
 ```kotlin
@@ -159,9 +171,9 @@ Get a HealthcareProfessional
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareProfessionalApi()
-val id : kotlin.String = id_example // kotlin.String | 
+val hcpId : kotlin.String = hcpId_example // kotlin.String | The UUID that identifies thehealthcare professional uniquely
 try {
-    val result : HealthcareProfessional = apiInstance.getHealthcareProfessional(id)
+    val result : HealthcareProfessional = apiInstance.getHealthcareProfessional(hcpId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling HealthcareProfessionalApi#getHealthcareProfessional")
@@ -176,7 +188,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **kotlin.String**|  |
+ **hcpId** | **kotlin.String**| The UUID that identifies thehealthcare professional uniquely |
 
 ### Return type
 
@@ -195,7 +207,9 @@ No authorization required
 # **matchHealthcareProfessionalBy**
 > kotlin.collections.List&lt;kotlin.String&gt; matchHealthcareProfessionalBy(filter)
 
-Find Data samples using a filter
+Loadhealthcare professional ids from the database by filtering them using the provided Filter.
+
+Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for Healthcare professionals are AllHealthcare professionalsFilter and Healthcare professionalsByIdsFilter. This method returns the list of the ids of the healthcare professionals matching the filter.
 
 ### Example
 ```kotlin
@@ -204,7 +218,7 @@ Find Data samples using a filter
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareProfessionalApi()
-val filter : Filter =  // Filter | 
+val filter : Filter =  // Filter | The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
 try {
     val result : kotlin.collections.List<kotlin.String> = apiInstance.matchHealthcareProfessionalBy(filter)
     println(result)
@@ -221,7 +235,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | [**Filter**](Filter.md)|  |
+ **filter** | [**Filter**](Filter.md)| The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill |
 
 ### Return type
 
