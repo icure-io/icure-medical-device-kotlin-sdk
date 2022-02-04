@@ -1,27 +1,29 @@
 # DataSampleApi
 
-All URIs are relative to *http://127.0.0.1:8912*
+All URIs are relative to *http://localhost:8912*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createOrModifyDataSample**](DataSampleApi.md#createOrModifyDataSample) | **PUT** /rest/v2/data/sample | Create a DataSample
-[**createOrModifyDataSamples**](DataSampleApi.md#createOrModifyDataSamples) | **PUT** /rest/v2/data/sample/batch | Create a batch of Data samples
-[**deleteAttachment**](DataSampleApi.md#deleteAttachment) | **DELETE** /rest/v2/data/sample/{id}/attachment/{documentId} | Delete a Data sample attachment
-[**deleteDataSample**](DataSampleApi.md#deleteDataSample) | **DELETE** /rest/v2/data/sample/{id} | Delete a DataSample
-[**deleteDataSamples**](DataSampleApi.md#deleteDataSamples) | **DELETE** /rest/v2/data/sample/batch/{ids} | Delete a batch of Data samples
-[**filterDataSample**](DataSampleApi.md#filterDataSample) | **POST** /rest/v2/data/sample/filter | Find Data samples using a filter
-[**getDataSample**](DataSampleApi.md#getDataSample) | **GET** /rest/v2/data/sample/{id} | Get a DataSample
-[**getDataSampleAttachment**](DataSampleApi.md#getDataSampleAttachment) | **GET** /rest/v2/data/sample/{id}/attachment/{documentId} | Get a DataSample attachment metadata
-[**getDataSampleAttachmentContent**](DataSampleApi.md#getDataSampleAttachmentContent) | **GET** /rest/v2/data/sample/{id}/attachment/{documentId}/{attachmentId} | Get a Data sample attachment metadata
-[**matchDataSample**](DataSampleApi.md#matchDataSample) | **POST** /rest/v2/data/sample/match | Find Data samples using a filter
-[**setDataSampleAttachment**](DataSampleApi.md#setDataSampleAttachment) | **PUT** /rest/v2/data/sample/{id}/attachment/{documentId} | Create a DataSample
+[**createOrModifyDataSampleFor**](DataSampleApi.md#createOrModifyDataSampleFor) | **PUT** /rest/v2/data/sample/for/{patientId} | Create or update a [DataSample] for a patient
+[**createOrModifyDataSamplesFor**](DataSampleApi.md#createOrModifyDataSamplesFor) | **PUT** /rest/v2/data/sample/batch/for/{patientId} | Create or update a batch of [DataSample] for a patient
+[**deleteAttachment**](DataSampleApi.md#deleteAttachment) | **DELETE** /rest/v2/data/sample/{dataSampleId}/attachment | Delete an attachment of a DataSample
+[**deleteDataSample**](DataSampleApi.md#deleteDataSample) | **DELETE** /rest/v2/data/sample/{dataSampleId} | Delete a [DataSample] by its id
+[**deleteDataSamples**](DataSampleApi.md#deleteDataSamples) | **POST** /rest/v2/data/sample/batch | Delete a batch of [Data Samples]
+[**filterDataSample**](DataSampleApi.md#filterDataSample) | **POST** /rest/v2/data/sample/filter | Find data samples using the provided [filter].
+[**getDataSample**](DataSampleApi.md#getDataSample) | **GET** /rest/v2/data/sample/{dataSampleId} | Get a [DataSample] by its id
+[**getDataSampleAttachment**](DataSampleApi.md#getDataSampleAttachment) | **GET** /rest/v2/data/sample/{dataSampleId}/attachment | Get document metadata of a DataSample attachment
+[**getDataSampleAttachmentContent**](DataSampleApi.md#getDataSampleAttachmentContent) | **GET** /rest/v2/data/sample/{dataSampleId}/attachment/{attachmentId} | Get attachment content of a DataSample
+[**matchDataSample**](DataSampleApi.md#matchDataSample) | **POST** /rest/v2/data/sample/match | Find data samples ids using the provided Filter.
+[**setDataSampleAttachment**](DataSampleApi.md#setDataSampleAttachment) | **PUT** /rest/v2/data/sample/{dataSampleId}/attachment | Add or update the attachment of a DataSample
 
 
-<a name="createOrModifyDataSample"></a>
-# **createOrModifyDataSample**
-> DataSample createOrModifyDataSample(dataSample)
+<a name="createOrModifyDataSampleFor"></a>
+# **createOrModifyDataSampleFor**
+> DataSample createOrModifyDataSampleFor(patientId, dataSample)
 
-Create a DataSample
+Create or update a [DataSample] for a patient
+
+When modifying a data sample, you can&#39;t update the patient of it : For this, you need to delete the faulty data sample and create a new one. When modifying the data sample, you also need to keep the same batchId : It is not possible to change the batch of a data sample.
 
 ### Example
 ```kotlin
@@ -30,15 +32,16 @@ Create a DataSample
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
+val patientId : kotlin.String = patientId_example // kotlin.String | 
 val dataSample : DataSample =  // DataSample | 
 try {
-    val result : DataSample = apiInstance.createOrModifyDataSample(dataSample)
+    val result : DataSample = apiInstance.createOrModifyDataSampleFor(patientId, dataSample)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling DataSampleApi#createOrModifyDataSample")
+    println("4xx response calling DataSampleApi#createOrModifyDataSampleFor")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling DataSampleApi#createOrModifyDataSample")
+    println("5xx response calling DataSampleApi#createOrModifyDataSampleFor")
     e.printStackTrace()
 }
 ```
@@ -47,6 +50,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **patientId** | **kotlin.String**|  |
  **dataSample** | [**DataSample**](DataSample.md)|  |
 
 ### Return type
@@ -62,11 +66,13 @@ No authorization required
  - **Content-Type**: application/json, application/xml
  - **Accept**: */*
 
-<a name="createOrModifyDataSamples"></a>
-# **createOrModifyDataSamples**
-> kotlin.collections.List&lt;DataSample&gt; createOrModifyDataSamples(dataSample)
+<a name="createOrModifyDataSamplesFor"></a>
+# **createOrModifyDataSamplesFor**
+> kotlin.collections.List&lt;DataSample&gt; createOrModifyDataSamplesFor(patientId, dataSample)
 
-Create a batch of Data samples
+Create or update a batch of [DataSample] for a patient
+
+All the provided data samples will be created in the same batch. If you are trying to update some data samples, then those ones need to come from the same batch.                  When modifying a data sample, you can&#39;t update the patient of it : For this, you need to delete the faulty data sample and create a new one. When modifying the data sample, you also need to keep the same batchId : It is not possible to change the batch of a data sample.                 
 
 ### Example
 ```kotlin
@@ -75,15 +81,16 @@ Create a batch of Data samples
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
+val patientId : kotlin.String = patientId_example // kotlin.String | 
 val dataSample : kotlin.collections.List<DataSample> =  // kotlin.collections.List<DataSample> | 
 try {
-    val result : kotlin.collections.List<DataSample> = apiInstance.createOrModifyDataSamples(dataSample)
+    val result : kotlin.collections.List<DataSample> = apiInstance.createOrModifyDataSamplesFor(patientId, dataSample)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling DataSampleApi#createOrModifyDataSamples")
+    println("4xx response calling DataSampleApi#createOrModifyDataSamplesFor")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling DataSampleApi#createOrModifyDataSamples")
+    println("5xx response calling DataSampleApi#createOrModifyDataSamplesFor")
     e.printStackTrace()
 }
 ```
@@ -92,6 +99,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **patientId** | **kotlin.String**|  |
  **dataSample** | [**kotlin.collections.List&lt;DataSample&gt;**](DataSample.md)|  |
 
 ### Return type
@@ -109,9 +117,11 @@ No authorization required
 
 <a name="deleteAttachment"></a>
 # **deleteAttachment**
-> kotlin.String deleteAttachment(id, documentId)
+> kotlin.String deleteAttachment(dataSampleId)
 
-Delete a Data sample attachment
+Delete an attachment of a DataSample
+
+Deletes an attachment, using its corresponding documentId
 
 ### Example
 ```kotlin
@@ -120,10 +130,9 @@ Delete a Data sample attachment
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
-val id : kotlin.String = id_example // kotlin.String | 
-val documentId : kotlin.String = documentId_example // kotlin.String | 
+val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String | 
 try {
-    val result : kotlin.String = apiInstance.deleteAttachment(id, documentId)
+    val result : kotlin.String = apiInstance.deleteAttachment(dataSampleId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling DataSampleApi#deleteAttachment")
@@ -138,8 +147,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **kotlin.String**|  |
- **documentId** | **kotlin.String**|  |
+ **dataSampleId** | **kotlin.String**|  |
 
 ### Return type
 
@@ -156,9 +164,11 @@ No authorization required
 
 <a name="deleteDataSample"></a>
 # **deleteDataSample**
-> kotlin.String deleteDataSample(id)
+> kotlin.String deleteDataSample(dataSampleId)
 
-Delete a DataSample
+Delete a [DataSample] by its id
+
+Deletes the data sample identified by the provided unique [dataSampleId].
 
 ### Example
 ```kotlin
@@ -167,9 +177,9 @@ Delete a DataSample
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
-val id : kotlin.String = id_example // kotlin.String | 
+val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String | 
 try {
-    val result : kotlin.String = apiInstance.deleteDataSample(id)
+    val result : kotlin.String = apiInstance.deleteDataSample(dataSampleId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling DataSampleApi#deleteDataSample")
@@ -184,7 +194,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **kotlin.String**|  |
+ **dataSampleId** | **kotlin.String**|  |
 
 ### Return type
 
@@ -201,9 +211,11 @@ No authorization required
 
 <a name="deleteDataSamples"></a>
 # **deleteDataSamples**
-> kotlin.collections.List&lt;kotlin.String&gt; deleteDataSamples(ids)
+> kotlin.collections.List&lt;kotlin.String&gt; deleteDataSamples(requestBody)
 
-Delete a batch of Data samples
+Delete a batch of [Data Samples]
+
+Deletes the batch of data samples identified by the provided [dataSampleIds]. The data samples to delete need to be part of the same batch
 
 ### Example
 ```kotlin
@@ -212,9 +224,9 @@ Delete a batch of Data samples
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
-val ids : kotlin.collections.List<kotlin.String> =  // kotlin.collections.List<kotlin.String> | 
+val requestBody : kotlin.collections.List<kotlin.String> =  // kotlin.collections.List<kotlin.String> | 
 try {
-    val result : kotlin.collections.List<kotlin.String> = apiInstance.deleteDataSamples(ids)
+    val result : kotlin.collections.List<kotlin.String> = apiInstance.deleteDataSamples(requestBody)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling DataSampleApi#deleteDataSamples")
@@ -229,7 +241,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ids** | [**kotlin.collections.List&lt;kotlin.String&gt;**](kotlin.String.md)|  | [default to emptyList()]
+ **requestBody** | [**kotlin.collections.List&lt;kotlin.String&gt;**](kotlin.String.md)|  |
 
 ### Return type
 
@@ -241,14 +253,16 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json, application/xml
  - **Accept**: */*
 
 <a name="filterDataSample"></a>
 # **filterDataSample**
 > PaginatedListDataSample filterDataSample(filter)
 
-Find Data samples using a filter
+Find data samples using the provided [filter].
+
+Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [DataSample] are AllDataSamplesFilter and DataSamplesByIdsFilter. This method returns a paginated list of data samples (with a cursor that lets you query the following items).
 
 ### Example
 ```kotlin
@@ -257,7 +271,7 @@ Find Data samples using a filter
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
-val filter : Filter =  // Filter | 
+val filter : Filter =  // Filter | The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
 try {
     val result : PaginatedListDataSample = apiInstance.filterDataSample(filter)
     println(result)
@@ -274,7 +288,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | [**Filter**](Filter.md)|  |
+ **filter** | [**Filter**](Filter.md)| The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill |
 
 ### Return type
 
@@ -291,9 +305,11 @@ No authorization required
 
 <a name="getDataSample"></a>
 # **getDataSample**
-> DataSample getDataSample(id)
+> DataSample getDataSample(dataSampleId)
 
-Get a DataSample
+Get a [DataSample] by its id
+
+Each data sample is uniquely identified by a data sample id which is a UUID. This [dataSampleId] is the preferred method to retrieve one specific data sample.
 
 ### Example
 ```kotlin
@@ -302,9 +318,9 @@ Get a DataSample
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
-val id : kotlin.String = id_example // kotlin.String | 
+val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String | 
 try {
-    val result : DataSample = apiInstance.getDataSample(id)
+    val result : DataSample = apiInstance.getDataSample(dataSampleId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling DataSampleApi#getDataSample")
@@ -319,7 +335,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **kotlin.String**|  |
+ **dataSampleId** | **kotlin.String**|  |
 
 ### Return type
 
@@ -336,9 +352,11 @@ No authorization required
 
 <a name="getDataSampleAttachment"></a>
 # **getDataSampleAttachment**
-> Document getDataSampleAttachment(id, documentId)
+> Document getDataSampleAttachment(dataSampleId)
 
-Get a DataSample attachment metadata
+Get document metadata of a DataSample attachment
+
+Data Samples may contain attachments such as prescriptions, reports, ... Use this method to get the document metadata information of an attachment
 
 ### Example
 ```kotlin
@@ -347,10 +365,9 @@ Get a DataSample attachment metadata
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
-val id : kotlin.String = id_example // kotlin.String | 
-val documentId : kotlin.String = documentId_example // kotlin.String | 
+val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String | 
 try {
-    val result : Document = apiInstance.getDataSampleAttachment(id, documentId)
+    val result : Document = apiInstance.getDataSampleAttachment(dataSampleId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling DataSampleApi#getDataSampleAttachment")
@@ -365,8 +382,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **kotlin.String**|  |
- **documentId** | **kotlin.String**|  |
+ **dataSampleId** | **kotlin.String**|  |
 
 ### Return type
 
@@ -383,9 +399,11 @@ No authorization required
 
 <a name="getDataSampleAttachmentContent"></a>
 # **getDataSampleAttachmentContent**
-> kotlin.collections.List&lt;kotlin.Any&gt; getDataSampleAttachmentContent(id, documentId, attachmentId)
+> kotlin.collections.List&lt;kotlin.Any&gt; getDataSampleAttachmentContent(dataSampleId, attachmentId)
 
-Get a Data sample attachment metadata
+Get attachment content of a DataSample
+
+Data Samples may contain attachments such as prescriptions, reports, ... Use this method to get the content of an attachment
 
 ### Example
 ```kotlin
@@ -394,11 +412,10 @@ Get a Data sample attachment metadata
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
-val id : kotlin.String = id_example // kotlin.String | 
-val documentId : kotlin.String = documentId_example // kotlin.String | 
+val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String | 
 val attachmentId : kotlin.String = attachmentId_example // kotlin.String | 
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.getDataSampleAttachmentContent(id, documentId, attachmentId)
+    val result : kotlin.collections.List<kotlin.Any> = apiInstance.getDataSampleAttachmentContent(dataSampleId, attachmentId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling DataSampleApi#getDataSampleAttachmentContent")
@@ -413,8 +430,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **kotlin.String**|  |
- **documentId** | **kotlin.String**|  |
+ **dataSampleId** | **kotlin.String**|  |
  **attachmentId** | **kotlin.String**|  |
 
 ### Return type
@@ -434,7 +450,9 @@ No authorization required
 # **matchDataSample**
 > kotlin.collections.List&lt;kotlin.String&gt; matchDataSample(filter)
 
-Find Data samples using a filter
+Find data samples ids using the provided Filter.
+
+Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [DataSample] are AllDataSamplesFilter and DataSamplesByIdsFilter. This method returns a paginated list of data samples (with a cursor that lets you query the following items).
 
 ### Example
 ```kotlin
@@ -443,7 +461,7 @@ Find Data samples using a filter
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
-val filter : Filter =  // Filter | 
+val filter : Filter =  // Filter | The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
 try {
     val result : kotlin.collections.List<kotlin.String> = apiInstance.matchDataSample(filter)
     println(result)
@@ -460,7 +478,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | [**Filter**](Filter.md)|  |
+ **filter** | [**Filter**](Filter.md)| The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill |
 
 ### Return type
 
@@ -477,9 +495,11 @@ No authorization required
 
 <a name="setDataSampleAttachment"></a>
 # **setDataSampleAttachment**
-> Document setDataSampleAttachment(id, documentId, body)
+> Document setDataSampleAttachment(dataSampleId, body, documentName, documentVersion, documentExternalUuid)
 
-Create a DataSample
+Add or update the attachment of a DataSample
+
+Link an attachment or update the attachment of a data sample
 
 ### Example
 ```kotlin
@@ -488,11 +508,13 @@ Create a DataSample
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
-val id : kotlin.String = id_example // kotlin.String | 
-val documentId : kotlin.String = documentId_example // kotlin.String | 
+val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String | 
 val body : kotlinx.coroutines.flow.Flow<java.nio.ByteBuffer> = BINARY_DATA_HERE // kotlinx.coroutines.flow.Flow<java.nio.ByteBuffer> | 
+val documentName : kotlin.String = documentName_example // kotlin.String | 
+val documentVersion : kotlin.String = documentVersion_example // kotlin.String | 
+val documentExternalUuid : kotlin.String = documentExternalUuid_example // kotlin.String | 
 try {
-    val result : Document = apiInstance.setDataSampleAttachment(id, documentId, body)
+    val result : Document = apiInstance.setDataSampleAttachment(dataSampleId, body, documentName, documentVersion, documentExternalUuid)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling DataSampleApi#setDataSampleAttachment")
@@ -507,9 +529,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **kotlin.String**|  |
- **documentId** | **kotlin.String**|  |
+ **dataSampleId** | **kotlin.String**|  |
  **body** | **kotlinx.coroutines.flow.Flow&lt;java.nio.ByteBuffer&gt;**|  |
+ **documentName** | **kotlin.String**|  | [optional]
+ **documentVersion** | **kotlin.String**|  | [optional]
+ **documentExternalUuid** | **kotlin.String**|  | [optional]
 
 ### Return type
 
