@@ -61,6 +61,27 @@ internal class DataSampleApiImplTest {
         }
     }
 
+    @Test
+    fun deleteDataSample_Success() {
+        runBlocking {
+            // Init
+            val weight = weightDataSample()
+            val currentUser = medTechApi.userApi().getCurrentUser()
+
+            val existingPatient = medTechApi.patientApi()
+                .createPatient(currentUser, patientDto(), patientCryptoConfig(medTechApi.localCrypto()))
+            val createdDataSample = testedInstance.createOrModifyDataSampleFor(existingPatient.id, weight)
+
+            // When
+            val deletedDataSampleId = testedInstance.deleteDataSample(createdDataSample.id!!)
+
+            // Then
+            val deletedDataSample = testedInstance.getDataSample(deletedDataSampleId)
+            assert(deletedDataSample.endOfLife != null)
+            assert(deletedDataSample.content.isEmpty())
+        }
+    }
+
     private fun heightDataSample() = DataSample(
         content = mapOf(
             "en" to Content(
