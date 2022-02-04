@@ -59,14 +59,14 @@ Name | Type | Description | Notes
 ## Enum: gender
 Name | Value
 ---- | -----
-gender | M, F, I, C, Y, X, U
+gender | male, female, indeterminate, changed, changedToMale, changedToFemale, unknown
 
 
 <a name="BirthSexEnum"></a>
 ## Enum: birthSex
 Name | Value
 ---- | -----
-birthSex | M, F, I, C, Y, X, U
+birthSex | male, female, indeterminate, changed, changedToMale, changedToFemale, unknown
 
 
 <a name="DeactivationReasonEnum"></a>

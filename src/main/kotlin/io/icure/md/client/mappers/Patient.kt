@@ -6,7 +6,7 @@ import java.util.*
 
 fun PatientDto.toPatient() = Patient(
     id = this.id,
-    identifier = this.identifier.map { it.toIdentifier() },
+    identifiers = this.identifier.map { it.toIdentifier() },
     labels = this.tags.map { it.toCodingReference() },
     codes = this.codes.map { it.toCodingReference() },
     names = this.names.map { it.toPersonName() },
@@ -69,7 +69,7 @@ fun Patient.toPatientDto() = PatientDto(
             throw IllegalArgumentException("Invalid id, id must be a valid UUID")
         }
     } ?: UUID.randomUUID().toString(),
-    identifier = this.identifier.map { it.toIdentifierDto() },
+    identifier = this.identifiers.map { it.toIdentifierDto() },
     tags = this.labels.map { it.toCodeStubDto() },
     codes = this.codes.map { it.toCodeStubDto() },
     names = this.names.map { it.toPersonNameDto() },

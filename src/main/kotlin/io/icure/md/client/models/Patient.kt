@@ -277,45 +277,45 @@ data class Patient(
     /**
      * the gender of the patient: male, female, indeterminate, changed, changedToMale, changedToFemale, unknown
      *
-     * Values: m,f,i,c,y,x,u
+     * Values: male,female,indeterminate,changed,changedToMale,changedToFemale,unknown
      */
     enum class Gender(val value: kotlin.String) {
-        @JsonProperty(value = "M")
-        m("M"),
-        @JsonProperty(value = "F")
-        f("F"),
-        @JsonProperty(value = "I")
-        i("I"),
-        @JsonProperty(value = "C")
-        c("C"),
-        @JsonProperty(value = "Y")
-        y("Y"),
-        @JsonProperty(value = "X")
-        x("X"),
-        @JsonProperty(value = "U")
-        u("U");
+        @JsonProperty(value = "male")
+        male("male"),
+        @JsonProperty(value = "female")
+        female("female"),
+        @JsonProperty(value = "indeterminate")
+        indeterminate("indeterminate"),
+        @JsonProperty(value = "changed")
+        changed("changed"),
+        @JsonProperty(value = "changedToMale")
+        changedToMale("changedToMale"),
+        @JsonProperty(value = "changedToFemale")
+        changedToFemale("changedToFemale"),
+        @JsonProperty(value = "unknown")
+        unknown("unknown");
     }
 
     /**
      * the birth sex of the patient: male, female, indeterminate, unknown
      *
-     * Values: m,f,i,c,y,x,u
+     * Values: male,female,indeterminate,changed,changedToMale,changedToFemale,unknown
      */
     enum class BirthSex(val value: kotlin.String) {
-        @JsonProperty(value = "M")
-        m("M"),
-        @JsonProperty(value = "F")
-        f("F"),
-        @JsonProperty(value = "I")
-        i("I"),
-        @JsonProperty(value = "C")
-        c("C"),
-        @JsonProperty(value = "Y")
-        y("Y"),
-        @JsonProperty(value = "X")
-        x("X"),
-        @JsonProperty(value = "U")
-        u("U");
+        @JsonProperty(value = "male")
+        male("male"),
+        @JsonProperty(value = "female")
+        female("female"),
+        @JsonProperty(value = "indeterminate")
+        indeterminate("indeterminate"),
+        @JsonProperty(value = "changed")
+        changed("changed"),
+        @JsonProperty(value = "changedToMale")
+        changedToMale("changedToMale"),
+        @JsonProperty(value = "changedToFemale")
+        changedToFemale("changedToFemale"),
+        @JsonProperty(value = "unknown")
+        unknown("unknown");
     }
 
     /**
