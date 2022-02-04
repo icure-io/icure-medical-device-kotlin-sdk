@@ -20,25 +20,25 @@ import com.github.pozo.KotlinBuilder
 /**
  *
  *
- * @param id
- * @param rev
- * @param deletionDate
- * @param identifiers
- * @param created
- * @param modified
- * @param author
- * @param responsible
- * @param labels
- * @param codes
- * @param endOfLife
- * @param externalId
- * @param name
- * @param type
- * @param brand
- * @param model
- * @param serialNumber
+ * @param id The Id of the MedicalDevice. We encourage using either a v4 UUID or a HL7 Id.
+ * @param rev the revision of the medical device in the database, used for conflict management / optimistic locking.
+ * @param deletionDate the soft delete timestamp. When a medical device is ”deleted“, this is set to a non null value: the moment of the deletion
+ * @param identifiers Typically used for business / client identifiers. An identifier should identify a device uniquely and unambiguously. However, iCure can't guarantee the uniqueness of those identifiers : This is something you need to take care of.
+ * @param created the creation date of the medical device (encoded as epoch).
+ * @param modified the last modification date of the medical device (encoded as epoch).
+ * @param author The id of the [User] that created this medical device. When creating the device, this field will be filled automatically by the current user id if not provided.
+ * @param responsible The id of the data owner that is responsible of this medical device. When creating the medical device, will be filled automatically by the current user data owner id ([HealthcareProfessional], [Patient] or [MedicalDevice]) if missing
+ * @param labels A label is an item from a codification system that qualifies a medical device as being member of a certain class, whatever the value it might have taken. If the label qualifies the content of a field, it means that whatever the content of the field, the label will always apply. LOINC is a codification system typically used for labels.
+ * @param codes A code is an item from a codification system that qualifies the content of this medical device. SNOMED-CT, ICPC-2 or ICD-10 codifications systems can be used for codes
+ * @param endOfLife Soft delete (unix epoch in ms) timestamp of the medical device
+ * @param externalId An external (from another source) id with no guarantee or requirement for unicity.
+ * @param name Name of the device/application recording the data
+ * @param type Type of device/application recording the data. (eg. \"smartphone\", \"watch\",...)
+ * @param brand Brand of the device recording the data
+ * @param model Model of the device recording the data
+ * @param serialNumber Serial number of the device recording the data
  * @param parentId
- * @param picture
+ * @param picture Picture of the device/application
  * @param properties
  */
 
@@ -47,60 +47,78 @@ import com.github.pozo.KotlinBuilder
 @KotlinBuilder
 data class MedicalDevice(
 
+    /* The Id of the MedicalDevice. We encourage using either a v4 UUID or a HL7 Id. */
     @field:JsonProperty("id")
     val id: kotlin.String? = null,
 
+    /* the revision of the medical device in the database, used for conflict management / optimistic locking. */
     @field:JsonProperty("rev")
     val rev: kotlin.String? = null,
 
+    /* the soft delete timestamp. When a medical device is ”deleted“, this is set to a non null value: the moment of the deletion */
     @field:JsonProperty("deletionDate")
     val deletionDate: kotlin.Long? = null,
 
+    /* Typically used for business / client identifiers. An identifier should identify a device uniquely and unambiguously. However, iCure can't guarantee the uniqueness of those identifiers : This is something you need to take care of. */
     @field:JsonProperty("identifiers")
     val identifiers: kotlin.collections.List<Identifier> = emptyList(),
 
+    /* the creation date of the medical device (encoded as epoch). */
     @field:JsonProperty("created")
     val created: kotlin.Long? = null,
 
+    /* the last modification date of the medical device (encoded as epoch). */
     @field:JsonProperty("modified")
     val modified: kotlin.Long? = null,
 
+    /* The id of the [User] that created this medical device. When creating the device, this field will be filled automatically by the current user id if not provided. */
     @field:JsonProperty("author")
     val author: kotlin.String? = null,
 
+    /* The id of the data owner that is responsible of this medical device. When creating the medical device, will be filled automatically by the current user data owner id ([HealthcareProfessional], [Patient] or [MedicalDevice]) if missing */
     @field:JsonProperty("responsible")
     val responsible: kotlin.String? = null,
 
+    /* A label is an item from a codification system that qualifies a medical device as being member of a certain class, whatever the value it might have taken. If the label qualifies the content of a field, it means that whatever the content of the field, the label will always apply. LOINC is a codification system typically used for labels. */
     @field:JsonProperty("labels")
     val labels: kotlin.collections.List<CodingReference> = emptyList(),
 
+    /* A code is an item from a codification system that qualifies the content of this medical device. SNOMED-CT, ICPC-2 or ICD-10 codifications systems can be used for codes */
     @field:JsonProperty("codes")
     val codes: kotlin.collections.List<CodingReference> = emptyList(),
 
+    /* Soft delete (unix epoch in ms) timestamp of the medical device */
     @field:JsonProperty("endOfLife")
     val endOfLife: kotlin.Long? = null,
 
+    /* An external (from another source) id with no guarantee or requirement for unicity. */
     @field:JsonProperty("externalId")
     val externalId: kotlin.String? = null,
 
+    /* Name of the device/application recording the data */
     @field:JsonProperty("name")
     val name: kotlin.String? = null,
 
+    /* Type of device/application recording the data. (eg. \"smartphone\", \"watch\",...) */
     @field:JsonProperty("type")
     val type: kotlin.String? = null,
 
+    /* Brand of the device recording the data */
     @field:JsonProperty("brand")
     val brand: kotlin.String? = null,
 
+    /* Model of the device recording the data */
     @field:JsonProperty("model")
     val model: kotlin.String? = null,
 
+    /* Serial number of the device recording the data */
     @field:JsonProperty("serialNumber")
     val serialNumber: kotlin.String? = null,
 
     @field:JsonProperty("parentId")
     val parentId: kotlin.String? = null,
 
+    /* Picture of the device/application */
     @field:JsonProperty("picture")
     val picture: kotlin.collections.List<io.icure.kraken.client.infrastructure.ByteArrayWrapper>? = null,
 

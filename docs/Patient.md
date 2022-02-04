@@ -6,15 +6,15 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **kotlin.String** | the Id of the patient. We encourage using either a v4 UUID or a HL7 Id. |  [optional]
 **rev** | **kotlin.String** | the revision of the patient in the database, used for conflict management / optimistic locking. |  [optional]
-**identifier** | [**kotlin.collections.List&lt;Identifier&gt;**](Identifier.md) |  | 
-**created** | **kotlin.Long** |  |  [optional]
-**modified** | **kotlin.Long** |  |  [optional]
-**author** | **kotlin.String** |  |  [optional]
-**responsible** | **kotlin.String** |  |  [optional]
-**labels** | [**kotlin.collections.Set&lt;CodingReference&gt;**](CodingReference.md) |  | 
-**codes** | [**kotlin.collections.Set&lt;CodingReference&gt;**](CodingReference.md) |  | 
-**endOfLife** | **kotlin.Long** |  |  [optional]
-**deletionDate** | **kotlin.Long** |  |  [optional]
+**identifiers** | [**kotlin.collections.List&lt;Identifier&gt;**](Identifier.md) | Typically used for business / client identifiers. An identifier should identify a patient uniquely and unambiguously. However, iCure can&#39;t guarantee the uniqueness of those identifiers : This is something you need to take care of. | 
+**created** | **kotlin.Long** | the creation date of the patient (encoded as epoch). |  [optional]
+**modified** | **kotlin.Long** | the last modification date of the patient (encoded as epoch). |  [optional]
+**author** | **kotlin.String** | The id of the [User] that created this patient. When creating the patient, this field will be filled automatically by the current user id if not provided. |  [optional]
+**responsible** | **kotlin.String** | The id of the data owner that is responsible of this patient. When creating the patient, will be filled automatically by the current user data owner id ([HealthcareProfessional], [Patient] or [MedicalDevice]) if missing |  [optional]
+**labels** | [**kotlin.collections.Set&lt;CodingReference&gt;**](CodingReference.md) | A label is an item from a codification system that qualifies a patient as being member of a certain class, whatever the value it might have taken. If the label qualifies the content of a field, it means that whatever the content of the field, the label will always apply. LOINC is a codification system typically used for labels. | 
+**codes** | [**kotlin.collections.Set&lt;CodingReference&gt;**](CodingReference.md) | A code is an item from a codification system that qualifies the content of this patient. | 
+**endOfLife** | **kotlin.Long** | Soft delete (unix epoch in ms) timestamp of the patient |  [optional]
+**deletionDate** | **kotlin.Long** | the soft delete timestamp. When a patient is ”deleted“, this is set to a non null value: the moment of the deletion |  [optional]
 **firstName** | **kotlin.String** | the firstname (name) of the patient. |  [optional]
 **lastName** | **kotlin.String** | the lastname (surname) of the patient. This is the official lastname that should be used for official administrative purposes. |  [optional]
 **names** | [**kotlin.collections.List&lt;PersonName&gt;**](PersonName.md) | the list of all names of the patient, also containing the official full name information. Ordered by preference of use. First element is therefore the official name used for the patient in the application | 

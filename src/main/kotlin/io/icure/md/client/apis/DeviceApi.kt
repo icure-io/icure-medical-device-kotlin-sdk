@@ -84,8 +84,8 @@ interface DeviceApi {
      * Load devices from the database by filtering them using the provided [filter].
      * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [MedicalDevice] are AllDevicesFilter and DevicesByIdsFilter. This method returns a paginated list of medical devices (with a cursor that lets you query the following items).
      * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
-     * @param nextUserId  (optional)
-     * @param limit  (optional)
+     * @param nextDeviceId The id of the first device in the next page (optional)
+     * @param limit The number of devices to return in the queried page (optional)
      * @return Returns a PaginatedList of [MedicalDevice].
      * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -95,7 +95,7 @@ interface DeviceApi {
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
     suspend fun filterMedicalDevices(
         filter: Filter,
-        nextUserId: kotlin.String?,
+        nextDeviceId: kotlin.String?,
         limit: kotlin.Int?
     ): PaginatedListMedicalDevice
 
@@ -115,9 +115,9 @@ interface DeviceApi {
 
     /**
      * Load medical device ids from the database by filtering them using the provided Filter.
-     * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for Users are AllUsersFilter and UsersByIdsFilter. This method returns the list of the ids of the users matching the filter.
+     * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [MedicalDevice] are AllDevicesFilter and DevicesByIdsFilter. This method returns the list of the ids of the users matching the filter.
      * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
-     * @return Returns a list of all medical device ids matching the filter.
+     * @return Returns a list of all medical device ids matching the [filter].
      * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
