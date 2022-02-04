@@ -44,7 +44,7 @@ internal class PatientApiImplTest {
         val createdPatient = testedInstance.createOrModifyPatient(patient)
 
         val diffs = patient.differences(createdPatient)
-        val filters = listOf() ?: listOf("id", "author", "created", "modified", "responsible", "rev")
+        val filters = listOf("id", "author", "created", "modified", "responsible", "rev", "names")
         val filteredDiffs = filterDiffs(createdPatient, patient, diffs, filters)
         Assertions.assertEquals(emptyList<Diff>(), filteredDiffs)
     }
@@ -60,5 +60,13 @@ internal class PatientApiImplTest {
         Assertions.assertEquals(emptyList<Diff>(), diffs)
     }
 
-    private fun patient() = Patient(id = UUID.randomUUID().toString(), firstName = "John", lastName = "Doe", note = "To be encrypted", gender = Patient.Gender.u)
+    private fun patient() = Patient(
+        id = UUID.randomUUID().toString(),
+        firstName = "John",
+        lastName = "Doe",
+        note = "To be encrypted",
+        birthSex = Patient.BirthSex.male,
+        gender = Patient.Gender.male,
+        personalStatus = Patient.PersonalStatus.single
+    )
 }
