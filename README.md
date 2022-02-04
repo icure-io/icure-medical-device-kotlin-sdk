@@ -35,12 +35,12 @@ All URIs are relative to *http://localhost:8912*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*CodingApi* | [**createOrModifyCoding**](docs/CodingApi.md#createormodifycoding) | **PUT** /rest/v2/coding | Create a Coding
-*CodingApi* | [**createOrModifyCodings**](docs/CodingApi.md#createormodifycodings) | **PUT** /rest/v2/coding/batch | Create a Coding
-*CodingApi* | [**deleteCoding**](docs/CodingApi.md#deletecoding) | **DELETE** /rest/v2/coding/{id} | Delete a Coding
-*CodingApi* | [**filterCoding**](docs/CodingApi.md#filtercoding) | **POST** /rest/v2/coding/filter | Find Codings using a filter
-*CodingApi* | [**getCoding**](docs/CodingApi.md#getcoding) | **GET** /rest/v2/coding/{id} | Get a Coding
-*CodingApi* | [**matchCoding**](docs/CodingApi.md#matchcoding) | **POST** /rest/v2/coding/match | Find Codings using a filter
+*CodingApi* | [**createOrModifyCoding**](docs/CodingApi.md#createormodifycoding) | **PUT** /rest/v2/coding | Create or update a [Coding]
+*CodingApi* | [**createOrModifyCodings**](docs/CodingApi.md#createormodifycodings) | **PUT** /rest/v2/coding/batch | Create or update a batch of [Coding]
+*CodingApi* | [**deleteCoding**](docs/CodingApi.md#deletecoding) | **DELETE** /rest/v2/coding/{codingId} | Delete a [Coding]
+*CodingApi* | [**filterCoding**](docs/CodingApi.md#filtercoding) | **POST** /rest/v2/coding/filter | Load codings from the database by filtering them using the provided [filter].
+*CodingApi* | [**getCoding**](docs/CodingApi.md#getcoding) | **GET** /rest/v2/coding/{codingId} | Get a [Coding]
+*CodingApi* | [**matchCoding**](docs/CodingApi.md#matchcoding) | **POST** /rest/v2/coding/match | Load coding ids from the database by filtering them using the provided [filter].
 *DataSampleApi* | [**createOrModifyDataSampleFor**](docs/DataSampleApi.md#createormodifydatasamplefor) | **PUT** /rest/v2/data/sample/for/{patientId} | Create or update a [DataSample] for a patient
 *DataSampleApi* | [**createOrModifyDataSamplesFor**](docs/DataSampleApi.md#createormodifydatasamplesfor) | **PUT** /rest/v2/data/sample/batch/for/{patientId} | Create or update a batch of [DataSample] for a patient
 *DataSampleApi* | [**deleteAttachment**](docs/DataSampleApi.md#deleteattachment) | **DELETE** /rest/v2/data/sample/{dataSampleId}/attachment | Delete an attachment of a DataSample

@@ -4,19 +4,21 @@ All URIs are relative to *http://localhost:8912*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createOrModifyCoding**](CodingApi.md#createOrModifyCoding) | **PUT** /rest/v2/coding | Create a Coding
-[**createOrModifyCodings**](CodingApi.md#createOrModifyCodings) | **PUT** /rest/v2/coding/batch | Create a Coding
-[**deleteCoding**](CodingApi.md#deleteCoding) | **DELETE** /rest/v2/coding/{id} | Delete a Coding
-[**filterCoding**](CodingApi.md#filterCoding) | **POST** /rest/v2/coding/filter | Find Codings using a filter
-[**getCoding**](CodingApi.md#getCoding) | **GET** /rest/v2/coding/{id} | Get a Coding
-[**matchCoding**](CodingApi.md#matchCoding) | **POST** /rest/v2/coding/match | Find Codings using a filter
+[**createOrModifyCoding**](CodingApi.md#createOrModifyCoding) | **PUT** /rest/v2/coding | Create or update a [Coding]
+[**createOrModifyCodings**](CodingApi.md#createOrModifyCodings) | **PUT** /rest/v2/coding/batch | Create or update a batch of [Coding]
+[**deleteCoding**](CodingApi.md#deleteCoding) | **DELETE** /rest/v2/coding/{codingId} | Delete a [Coding]
+[**filterCoding**](CodingApi.md#filterCoding) | **POST** /rest/v2/coding/filter | Load codings from the database by filtering them using the provided [filter].
+[**getCoding**](CodingApi.md#getCoding) | **GET** /rest/v2/coding/{codingId} | Get a [Coding]
+[**matchCoding**](CodingApi.md#matchCoding) | **POST** /rest/v2/coding/match | Load coding ids from the database by filtering them using the provided [filter].
 
 
 <a name="createOrModifyCoding"></a>
 # **createOrModifyCoding**
 > Coding createOrModifyCoding(coding)
 
-Create a Coding
+Create or update a [Coding]
+
+When modifying a coding, you must ensure that the rev obtained when getting or creating the coding is present as the rev is used to guarantee that the coding has not been modified by a third party.
 
 ### Example
 ```kotlin
@@ -61,7 +63,9 @@ No authorization required
 # **createOrModifyCodings**
 > kotlin.collections.List&lt;Coding&gt; createOrModifyCodings(coding)
 
-Create a Coding
+Create or update a batch of [Coding]
+
+When modifying codings, you must ensure that the rev obtained when getting or creating the coding is present as the rev is used to guarantee that the coding has not been modified by a third party.
 
 ### Example
 ```kotlin
@@ -104,9 +108,11 @@ No authorization required
 
 <a name="deleteCoding"></a>
 # **deleteCoding**
-> kotlin.String deleteCoding(id)
+> kotlin.String deleteCoding(codingId)
 
-Delete a Coding
+Delete a [Coding]
+
+Deletes the coding identified by the provided unique [codingId].
 
 ### Example
 ```kotlin
@@ -115,9 +121,9 @@ Delete a Coding
 //import io.icure.md.client.models.*
 
 val apiInstance = CodingApi()
-val id : kotlin.String = id_example // kotlin.String | 
+val codingId : kotlin.String = codingId_example // kotlin.String | 
 try {
-    val result : kotlin.String = apiInstance.deleteCoding(id)
+    val result : kotlin.String = apiInstance.deleteCoding(codingId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling CodingApi#deleteCoding")
@@ -132,7 +138,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **kotlin.String**|  |
+ **codingId** | **kotlin.String**|  |
 
 ### Return type
 
@@ -149,9 +155,11 @@ No authorization required
 
 <a name="filterCoding"></a>
 # **filterCoding**
-> PaginatedListCoding filterCoding(filter)
+> PaginatedListCoding filterCoding(filter, nextCodingId, limit)
 
-Find Codings using a filter
+Load codings from the database by filtering them using the provided [filter].
+
+Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [Coding] are AllCodingsFilter and CodingsByIdsFilter. This method returns a paginated list of coding (with a cursor that lets you query the following items).
 
 ### Example
 ```kotlin
@@ -160,9 +168,11 @@ Find Codings using a filter
 //import io.icure.md.client.models.*
 
 val apiInstance = CodingApi()
-val filter : Filter =  // Filter | 
+val filter : Filter =  // Filter | The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+val nextCodingId : kotlin.String = nextCodingId_example // kotlin.String | The id of the first coding in the next page
+val limit : kotlin.Int = 56 // kotlin.Int | The number of codings to return in the queried page
 try {
-    val result : PaginatedListCoding = apiInstance.filterCoding(filter)
+    val result : PaginatedListCoding = apiInstance.filterCoding(filter, nextCodingId, limit)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling CodingApi#filterCoding")
@@ -177,7 +187,9 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | [**Filter**](Filter.md)|  |
+ **filter** | [**Filter**](Filter.md)| The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill |
+ **nextCodingId** | **kotlin.String**| The id of the first coding in the next page | [optional]
+ **limit** | **kotlin.Int**| The number of codings to return in the queried page | [optional]
 
 ### Return type
 
@@ -194,9 +206,11 @@ No authorization required
 
 <a name="getCoding"></a>
 # **getCoding**
-> Coding getCoding(id)
+> Coding getCoding(codingId)
 
-Get a Coding
+Get a [Coding]
+
+Each coding is uniquely identified by a coding id. The coding id is a UUID. This [codingId] is the preferred method to retrieve one specific coding.
 
 ### Example
 ```kotlin
@@ -205,9 +219,9 @@ Get a Coding
 //import io.icure.md.client.models.*
 
 val apiInstance = CodingApi()
-val id : kotlin.String = id_example // kotlin.String | 
+val codingId : kotlin.String = codingId_example // kotlin.String | 
 try {
-    val result : Coding = apiInstance.getCoding(id)
+    val result : Coding = apiInstance.getCoding(codingId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling CodingApi#getCoding")
@@ -222,7 +236,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **kotlin.String**|  |
+ **codingId** | **kotlin.String**|  |
 
 ### Return type
 
@@ -241,7 +255,9 @@ No authorization required
 # **matchCoding**
 > kotlin.collections.List&lt;kotlin.String&gt; matchCoding(filter)
 
-Find Codings using a filter
+Load coding ids from the database by filtering them using the provided [filter].
+
+Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [Coding] are AllCodingsFilter and CodingsByIdsFilter. This method returns a paginated list of coding (with a cursor that lets you query the following items).
 
 ### Example
 ```kotlin
@@ -250,7 +266,7 @@ Find Codings using a filter
 //import io.icure.md.client.models.*
 
 val apiInstance = CodingApi()
-val filter : Filter =  // Filter | 
+val filter : Filter =  // Filter | The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
 try {
     val result : kotlin.collections.List<kotlin.String> = apiInstance.matchCoding(filter)
     println(result)
@@ -267,7 +283,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | [**Filter**](Filter.md)|  |
+ **filter** | [**Filter**](Filter.md)| The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill |
 
 ### Return type
 
