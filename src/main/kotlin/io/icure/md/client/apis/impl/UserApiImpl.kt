@@ -10,7 +10,7 @@ import io.icure.md.client.mappers.toUserDto
 import io.icure.md.client.models.Filter
 import io.icure.md.client.models.User
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import java.util.UUID
+import java.util.*
 
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
