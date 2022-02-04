@@ -43,7 +43,7 @@ interface UserApi {
     /**
      * Create a new user or modify an existing one.
      * A user must have a login, an email or a mobilePhone defined, a user should be linked to either a Healthcare Professional, a Patient or a Device. When modifying an user, you must ensure that the rev obtained when getting or creating the user is present as the rev is used to guarantee that the user has not been modified by a third party.
-     * @param user  The user that must be created in the database.
+     * @param user The user that must be created in the database.
      * @return Returns the created or modified user as a User object, with an updated rev.
      * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
      * @throws ClientException if there is no login,email or mobilePhone in the provided User
