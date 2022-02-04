@@ -1,6 +1,6 @@
 package io.icure.md.client.mappers
 
-import io.icure.kraken.client.models.DocumentDto
+import io.icure.kraken.client.models.decrypted.DocumentDto
 import io.icure.md.client.models.Document
 import java.util.*
 

@@ -56,7 +56,8 @@ dependencies {
     implementation(group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-jsr310", version = jacksonVersion)
 
     implementation(group = "io.icure", name = "async-jackson-http-client", version = "0.1.15-9cf193799d")
-    implementation(group = "io.icure", name = "icure-reactive-kotlin-client", version = "0.1.285-a7d75fffb2")
+    implementation(group = "io.icure", name = "icure-reactive-kotlin-client", version = "0.1.289-11f7913006")
+    implementation(group = "org.taktik.commons", name = "commons-uti", version = "1.0")
 
     implementation(group = "javax.inject", name = "javax.inject", version = "1")
     implementation(group = "org.mapstruct", name = "mapstruct", version = "1.3.1.Final")
