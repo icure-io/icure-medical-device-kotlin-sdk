@@ -36,7 +36,7 @@ import com.github.pozo.KotlinBuilder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 @KotlinBuilder
-data class Address (
+data class Address(
 
     @field:JsonProperty("addressType")
     val addressType: Address.AddressType? = null,
@@ -79,27 +79,38 @@ data class Address (
      * Values: home,work,vacation,hospital,clinic,hq,other,temporary,postal,diplomatic,reference
      */
     enum class AddressType(val value: kotlin.String) {
-        @JsonProperty(value = "home") home("home"),
+        @JsonProperty(value = "home")
+        home("home"),
 
-        @JsonProperty(value = "work") work("work"),
+        @JsonProperty(value = "work")
+        work("work"),
 
-        @JsonProperty(value = "vacation") vacation("vacation"),
+        @JsonProperty(value = "vacation")
+        vacation("vacation"),
 
-        @JsonProperty(value = "hospital") hospital("hospital"),
+        @JsonProperty(value = "hospital")
+        hospital("hospital"),
 
-        @JsonProperty(value = "clinic") clinic("clinic"),
+        @JsonProperty(value = "clinic")
+        clinic("clinic"),
 
-        @JsonProperty(value = "hq") hq("hq"),
+        @JsonProperty(value = "hq")
+        hq("hq"),
 
-        @JsonProperty(value = "other") other("other"),
+        @JsonProperty(value = "other")
+        other("other"),
 
-        @JsonProperty(value = "temporary") temporary("temporary"),
+        @JsonProperty(value = "temporary")
+        temporary("temporary"),
 
-        @JsonProperty(value = "postal") postal("postal"),
+        @JsonProperty(value = "postal")
+        postal("postal"),
 
-        @JsonProperty(value = "diplomatic") diplomatic("diplomatic"),
+        @JsonProperty(value = "diplomatic")
+        diplomatic("diplomatic"),
 
-        @JsonProperty(value = "reference") reference("reference");
+        @JsonProperty(value = "reference")
+        reference("reference");
     }
 }
 
