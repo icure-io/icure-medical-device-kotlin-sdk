@@ -273,22 +273,16 @@ data class Patient(
     enum class Gender(val value: kotlin.String) {
         @JsonProperty(value = "M")
         m("M"),
-
         @JsonProperty(value = "F")
         f("F"),
-
         @JsonProperty(value = "I")
         i("I"),
-
         @JsonProperty(value = "C")
         c("C"),
-
         @JsonProperty(value = "Y")
         y("Y"),
-
         @JsonProperty(value = "X")
         x("X"),
-
         @JsonProperty(value = "U")
         u("U");
     }
@@ -301,22 +295,16 @@ data class Patient(
     enum class BirthSex(val value: kotlin.String) {
         @JsonProperty(value = "M")
         m("M"),
-
         @JsonProperty(value = "F")
         f("F"),
-
         @JsonProperty(value = "I")
         i("I"),
-
         @JsonProperty(value = "C")
         c("C"),
-
         @JsonProperty(value = "Y")
         y("Y"),
-
         @JsonProperty(value = "X")
         x("X"),
-
         @JsonProperty(value = "U")
         u("U");
     }
@@ -329,22 +317,16 @@ data class Patient(
     enum class DeactivationReason(val value: kotlin.String) {
         @JsonProperty(value = "deceased")
         deceased("deceased"),
-
         @JsonProperty(value = "moved")
         moved("moved"),
-
         @JsonProperty(value = "other_doctor")
         otherDoctor("other_doctor"),
-
         @JsonProperty(value = "retired")
         retired("retired"),
-
         @JsonProperty(value = "no_contact")
         noContact("no_contact"),
-
         @JsonProperty(value = "unknown")
         unknown("unknown"),
-
         @JsonProperty(value = "none")
         none("none");
     }
@@ -357,43 +339,30 @@ data class Patient(
     enum class PersonalStatus(val value: kotlin.String) {
         @JsonProperty(value = "single")
         single("single"),
-
         @JsonProperty(value = "in_couple")
         inCouple("in_couple"),
-
         @JsonProperty(value = "married")
         married("married"),
-
         @JsonProperty(value = "separated")
         separated("separated"),
-
         @JsonProperty(value = "divorced")
         divorced("divorced"),
-
         @JsonProperty(value = "divorcing")
         divorcing("divorcing"),
-
         @JsonProperty(value = "widowed")
         widowed("widowed"),
-
         @JsonProperty(value = "widower")
         widower("widower"),
-
         @JsonProperty(value = "complicated")
         complicated("complicated"),
-
         @JsonProperty(value = "unknown")
         unknown("unknown"),
-
         @JsonProperty(value = "contract")
         `contract`("contract"),
-
         @JsonProperty(value = "other")
         other("other"),
-
         @JsonProperty(value = "annulled")
         annulled("annulled"),
-
         @JsonProperty(value = "polygamous")
         polygamous("polygamous");
     }

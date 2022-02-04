@@ -1247,6 +1247,25 @@
         "summary": "Load devices from the database by filtering them using the provided [filter].",
         "description": "Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [MedicalDevice] are AllDevicesFilter and DevicesByIdsFilter. This method returns a paginated list of medical devices (with a cursor that lets you query the following items).",
         "operationId": "filterMedicalDevices",
+        "parameters": [
+          {
+            "name": "nextUserId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "requestBody": {
           "description": "The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill",
           "content": {
@@ -2941,6 +2960,7 @@
           "deactivationReason": {
             "type": "string",
             "description": "When not active, the reason for deactivation.",
+            "default": "DeactivationReason.none",
             "enum": [
               "deceased",
               "moved",
@@ -2949,8 +2969,7 @@
               "no_contact",
               "unknown",
               "none"
-            ],
-            "default": "DeactivationReason.none"
+            ]
           },
           "ssin": {
             "type": "string",
