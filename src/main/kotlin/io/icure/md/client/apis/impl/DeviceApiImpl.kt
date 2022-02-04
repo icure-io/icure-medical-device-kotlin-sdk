@@ -2,6 +2,7 @@ package io.icure.md.client.apis.impl
 
 import io.icure.kraken.client.models.ListOfIdsDto
 import io.icure.md.client.apis.DeviceApi
+import io.icure.md.client.apis.MedTechApi
 import io.icure.md.client.isUUID
 import io.icure.md.client.mappers.toDeviceDto
 import io.icure.md.client.mappers.toMedicalDevice
@@ -12,7 +13,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
-class DeviceApiImpl(private val api: io.icure.kraken.client.apis.DeviceApi) : DeviceApi {
+class DeviceApiImpl(private val api: MedTechApi) : DeviceApi {
 
     /**
      * Creates or modifies a [MedicalDevice]
@@ -38,18 +39,19 @@ class DeviceApiImpl(private val api: io.icure.kraken.client.apis.DeviceApi) : De
      * @return A list of processed [MedicalDevice]
      */
     override suspend fun createOrModifyMedicalDevices(medicalDevice: List<MedicalDevice>): List<MedicalDevice> {
-        val medicalDevicesToCreate = medicalDevice.filter { it.rev != null }
+        val medicalDevicesToCreate = medicalDevice.filter { it.rev == null }
         val medicalDevicesToUpdate = medicalDevice - medicalDevicesToCreate
 
-        if (medicalDevicesToUpdate.any { it.id == null || !it.id.isUUID() }){
+        if (medicalDevicesToUpdate.any { it.id == null || !it.id.isUUID() }) {
             throw IllegalArgumentException("Update id should be provided as an UUID")
         }
 
         val devicesToCreate = medicalDevicesToCreate.map { device -> device.toDeviceDto() }
         val devicesToUpdate = medicalDevicesToUpdate.map { device -> device.toDeviceDto() }
 
-        return (api.createDevices(devicesToCreate) + api.updateDevices(devicesToUpdate)).mapNotNull { it.id }.let { ids ->
-            api.getDevices(ListOfIdsDto(ids)).map { deviceDto -> deviceDto.toMedicalDevice() }
+        return (api.deviceApi().createDevices(devicesToCreate) + api.deviceApi()
+            .updateDevices(devicesToUpdate)).mapNotNull { it.id }.let { ids ->
+            api.deviceApi().getDevices(ListOfIdsDto(ids)).map { deviceDto -> deviceDto.toMedicalDevice() }
         }
     }
 
@@ -60,7 +62,7 @@ class DeviceApiImpl(private val api: io.icure.kraken.client.apis.DeviceApi) : De
      * @return id of the deleted device
      */
     override suspend fun deleteMedicalDevice(id: String): String {
-        return api.deleteDevice(id).id!!
+        return api.deviceApi().deleteDevice(id).id!!
     }
 
     /**
@@ -70,7 +72,7 @@ class DeviceApiImpl(private val api: io.icure.kraken.client.apis.DeviceApi) : De
      * @return ids of the deleted devices
      */
     override suspend fun deleteMedicalDevices(requestBody: List<String>): List<String> {
-        return api.deleteDevices(ListOfIdsDto(ids = requestBody)).mapNotNull { it.id }
+        return api.deviceApi().deleteDevices(ListOfIdsDto(ids = requestBody)).mapNotNull { it.id }
     }
 
     override suspend fun filterMedicalDevices(filter: Filter): PaginatedListMedicalDevice {
@@ -84,7 +86,7 @@ class DeviceApiImpl(private val api: io.icure.kraken.client.apis.DeviceApi) : De
      * @return [MedicalDevice]
      */
     override suspend fun getMedicalDevice(id: String): MedicalDevice {
-        return api.getDevice(id).toMedicalDevice()
+        return api.deviceApi().getDevice(id).toMedicalDevice()
     }
 
     /**
@@ -95,14 +97,5 @@ class DeviceApiImpl(private val api: io.icure.kraken.client.apis.DeviceApi) : De
      */
     override suspend fun matchMedicalDevices(filter: Filter): List<String> {
         TODO()
-    }
-
-    data class Builder(
-        var defaultBasePath: String? = null,
-        var authHeader: String? = null
-    ) {
-        fun defaultBasePath(defaultBasePath: String) = apply { this.defaultBasePath = defaultBasePath }
-        fun authHeader(authHeader: String) = apply { this.authHeader = authHeader }
-        fun build() = DeviceApiImpl(io.icure.kraken.client.apis.DeviceApi(basePath = defaultBasePath ?: throw IllegalArgumentException("defaultBasePath is required"), authHeader = authHeader ?: throw IllegalArgumentException("authHeader is required")))
     }
 }
