@@ -6,8 +6,6 @@ import java.util.*
 
 fun DocumentDto.toDocument() = Document(
     id = this.id,
-    labels = this.tags.map { it.toCodingReference() },
-    codes = this.codes.map { it.toCodingReference() },
     otherUtis = this.otherUtis,
     rev = this.rev,
     created = this.created,
@@ -15,10 +13,8 @@ fun DocumentDto.toDocument() = Document(
     author = this.author,
     responsible = this.responsible,
     medicalLocationId = this.medicalLocationId,
-    endOfLife = this.endOfLife,
     deletionDate = this.deletionDate,
     objectStoreReference = this.objectStoreReference,
-    externalUri = this.externalUri,
     mainUti = this.mainUti,
     name = this.name,
     version = this.version,
@@ -36,8 +32,6 @@ fun Document.toDocumentDto() = DocumentDto(
             throw IllegalArgumentException("Invalid id, id must be a valid UUID")
         }
     } ?: UUID.randomUUID().toString(),
-    tags = this.labels.map { it.toCodeStubDto() },
-    codes = this.codes.map { it.toCodeStubDto() },
     otherUtis = this.otherUtis,
     rev = this.rev,
     created = this.created,
@@ -45,10 +39,8 @@ fun Document.toDocumentDto() = DocumentDto(
     author = this.author,
     responsible = this.responsible,
     medicalLocationId = this.medicalLocationId,
-    endOfLife = this.endOfLife,
     deletionDate = this.deletionDate,
     objectStoreReference = this.objectStoreReference,
-    externalUri = this.externalUri,
     mainUti = this.mainUti,
     name = this.name,
     version = this.version,

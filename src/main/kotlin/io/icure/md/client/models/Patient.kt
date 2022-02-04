@@ -22,15 +22,15 @@ import com.github.pozo.KotlinBuilder
  *
  * @param id the Id of the patient. We encourage using either a v4 UUID or a HL7 Id.
  * @param rev the revision of the patient in the database, used for conflict management / optimistic locking.
- * @param identifier
- * @param created
- * @param modified
- * @param author
- * @param responsible
- * @param labels
- * @param codes
- * @param endOfLife
- * @param deletionDate
+ * @param identifiers Typically used for business / client identifiers. An identifier should identify a patient uniquely and unambiguously. However, iCure can't guarantee the uniqueness of those identifiers : This is something you need to take care of.
+ * @param created the creation date of the patient (encoded as epoch).
+ * @param modified the last modification date of the patient (encoded as epoch).
+ * @param author The id of the [User] that created this patient. When creating the patient, this field will be filled automatically by the current user id if not provided.
+ * @param responsible The id of the data owner that is responsible of this patient. When creating the patient, will be filled automatically by the current user data owner id ([HealthcareProfessional], [Patient] or [MedicalDevice]) if missing
+ * @param labels A label is an item from a codification system that qualifies a patient as being member of a certain class, whatever the value it might have taken. If the label qualifies the content of a field, it means that whatever the content of the field, the label will always apply. LOINC is a codification system typically used for labels.
+ * @param codes A code is an item from a codification system that qualifies the content of this patient.
+ * @param endOfLife Soft delete (unix epoch in ms) timestamp of the patient
+ * @param deletionDate the soft delete timestamp. When a patient is ”deleted“, this is set to a non null value: the moment of the deletion
  * @param firstName the firstname (name) of the patient.
  * @param lastName the lastname (surname) of the patient. This is the official lastname that should be used for official administrative purposes.
  * @param names the list of all names of the patient, also containing the official full name information. Ordered by preference of use. First element is therefore the official name used for the patient in the application
@@ -84,30 +84,39 @@ data class Patient(
     @field:JsonProperty("rev")
     val rev: kotlin.String? = null,
 
-    @field:JsonProperty("identifier")
-    val identifier: kotlin.collections.List<Identifier> = emptyList(),
+    /* Typically used for business / client identifiers. An identifier should identify a patient uniquely and unambiguously. However, iCure can't guarantee the uniqueness of those identifiers : This is something you need to take care of. */
+    @field:JsonProperty("identifiers")
+    val identifiers: kotlin.collections.List<Identifier> = emptyList(),
 
+    /* the creation date of the patient (encoded as epoch). */
     @field:JsonProperty("created")
     val created: kotlin.Long? = null,
 
+    /* the last modification date of the patient (encoded as epoch). */
     @field:JsonProperty("modified")
     val modified: kotlin.Long? = null,
 
+    /* The id of the [User] that created this patient. When creating the patient, this field will be filled automatically by the current user id if not provided. */
     @field:JsonProperty("author")
     val author: kotlin.String? = null,
 
+    /* The id of the data owner that is responsible of this patient. When creating the patient, will be filled automatically by the current user data owner id ([HealthcareProfessional], [Patient] or [MedicalDevice]) if missing */
     @field:JsonProperty("responsible")
     val responsible: kotlin.String? = null,
 
+    /* A label is an item from a codification system that qualifies a patient as being member of a certain class, whatever the value it might have taken. If the label qualifies the content of a field, it means that whatever the content of the field, the label will always apply. LOINC is a codification system typically used for labels. */
     @field:JsonProperty("labels")
     val labels: kotlin.collections.List<CodingReference> = emptyList(),
 
+    /* A code is an item from a codification system that qualifies the content of this patient. */
     @field:JsonProperty("codes")
     val codes: kotlin.collections.List<CodingReference> = emptyList(),
 
+    /* Soft delete (unix epoch in ms) timestamp of the patient */
     @field:JsonProperty("endOfLife")
     val endOfLife: kotlin.Long? = null,
 
+    /* the soft delete timestamp. When a patient is ”deleted“, this is set to a non null value: the moment of the deletion */
     @field:JsonProperty("deletionDate")
     val deletionDate: kotlin.Long? = null,
 
@@ -268,45 +277,45 @@ data class Patient(
     /**
      * the gender of the patient: male, female, indeterminate, changed, changedToMale, changedToFemale, unknown
      *
-     * Values: m,f,i,c,y,x,u
+     * Values: male,female,indeterminate,changed,changedToMale,changedToFemale,unknown
      */
     enum class Gender(val value: kotlin.String) {
-        @JsonProperty(value = "M")
-        m("M"),
-        @JsonProperty(value = "F")
-        f("F"),
-        @JsonProperty(value = "I")
-        i("I"),
-        @JsonProperty(value = "C")
-        c("C"),
-        @JsonProperty(value = "Y")
-        y("Y"),
-        @JsonProperty(value = "X")
-        x("X"),
-        @JsonProperty(value = "U")
-        u("U");
+        @JsonProperty(value = "male")
+        male("male"),
+        @JsonProperty(value = "female")
+        female("female"),
+        @JsonProperty(value = "indeterminate")
+        indeterminate("indeterminate"),
+        @JsonProperty(value = "changed")
+        changed("changed"),
+        @JsonProperty(value = "changedToMale")
+        changedToMale("changedToMale"),
+        @JsonProperty(value = "changedToFemale")
+        changedToFemale("changedToFemale"),
+        @JsonProperty(value = "unknown")
+        unknown("unknown");
     }
 
     /**
      * the birth sex of the patient: male, female, indeterminate, unknown
      *
-     * Values: m,f,i,c,y,x,u
+     * Values: male,female,indeterminate,changed,changedToMale,changedToFemale,unknown
      */
     enum class BirthSex(val value: kotlin.String) {
-        @JsonProperty(value = "M")
-        m("M"),
-        @JsonProperty(value = "F")
-        f("F"),
-        @JsonProperty(value = "I")
-        i("I"),
-        @JsonProperty(value = "C")
-        c("C"),
-        @JsonProperty(value = "Y")
-        y("Y"),
-        @JsonProperty(value = "X")
-        x("X"),
-        @JsonProperty(value = "U")
-        u("U");
+        @JsonProperty(value = "male")
+        male("male"),
+        @JsonProperty(value = "female")
+        female("female"),
+        @JsonProperty(value = "indeterminate")
+        indeterminate("indeterminate"),
+        @JsonProperty(value = "changed")
+        changed("changed"),
+        @JsonProperty(value = "changedToMale")
+        changedToMale("changedToMale"),
+        @JsonProperty(value = "changedToFemale")
+        changedToFemale("changedToFemale"),
+        @JsonProperty(value = "unknown")
+        unknown("unknown");
     }
 
     /**
