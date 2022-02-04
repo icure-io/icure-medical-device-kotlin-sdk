@@ -138,7 +138,7 @@ class TestUtils {
 
         suspend fun deleteAfterElements(parametersFileName: String) {
             val callingFunctionName = "afterElements"
-            val usernamePassword: UsernamePassword = objectMapper.readValue(File(".credentialsCouchDb").readText())!!
+            val usernamePassword: UsernamePassword = Companion.objectMapper.readValue(File(".credentialsCouchDb").readText())!!
             val u = usernamePassword.username
             val p = usernamePassword.password
             val family  = getParameter<String>(parametersFileName, "$callingFunctionName.family")

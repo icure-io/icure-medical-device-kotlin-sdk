@@ -3,8 +3,8 @@ package io.icure.md.client.apis
 import io.icure.kraken.client.apis.CodeApi
 import io.icure.kraken.client.apis.ContactApi
 import io.icure.kraken.client.apis.DeviceApi
-import io.icure.kraken.client.apis.HcpartyApi
 import io.icure.kraken.client.apis.HealthElementApi
+import io.icure.kraken.client.apis.HealthcarePartyApi
 import io.icure.kraken.client.apis.PatientApi
 import io.icure.kraken.client.apis.UserApi
 import io.icure.kraken.client.crypto.LocalCrypto
@@ -25,8 +25,8 @@ class MedTechApi(
     private val healthElementApi = HealthElementApi(basePath = iCureUrlPath, authHeader = authorization)
     private val contactApi = ContactApi(basePath = iCureUrlPath, authHeader = authorization)
     private val codeApi = CodeApi(basePath = iCureUrlPath, authHeader = authorization)
-    private val hcPartyApi = HcpartyApi(basePath = iCureUrlPath, authHeader = authorization)
-    private val localCrypto = LocalCrypto(hcPartyApi, rsaKeyPairs)
+    private val hcpApi = HealthcarePartyApi(basePath = iCureUrlPath, authHeader = authorization)
+    private val localCrypto = LocalCrypto(hcpApi, rsaKeyPairs)
 
     fun localCrypto() = localCrypto
 
@@ -42,7 +42,7 @@ class MedTechApi(
 
     fun codeApi() = codeApi
 
-    fun hcPartyApi() = hcPartyApi
+    fun hcpApi() = hcpApi
 
     data class Builder(
         private var iCureUrlPath: String = defaultBasePath,

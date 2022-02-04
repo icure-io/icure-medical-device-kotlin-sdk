@@ -8,18 +8,19 @@ import io.icure.md.client.mappers.toPaginatedListUser
 import io.icure.md.client.mappers.toUser
 import io.icure.md.client.mappers.toUserDto
 import io.icure.md.client.models.Filter
-import io.icure.md.client.models.PaginatedListUser
 import io.icure.md.client.models.User
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import java.util.*
+import java.util.UUID
 
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
 class UserApiImpl(val api: MedTechApi) : UserApi {
-    override suspend fun checkTokenValidity(userId: String, token: String) = api.userApi().checkTokenValidity(userId, token)
+    override suspend fun checkTokenValidity(userId: String, token: String) =
+        api.userApi().checkTokenValidity(userId, token)
 
     override suspend fun createOrModifyUser(user: User) =
-        (user.rev?.let { api.userApi().modifyUser(user.toUserDto()) } ?: api.userApi().createUser(user.toUserDto())).toUser()
+        (user.rev?.let { api.userApi().modifyUser(user.toUserDto()) } ?: api.userApi()
+            .createUser(user.toUserDto())).toUser()
 
     override suspend fun createToken(userId: String) =
         api.userApi().getToken(userId, UUID.randomUUID().toString(), 3600 * 24 * 30)
@@ -28,7 +29,8 @@ class UserApiImpl(val api: MedTechApi) : UserApi {
         api.userApi().deleteUser(userId).rev ?: throw IllegalArgumentException("Invalid user id")
 
     override suspend fun filterUsers(filter: Filter, nextUserId: String?, limit: Int?) =
-        api.userApi().filterUsersBy(FilterChainUser(filter.toAbstractFilterDtoUser(), null), nextUserId, limit).toPaginatedListUser()
+        api.userApi().filterUsersBy(FilterChainUser(filter.toAbstractFilterDtoUser(), null), nextUserId, limit)
+            .toPaginatedListUser()
 
     override suspend fun getLoggedUser() = api.userApi().getCurrentUser().toUser()
 
