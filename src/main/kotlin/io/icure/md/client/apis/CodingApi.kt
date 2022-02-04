@@ -52,20 +52,6 @@ interface CodingApi {
     suspend fun createOrModifyCodings(coding: kotlin.collections.List<Coding>): kotlin.collections.List<Coding>
 
     /**
-     * Delete a [Coding]
-     * Deletes the coding identified by the provided unique [codingId].
-     * @param codingId
-     * @return Returns the rev of the deleted object.
-     * @throws ClientException if you make this call without providing an authentication token (BASIC, SessionId).
-     * @throws ClientException if there is no coding with the provided [codingId].
-     * @throws UnsupportedOperationException If the API returns an informational or redirection response
-     * @throws ServerException If the API returns a server error response
-     */
-    @Suppress("UNCHECKED_CAST")
-    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun deleteCoding(codingId: kotlin.String): kotlin.String
-
-    /**
      * Load codings from the database by filtering them using the provided [filter].
      * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [Coding] are AllCodingsFilter and CodingsByIdsFilter. This method returns a paginated list of coding (with a cursor that lets you query the following items).
      * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill

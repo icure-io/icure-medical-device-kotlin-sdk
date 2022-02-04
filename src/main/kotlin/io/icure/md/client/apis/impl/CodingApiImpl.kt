@@ -1,6 +1,7 @@
 package io.icure.md.client.apis.impl
 
 import io.icure.md.client.apis.CodingApi
+import io.icure.md.client.apis.MedTechApi
 import io.icure.md.client.models.Coding
 import io.icure.md.client.models.Filter
 import io.icure.md.client.models.PaginatedListCoding
@@ -8,7 +9,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
-class CodingApiImpl : CodingApi {
+class CodingApiImpl(private val api: MedTechApi) : CodingApi {
     override suspend fun createOrModifyCoding(coding: Coding): Coding {
         TODO("Not yet implemented")
     }
@@ -17,11 +18,7 @@ class CodingApiImpl : CodingApi {
         TODO("Not yet implemented")
     }
 
-    override suspend fun deleteCoding(id: String): String {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun filterCoding(filter: Filter): PaginatedListCoding {
+    override suspend fun filterCoding(filter: Filter, nextCodingId: String?, limit: Int?): PaginatedListCoding {
         TODO("Not yet implemented")
     }
 

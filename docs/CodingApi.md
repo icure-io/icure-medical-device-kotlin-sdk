@@ -6,7 +6,6 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createOrModifyCoding**](CodingApi.md#createOrModifyCoding) | **PUT** /rest/v2/coding | Create or update a [Coding]
 [**createOrModifyCodings**](CodingApi.md#createOrModifyCodings) | **PUT** /rest/v2/coding/batch | Create or update a batch of [Coding]
-[**deleteCoding**](CodingApi.md#deleteCoding) | **DELETE** /rest/v2/coding/{codingId} | Delete a [Coding]
 [**filterCoding**](CodingApi.md#filterCoding) | **POST** /rest/v2/coding/filter | Load codings from the database by filtering them using the provided [filter].
 [**getCoding**](CodingApi.md#getCoding) | **GET** /rest/v2/coding/{codingId} | Get a [Coding]
 [**matchCoding**](CodingApi.md#matchCoding) | **POST** /rest/v2/coding/match | Load coding ids from the database by filtering them using the provided [filter].
@@ -104,53 +103,6 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json, application/xml
- - **Accept**: */*
-
-<a name="deleteCoding"></a>
-# **deleteCoding**
-> kotlin.String deleteCoding(codingId)
-
-Delete a [Coding]
-
-Deletes the coding identified by the provided unique [codingId].
-
-### Example
-```kotlin
-// Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.md.client.models.*
-
-val apiInstance = CodingApi()
-val codingId : kotlin.String = codingId_example // kotlin.String | 
-try {
-    val result : kotlin.String = apiInstance.deleteCoding(codingId)
-    println(result)
-} catch (e: ClientException) {
-    println("4xx response calling CodingApi#deleteCoding")
-    e.printStackTrace()
-} catch (e: ServerException) {
-    println("5xx response calling CodingApi#deleteCoding")
-    e.printStackTrace()
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **codingId** | **kotlin.String**|  |
-
-### Return type
-
-**kotlin.String**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
  - **Accept**: */*
 
 <a name="filterCoding"></a>
