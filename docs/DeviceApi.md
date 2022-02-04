@@ -203,22 +203,25 @@ No authorization required
 
 <a name="filterMedicalDevices"></a>
 # **filterMedicalDevices**
-> PaginatedListMedicalDevice filterMedicalDevices(filter)
+> PaginatedListMedicalDevice filterMedicalDevices(filter, nextUserId, limit)
 
 Load devices from the database by filtering them using the provided [filter].
 
 Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [MedicalDevice] are AllDevicesFilter and DevicesByIdsFilter. This method returns a paginated list of medical devices (with a cursor that lets you query the following items).
 
 ### Example
+
 ```kotlin
 // Import classes:
 //import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = DeviceApi()
-val filter : Filter =  // Filter | The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+val filter: Filter =  // Filter | The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+val nextUserId: kotlin.String = nextUserId_example // kotlin.String | 
+val limit: kotlin.Int = 56 // kotlin.Int | 
 try {
-    val result : PaginatedListMedicalDevice = apiInstance.filterMedicalDevices(filter)
+    val result: PaginatedListMedicalDevice = apiInstance.filterMedicalDevices(filter, nextUserId, limit)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling DeviceApi#filterMedicalDevices")
@@ -233,7 +236,10 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | [**Filter**](Filter.md)| The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill |
+**filter** | [**
+Filter**](Filter.md)| The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill |
+**nextUserId** | **kotlin.String**|  | [optional]
+**limit** | **kotlin.Int**|  | [optional]
 
 ### Return type
 

@@ -28,7 +28,7 @@ interface HealthcareProfessionalApi {
     /**
      * Create a newhealthcare professional or modify an existing one.
      * Ahealthcare professional must have a login, an email or a mobilePhone defined, ahealthcare professional should be linked to either a Healthcare Professional, a Patient or a Device. When modifying an healthcare professional, you must ensure that the rev obtained when getting or creating thehealthcare professional is present as the rev is used to guarantee that thehealthcare professional has not been modified by a third party.
-     * @param healthcareProfessional  Thehealthcare professional that must be created in the database.
+     * @param healthcareProfessional Thehealthcare professional that must be created in the database.
      * @return Returns the created or modifiedhealthcare professional as a Healthcare professional object, with an updated rev.
      * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
      * @throws ClientException if there is no login,email or mobilePhone in the provided Healthcare professional
@@ -90,7 +90,7 @@ interface HealthcareProfessionalApi {
     /**
      * Loadhealthcare professional ids from the database by filtering them using the provided Filter.
      * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for Healthcare professionals are AllHealthcare professionalsFilter and Healthcare professionalsByIdsFilter. This method returns the list of the ids of the healthcare professionals matching the filter.
-     * @param filter  The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+     * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
      * @return Returns a list of allhealthcare professional ids matching the filter.
      * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
      * @throws ClientException if there is nohealthcare professional with the provided hcpId.
