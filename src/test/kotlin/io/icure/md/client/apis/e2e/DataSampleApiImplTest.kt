@@ -10,12 +10,16 @@ import io.icure.md.client.models.CodingReference
 import io.icure.md.client.models.Content
 import io.icure.md.client.models.DataSample
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
+import java.nio.ByteBuffer
+import java.nio.file.Files
+import java.nio.file.Paths
 import java.util.*
 
 @ExperimentalStdlibApi
@@ -41,7 +45,7 @@ internal class DataSampleApiImplTest {
     private val testedInstance: DataSampleApi = DataSampleApiImpl(medTechApi)
 
     @Test
-    fun createOrModifyDataSamples_Success_Creation() {
+    fun createOrModifyDataSamples_HappyFlow_Creation() {
         runBlocking {
             // Init
             val weight = weightDataSample()
@@ -62,7 +66,7 @@ internal class DataSampleApiImplTest {
     }
 
     @Test
-    fun deleteDataSample_Success() {
+    fun deleteDataSample_HappyFlow() {
         runBlocking {
             // Init
             val weight = weightDataSample()
@@ -109,22 +113,24 @@ internal class DataSampleApiImplTest {
         )
     )
 
+    private fun prescriptionDataSample() = DataSample(
+        valueDate = 20220203111034,
+        labels = listOf(
+            CodingReference(
+                id = "LOINC|57833-6|2",
+                code = "57833-6",
+                type = "LOINC",
+                version = "2"
+            )
+        )
+    )
+
+
     private fun patientDto() = PatientDto(
         id = UUID.randomUUID().toString(),
         firstName = "Max",
         lastName = "LaMenace"
     )
-
-    @Test
-    fun createOrModifyDataSamples_Success_Update() {
-        runBlocking {
-            // Init
-
-            // When
-
-            // Then
-        }
-    }
 
     @Test
     fun createOrModifyDataSamples_Error_Update_For_Different_Batch_Ids() {
@@ -141,6 +147,34 @@ internal class DataSampleApiImplTest {
                     listOf(weight, height)
                 )
             }
+        }
+    }
+
+    @Test
+    internal fun setDataSampleAttachment_HappyFlow() {
+        runBlocking {
+            // Init
+            val weight = prescriptionDataSample()
+            val currentUser = medTechApi.userApi().getCurrentUser()
+
+            val existingPatient = medTechApi.patientApi()
+                .createPatient(currentUser, patientDto(), patientCryptoConfig(medTechApi.localCrypto()))
+            val createdDataSample = testedInstance.createOrModifyDataSampleFor(existingPatient.id, weight)
+
+            val documentToAdd = Files.readAllBytes(Paths.get("src/test/resources/io/icure/md/client/attachments/data_sample_attachment.txt"))
+
+            // When
+            val documentExternalUuid = UUID.randomUUID().toString()
+            val createdDocument = testedInstance.setDataSampleAttachment(createdDataSample.id!!, flowOf(ByteBuffer.wrap(documentToAdd)),
+                null, "1.0.0", documentExternalUuid, "en")
+
+            // Then
+            assert(createdDocument.attachmentId != null)
+            assert(createdDocument.mainUti != null)
+            assertEquals(createdDocument.externalUuid, documentExternalUuid)
+
+            val updatedDataSample = testedInstance.getDataSample(createdDataSample.id!!)
+            assert(updatedDataSample.content.any { (_, content) -> content.documentId == createdDocument.id })
         }
     }
 }
