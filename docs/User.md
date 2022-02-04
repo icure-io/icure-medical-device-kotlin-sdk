@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **kotlin.String** | the Id of the user. We encourage using either a v4 UUID or a HL7 Id. |  [optional]
 **rev** | **kotlin.String** | the revision of the user in the database, used for conflict management / optimistic locking. |  [optional]
-**deletionDate** | **kotlin.Long** |  |  [optional]
-**created** | **kotlin.Long** |  |  [optional]
+**deletionDate** | **kotlin.Long** | the soft delete timestamp. When a user is ”deleted“, this is set to a non null value: the moment of the deletion |  [optional]
+**created** | **kotlin.Long** | the creation date of the user (encoded as epoch). |  [optional]
 **name** | **kotlin.String** | Last name of the user. This is the official last name that should be used for official administrative purposes. |  [optional]
 **properties** | [**kotlin.collections.Set&lt;Property&gt;**](Property.md) | Extra properties for the user. Those properties are typed (see class Property) | 
 **roles** | **kotlin.collections.Set&lt;kotlin.String&gt;** | Roles assigned to this user | 

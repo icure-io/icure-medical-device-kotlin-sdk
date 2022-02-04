@@ -11,12 +11,8 @@ Name | Type | Description | Notes
 **author** | **kotlin.String** |  |  [optional]
 **responsible** | **kotlin.String** |  |  [optional]
 **medicalLocationId** | **kotlin.String** |  |  [optional]
-**labels** | [**kotlin.collections.Set&lt;CodingReference&gt;**](CodingReference.md) |  | 
-**codes** | [**kotlin.collections.Set&lt;CodingReference&gt;**](CodingReference.md) |  | 
-**endOfLife** | **kotlin.Long** |  |  [optional]
 **deletionDate** | **kotlin.Long** |  |  [optional]
 **objectStoreReference** | **kotlin.String** | Reference in object store |  [optional]
-**externalUri** | **kotlin.String** | When the document is stored in an external repository, this is the uri of the document in that repository |  [optional]
 **mainUti** | **kotlin.String** | The main Uniform Type Identifier of the document (https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/understanding_utis/understand_utis_conc/understand_utis_conc.html#//apple_ref/doc/uid/TP40001319-CH202-CHDHIJDE) |  [optional]
 **name** | **kotlin.String** | Name of the document |  [optional]
 **version** | **kotlin.String** | The document version |  [optional]
