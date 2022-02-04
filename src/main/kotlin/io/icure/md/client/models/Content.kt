@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.github.pozo.KotlinBuilder
 
 /**
- * Information contained in the data sample. Content is localized, using ISO language code as key
+ * Information contained in the data sample (Measure, number, ...). Content is localized, using ISO language code as key
  *
  * @param stringValue 
  * @param numberValue 

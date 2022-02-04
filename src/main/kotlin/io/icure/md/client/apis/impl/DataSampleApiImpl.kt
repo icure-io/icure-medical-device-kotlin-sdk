@@ -30,19 +30,19 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
 
     override suspend fun createOrModifyDataSamplesFor(
         patientId: String,
-        dataSamples: List<DataSample>
+        dataSample: List<DataSample>
     ): List<DataSample> {
-        if (dataSamples.distinctBy { dataSample -> dataSample.batchId }.count() > 1) {
+        if (dataSample.distinctBy { ds -> ds.batchId }.count() > 1) {
             throw IllegalArgumentException("Only data samples of a same batch can be processed together")
         }
 
-        if (countHierarchyOfDataSamples(0, 0, dataSamples) > 1000) { // Arbitrary : 1 service = 1K
+        if (countHierarchyOfDataSamples(0, 0, dataSample) > 1000) { // Arbitrary : 1 service = 1K
             throw IllegalArgumentException("Can't process more than 1000 data samples in the same batch")
         }
 
         val localCrypto = medTechApi.localCrypto()
         val currentUser = medTechApi.userApi().getCurrentUser()
-        val existingContact = dataSamples.first().batchId?.let { contactId ->
+        val existingContact = dataSample.first().batchId?.let { contactId ->
             medTechApi.contactApi().getContact(currentUser, contactId, contactCryptoConfig(localCrypto, currentUser))
         }
 
@@ -57,7 +57,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
 
         val existingPatient =
             medTechApi.patientApi().getPatient(currentUser, patientId, patientCryptoConfig(localCrypto))
-        val contactToCreate = createContactDtoBasedOn(dataSamples, existingContact)
+        val contactToCreate = createContactDtoBasedOn(dataSample, existingContact)
 
         return medTechApi.contactApi()
             .createContact(currentUser, existingPatient, contactToCreate, contactCryptoConfig(localCrypto, currentUser))
@@ -101,7 +101,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         )
     }
 
-    override suspend fun deleteAttachment(dataSampleId: String, documentId: String): String {
+    override suspend fun deleteAttachment(dataSampleId: String): String {
         TODO("Not yet implemented")
     }
 
@@ -121,13 +121,12 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getDataSampleAttachment(dataSampleId: String, documentId: String): Document {
+    override suspend fun getDataSampleAttachment(dataSampleId: String): Document {
         TODO("Not yet implemented")
     }
 
     override suspend fun getDataSampleAttachmentContent(
         dataSampleId: String,
-        documentId: String,
         attachmentId: String
     ): List<Any> {
         TODO("Not yet implemented")
@@ -139,8 +138,10 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
 
     override suspend fun setDataSampleAttachment(
         dataSampleId: String,
-        documentId: String,
-        attachment: Flow<ByteBuffer>
+        body: Flow<ByteBuffer>,
+        documentName: String?,
+        documentVersion: String?,
+        documentExternalUuid: String?
     ): Document {
         TODO("Not yet implemented")
     }
