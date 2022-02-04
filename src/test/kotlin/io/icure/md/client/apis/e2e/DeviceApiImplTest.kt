@@ -22,7 +22,7 @@ internal class DeviceApiImplTest {
 
     private val iCurePath = "https://kraken.icure.dev"
     private val authHeader = TestUtils.basicAuthFrom(".credentials")
-    private val healthcareProfessionalId = "2d205ac4-c8c9-428b-b68e-d9381da235d2"
+    private val healthcareProfessionalId = "782f1bcd-9f3f-408a-af1b-cd9f3f908a98"
     private val healthcareProfessionalPrivateKey =
         TestUtils.healthcareProfessionalPrivateKey(healthcareProfessionalId, this::class.java)
     private val healthcareProfessionalPublicKey =
