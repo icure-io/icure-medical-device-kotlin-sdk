@@ -1,28 +1,19 @@
 package io.icure.md.client.apis.e2e
 
-import io.icure.kraken.client.crypto.patientCryptoConfig
-import io.icure.kraken.client.extendedapis.createPatient
-import io.icure.kraken.client.models.decrypted.PatientDto
 import io.icure.md.client.apis.HealthcareProfessionalApi
 import io.icure.md.client.apis.MedTechApi
 import io.icure.md.client.apis.impl.HealthcareProfessionalApiImpl
-import io.icure.md.client.models.CodingReference
-import io.icure.md.client.models.Content
-import io.icure.md.client.models.DataSample
 import io.icure.md.client.models.HealthcareProfessional
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import java.time.Instant
-import java.util.*
 
 @ExperimentalStdlibApi
 @ExperimentalCoroutinesApi
-@DisplayName("Data Sample tests")
+@DisplayName("HealthcareProfessional tests")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class HealthcareProfessionalApiImplTest {
 

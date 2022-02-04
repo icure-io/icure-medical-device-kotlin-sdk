@@ -18,6 +18,7 @@ import io.icure.md.client.models.Filter
 import io.icure.md.client.models.MedicalDevice
 import io.icure.md.client.models.PaginatedListMedicalDevice
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import java.util.*
 import javax.inject.Named
 
 @Named
@@ -26,10 +27,11 @@ import javax.inject.Named
 interface DeviceApi {
 
     /**
-     * Create or update a Device
-     *
+     * Create or update a [MedicalDevice]
+     * When modifying a device, you must ensure that the rev obtained when getting or creating the device is present as the rev is used to guarantee that the device has not been modified by a third party.
      * @param medicalDevice
-     * @return OK
+     * @return Returns the created or modified device as a [MedicalDevice] object, with an updated rev.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
@@ -38,10 +40,11 @@ interface DeviceApi {
     suspend fun createOrModifyMedicalDevice(medicalDevice: MedicalDevice): MedicalDevice
 
     /**
-     * Create or update a batch of Devices
-     *
+     * Create or update a batch of [MedicalDevice]
+     * When modifying a device, you must ensure that the rev obtained when getting or creating the device is present as the rev is used to guarantee that the device has not been modified by a third party.
      * @param medicalDevice
-     * @return OK
+     * @return Returns the created or modified devices as a list of [MedicalDevice] objects, with an updated rev.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
@@ -50,10 +53,12 @@ interface DeviceApi {
     suspend fun createOrModifyMedicalDevices(medicalDevice: kotlin.collections.List<MedicalDevice>): kotlin.collections.List<MedicalDevice>
 
     /**
-     * Delete a Device
-     *
+     * Delete a [MedicalDevice]
+     * Deletes the medical device identified by the provided unique [medicalDeviceId].
      * @param medicalDeviceId
-     * @return OK
+     * @return Returns the rev of the deleted object.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is no medical device with the provided [medicalDeviceId].
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
@@ -62,10 +67,12 @@ interface DeviceApi {
     suspend fun deleteMedicalDevice(medicalDeviceId: kotlin.String): kotlin.String
 
     /**
-     * Delete Devices
-     *
+     * Delete a batch of [MedicalDevice]
+     * Deletes the batch of medical device identified by the provided [medicalDeviceIds].
      * @param requestBody
-     * @return OK
+     * @return Returns the rev of the deleted object.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is no medical device with the provided [medicalDeviceIds].
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
@@ -74,22 +81,31 @@ interface DeviceApi {
     suspend fun deleteMedicalDevices(requestBody: kotlin.collections.List<kotlin.String>): kotlin.collections.List<kotlin.String>
 
     /**
-     * Find Devices using a filter
-     *
-     * @param filter
-     * @return OK
+     * Load devices from the database by filtering them using the provided [filter].
+     * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [MedicalDevice] are AllDevicesFilter and DevicesByIdsFilter. This method returns a paginated list of medical devices (with a cursor that lets you query the following items).
+     * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+     * @param nextDeviceId The id of the first device in the next page (optional)
+     * @param limit The number of devices to return in the queried page (optional)
+     * @return Returns a PaginatedList of [MedicalDevice].
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun filterMedicalDevices(filter: Filter): PaginatedListMedicalDevice
+    suspend fun filterMedicalDevices(
+        filter: Filter,
+        nextDeviceId: kotlin.String?,
+        limit: kotlin.Int?
+    ): PaginatedListMedicalDevice
 
     /**
      * Get a Medical Device
-     *
+     * Each medical device is uniquely identified by a device id. The device id is a UUID. This [medicalDeviceId] is the preferred method to retrieve one specific device.
      * @param medicalDeviceId
-     * @return OK
+     * @return Returns the fetched device as a [MedicalDevice] object
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is no device with the provided [medicalDeviceId].
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
@@ -98,10 +114,11 @@ interface DeviceApi {
     suspend fun getMedicalDevice(medicalDeviceId: kotlin.String): MedicalDevice
 
     /**
-     * Find Devices using a filter
-     *
-     * @param filter
-     * @return OK
+     * Load medical device ids from the database by filtering them using the provided Filter.
+     * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [MedicalDevice] are AllDevicesFilter and DevicesByIdsFilter. This method returns the list of the ids of the users matching the filter.
+     * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+     * @return Returns a list of all medical device ids matching the [filter].
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */

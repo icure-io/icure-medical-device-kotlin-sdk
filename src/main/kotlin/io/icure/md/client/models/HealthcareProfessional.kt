@@ -22,7 +22,9 @@ import com.github.pozo.KotlinBuilder
  *
  * @param id the Id of the healthcare party. We encourage using either a v4 UUID or a HL7 Id.
  * @param rev the revision of the healthcare party in the database, used for conflict management / optimistic locking.
- * @param deletionDate hard delete (unix epoch in ms) timestamp of the object.
+ * @param created creation timestamp of the object.
+ * @param modified last modification timestamp of the object.
+ * @param deletionDate the soft delete timestamp. When a user is ”deleted“, this is set to a non null value: the moment of the deletion
  * @param name The full name of the healthcare party, used mainly when the healthcare party is an organization
  * @param lastName the lastname (surname) of the healthcare party. This is the official lastname that should be used for official administrative purposes.
  * @param firstName the firstname (name) of the healthcare party.
@@ -52,7 +54,15 @@ data class HealthcareProfessional(
     @field:JsonProperty("rev")
     val rev: kotlin.String? = null,
 
-    /* hard delete (unix epoch in ms) timestamp of the object. */
+    /* creation timestamp of the object. */
+    @field:JsonProperty("created")
+    val created: kotlin.Long? = null,
+
+    /* last modification timestamp of the object. */
+    @field:JsonProperty("modified")
+    val modified: kotlin.Long? = null,
+
+    /* the soft delete timestamp. When a user is ”deleted“, this is set to a non null value: the moment of the deletion */
     @field:JsonProperty("deletionDate")
     val deletionDate: kotlin.Long? = null,
 
@@ -116,23 +126,23 @@ data class HealthcareProfessional(
     /**
      * the gender of the healthcare party: male, female, indeterminate, changed, changedToMale, changedToFemale, unknown
      *
-     * Values: m,f,i,c,y,x,u
+     * Values: male,female,indeterminate,changed,changedToMale,changedToFemale,unknown
      */
     enum class Gender(val value: kotlin.String) {
-        @JsonProperty(value = "M")
-        m("M"),
-        @JsonProperty(value = "F")
-        f("F"),
-        @JsonProperty(value = "I")
-        i("I"),
-        @JsonProperty(value = "C")
-        c("C"),
-        @JsonProperty(value = "Y")
-        y("Y"),
-        @JsonProperty(value = "X")
-        x("X"),
-        @JsonProperty(value = "U")
-        u("U");
+        @JsonProperty(value = "male")
+        male("male"),
+        @JsonProperty(value = "female")
+        female("female"),
+        @JsonProperty(value = "indeterminate")
+        indeterminate("indeterminate"),
+        @JsonProperty(value = "changed")
+        changed("changed"),
+        @JsonProperty(value = "changedToMale")
+        changedToMale("changedToMale"),
+        @JsonProperty(value = "changedToFemale")
+        changedToFemale("changedToFemale"),
+        @JsonProperty(value = "unknown")
+        unknown("unknown");
     }
 }
 

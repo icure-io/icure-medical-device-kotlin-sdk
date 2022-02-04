@@ -26,10 +26,11 @@ import javax.inject.Named
 interface PatientApi {
 
     /**
-     * Create or update a Patient
-     *
+     * Create or update a [Patient]
+     * When modifying a patient, you must ensure that the rev obtained when getting or creating the patient is present as the rev is used to guarantee that the patient has not been modified by a third party.
      * @param patient
-     * @return OK
+     * @return Returns the created or modified patient as a [Patient] object, with an updated rev.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
@@ -38,46 +39,54 @@ interface PatientApi {
     suspend fun createOrModifyPatient(patient: Patient): Patient
 
     /**
-     * Delete a Patient
-     *
-     * @param id
-     * @return OK
+     * Delete a [Patient]
+     * Deletes the patient identified by the provided unique [patientId].
+     * @param patientId
+     * @return Returns the rev of the deleted object.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is no patient with the provided [patientId].
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun deletePatient(id: kotlin.String): kotlin.String
+    suspend fun deletePatient(patientId: kotlin.String): kotlin.String
 
     /**
-     * Find Patients using a filter
-     *
-     * @param filter
-     * @return OK
+     * Load patients from the database by filtering them using the provided [filter].
+     * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [Patient] are AllPatientsFilter and PatientsByIdsFilter. This method returns a paginated list of patient (with a cursor that lets you query the following items).
+     * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+     * @param nextPatientId The id of the first patient in the next page (optional)
+     * @param limit The number of patients to return in the queried page (optional)
+     * @return Returns a PaginatedList of [Patient].
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun filterPatients(filter: Filter): PaginatedListPatient
+    suspend fun filterPatients(filter: Filter, nextPatientId: kotlin.String?, limit: kotlin.Int?): PaginatedListPatient
 
     /**
-     * Get a Patient
-     *
-     * @param id
-     * @return OK
+     * Get a [Patient]
+     * Each patient is uniquely identified by a patient id. The patient id is a UUID. This [patientId] is the preferred method to retrieve one specific patient.
+     * @param patientId
+     * @return Returns the fetched patient as a [Patient] object
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is no patient with the provided [patientId].
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun getPatient(id: kotlin.String): Patient
+    suspend fun getPatient(patientId: kotlin.String): Patient
 
     /**
-     * Find Patients using a filter
-     *
-     * @param filter
-     * @return OK
+     * Load patient ids from the database by filtering them using the provided [filter].
+     * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [Patient] are AllPatientsFilter and PatientsByIdsFilter. This method returns the list of the ids of the users matching the [filter].
+     * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+     * @return Returns a list of all [Patient] ids matching the [filter].
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
      * @throws ServerException If the API returns a server error response
      */

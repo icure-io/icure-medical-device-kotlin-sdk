@@ -1,5 +1,6 @@
 package io.icure.md.client.mappers
 
+import io.icure.kraken.client.models.PaginatedDocumentKeyIdPairObject
 import io.icure.kraken.client.models.PaginatedListCodeDto
 import io.icure.kraken.client.models.PaginatedListDeviceDto
 import io.icure.kraken.client.models.PaginatedListHealthElementDto
@@ -58,10 +59,19 @@ fun PaginatedListHealthcarePartyDto.toPaginatedListHealthcareProfessional() = Pa
     nextKeyPair = PaginatedDocumentKeyAndIdPairObject(this.nextKeyPair?.startKey, this.nextKeyPair?.startKeyDocId)
 )
 
-fun PaginatedListDeviceDto.toPaginatedListMedicalDevice() = PaginatedListMedicalDevice(
-    pageSize = this.pageSize,
-    totalSize = this.totalSize,
-    rows = this.rows.map { it.toMedicalDevice() },
-    nextKeyPair = PaginatedDocumentKeyAndIdPairObject(this.nextKeyPair?.startKey, this.nextKeyPair?.startKeyDocId)
-)
+fun PaginatedListDeviceDto.toPaginatedListMedicalDevice(): PaginatedListMedicalDevice {
+    return PaginatedListMedicalDevice(
+        pageSize = this.pageSize,
+        totalSize = this.totalSize,
+        rows = this.rows.map { it.toMedicalDevice() },
+        nextKeyPair = this.nextKeyPair?.toPaginatedDocumentKeyAndIdPairObject()
+    )
+}
+
+fun PaginatedDocumentKeyIdPairObject.toPaginatedDocumentKeyAndIdPairObject(): PaginatedDocumentKeyAndIdPairObject {
+    return PaginatedDocumentKeyAndIdPairObject(
+        startKey = startKey,
+        startKeyDocId = startKeyDocId
+    )
+}
 

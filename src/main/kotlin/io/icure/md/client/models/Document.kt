@@ -27,12 +27,8 @@ import com.github.pozo.KotlinBuilder
  * @param author
  * @param responsible
  * @param medicalLocationId
- * @param labels
- * @param codes
- * @param endOfLife
  * @param deletionDate
  * @param objectStoreReference Reference in object store
- * @param externalUri When the document is stored in an external repository, this is the uri of the document in that repository
  * @param mainUti The main Uniform Type Identifier of the document (https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/understanding_utis/understand_utis_conc/understand_utis_conc.html#//apple_ref/doc/uid/TP40001319-CH202-CHDHIJDE)
  * @param name Name of the document
  * @param version The document version
@@ -71,25 +67,12 @@ data class Document(
     @field:JsonProperty("medicalLocationId")
     val medicalLocationId: kotlin.String? = null,
 
-    @field:JsonProperty("labels")
-    val labels: kotlin.collections.List<CodingReference> = emptyList(),
-
-    @field:JsonProperty("codes")
-    val codes: kotlin.collections.List<CodingReference> = emptyList(),
-
-    @field:JsonProperty("endOfLife")
-    val endOfLife: kotlin.Long? = null,
-
     @field:JsonProperty("deletionDate")
     val deletionDate: kotlin.Long? = null,
 
     /* Reference in object store */
     @field:JsonProperty("objectStoreReference")
     val objectStoreReference: kotlin.String? = null,
-
-    /* When the document is stored in an external repository, this is the uri of the document in that repository */
-    @field:JsonProperty("externalUri")
-    val externalUri: kotlin.String? = null,
 
     /* The main Uniform Type Identifier of the document (https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/understanding_utis/understand_utis_conc/understand_utis_conc.html#//apple_ref/doc/uid/TP40001319-CH202-CHDHIJDE) */
     @field:JsonProperty("mainUti")

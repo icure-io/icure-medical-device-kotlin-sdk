@@ -54,7 +54,7 @@ fun User.toUserDto() = UserDto(
     mobilePhone = this.mobilePhone,
 )
 
-fun UserDto.findIdForEncryptionKey(): String {
+fun UserDto.findDataOwnerId(): String {
     return this.healthcarePartyId
         ?: this.patientId
         ?: this.deviceId

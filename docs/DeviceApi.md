@@ -1,23 +1,25 @@
 # DeviceApi
 
-All URIs are relative to *http://127.0.0.1:8912*
+All URIs are relative to *http://localhost:8912*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createOrModifyMedicalDevice**](DeviceApi.md#createOrModifyMedicalDevice) | **PUT** /rest/v2/medical/device | Create or update a Device
-[**createOrModifyMedicalDevices**](DeviceApi.md#createOrModifyMedicalDevices) | **PUT** /rest/v2/medical/device/batch | Create or update a batch of Devices
-[**deleteMedicalDevice**](DeviceApi.md#deleteMedicalDevice) | **DELETE** /rest/v2/medical/device/{medicalDeviceId} | Delete a Device
-[**deleteMedicalDevices**](DeviceApi.md#deleteMedicalDevices) | **POST** /rest/v2/medical/device/batch | Delete Devices
-[**filterMedicalDevices**](DeviceApi.md#filterMedicalDevices) | **POST** /rest/v2/medical/device/filter | Find Devices using a filter
+[**createOrModifyMedicalDevice**](DeviceApi.md#createOrModifyMedicalDevice) | **PUT** /rest/v2/medical/device | Create or update a [MedicalDevice]
+[**createOrModifyMedicalDevices**](DeviceApi.md#createOrModifyMedicalDevices) | **PUT** /rest/v2/medical/device/batch | Create or update a batch of [MedicalDevice]
+[**deleteMedicalDevice**](DeviceApi.md#deleteMedicalDevice) | **DELETE** /rest/v2/medical/device/{medicalDeviceId} | Delete a [MedicalDevice]
+[**deleteMedicalDevices**](DeviceApi.md#deleteMedicalDevices) | **POST** /rest/v2/medical/device/batch | Delete a batch of [MedicalDevice]
+[**filterMedicalDevices**](DeviceApi.md#filterMedicalDevices) | **POST** /rest/v2/medical/device/filter | Load devices from the database by filtering them using the provided [filter].
 [**getMedicalDevice**](DeviceApi.md#getMedicalDevice) | **GET** /rest/v2/medical/device/{medicalDeviceId} | Get a Medical Device
-[**matchMedicalDevices**](DeviceApi.md#matchMedicalDevices) | **POST** /rest/v2/medical/device/match | Find Devices using a filter
+[**matchMedicalDevices**](DeviceApi.md#matchMedicalDevices) | **POST** /rest/v2/medical/device/match | Load medical device ids from the database by filtering them using the provided Filter.
 
 
 <a name="createOrModifyMedicalDevice"></a>
 # **createOrModifyMedicalDevice**
 > MedicalDevice createOrModifyMedicalDevice(medicalDevice)
 
-Create or update a Device
+Create or update a [MedicalDevice]
+
+When modifying a device, you must ensure that the rev obtained when getting or creating the device is present as the rev is used to guarantee that the device has not been modified by a third party.
 
 ### Example
 ```kotlin
@@ -62,7 +64,9 @@ No authorization required
 # **createOrModifyMedicalDevices**
 > kotlin.collections.List&lt;MedicalDevice&gt; createOrModifyMedicalDevices(medicalDevice)
 
-Create or update a batch of Devices
+Create or update a batch of [MedicalDevice]
+
+When modifying a device, you must ensure that the rev obtained when getting or creating the device is present as the rev is used to guarantee that the device has not been modified by a third party.
 
 ### Example
 ```kotlin
@@ -107,7 +111,9 @@ No authorization required
 # **deleteMedicalDevice**
 > kotlin.String deleteMedicalDevice(medicalDeviceId)
 
-Delete a Device
+Delete a [MedicalDevice]
+
+Deletes the medical device identified by the provided unique [medicalDeviceId].
 
 ### Example
 ```kotlin
@@ -152,7 +158,9 @@ No authorization required
 # **deleteMedicalDevices**
 > kotlin.collections.List&lt;kotlin.String&gt; deleteMedicalDevices(requestBody)
 
-Delete Devices
+Delete a batch of [MedicalDevice]
+
+Deletes the batch of medical device identified by the provided [medicalDeviceIds].
 
 ### Example
 ```kotlin
@@ -195,9 +203,11 @@ No authorization required
 
 <a name="filterMedicalDevices"></a>
 # **filterMedicalDevices**
-> PaginatedListMedicalDevice filterMedicalDevices(filter)
+> PaginatedListMedicalDevice filterMedicalDevices(filter, nextDeviceId, limit)
 
-Find Devices using a filter
+Load devices from the database by filtering them using the provided [filter].
+
+Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [MedicalDevice] are AllDevicesFilter and DevicesByIdsFilter. This method returns a paginated list of medical devices (with a cursor that lets you query the following items).
 
 ### Example
 ```kotlin
@@ -206,9 +216,11 @@ Find Devices using a filter
 //import io.icure.md.client.models.*
 
 val apiInstance = DeviceApi()
-val filter : Filter =  // Filter | 
+val filter : Filter =  // Filter | The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+val nextDeviceId : kotlin.String = nextDeviceId_example // kotlin.String | The id of the first device in the next page
+val limit : kotlin.Int = 56 // kotlin.Int | The number of devices to return in the queried page
 try {
-    val result : PaginatedListMedicalDevice = apiInstance.filterMedicalDevices(filter)
+    val result : PaginatedListMedicalDevice = apiInstance.filterMedicalDevices(filter, nextDeviceId, limit)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling DeviceApi#filterMedicalDevices")
@@ -223,7 +235,9 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | [**Filter**](Filter.md)|  |
+ **filter** | [**Filter**](Filter.md)| The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill |
+ **nextDeviceId** | **kotlin.String**| The id of the first device in the next page | [optional]
+ **limit** | **kotlin.Int**| The number of devices to return in the queried page | [optional]
 
 ### Return type
 
@@ -243,6 +257,8 @@ No authorization required
 > MedicalDevice getMedicalDevice(medicalDeviceId)
 
 Get a Medical Device
+
+Each medical device is uniquely identified by a device id. The device id is a UUID. This [medicalDeviceId] is the preferred method to retrieve one specific device.
 
 ### Example
 ```kotlin
@@ -287,7 +303,9 @@ No authorization required
 # **matchMedicalDevices**
 > kotlin.collections.List&lt;kotlin.String&gt; matchMedicalDevices(filter)
 
-Find Devices using a filter
+Load medical device ids from the database by filtering them using the provided Filter.
+
+Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [MedicalDevice] are AllDevicesFilter and DevicesByIdsFilter. This method returns the list of the ids of the users matching the filter.
 
 ### Example
 ```kotlin
@@ -296,7 +314,7 @@ Find Devices using a filter
 //import io.icure.md.client.models.*
 
 val apiInstance = DeviceApi()
-val filter : Filter =  // Filter | 
+val filter : Filter =  // Filter | The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
 try {
     val result : kotlin.collections.List<kotlin.String> = apiInstance.matchMedicalDevices(filter)
     println(result)
@@ -313,7 +331,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | [**Filter**](Filter.md)|  |
+ **filter** | [**Filter**](Filter.md)| The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill |
 
 ### Return type
 
