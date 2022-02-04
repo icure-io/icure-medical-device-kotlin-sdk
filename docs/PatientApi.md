@@ -4,18 +4,20 @@ All URIs are relative to *http://localhost:8912*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createOrModifyPatient**](PatientApi.md#createOrModifyPatient) | **PUT** /rest/v2/patient | Create or update a Patient
-[**deletePatient**](PatientApi.md#deletePatient) | **DELETE** /rest/v2/patient/{id} | Delete a Patient
-[**filterPatients**](PatientApi.md#filterPatients) | **POST** /rest/v2/patient/filter | Find Patients using a filter
-[**getPatient**](PatientApi.md#getPatient) | **GET** /rest/v2/patient/{id} | Get a Patient
-[**matchPatients**](PatientApi.md#matchPatients) | **POST** /rest/v2/patient/match | Find Patients using a filter
+[**createOrModifyPatient**](PatientApi.md#createOrModifyPatient) | **PUT** /rest/v2/patient | Create or update a [Patient]
+[**deletePatient**](PatientApi.md#deletePatient) | **DELETE** /rest/v2/patient/{patientId} | Delete a [Patient]
+[**filterPatients**](PatientApi.md#filterPatients) | **POST** /rest/v2/patient/filter | Load patients from the database by filtering them using the provided [filter].
+[**getPatient**](PatientApi.md#getPatient) | **GET** /rest/v2/patient/{patientId} | Get a [Patient]
+[**matchPatients**](PatientApi.md#matchPatients) | **POST** /rest/v2/patient/match | Load patient ids from the database by filtering them using the provided [filter].
 
 
 <a name="createOrModifyPatient"></a>
 # **createOrModifyPatient**
 > Patient createOrModifyPatient(patient)
 
-Create or update a Patient
+Create or update a [Patient]
+
+When modifying a patient, you must ensure that the rev obtained when getting or creating the patient is present as the rev is used to guarantee that the patient has not been modified by a third party.
 
 ### Example
 ```kotlin
@@ -58,9 +60,11 @@ No authorization required
 
 <a name="deletePatient"></a>
 # **deletePatient**
-> kotlin.String deletePatient(id)
+> kotlin.String deletePatient(patientId)
 
-Delete a Patient
+Delete a [Patient]
+
+Deletes the patient identified by the provided unique [patientId].
 
 ### Example
 ```kotlin
@@ -69,9 +73,9 @@ Delete a Patient
 //import io.icure.md.client.models.*
 
 val apiInstance = PatientApi()
-val id : kotlin.String = id_example // kotlin.String | 
+val patientId : kotlin.String = patientId_example // kotlin.String | 
 try {
-    val result : kotlin.String = apiInstance.deletePatient(id)
+    val result : kotlin.String = apiInstance.deletePatient(patientId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling PatientApi#deletePatient")
@@ -86,7 +90,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **kotlin.String**|  |
+ **patientId** | **kotlin.String**|  |
 
 ### Return type
 
@@ -103,9 +107,11 @@ No authorization required
 
 <a name="filterPatients"></a>
 # **filterPatients**
-> PaginatedListPatient filterPatients(filter)
+> PaginatedListPatient filterPatients(filter, nextPatientId, limit)
 
-Find Patients using a filter
+Load patients from the database by filtering them using the provided [filter].
+
+Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [Patient] are AllPatientsFilter and PatientsByIdsFilter. This method returns a paginated list of patient (with a cursor that lets you query the following items).
 
 ### Example
 ```kotlin
@@ -114,9 +120,11 @@ Find Patients using a filter
 //import io.icure.md.client.models.*
 
 val apiInstance = PatientApi()
-val filter : Filter =  // Filter | 
+val filter : Filter =  // Filter | The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+val nextPatientId : kotlin.String = nextPatientId_example // kotlin.String | The id of the first patient in the next page
+val limit : kotlin.Int = 56 // kotlin.Int | The number of patients to return in the queried page
 try {
-    val result : PaginatedListPatient = apiInstance.filterPatients(filter)
+    val result : PaginatedListPatient = apiInstance.filterPatients(filter, nextPatientId, limit)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling PatientApi#filterPatients")
@@ -131,7 +139,9 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | [**Filter**](Filter.md)|  |
+ **filter** | [**Filter**](Filter.md)| The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill |
+ **nextPatientId** | **kotlin.String**| The id of the first patient in the next page | [optional]
+ **limit** | **kotlin.Int**| The number of patients to return in the queried page | [optional]
 
 ### Return type
 
@@ -148,9 +158,11 @@ No authorization required
 
 <a name="getPatient"></a>
 # **getPatient**
-> Patient getPatient(id)
+> Patient getPatient(patientId)
 
-Get a Patient
+Get a [Patient]
+
+Each patient is uniquely identified by a patient id. The patient id is a UUID. This [patientId] is the preferred method to retrieve one specific patient.
 
 ### Example
 ```kotlin
@@ -159,9 +171,9 @@ Get a Patient
 //import io.icure.md.client.models.*
 
 val apiInstance = PatientApi()
-val id : kotlin.String = id_example // kotlin.String | 
+val patientId : kotlin.String = patientId_example // kotlin.String | 
 try {
-    val result : Patient = apiInstance.getPatient(id)
+    val result : Patient = apiInstance.getPatient(patientId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling PatientApi#getPatient")
@@ -176,7 +188,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **kotlin.String**|  |
+ **patientId** | **kotlin.String**|  |
 
 ### Return type
 
@@ -195,7 +207,9 @@ No authorization required
 # **matchPatients**
 > kotlin.collections.List&lt;kotlin.String&gt; matchPatients(filter)
 
-Find Patients using a filter
+Load patient ids from the database by filtering them using the provided [filter].
+
+Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [Patient] are AllPatientsFilter and PatientsByIdsFilter. This method returns the list of the ids of the users matching the [filter].
 
 ### Example
 ```kotlin
@@ -204,7 +218,7 @@ Find Patients using a filter
 //import io.icure.md.client.models.*
 
 val apiInstance = PatientApi()
-val filter : Filter =  // Filter | 
+val filter : Filter =  // Filter | The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
 try {
     val result : kotlin.collections.List<kotlin.String> = apiInstance.matchPatients(filter)
     println(result)
@@ -221,7 +235,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **filter** | [**Filter**](Filter.md)|  |
+ **filter** | [**Filter**](Filter.md)| The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill |
 
 ### Return type
 

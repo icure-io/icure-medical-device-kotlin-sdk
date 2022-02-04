@@ -203,25 +203,24 @@ No authorization required
 
 <a name="filterMedicalDevices"></a>
 # **filterMedicalDevices**
-> PaginatedListMedicalDevice filterMedicalDevices(filter, nextUserId, limit)
+> PaginatedListMedicalDevice filterMedicalDevices(filter, nextDeviceId, limit)
 
 Load devices from the database by filtering them using the provided [filter].
 
 Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [MedicalDevice] are AllDevicesFilter and DevicesByIdsFilter. This method returns a paginated list of medical devices (with a cursor that lets you query the following items).
 
 ### Example
-
 ```kotlin
 // Import classes:
 //import io.icure.kraken.client.infrastructure.*
 //import io.icure.md.client.models.*
 
 val apiInstance = DeviceApi()
-val filter: Filter =  // Filter | The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
-val nextUserId: kotlin.String = nextUserId_example // kotlin.String | 
-val limit: kotlin.Int = 56 // kotlin.Int | 
+val filter : Filter =  // Filter | The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+val nextDeviceId : kotlin.String = nextDeviceId_example // kotlin.String | The id of the first device in the next page
+val limit : kotlin.Int = 56 // kotlin.Int | The number of devices to return in the queried page
 try {
-    val result: PaginatedListMedicalDevice = apiInstance.filterMedicalDevices(filter, nextUserId, limit)
+    val result : PaginatedListMedicalDevice = apiInstance.filterMedicalDevices(filter, nextDeviceId, limit)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling DeviceApi#filterMedicalDevices")
@@ -236,10 +235,9 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**filter** | [**
-Filter**](Filter.md)| The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill |
-**nextUserId** | **kotlin.String**|  | [optional]
-**limit** | **kotlin.Int**|  | [optional]
+ **filter** | [**Filter**](Filter.md)| The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill |
+ **nextDeviceId** | **kotlin.String**| The id of the first device in the next page | [optional]
+ **limit** | **kotlin.Int**| The number of devices to return in the queried page | [optional]
 
 ### Return type
 
@@ -307,7 +305,7 @@ No authorization required
 
 Load medical device ids from the database by filtering them using the provided Filter.
 
-Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for Users are AllUsersFilter and UsersByIdsFilter. This method returns the list of the ids of the users matching the filter.
+Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [MedicalDevice] are AllDevicesFilter and DevicesByIdsFilter. This method returns the list of the ids of the users matching the filter.
 
 ### Example
 ```kotlin
