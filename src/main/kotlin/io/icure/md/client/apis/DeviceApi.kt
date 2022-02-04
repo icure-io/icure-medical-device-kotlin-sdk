@@ -84,6 +84,8 @@ interface DeviceApi {
      * Load devices from the database by filtering them using the provided [filter].
      * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for [MedicalDevice] are AllDevicesFilter and DevicesByIdsFilter. This method returns a paginated list of medical devices (with a cursor that lets you query the following items).
      * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+     * @param nextUserId  (optional)
+     * @param limit  (optional)
      * @return Returns a PaginatedList of [MedicalDevice].
      * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
      * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -91,7 +93,11 @@ interface DeviceApi {
      */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun filterMedicalDevices(filter: Filter): PaginatedListMedicalDevice
+    suspend fun filterMedicalDevices(
+        filter: Filter,
+        nextUserId: kotlin.String?,
+        limit: kotlin.Int?
+    ): PaginatedListMedicalDevice
 
     /**
      * Get a Medical Device
