@@ -1,34 +1,55 @@
 package io.icure.md.client.apis.impl
 
+import io.icure.kraken.client.crypto.LocalCrypto
 import io.icure.kraken.client.crypto.contactCryptoConfig
+import io.icure.kraken.client.crypto.documentCryptoConfig
 import io.icure.kraken.client.crypto.patientCryptoConfig
 import io.icure.kraken.client.extendedapis.createContact
+import io.icure.kraken.client.extendedapis.createDocument
 import io.icure.kraken.client.extendedapis.deleteServices
 import io.icure.kraken.client.extendedapis.filterContactsBy
 import io.icure.kraken.client.extendedapis.getContact
+import io.icure.kraken.client.extendedapis.getDocument
 import io.icure.kraken.client.extendedapis.getPatient
 import io.icure.kraken.client.extendedapis.listServices
+import io.icure.kraken.client.extendedapis.modifyDocument
+import io.icure.kraken.client.extendedapis.setDocumentAttachment
 import io.icure.kraken.client.models.FilterChainContact
 import io.icure.kraken.client.models.ListOfIdsDto
+import io.icure.kraken.client.models.UserDto
 import io.icure.kraken.client.models.decrypted.ContactDto
+import io.icure.kraken.client.models.decrypted.DocumentDto
+import io.icure.kraken.client.models.decrypted.PatientDto
+import io.icure.kraken.client.models.decrypted.ServiceDto
 import io.icure.kraken.client.models.filter.contact.ContactByServiceIdsFilter
 import io.icure.md.client.apis.DataSampleApi
 import io.icure.md.client.apis.MedTechApi
 import io.icure.md.client.mappers.findDataOwnerId
 import io.icure.md.client.mappers.toDataSample
+import io.icure.md.client.mappers.toDocument
 import io.icure.md.client.mappers.toServiceDto
+import io.icure.md.client.models.Content
 import io.icure.md.client.models.DataSample
 import io.icure.md.client.models.Document
 import io.icure.md.client.models.Filter
 import io.icure.md.client.models.PaginatedListDataSample
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.toCollection
+import org.taktik.commons.uti.UTI
+import org.taktik.commons.uti.impl.SimpleUTIDetector
+import java.io.ByteArrayInputStream
 import java.nio.ByteBuffer
+import java.security.MessageDigest
 import java.util.*
 
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
 class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
+    private val utiDetector = SimpleUTIDetector()
 
     override suspend fun createOrModifyDataSampleFor(patientId: String, dataSample: DataSample): DataSample {
         return createOrModifyDataSamplesFor(patientId, listOf(dataSample)).first()
@@ -48,13 +69,10 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
 
         val localCrypto = medTechApi.localCrypto()
         val currentUser = medTechApi.userApi().getCurrentUser()
-        val existingContact = dataSample.first().batchId?.let { contactId ->
-            medTechApi.contactApi().getContact(currentUser, contactId, contactCryptoConfig(localCrypto, currentUser))
-        }
+        val existingContact = getContactOfDataSample(localCrypto, currentUser, dataSample.first())
 
         val contactPatientId = existingContact?.let {
-            localCrypto.decryptEncryptionKeys(currentUser.findDataOwnerId(), it.cryptedForeignKeys)
-                .firstOrNull()
+            getPatientIdOfContact(localCrypto, currentUser, it)
         }
 
         if (contactPatientId != null && contactPatientId != patientId) {
@@ -70,6 +88,38 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
             .let { createdContact ->
                 createdContact.services.map { it.toDataSample(batchId = contactToCreate.id) }
             }
+    }
+
+    private suspend fun getContactOfDataSample(
+        localCrypto: LocalCrypto,
+        currentUser: UserDto,
+        dataSample: DataSample
+    ) : ContactDto? {
+        return dataSample.batchId?.let { contactId -> getContactFromICure(localCrypto, currentUser, contactId) }
+    }
+
+    private suspend fun getContactFromICure(
+        localCrypto: LocalCrypto,
+        currentUser: UserDto,
+        contactId: String
+    ) : ContactDto {
+        return medTechApi.contactApi().getContact(currentUser, contactId, contactCryptoConfig(localCrypto, currentUser))
+    }
+
+    private suspend fun getPatientIdOfContact(
+        localCrypto: LocalCrypto,
+        currentUser: UserDto,
+        contact: ContactDto
+    ) = localCrypto.decryptEncryptionKeys(currentUser.findDataOwnerId(), contact.cryptedForeignKeys)
+        .firstOrNull()
+
+    private suspend fun getPatientOfContact(
+        localCrypto: LocalCrypto,
+        currentUser: UserDto,
+        contact: ContactDto
+    ) : PatientDto? {
+        return getPatientIdOfContact(localCrypto, currentUser, contact)
+            ?.let { medTechApi.patientApi().getPatient(currentUser, it, patientCryptoConfig(localCrypto)) }
     }
 
     private fun countHierarchyOfDataSamples(
@@ -94,6 +144,13 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         existingContact: ContactDto? = null
     ): ContactDto {
         val servicesToCreate = dataSamples.map { it.toServiceDto() }
+        return createContactDtoUsing(servicesToCreate, existingContact)
+    }
+
+    private fun createContactDtoUsing(
+        servicesToCreate: List<ServiceDto>,
+        existingContact: ContactDto? = null
+    ): ContactDto {
         val baseContact =
             existingContact?.copy(id = UUID.randomUUID().toString(), rev = null, modified = System.currentTimeMillis())
                 ?: ContactDto(id = UUID.randomUUID().toString())
@@ -107,8 +164,32 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         )
     }
 
-    override suspend fun deleteAttachment(dataSampleId: String): String {
-        TODO("Not yet implemented")
+    override suspend fun deleteAttachment(dataSampleId: String, documentId: String): String {
+        val localCrypto = medTechApi.localCrypto()
+        val currentUser = medTechApi.userApi().getCurrentUser()
+
+        val existingService = getServiceFromICure(dataSampleId)
+        val existingContact = existingService?.contactId
+            ?.let { getContactFromICure(localCrypto, currentUser, it) }
+            ?: throw RuntimeException("Could not find batch information of the data sample $dataSampleId")
+
+        val patientOfContact = getPatientOfContact(localCrypto, currentUser, existingContact)
+            ?: throw IllegalArgumentException("Can not set an attachment to a data sample not linked to a patient")
+
+        val contentToDelete = existingService.content.entries.find { (_, content) -> content.documentId == documentId }
+            ?.key
+            ?: throw IllegalArgumentException("Id $documentId does not reference any document in the data sample $dataSampleId")
+
+        val contactToCreate = createContactDtoUsing(
+            existingContact.services
+                .filterNot { it.id != existingService.id } + listOf(existingService.copy(content = existingService.content.filterKeys { it != contentToDelete })),
+            existingContact
+        )
+
+        medTechApi.contactApi()
+            .createContact(currentUser, patientOfContact, contactToCreate, contactCryptoConfig(localCrypto, currentUser))
+
+        return documentId
     }
 
     override suspend fun deleteDataSample(dataSampleId: String): String {
@@ -133,10 +214,8 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         }
 
         val existingContact = existingContacts.first()
-        val contactPatient =
-            localCrypto.decryptEncryptionKeys(currentUser.findDataOwnerId(), existingContact.cryptedForeignKeys)
-                .first()
-                .let { medTechApi.patientApi().getPatient(currentUser, it, patientCryptoConfig(localCrypto)) }
+        val contactPatient = getPatientOfContact(localCrypto, currentUser, existingContact)
+                ?: throw RuntimeException("Couldn't find patient related to batch of data samples ${existingContact.id}")
 
         val servicesToDelete = existingContact.services.filter { it.id in dataSampleIds }
 
@@ -157,6 +236,12 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
     }
 
     override suspend fun getDataSample(dataSampleId: String): DataSample {
+        return getServiceFromICure(dataSampleId)
+            ?.toDataSample()
+            ?: throw IllegalArgumentException("Id $dataSampleId does not correspond to any existing data sample")
+    }
+
+    private suspend fun getServiceFromICure(dataSampleId: String): ServiceDto? {
         val localCrypto = medTechApi.localCrypto()
         val currentUser = medTechApi.userApi().getCurrentUser()
 
@@ -166,19 +251,42 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
             contactCryptoConfig(localCrypto, currentUser).crypto
         )
             .firstOrNull()
-            ?.toDataSample()
-            ?: throw IllegalArgumentException("Id $dataSampleId does not correspond to any existing data sample")
     }
 
-    override suspend fun getDataSampleAttachment(dataSampleId: String): Document {
-        TODO("Not yet implemented")
+    override suspend fun getDataSampleAttachmentDocument(dataSampleId: String, documentId: String): Document {
+        val localCrypto = medTechApi.localCrypto()
+        val currentUser = medTechApi.userApi().getCurrentUser()
+
+        return getDataSampleAttachmentDocumentFromICure(localCrypto, currentUser, dataSampleId, documentId)
+            .toDocument()
     }
 
     override suspend fun getDataSampleAttachmentContent(
         dataSampleId: String,
+        documentId: String,
         attachmentId: String
-    ): List<Any> {
-        TODO("Not yet implemented")
+    ): Flow<ByteBuffer> {
+        val localCrypto = medTechApi.localCrypto()
+        val currentUser = medTechApi.userApi().getCurrentUser()
+
+        val documentOfAttachment = getDataSampleAttachmentDocumentFromICure(localCrypto, currentUser, dataSampleId, documentId)
+
+        return medTechApi.documentApi().getDocumentAttachment(
+            documentId,
+            attachmentId,
+            getDocumentEncryptionKeys(localCrypto, currentUser, documentOfAttachment).joinToString(","),
+            null
+        )
+    }
+
+    private suspend fun getDataSampleAttachmentDocumentFromICure(localCrypto: LocalCrypto, currentUser: UserDto, dataSampleId: String, documentId: String): DocumentDto {
+        val existingDataSample = getDataSample(dataSampleId)
+
+        if (existingDataSample.content.entries.find { (_, content) -> content.documentId == documentId } == null) {
+            throw IllegalArgumentException("Id $documentId does not reference any document in the data sample $dataSampleId")
+        }
+
+        return medTechApi.documentApi().getDocument(currentUser, documentId, documentCryptoConfig(localCrypto))
     }
 
     override suspend fun matchDataSample(filter: Filter): List<String> {
@@ -190,8 +298,70 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         body: Flow<ByteBuffer>,
         documentName: String?,
         documentVersion: String?,
-        documentExternalUuid: String?
+        documentExternalUuid: String?,
+        documentLanguage: String?
     ): Document {
-        TODO("Not yet implemented")
+        val localCrypto = medTechApi.localCrypto()
+        val currentUser = medTechApi.userApi().getCurrentUser()
+
+        val existingDataSample = getDataSample(dataSampleId)
+        val existingContact = getContactOfDataSample(localCrypto, currentUser, existingDataSample)
+            ?: throw RuntimeException("Could not find batch information of the data sample $dataSampleId")
+        val patientOfContact = getPatientIdOfContact(localCrypto, currentUser, existingContact)
+            ?: throw IllegalArgumentException("Can not set an attachment to a data sample not linked to a patient")
+
+        val documentToCreate = DocumentDto(
+            id = UUID.randomUUID().toString(),
+            name = documentName,
+            version = documentVersion,
+            externalUuid = documentExternalUuid,
+        )
+
+        val documentConfig = documentCryptoConfig(localCrypto)
+        val md = MessageDigest.getInstance("SHA-256")
+        var uti : UTI? = null
+
+        val byteBufferElements = body.map {
+            if (uti == null) {
+                val byteArray = ByteArray(it.remaining().coerceAtMost(256))
+                it.slice().get(byteArray, 0, byteArray.size)
+                uti = utiDetector.detectUTI(ByteArrayInputStream(byteArray), null, null)
+            }
+            md.update(it.slice())
+            it
+        }.toCollection(mutableListOf())
+
+        val createdDocument = medTechApi.documentApi().createDocument(currentUser, documentToCreate, documentConfig)
+            .let { createdDoc ->
+                medTechApi.documentApi().setDocumentAttachment(
+                    user = currentUser,
+                    documentId = createdDoc.id,
+                    requestBody = byteBufferElements.asFlow(),
+                    enckeys = getDocumentEncryptionKeys(localCrypto, currentUser, createdDoc).firstOrNull(),
+                    config = documentConfig
+                )
+            }
+
+        val documentHash = md.digest()
+            .joinToString { Integer.toHexString(0xFF and it.toInt()) }
+
+        // Add the hash and UTI of the document
+        val finalDoc = medTechApi.documentApi()
+            .modifyDocument(currentUser, createdDocument.copy(hash = documentHash, mainUti = uti.toString()), documentConfig)
+
+        val contentIso = documentLanguage ?: medTechApi.defaultLanguage()
+        createOrModifyDataSampleFor(patientOfContact, existingDataSample.copy(content = mapOf(contentIso to Content(documentId = finalDoc.id))))
+
+        return finalDoc.toDocument()
     }
+
+    private suspend fun tmpFlow(byteBuffer: ByteBuffer) = flow {
+        emit(byteBuffer)
+    }
+
+    private suspend fun getDocumentEncryptionKeys(
+        localCrypto: LocalCrypto,
+        currentUser: UserDto,
+        document: DocumentDto
+    ) = localCrypto.decryptEncryptionKeys(currentUser.findDataOwnerId(), document.encryptionKeys)
 }
