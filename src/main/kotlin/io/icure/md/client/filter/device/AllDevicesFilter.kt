@@ -20,11 +20,11 @@ package io.icure.md.client.filter.device
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
-import io.icure.kraken.client.models.DeviceDto
 import io.icure.md.client.filter.Filter
+import io.icure.md.client.models.MedicalDevice
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class AllDevicesFilter(
     override val description: String? = null,
-) : Filter<DeviceDto>
+) : Filter<MedicalDevice>
