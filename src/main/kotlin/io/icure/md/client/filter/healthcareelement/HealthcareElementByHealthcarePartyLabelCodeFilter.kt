@@ -13,7 +13,7 @@ import io.icure.md.client.models.HealthcareElement
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class HealthcareElementByHealthcarePartyLabelCodeFilter(
     override val description: String? = null,
-    val healthCarePartyId: String? = null,
+    val healthcarePartyId: String? = null,
     val codeType: String? = null,
     val codeNumber: String? = null,
     val tagType: String? = null,

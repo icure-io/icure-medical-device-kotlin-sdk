@@ -1,12 +1,12 @@
 package io.icure.md.client.apis.impl
 
-import io.icure.kraken.client.models.FilterChainDevice
 import io.icure.kraken.client.models.ListOfIdsDto
+import io.icure.kraken.client.models.filter.chain.FilterChain
 import io.icure.md.client.apis.MedTechApi
 import io.icure.md.client.apis.MedicalDeviceApi
 import io.icure.md.client.filter.Filter
 import io.icure.md.client.isUUID
-import io.icure.md.client.mappers.toAbstractFilterDtoDevice
+import io.icure.md.client.mappers.toAbstractFilterDto
 import io.icure.md.client.mappers.toDeviceDto
 import io.icure.md.client.mappers.toMedicalDevice
 import io.icure.md.client.mappers.toPaginatedListMedicalDevice
@@ -84,7 +84,7 @@ class MedicalDeviceApiImpl(private val api: MedTechApi) : MedicalDeviceApi {
         limit: Int?
     ): PaginatedListMedicalDevice {
         return api.deviceApi()
-            .filterDevicesBy(FilterChainDevice(filter.toAbstractFilterDtoDevice(), null), nextUserId, limit)
+            .filterDevicesBy(FilterChain(filter.toAbstractFilterDto(), null), nextUserId, limit)
             .toPaginatedListMedicalDevice()
     }
 
@@ -105,6 +105,6 @@ class MedicalDeviceApiImpl(private val api: MedTechApi) : MedicalDeviceApi {
      * @return list of matched ids
      */
     override suspend fun matchMedicalDevices(filter: Filter<MedicalDevice>): List<String> {
-        return api.deviceApi().matchDevicesBy(filter.toAbstractFilterDtoDevice())
+        return api.deviceApi().matchDevicesBy(filter.toAbstractFilterDto())
     }
 }

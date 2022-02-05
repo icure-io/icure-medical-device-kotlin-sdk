@@ -56,10 +56,10 @@ fun PatientDto.toPatient() = Patient(
     externalId = this.externalId,
 )
 
-private fun PatientDto.DeactivationReason.toDeactivationReason() = Patient.DeactivationReason.valueOf(this.name)
-private fun PatientDto.Gender.toGender() = Patient.Gender.valueOf(this.name)
-private fun PatientDto.BirthSex.toBirthSex() = Patient.BirthSex.valueOf(this.name)
-private fun PatientDto.PersonalStatus.toPersonalStatus() = Patient.PersonalStatus.valueOf(this.name)
+fun PatientDto.DeactivationReason.toDeactivationReason() = Patient.DeactivationReason.valueOf(this.name)
+fun PatientDto.Gender.toGender() = Patient.Gender.valueOf(this.name)
+fun PatientDto.BirthSex.toBirthSex() = Patient.BirthSex.valueOf(this.name)
+fun PatientDto.PersonalStatus.toPersonalStatus() = Patient.PersonalStatus.valueOf(this.name)
 
 fun Patient.toPatientDto() = PatientDto(
     id = this.id?.also {
@@ -119,7 +119,9 @@ fun Patient.toPatientDto() = PatientDto(
     externalId = this.externalId,
 )
 
-private fun Patient.DeactivationReason.toDeactivationReason() = PatientDto.DeactivationReason.valueOf(this.name)
-private fun Patient.Gender.toGender() = PatientDto.Gender.valueOf(this.name)
-private fun Patient.BirthSex.toBirthSex() = PatientDto.BirthSex.valueOf(this.name)
-private fun Patient.PersonalStatus.toPersonalStatus() = PatientDto.PersonalStatus.valueOf(this.name)
+fun Patient.DeactivationReason.toDeactivationReason() = PatientDto.DeactivationReason.valueOf(this.name)
+fun Patient.Gender.toGender() = PatientDto.Gender.valueOf(this.name)
+fun Patient.BirthSex.toBirthSex() = PatientDto.BirthSex.valueOf(this.name)
+fun Patient.PersonalStatus.toPersonalStatus() = PatientDto.PersonalStatus.valueOf(this.name)
+
+fun Patient.Gender.toDbGender() = io.icure.kraken.client.models.PatientDto.Gender.valueOf(this.name)
