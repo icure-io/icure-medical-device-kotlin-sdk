@@ -19,12 +19,12 @@ package io.icure.md.client.filter.hcp
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
-import io.icure.kraken.client.models.HealthcarePartyDto
 import io.icure.md.client.filter.Filter
+import io.icure.md.client.models.HealthcareProfessional
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class HealthcareProfessionalByIdsFilter(
     val ids: Set<String>,
     override val description: String? = null
-) : Filter<HealthcarePartyDto>
+) : Filter<HealthcareProfessional>

@@ -15,6 +15,12 @@ package io.icure.md.client.filter
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.github.pozo.KotlinBuilder
+import io.icure.md.client.filter.patient.PatientByHealthcarePartyAndIdentifiersFilter
+import io.icure.md.client.filter.patient.PatientByHealthcarePartyGenderEducationProfession
+import io.icure.md.client.filter.patient.PatientByHealthcarePartyNameFilter
+import io.icure.md.client.models.HealthcareProfessional
+import io.icure.md.client.models.Identifier
+import io.icure.md.client.models.Patient
 
 /**
  *
@@ -26,6 +32,96 @@ import com.github.pozo.KotlinBuilder
 @JsonIgnoreProperties(ignoreUnknown = true)
 @KotlinBuilder
 interface Filter<T> {
-    val description: kotlin.String?
+    val description: String?
 }
 
+fun <T> filter(init: FilterBuilder<T>.() -> Unit): FilterBuilder<T> {
+    val filter = FilterBuilder<T>()
+    filter.init()
+    return filter
+}
+
+open class FilterBuilder<T>(val parent: FilterBuilder<T>? = null) {
+    var hcp: HealthcareProfessional? = null
+    var proxiedFilterBuilder: ((hcp: HealthcareProfessional?) -> Filter<T>)? = null
+
+    fun forHcp(hcp: HealthcareProfessional?): FilterBuilder<T> {
+        this.hcp = hcp
+        return this
+    }
+
+    fun hcp(): HealthcareProfessional? {
+        return hcp ?: parent?.hcp()
+    }
+
+    open fun registerInParent(builder: (hcp: HealthcareProfessional?) -> Filter<T>) {
+        proxiedFilterBuilder = builder
+    }
+
+    open fun build(): Filter<T> {
+        return proxiedFilterBuilder?.let { it(hcp) }
+            ?: throw IllegalArgumentException("At least one condition must be set for this filter")
+    }
+}
+
+fun <T> FilterBuilder<T>.union(init: UnionFilterBuilder<T>.() -> Unit): FilterBuilder<T> {
+    val filter = UnionFilterBuilder(this)
+    filter.init()
+    this.registerInParent { hcp -> filter.forHcp(hcp).build() }
+    return filter
+}
+
+fun <T> FilterBuilder<T>.intersection(init: IntersectionFilterBuilder<T>.() -> Unit): FilterBuilder<T> {
+    val filter = IntersectionFilterBuilder(this)
+    filter.init()
+    this.registerInParent { hcp -> filter.forHcp(hcp).build() }
+    return filter
+}
+
+open class CompoundFilterBuilder<T>(parent: FilterBuilder<T>? = null) : FilterBuilder<T>(parent) {
+    var compoundedFilterBuilders: List<(hcp: HealthcareProfessional?) -> Filter<T>> = emptyList()
+    override fun registerInParent(builder: (hcp: HealthcareProfessional?) -> Filter<T>) {
+        compoundedFilterBuilders = compoundedFilterBuilders + builder
+    }
+}
+
+class UnionFilterBuilder<T>(parent: FilterBuilder<T>? = null) : CompoundFilterBuilder<T>(parent) {
+    override fun build() = UnionFilter(null, compoundedFilterBuilders.map { it(hcp()) })
+}
+class IntersectionFilterBuilder<T>(parent: FilterBuilder<T>? = null) : CompoundFilterBuilder<T>(parent) {
+    override fun build() = IntersectionFilter(null, compoundedFilterBuilders.map { it(hcp()) })
+}
+
+fun FilterBuilder<Patient>.byIdentifiers(vararg identifiers: Identifier) {
+    this.registerInParent { hcp ->
+        PatientByHealthcarePartyAndIdentifiersFilter(
+            null,
+            hcp?.id
+                ?: throw IllegalArgumentException("PatientByHealthcarePartyAndIdentifiersFilter needs a hcp to be registered in the builder using a forHcp call"),
+            identifiers.toList()
+        )
+    }
+}
+
+fun FilterBuilder<Patient>.byName(name: String) {
+    this.registerInParent { hcp ->
+        PatientByHealthcarePartyNameFilter(
+            null,
+            name,
+            hcp?.id
+                ?: throw IllegalArgumentException("PatientByHealthcarePartyAndIdentifiersFilter needs a hcp to be registered in the builder using a forHcp call"),
+        )
+    }
+}
+
+fun FilterBuilder<Patient>.byGenderEducation(gender: Patient.Gender, education: String) {
+    this.registerInParent { hcp ->
+        PatientByHealthcarePartyGenderEducationProfession(
+            null,
+            hcp?.id
+                ?: throw IllegalArgumentException("PatientByHealthcarePartyAndIdentifiersFilter needs a hcp to be registered in the builder using a forHcp call"),
+            gender,
+            education,
+        )
+    }
+}

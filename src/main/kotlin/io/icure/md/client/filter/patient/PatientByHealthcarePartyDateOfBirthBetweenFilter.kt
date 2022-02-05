@@ -5,8 +5,8 @@ package io.icure.md.client.filter.patient
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
-import io.icure.kraken.client.models.PatientDto
 import io.icure.md.client.filter.Filter
+import io.icure.md.client.models.Patient
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -15,4 +15,4 @@ data class PatientByHealthcarePartyDateOfBirthBetweenFilter(
     val minDateOfBirth: Int? = null,
     val maxDateOfBirth: Int? = null,
     val healthcarePartyId: String? = null
-) : Filter<PatientDto>
+) : Filter<Patient>
