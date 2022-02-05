@@ -1,7 +1,7 @@
 package io.icure.md.client.apis.impl
 
 import io.icure.md.client.apis.HealthcareElementApi
-import io.icure.md.client.models.Filter
+import io.icure.md.client.filter.Filter
 import io.icure.md.client.models.HealthcareElement
 import io.icure.md.client.models.PaginatedListHealthcareElement
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -21,7 +21,7 @@ class HealthcareElementApiImpl : HealthcareElementApi {
         TODO("Not yet implemented")
     }
 
-    override suspend fun filterHealthcareElement(filter: Filter): PaginatedListHealthcareElement {
+    override suspend fun filterHealthcareElement(filter: Filter<HealthcareElement>): PaginatedListHealthcareElement {
         TODO("Not yet implemented")
     }
 
@@ -29,7 +29,7 @@ class HealthcareElementApiImpl : HealthcareElementApi {
         TODO("Not yet implemented")
     }
 
-    override suspend fun matchHealthcareElement(filter: Filter): List<String> {
+    override suspend fun matchHealthcareElement(filter: Filter<HealthcareElement>): List<String> {
         TODO("Not yet implemented")
     }
 }

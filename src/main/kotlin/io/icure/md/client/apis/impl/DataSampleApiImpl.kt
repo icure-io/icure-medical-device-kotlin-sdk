@@ -24,6 +24,7 @@ import io.icure.kraken.client.models.decrypted.ServiceDto
 import io.icure.kraken.client.models.filter.contact.ContactByServiceIdsFilter
 import io.icure.md.client.apis.DataSampleApi
 import io.icure.md.client.apis.MedTechApi
+import io.icure.md.client.filter.Filter
 import io.icure.md.client.mappers.findDataOwnerId
 import io.icure.md.client.mappers.toDataSample
 import io.icure.md.client.mappers.toDocument
@@ -31,7 +32,6 @@ import io.icure.md.client.mappers.toServiceDto
 import io.icure.md.client.models.Content
 import io.icure.md.client.models.DataSample
 import io.icure.md.client.models.Document
-import io.icure.md.client.models.Filter
 import io.icure.md.client.models.PaginatedListDataSample
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -94,7 +94,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         localCrypto: LocalCrypto,
         currentUser: UserDto,
         dataSample: DataSample
-    ) : ContactDto? {
+    ): ContactDto? {
         return dataSample.batchId?.let { contactId -> getContactFromICure(localCrypto, currentUser, contactId) }
     }
 
@@ -102,7 +102,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         localCrypto: LocalCrypto,
         currentUser: UserDto,
         contactId: String
-    ) : ContactDto {
+    ): ContactDto {
         return medTechApi.contactApi().getContact(currentUser, contactId, contactCryptoConfig(localCrypto, currentUser))
     }
 
@@ -117,7 +117,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         localCrypto: LocalCrypto,
         currentUser: UserDto,
         contact: ContactDto
-    ) : PatientDto? {
+    ): PatientDto? {
         return getPatientIdOfContact(localCrypto, currentUser, contact)
             ?.let { medTechApi.patientApi().getPatient(currentUser, it, patientCryptoConfig(localCrypto)) }
     }
@@ -187,7 +187,12 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         )
 
         medTechApi.contactApi()
-            .createContact(currentUser, patientOfContact, contactToCreate, contactCryptoConfig(localCrypto, currentUser))
+            .createContact(
+                currentUser,
+                patientOfContact,
+                contactToCreate,
+                contactCryptoConfig(localCrypto, currentUser)
+            )
 
         return documentId
     }
@@ -215,7 +220,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
 
         val existingContact = existingContacts.first()
         val contactPatient = getPatientOfContact(localCrypto, currentUser, existingContact)
-                ?: throw RuntimeException("Couldn't find patient related to batch of data samples ${existingContact.id}")
+            ?: throw RuntimeException("Couldn't find patient related to batch of data samples ${existingContact.id}")
 
         val servicesToDelete = existingContact.services.filter { it.id in dataSampleIds }
 
@@ -231,7 +236,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
             .map { it.id }
     }
 
-    override suspend fun filterDataSample(filter: Filter): PaginatedListDataSample {
+    override suspend fun filterDataSample(filter: Filter<DataSample>): PaginatedListDataSample {
         TODO("Not yet implemented")
     }
 
@@ -269,7 +274,8 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         val localCrypto = medTechApi.localCrypto()
         val currentUser = medTechApi.userApi().getCurrentUser()
 
-        val documentOfAttachment = getDataSampleAttachmentDocumentFromICure(localCrypto, currentUser, dataSampleId, documentId)
+        val documentOfAttachment =
+            getDataSampleAttachmentDocumentFromICure(localCrypto, currentUser, dataSampleId, documentId)
 
         return medTechApi.documentApi().getDocumentAttachment(
             documentId,
@@ -279,7 +285,12 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         )
     }
 
-    private suspend fun getDataSampleAttachmentDocumentFromICure(localCrypto: LocalCrypto, currentUser: UserDto, dataSampleId: String, documentId: String): DocumentDto {
+    private suspend fun getDataSampleAttachmentDocumentFromICure(
+        localCrypto: LocalCrypto,
+        currentUser: UserDto,
+        dataSampleId: String,
+        documentId: String
+    ): DocumentDto {
         val existingDataSample = getDataSample(dataSampleId)
 
         if (existingDataSample.content.entries.find { (_, content) -> content.documentId == documentId } == null) {
@@ -289,7 +300,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         return medTechApi.documentApi().getDocument(currentUser, documentId, documentCryptoConfig(localCrypto))
     }
 
-    override suspend fun matchDataSample(filter: Filter): List<String> {
+    override suspend fun matchDataSample(filter: Filter<DataSample>): List<String> {
         TODO("Not yet implemented")
     }
 
@@ -319,7 +330,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
 
         val documentConfig = documentCryptoConfig(localCrypto)
         val md = MessageDigest.getInstance("SHA-256")
-        var uti : UTI? = null
+        var uti: UTI? = null
 
         val byteBufferElements = body.map {
             if (uti == null) {
@@ -347,10 +358,17 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
 
         // Add the hash and UTI of the document
         val finalDoc = medTechApi.documentApi()
-            .modifyDocument(currentUser, createdDocument.copy(hash = documentHash, mainUti = uti.toString()), documentConfig)
+            .modifyDocument(
+                currentUser,
+                createdDocument.copy(hash = documentHash, mainUti = uti.toString()),
+                documentConfig
+            )
 
         val contentIso = documentLanguage ?: medTechApi.defaultLanguage()
-        createOrModifyDataSampleFor(patientOfContact, existingDataSample.copy(content = mapOf(contentIso to Content(documentId = finalDoc.id))))
+        createOrModifyDataSampleFor(
+            patientOfContact,
+            existingDataSample.copy(content = mapOf(contentIso to Content(documentId = finalDoc.id)))
+        )
 
         return finalDoc.toDocument()
     }

@@ -4,11 +4,11 @@ import io.icure.kraken.client.models.FilterChainHealthcareParty
 import io.icure.kraken.client.models.ListOfIdsDto
 import io.icure.md.client.apis.HealthcareProfessionalApi
 import io.icure.md.client.apis.MedTechApi
+import io.icure.md.client.filter.Filter
 import io.icure.md.client.mappers.toAbstractFilterDtoHealthcareParty
 import io.icure.md.client.mappers.toHealthcarePartyDto
 import io.icure.md.client.mappers.toHealthcareProfessional
 import io.icure.md.client.mappers.toPaginatedListHealthcareProfessional
-import io.icure.md.client.models.Filter
 import io.icure.md.client.models.HealthcareProfessional
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -26,7 +26,7 @@ class HealthcareProfessionalApiImpl(val api: MedTechApi) : HealthcareProfessiona
             ?: throw IllegalArgumentException("Invalid user id")
 
     override suspend fun filterHealthcareProfessionalBy(
-        filter: Filter,
+        filter: Filter<HealthcareProfessional>,
         nextHcpId: String?,
         limit: Int?
     ) = api.hcpApi().filterHealthPartiesBy(
@@ -39,6 +39,6 @@ class HealthcareProfessionalApiImpl(val api: MedTechApi) : HealthcareProfessiona
     override suspend fun getHealthcareProfessional(hcpId: String) =
         api.hcpApi().getHealthcareParty(hcpId).toHealthcareProfessional()
 
-    override suspend fun matchHealthcareProfessionalBy(filter: Filter) =
+    override suspend fun matchHealthcareProfessionalBy(filter: Filter<HealthcareProfessional>) =
         api.hcpApi().matchHealthcarePartiesBy(filter.toAbstractFilterDtoHealthcareParty())
 }

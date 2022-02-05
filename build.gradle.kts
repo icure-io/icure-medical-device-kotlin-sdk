@@ -108,19 +108,31 @@ tasks.register("apiGenerate", Jar::class) {
         javaexec {
             main = "-jar"
             args = listOf(
-                "${rootDir}/openapi-generator-cli.jar", "generate",
-                "-i", "${rootDir}/icure-medical-device-spec.json",
-                "-g", "kotlin",
-                "-o", "$rootDir",
+                "${rootDir}/openapi-generator-cli.jar",
+                "generate",
+                "-i",
+                "${rootDir}/icure-medical-device-spec.json",
+                "-g",
+                "kotlin",
+                "-o",
+                "$rootDir",
 
-                "--model-package", "io.icure.md.client.models",
-                "--api-package", "io.icure.md.client.apis",
-                "--package-name", "io.icure.md.client",
-                "--group-id", "io.icure",
-                "--artifact-id", project.name,
-                "--artifact-version", "0.0.1-SNAPSHOT",
-                "--template-dir", "$rootDir/openApiTemplates",
-                "--additional-properties", "useCoroutines=true,serializationLibrary=jackson,sortModelPropertiesByRequiredFlag=false"
+                "--model-package",
+                "io.icure.md.client.models",
+                "--api-package",
+                "io.icure.md.client.apis",
+                "--package-name",
+                "io.icure.md.client",
+                "--group-id",
+                "io.icure",
+                "--artifact-id",
+                project.name,
+                "--artifact-version",
+                "0.0.1-SNAPSHOT",
+                "--template-dir",
+                "$rootDir/openApiTemplates",
+                "--additional-properties",
+                "useCoroutines=true,serializationLibrary=jackson,sortModelPropertiesByRequiredFlag=false"
             )
         }
     }
@@ -140,7 +152,8 @@ tasks.register("apply-custom-fixes") {
     doLast {
         // Use manually added filter classes instead of the generated ones
         val replacements = mapOf(
-            "io.icure.md.client.infrastructure" to "io.icure.kraken.client.infrastructure"
+            "io.icure.md.client.infrastructure" to "io.icure.kraken.client.infrastructure",
+            "io.icure.md.client.models.Filter" to "io.icure.md.client.filter.Filter"
         )
 
         // in Folders
@@ -166,16 +179,31 @@ tasks.register("apply-custom-fixes") {
                 }
             }
         }
+        for (clazz in listOf("DataSample", "Coding", "Patient", "HealthcareElement", "HealthcareProfessional", "MedicalDevice", "User")) {
+            ant.withGroovyBuilder {
+                "replaceregexp"(
+                    "match" to ": Filter(?!<)",
+                    "replace" to ": Filter<${clazz}>",
+                    "flags" to "g",
+                    "byline" to "true"
+                ) {
+                    "fileset"(
+                        "file" to File("$rootDir/src/main/kotlin/io/icure/md/client/apis/${clazz}Api.kt")
+                    )
+                }
+            }
+        }
     }
 }
-
 tasks.create<Delete>("delete-unused-files") {
     delete(
         File("$rootDir/src/main/kotlin/io/icure/md/client/infrastructure"),
+        File("$rootDir/src/main/kotlin/io/icure/md/client/models/Filter.kt"),
+        File("$rootDir/src/main/kotlin/io/icure/md/client/models/InlineResponse403.kt"),
         File("$rootDir/src/test/resources/parameters"),
         File("$rootDir/src/test/kotlin/io/icure/md/client/apis/CodingApiTest.kt"),
         File("$rootDir/src/test/kotlin/io/icure/md/client/apis/DataSampleApiTest.kt"),
-        File("$rootDir/src/test/kotlin/io/icure/md/client/apis/DeviceApiTest.kt"),
+        File("$rootDir/src/test/kotlin/io/icure/md/client/apis/MedicalDeviceApiTest.kt"),
         File("$rootDir/src/test/kotlin/io/icure/md/client/apis/HealthcareElementApiTest.kt"),
         File("$rootDir/src/test/kotlin/io/icure/md/client/apis/HealthcareProfessionalApiTest.kt"),
         File("$rootDir/src/test/kotlin/io/icure/md/client/apis/PatientApiTest.kt"),
