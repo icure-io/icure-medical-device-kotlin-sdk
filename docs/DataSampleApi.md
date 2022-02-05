@@ -6,13 +6,13 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createOrModifyDataSampleFor**](DataSampleApi.md#createOrModifyDataSampleFor) | **PUT** /rest/v2/data/sample/for/{patientId} | Create or update a [DataSample] for a patient
 [**createOrModifyDataSamplesFor**](DataSampleApi.md#createOrModifyDataSamplesFor) | **PUT** /rest/v2/data/sample/batch/for/{patientId} | Create or update a batch of [DataSample] for a patient
-[**deleteAttachment**](DataSampleApi.md#deleteAttachment) | **DELETE** /rest/v2/data/sample/{dataSampleId}/attachment | Delete an attachment of a DataSample
+[**deleteAttachment**](DataSampleApi.md#deleteAttachment) | **DELETE** /rest/v2/data/sample/{dataSampleId}/attachment/{documentId} | Delete an attachment of a DataSample
 [**deleteDataSample**](DataSampleApi.md#deleteDataSample) | **DELETE** /rest/v2/data/sample/{dataSampleId} | Delete a [DataSample] by its id
 [**deleteDataSamples**](DataSampleApi.md#deleteDataSamples) | **POST** /rest/v2/data/sample/batch | Delete a batch of [Data Samples]
 [**filterDataSample**](DataSampleApi.md#filterDataSample) | **POST** /rest/v2/data/sample/filter | Find data samples using the provided [filter].
 [**getDataSample**](DataSampleApi.md#getDataSample) | **GET** /rest/v2/data/sample/{dataSampleId} | Get a [DataSample] by its id
-[**getDataSampleAttachment**](DataSampleApi.md#getDataSampleAttachment) | **GET** /rest/v2/data/sample/{dataSampleId}/attachment | Get document metadata of a DataSample attachment
-[**getDataSampleAttachmentContent**](DataSampleApi.md#getDataSampleAttachmentContent) | **GET** /rest/v2/data/sample/{dataSampleId}/attachment/{attachmentId} | Get attachment content of a DataSample
+[**getDataSampleAttachmentContent**](DataSampleApi.md#getDataSampleAttachmentContent) | **GET** /rest/v2/data/sample/{dataSampleId}/attachment/{documentId}/{attachmentId} | Get attachment content of a DataSample
+[**getDataSampleAttachmentDocument**](DataSampleApi.md#getDataSampleAttachmentDocument) | **GET** /rest/v2/data/sample/{dataSampleId}/attachment/{documentId} | Get document metadata of a DataSample attachment
 [**matchDataSample**](DataSampleApi.md#matchDataSample) | **POST** /rest/v2/data/sample/match | Find data samples ids using the provided Filter.
 [**setDataSampleAttachment**](DataSampleApi.md#setDataSampleAttachment) | **PUT** /rest/v2/data/sample/{dataSampleId}/attachment | Add or update the attachment of a DataSample
 
@@ -117,7 +117,7 @@ No authorization required
 
 <a name="deleteAttachment"></a>
 # **deleteAttachment**
-> kotlin.String deleteAttachment(dataSampleId)
+> kotlin.String deleteAttachment(dataSampleId, documentId)
 
 Delete an attachment of a DataSample
 
@@ -131,8 +131,9 @@ Deletes an attachment, using its corresponding documentId
 
 val apiInstance = DataSampleApi()
 val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String | 
+val documentId : kotlin.String = documentId_example // kotlin.String | 
 try {
-    val result : kotlin.String = apiInstance.deleteAttachment(dataSampleId)
+    val result : kotlin.String = apiInstance.deleteAttachment(dataSampleId, documentId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling DataSampleApi#deleteAttachment")
@@ -148,6 +149,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **dataSampleId** | **kotlin.String**|  |
+ **documentId** | **kotlin.String**|  |
 
 ### Return type
 
@@ -350,56 +352,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: */*
 
-<a name="getDataSampleAttachment"></a>
-# **getDataSampleAttachment**
-> Document getDataSampleAttachment(dataSampleId)
-
-Get document metadata of a DataSample attachment
-
-Data Samples may contain attachments such as prescriptions, reports, ... Use this method to get the document metadata information of an attachment
-
-### Example
-```kotlin
-// Import classes:
-//import io.icure.kraken.client.infrastructure.*
-//import io.icure.md.client.models.*
-
-val apiInstance = DataSampleApi()
-val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String | 
-try {
-    val result : Document = apiInstance.getDataSampleAttachment(dataSampleId)
-    println(result)
-} catch (e: ClientException) {
-    println("4xx response calling DataSampleApi#getDataSampleAttachment")
-    e.printStackTrace()
-} catch (e: ServerException) {
-    println("5xx response calling DataSampleApi#getDataSampleAttachment")
-    e.printStackTrace()
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **dataSampleId** | **kotlin.String**|  |
-
-### Return type
-
-[**Document**](Document.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: */*
-
 <a name="getDataSampleAttachmentContent"></a>
 # **getDataSampleAttachmentContent**
-> kotlin.collections.List&lt;kotlin.Any&gt; getDataSampleAttachmentContent(dataSampleId, attachmentId)
+> kotlinx.coroutines.flow.Flow&lt;java.nio.ByteBuffer&gt; getDataSampleAttachmentContent(dataSampleId, documentId, attachmentId)
 
 Get attachment content of a DataSample
 
@@ -413,9 +368,10 @@ Data Samples may contain attachments such as prescriptions, reports, ... Use thi
 
 val apiInstance = DataSampleApi()
 val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String | 
+val documentId : kotlin.String = documentId_example // kotlin.String | 
 val attachmentId : kotlin.String = attachmentId_example // kotlin.String | 
 try {
-    val result : kotlin.collections.List<kotlin.Any> = apiInstance.getDataSampleAttachmentContent(dataSampleId, attachmentId)
+    val result : kotlinx.coroutines.flow.Flow<java.nio.ByteBuffer> = apiInstance.getDataSampleAttachmentContent(dataSampleId, documentId, attachmentId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling DataSampleApi#getDataSampleAttachmentContent")
@@ -431,11 +387,61 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **dataSampleId** | **kotlin.String**|  |
+ **documentId** | **kotlin.String**|  |
  **attachmentId** | **kotlin.String**|  |
 
 ### Return type
 
-[**kotlin.collections.List&lt;kotlin.Any&gt;**](kotlin.Any.md)
+[**kotlinx.coroutines.flow.Flow&lt;java.nio.ByteBuffer&gt;**](kotlinx.coroutines.flow.Flow&lt;java.nio.ByteBuffer&gt;.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/octet-stream
+
+<a name="getDataSampleAttachmentDocument"></a>
+# **getDataSampleAttachmentDocument**
+> Document getDataSampleAttachmentDocument(dataSampleId, documentId)
+
+Get document metadata of a DataSample attachment
+
+Data Samples may contain attachments such as prescriptions, reports, ... Use this method to get the document metadata information of an attachment
+
+### Example
+```kotlin
+// Import classes:
+//import io.icure.kraken.client.infrastructure.*
+//import io.icure.md.client.models.*
+
+val apiInstance = DataSampleApi()
+val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String | 
+val documentId : kotlin.String = documentId_example // kotlin.String | 
+try {
+    val result : Document = apiInstance.getDataSampleAttachmentDocument(dataSampleId, documentId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling DataSampleApi#getDataSampleAttachmentDocument")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling DataSampleApi#getDataSampleAttachmentDocument")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **dataSampleId** | **kotlin.String**|  |
+ **documentId** | **kotlin.String**|  |
+
+### Return type
+
+[**Document**](Document.md)
 
 ### Authorization
 
@@ -495,7 +501,7 @@ No authorization required
 
 <a name="setDataSampleAttachment"></a>
 # **setDataSampleAttachment**
-> Document setDataSampleAttachment(dataSampleId, body, documentName, documentVersion, documentExternalUuid)
+> Document setDataSampleAttachment(dataSampleId, body, documentName, documentVersion, documentExternalUuid, documentLanguage)
 
 Add or update the attachment of a DataSample
 
@@ -513,8 +519,9 @@ val body : kotlinx.coroutines.flow.Flow<java.nio.ByteBuffer> = BINARY_DATA_HERE 
 val documentName : kotlin.String = documentName_example // kotlin.String | 
 val documentVersion : kotlin.String = documentVersion_example // kotlin.String | 
 val documentExternalUuid : kotlin.String = documentExternalUuid_example // kotlin.String | 
+val documentLanguage : kotlin.String = documentLanguage_example // kotlin.String | 
 try {
-    val result : Document = apiInstance.setDataSampleAttachment(dataSampleId, body, documentName, documentVersion, documentExternalUuid)
+    val result : Document = apiInstance.setDataSampleAttachment(dataSampleId, body, documentName, documentVersion, documentExternalUuid, documentLanguage)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling DataSampleApi#setDataSampleAttachment")
@@ -534,6 +541,7 @@ Name | Type | Description  | Notes
  **documentName** | **kotlin.String**|  | [optional]
  **documentVersion** | **kotlin.String**|  | [optional]
  **documentExternalUuid** | **kotlin.String**|  | [optional]
+ **documentLanguage** | **kotlin.String**|  | [optional]
 
 ### Return type
 
