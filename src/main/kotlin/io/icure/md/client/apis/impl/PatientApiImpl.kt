@@ -7,10 +7,10 @@ import io.icure.kraken.client.extendedapis.modifyPatient
 import io.icure.kraken.client.models.ListOfIdsDto
 import io.icure.md.client.apis.MedTechApi
 import io.icure.md.client.apis.PatientApi
+import io.icure.md.client.filter.Filter
 import io.icure.md.client.isUUID
 import io.icure.md.client.mappers.toPatient
 import io.icure.md.client.mappers.toPatientDto
-import io.icure.md.client.models.Filter
 import io.icure.md.client.models.PaginatedListPatient
 import io.icure.md.client.models.Patient
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -36,7 +36,11 @@ class PatientApiImpl(private val api: MedTechApi) : PatientApi {
             ?: throw IllegalArgumentException("Invalid user id")
     }
 
-    override suspend fun filterPatients(filter: Filter, nextPatientId: String?, limit: Int?): PaginatedListPatient {
+    override suspend fun filterPatients(
+        filter: Filter<Patient>,
+        nextPatientId: String?,
+        limit: Int?
+    ): PaginatedListPatient {
         TODO("Not yet implemented")
     }
 
@@ -47,7 +51,7 @@ class PatientApiImpl(private val api: MedTechApi) : PatientApi {
         return api.patientApi().getPatient(currentUser, id, patientCryptoConfig(localCrypto)).toPatient()
     }
 
-    override suspend fun matchPatients(filter: Filter): List<String> {
+    override suspend fun matchPatients(filter: Filter<Patient>): List<String> {
         TODO("Not yet implemented")
     }
 }

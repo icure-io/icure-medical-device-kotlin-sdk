@@ -3,9 +3,9 @@ package io.icure.md.client.apis.e2e
 import io.icure.kraken.client.infrastructure.Diff
 import io.icure.kraken.client.infrastructure.differences
 import io.icure.kraken.client.infrastructure.filterDiffs
-import io.icure.md.client.apis.DeviceApi
+import io.icure.md.client.apis.MedicalDeviceApi
 import io.icure.md.client.apis.MedTechApi
-import io.icure.md.client.apis.impl.DeviceApiImpl
+import io.icure.md.client.apis.impl.MedicalDeviceApiImpl
 import io.icure.md.client.models.MedicalDevice
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -34,7 +34,7 @@ internal class DeviceApiImplTest {
         .addKeyPair(healthcareProfessionalId, healthcareProfessionalPublicKey, healthcareProfessionalPrivateKey)
         .build()
 
-    private val testedInstance: DeviceApi = DeviceApiImpl(medTechApi)
+    private val testedInstance: MedicalDeviceApi = MedicalDeviceApiImpl(medTechApi)
 
     @Test
     @DisplayName("Create device test - HappyFlow")

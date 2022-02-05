@@ -2,11 +2,11 @@ package io.icure.md.client.apis.impl
 
 import io.icure.md.client.apis.CodingApi
 import io.icure.md.client.apis.MedTechApi
+import io.icure.md.client.filter.Filter
 import io.icure.md.client.isUUID
 import io.icure.md.client.mappers.toCodeDto
 import io.icure.md.client.mappers.toCoding
 import io.icure.md.client.models.Coding
-import io.icure.md.client.models.Filter
 import io.icure.md.client.models.PaginatedListCoding
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -36,7 +36,7 @@ class CodingApiImpl(private val api: MedTechApi) : CodingApi {
         return (createdCodeDtos + updatedCodeDtos).map { it.toCoding() }
     }
 
-    override suspend fun filterCoding(filter: Filter, nextCodingId: String?, limit: Int?): PaginatedListCoding {
+    override suspend fun filterCoding(filter: Filter<Coding>, nextCodingId: String?, limit: Int?): PaginatedListCoding {
         TODO("Not yet implemented")
     }
 
@@ -44,7 +44,7 @@ class CodingApiImpl(private val api: MedTechApi) : CodingApi {
         return api.codeApi().getCode(id).toCoding()
     }
 
-    override suspend fun matchCoding(filter: Filter): List<String> {
+    override suspend fun matchCoding(filter: Filter<Coding>): List<String> {
         TODO("Not yet implemented")
     }
 }

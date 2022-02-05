@@ -3,11 +3,11 @@ package io.icure.md.client.apis.impl
 import io.icure.kraken.client.models.FilterChainUser
 import io.icure.md.client.apis.MedTechApi
 import io.icure.md.client.apis.UserApi
+import io.icure.md.client.filter.Filter
 import io.icure.md.client.mappers.toAbstractFilterDtoUser
 import io.icure.md.client.mappers.toPaginatedListUser
 import io.icure.md.client.mappers.toUser
 import io.icure.md.client.mappers.toUserDto
-import io.icure.md.client.models.Filter
 import io.icure.md.client.models.User
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.*
@@ -28,7 +28,7 @@ class UserApiImpl(val api: MedTechApi) : UserApi {
     override suspend fun deleteUser(userId: String) =
         api.userApi().deleteUser(userId).rev ?: throw IllegalArgumentException("Invalid user id")
 
-    override suspend fun filterUsers(filter: Filter, nextUserId: String?, limit: Int?) =
+    override suspend fun filterUsers(filter: Filter<User>, nextUserId: String?, limit: Int?) =
         api.userApi().filterUsersBy(FilterChainUser(filter.toAbstractFilterDtoUser(), null), nextUserId, limit)
             .toPaginatedListUser()
 
@@ -36,5 +36,5 @@ class UserApiImpl(val api: MedTechApi) : UserApi {
 
     override suspend fun getUser(userId: String) = api.userApi().getUser(userId).toUser()
 
-    override suspend fun matchUsers(filter: Filter) = api.userApi().matchUsersBy(filter.toAbstractFilterDtoUser())
+    override suspend fun matchUsers(filter: Filter<User>) = api.userApi().matchUsersBy(filter.toAbstractFilterDtoUser())
 }

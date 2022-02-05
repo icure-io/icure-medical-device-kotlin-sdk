@@ -27,6 +27,7 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import io.icure.kraken.client.infrastructure.ByteArrayWrapper
 import io.icure.kraken.client.infrastructure.ByteArrayWrapperDeserializer
 import io.icure.kraken.client.infrastructure.ByteArrayWrapperSerializer
+import io.icure.kraken.client.models.filter.AbstractFilterDto
 import io.netty.buffer.ByteBuf
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
@@ -45,6 +46,7 @@ import java.nio.channels.FileChannel
 import java.nio.file.StandardOpenOption
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
+
 
 class TestUtils {
     companion object {

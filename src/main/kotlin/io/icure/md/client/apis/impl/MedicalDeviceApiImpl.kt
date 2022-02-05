@@ -2,21 +2,21 @@ package io.icure.md.client.apis.impl
 
 import io.icure.kraken.client.models.FilterChainDevice
 import io.icure.kraken.client.models.ListOfIdsDto
-import io.icure.md.client.apis.DeviceApi
 import io.icure.md.client.apis.MedTechApi
+import io.icure.md.client.apis.MedicalDeviceApi
+import io.icure.md.client.filter.Filter
 import io.icure.md.client.isUUID
 import io.icure.md.client.mappers.toAbstractFilterDtoDevice
 import io.icure.md.client.mappers.toDeviceDto
 import io.icure.md.client.mappers.toMedicalDevice
 import io.icure.md.client.mappers.toPaginatedListMedicalDevice
-import io.icure.md.client.models.Filter
 import io.icure.md.client.models.MedicalDevice
 import io.icure.md.client.models.PaginatedListMedicalDevice
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
-class DeviceApiImpl(private val api: MedTechApi) : DeviceApi {
+class MedicalDeviceApiImpl(private val api: MedTechApi) : MedicalDeviceApi {
 
     /**
      * Creates or modifies a [MedicalDevice]
@@ -79,7 +79,7 @@ class DeviceApiImpl(private val api: MedTechApi) : DeviceApi {
     }
 
     override suspend fun filterMedicalDevices(
-        filter: Filter,
+        filter: Filter<MedicalDevice>,
         nextUserId: String?,
         limit: Int?
     ): PaginatedListMedicalDevice {
@@ -104,7 +104,7 @@ class DeviceApiImpl(private val api: MedTechApi) : DeviceApi {
      * @param filter Search [Filter]
      * @return list of matched ids
      */
-    override suspend fun matchMedicalDevices(filter: Filter): List<String> {
+    override suspend fun matchMedicalDevices(filter: Filter<MedicalDevice>): List<String> {
         return api.deviceApi().matchDevicesBy(filter.toAbstractFilterDtoDevice())
     }
 }
