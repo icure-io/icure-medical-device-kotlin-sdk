@@ -1,11 +1,11 @@
 package io.icure.md.client.apis.impl
 
-import io.icure.kraken.client.models.FilterChainHealthcareParty
 import io.icure.kraken.client.models.ListOfIdsDto
+import io.icure.kraken.client.models.filter.chain.FilterChain
 import io.icure.md.client.apis.HealthcareProfessionalApi
 import io.icure.md.client.apis.MedTechApi
 import io.icure.md.client.filter.Filter
-import io.icure.md.client.mappers.toAbstractFilterDtoHealthcareParty
+import io.icure.md.client.mappers.toAbstractFilterDto
 import io.icure.md.client.mappers.toHealthcarePartyDto
 import io.icure.md.client.mappers.toHealthcareProfessional
 import io.icure.md.client.mappers.toPaginatedListHealthcareProfessional
@@ -30,7 +30,7 @@ class HealthcareProfessionalApiImpl(val api: MedTechApi) : HealthcareProfessiona
         nextHcpId: String?,
         limit: Int?
     ) = api.hcpApi().filterHealthPartiesBy(
-        FilterChainHealthcareParty(filter.toAbstractFilterDtoHealthcareParty(), null),
+        FilterChain(filter.toAbstractFilterDto(), null),
         nextHcpId,
         limit
     )
@@ -40,5 +40,5 @@ class HealthcareProfessionalApiImpl(val api: MedTechApi) : HealthcareProfessiona
         api.hcpApi().getHealthcareParty(hcpId).toHealthcareProfessional()
 
     override suspend fun matchHealthcareProfessionalBy(filter: Filter<HealthcareProfessional>) =
-        api.hcpApi().matchHealthcarePartiesBy(filter.toAbstractFilterDtoHealthcareParty())
+        api.hcpApi().matchHealthcarePartiesBy(filter.toAbstractFilterDto())
 }

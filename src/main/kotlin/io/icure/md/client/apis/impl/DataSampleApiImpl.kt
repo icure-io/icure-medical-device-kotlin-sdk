@@ -14,13 +14,13 @@ import io.icure.kraken.client.extendedapis.getPatient
 import io.icure.kraken.client.extendedapis.listServices
 import io.icure.kraken.client.extendedapis.modifyDocument
 import io.icure.kraken.client.extendedapis.setDocumentAttachment
-import io.icure.kraken.client.models.FilterChainContact
 import io.icure.kraken.client.models.ListOfIdsDto
 import io.icure.kraken.client.models.UserDto
 import io.icure.kraken.client.models.decrypted.ContactDto
 import io.icure.kraken.client.models.decrypted.DocumentDto
 import io.icure.kraken.client.models.decrypted.PatientDto
 import io.icure.kraken.client.models.decrypted.ServiceDto
+import io.icure.kraken.client.models.filter.chain.FilterChain
 import io.icure.kraken.client.models.filter.contact.ContactByServiceIdsFilter
 import io.icure.md.client.apis.DataSampleApi
 import io.icure.md.client.apis.MedTechApi
@@ -209,7 +209,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
 
         val existingContacts = contactApi
             .filterContactsBy(
-                currentUser, FilterChainContact(ContactByServiceIdsFilter(ids = dataSampleIds)), null, null,
+                currentUser, FilterChain(ContactByServiceIdsFilter(ids = dataSampleIds)), null, null,
                 dataSampleIds.size, null, null, null, contactCryptoConfig(localCrypto, currentUser)
             )
             .rows
