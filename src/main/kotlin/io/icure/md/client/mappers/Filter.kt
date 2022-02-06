@@ -33,6 +33,7 @@ inline fun <reified F:Any, reified T:Any> Filter<F>.toAbstractFilterDto() = this
 fun <F:Any, T:Any> Filter<F>.toAbstractFilterDto(from: KClass<F>, to: KClass<T>): AbstractFilterDto<T> = when {
     from == Coding::class && to == CodeDto::class-> (this as Filter<Coding>).codingFilterToAbstractCodeFilterDto() as AbstractFilterDto<T>
     from == DataSample::class && to == ServiceDto::class-> (this as Filter<DataSample>).dataSampleFilterToAbstractServiceFilterDto() as AbstractFilterDto<T>
+    from == MedicalDevice::class && to == DeviceDto::class-> (this as Filter<MedicalDevice>).medicalDeviceFilterToAbstractDeviceFilterDto() as AbstractFilterDto<T>
     from == HealthcareProfessional::class && to == HealthcarePartyDto::class-> (this as Filter<HealthcareProfessional>).healthcareProfessionalFilterToAbstractHealthcarePartyFilterDto() as AbstractFilterDto<T>
     from == HealthcareElement::class && to == HealthElementDto::class-> (this as Filter<HealthcareElement>).healthcareElementFilterToAbstractHealthElementFilterDto() as AbstractFilterDto<T>
     from == Patient::class && to == PatientDto::class-> (this as Filter<Patient>).patientFilterToAbstractPatientFilterDto() as AbstractFilterDto<T>
