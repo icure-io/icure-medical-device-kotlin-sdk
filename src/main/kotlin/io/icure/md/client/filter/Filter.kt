@@ -15,12 +15,38 @@ package io.icure.md.client.filter
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.github.pozo.KotlinBuilder
+import io.icure.kraken.client.models.filter.hcparty.AllHealthcarePartiesFilter
+import io.icure.kraken.client.models.filter.hcparty.HealthcarePartyByIdsFilter
+import io.icure.md.client.filter.coding.AllCodesFilter
+import io.icure.md.client.filter.coding.CodeByIdsFilter
+import io.icure.md.client.filter.datasample.DataSampleByHealthcarePartyFilter
+import io.icure.md.client.filter.datasample.DataSampleByIdsFilter
+import io.icure.md.client.filter.device.AllDevicesFilter
+import io.icure.md.client.filter.device.DeviceByIdsFilter
+import io.icure.md.client.filter.hcp.AllHealthcareProfessionalsFilter
+import io.icure.md.client.filter.hcp.HealthcareProfessionalByIdsFilter
+import io.icure.md.client.filter.healthcareelement.HealthcareElementByHealthcarePartyFilter
+import io.icure.md.client.filter.healthcareelement.HealthcareElementByIdsFilter
 import io.icure.md.client.filter.patient.PatientByHealthcarePartyAndIdentifiersFilter
+import io.icure.md.client.filter.patient.PatientByHealthcarePartyDateOfBirthBetweenFilter
+import io.icure.md.client.filter.patient.PatientByHealthcarePartyFilter
 import io.icure.md.client.filter.patient.PatientByHealthcarePartyGenderEducationProfession
+import io.icure.md.client.filter.patient.PatientByHealthcarePartyNameContainsFuzzyFilter
 import io.icure.md.client.filter.patient.PatientByHealthcarePartyNameFilter
+import io.icure.md.client.filter.patient.PatientByIdsFilter
+import io.icure.md.client.filter.user.AllUsersFilter
+import io.icure.md.client.filter.user.UserByIdsFilter
+import io.icure.md.client.models.Coding
+import io.icure.md.client.models.DataSample
+import io.icure.md.client.models.HealthcareElement
 import io.icure.md.client.models.HealthcareProfessional
 import io.icure.md.client.models.Identifier
+import io.icure.md.client.models.MedicalDevice
 import io.icure.md.client.models.Patient
+import io.icure.md.client.models.User
+import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
+import java.time.temporal.TemporalUnit
 
 /**
  *
@@ -88,8 +114,88 @@ open class CompoundFilterBuilder<T>(parent: FilterBuilder<T>? = null) : FilterBu
 class UnionFilterBuilder<T>(parent: FilterBuilder<T>? = null) : CompoundFilterBuilder<T>(parent) {
     override fun build() = UnionFilter(null, compoundedFilterBuilders.map { it(hcp()) })
 }
+
 class IntersectionFilterBuilder<T>(parent: FilterBuilder<T>? = null) : CompoundFilterBuilder<T>(parent) {
     override fun build() = IntersectionFilter(null, compoundedFilterBuilders.map { it(hcp()) })
+}
+
+inline fun <reified T : Any> FilterBuilder<T>.all() = when (T::class) {
+    Coding::class -> (this as FilterBuilder<Coding>).allCodings()
+    DataSample::class -> (this as FilterBuilder<DataSample>).allDataSamples()
+    MedicalDevice::class -> (this as FilterBuilder<MedicalDevice>).allMedicalDevices()
+    HealthcareProfessional::class -> (this as FilterBuilder<HealthcareProfessional>).allHealthcareProfessionals()
+    HealthcareElement::class -> (this as FilterBuilder<HealthcareElement>).allHealthcareElements()
+    Patient::class -> (this as FilterBuilder<Patient>).allPatients()
+    User::class -> (this as FilterBuilder<User>).allUsers()
+    else -> throw IllegalArgumentException("All is not supported fot ${T::class}")
+}
+
+inline fun <reified T : Any> FilterBuilder<T>.byIds(vararg ids: String) = when (T::class) {
+    Coding::class -> (this as FilterBuilder<Coding>).codingsByIds(*ids)
+    DataSample::class -> (this as FilterBuilder<DataSample>).dataSamplesByIds(*ids)
+    MedicalDevice::class -> (this as FilterBuilder<MedicalDevice>).medicalDevicesByIds(*ids)
+    HealthcareProfessional::class -> (this as FilterBuilder<HealthcareProfessional>).healthcareProfessionalsByIds(*ids)
+    HealthcareElement::class -> (this as FilterBuilder<HealthcareElement>).healthcareElementsByIds(*ids)
+    Patient::class -> (this as FilterBuilder<Patient>).patientsByIds(*ids)
+    User::class -> (this as FilterBuilder<User>).usersByIds(*ids)
+    else -> throw IllegalArgumentException("All is not supported fot ${T::class}")
+}
+
+fun FilterBuilder<Coding>.allCodings() {
+    this.registerInParent { hcp -> AllCodesFilter(null) }
+}
+
+fun FilterBuilder<Coding>.codingsByIds(vararg ids: String) {
+    this.registerInParent { hcp -> CodeByIdsFilter(null, ids.toSet()) }
+}
+
+fun FilterBuilder<DataSample>.allDataSamples() {
+    this.registerInParent { hcp ->
+        DataSampleByHealthcarePartyFilter(
+            hcp?.id
+                ?: throw IllegalArgumentException("DataSampleByHealthcarePartyFilter needs a hcp to be registered in the builder using a forHcp call"),
+            null
+        )
+    }
+}
+
+fun FilterBuilder<DataSample>.dataSamplesByIds(vararg ids: String) {
+    this.registerInParent { hcp -> DataSampleByIdsFilter(ids.toSet(), null) }
+}
+
+fun FilterBuilder<MedicalDevice>.allMedicalDevices() {
+    this.registerInParent { hcp -> AllDevicesFilter(null) }
+}
+
+fun FilterBuilder<MedicalDevice>.medicalDevicesByIds(vararg ids: String) {
+    this.registerInParent { hcp -> DeviceByIdsFilter(ids.toSet(), null) }
+}
+
+fun FilterBuilder<HealthcareProfessional>.allHealthcareProfessionals() {
+    this.registerInParent { hcp -> AllHealthcareProfessionalsFilter(null) }
+}
+
+fun FilterBuilder<HealthcareProfessional>.healthcareProfessionalsByIds(vararg ids: String) {
+    this.registerInParent { hcp -> HealthcareProfessionalByIdsFilter(ids.toSet(), null) }
+}
+
+fun FilterBuilder<HealthcareElement>.allHealthcareElements() {
+    this.registerInParent { hcp -> HealthcareElementByHealthcarePartyFilter(
+        hcp?.id
+            ?: throw IllegalArgumentException("HealthcareElementByHealthcarePartyFilter needs a hcp to be registered in the builder using a forHcp call"),
+        null) }
+}
+
+fun FilterBuilder<HealthcareElement>.healthcareElementsByIds(vararg ids: String) {
+    this.registerInParent { hcp -> HealthcareElementByIdsFilter(ids.toSet(), null) }
+}
+
+fun FilterBuilder<Patient>.allPatients() {
+    this.registerInParent { hcp -> PatientByHealthcarePartyFilter(null, hcp?.id) }
+}
+
+fun FilterBuilder<Patient>.patientsByIds(vararg ids: String) {
+    this.registerInParent { hcp -> PatientByIdsFilter(null, ids.toList()) }
 }
 
 fun FilterBuilder<Patient>.byIdentifiers(vararg identifiers: Identifier) {
@@ -114,9 +220,33 @@ fun FilterBuilder<Patient>.byName(name: String) {
     }
 }
 
-fun FilterBuilder<Patient>.byGenderEducation(gender: Patient.Gender, education: String) {
+fun FilterBuilder<Patient>.byFuzzyName(name: String) {
     this.registerInParent { hcp ->
-        PatientByHealthcarePartyGenderEducationProfession(
+        PatientByHealthcarePartyNameContainsFuzzyFilter(
+            null,
+            name,
+            hcp?.id
+                ?: throw IllegalArgumentException("PatientByHealthcarePartyAndIdentifiersFilter needs a hcp to be registered in the builder using a forHcp call"),
+        )
+    }
+}
+
+fun FilterBuilder<Patient>.byGenderEducation(gender: Patient.Gender, education: String) =
+    PatientByHealthcarePartyGenderEducationProfessionBuilder(
+        gender,
+        education,
+    ).also {
+        this.registerInParent { hcp -> it.forHcp(hcp).build() }
+    }
+
+class PatientByHealthcarePartyGenderEducationProfessionBuilder(
+    var gender: Patient.Gender? = null,
+    var education: String? = null,
+    var profession: String? = null
+) : FilterBuilder<Patient>() {
+    fun byProfession(profession: String) = this.also { it.profession = profession }
+    override fun build(): PatientByHealthcarePartyGenderEducationProfession {
+        return PatientByHealthcarePartyGenderEducationProfession(
             null,
             hcp?.id
                 ?: throw IllegalArgumentException("PatientByHealthcarePartyAndIdentifiersFilter needs a hcp to be registered in the builder using a forHcp call"),
@@ -125,3 +255,29 @@ fun FilterBuilder<Patient>.byGenderEducation(gender: Patient.Gender, education: 
         )
     }
 }
+
+fun FilterBuilder<Patient>.byDateOfBirth(after: LocalDateTime?, before: LocalDateTime?) {
+    this.registerInParent { hcp ->
+        PatientByHealthcarePartyDateOfBirthBetweenFilter(
+            null,
+            after?.let { "${it.year}${it.month}${it.dayOfMonth}".toInt() },
+            before?.let { "${it.year}${it.month}${it.dayOfMonth}".toInt() }
+        )
+    }
+}
+
+fun FilterBuilder<Patient>.byAge(age: Int, units: TemporalUnit = ChronoUnit.YEARS) {
+    this.byDateOfBirth(
+        LocalDateTime.now().minusYears(age.toLong() + 1).plusDays(1),
+        LocalDateTime.now().minusYears(age.toLong())
+    )
+}
+
+fun FilterBuilder<User>.allUsers() {
+    this.registerInParent { hcp -> AllUsersFilter(null) }
+}
+
+fun FilterBuilder<User>.usersByIds(vararg ids: String) {
+    this.registerInParent { hcp -> UserByIdsFilter(ids.toSet(), null) }
+}
+
