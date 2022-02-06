@@ -61,7 +61,7 @@ internal class FilterTest {
                 byIdentifiers( Identifier("pat-1"), Identifier("pat-2") )
                 intersection {
                     byName("Churchill")
-                    byGenderEducation(Patient.Gender.male, "college")
+                    byGenderEducation(Patient.Gender.male, "college").byProfession("lawyer")
                 }
             }
         }.build()
