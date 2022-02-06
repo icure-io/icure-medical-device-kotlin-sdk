@@ -2,6 +2,7 @@ package io.icure.md.client.filter.unit
 
 import io.icure.kraken.client.infrastructure.Diff
 import io.icure.md.client.filter.UnionFilter
+import io.icure.md.client.filter.byAge
 import io.icure.md.client.filter.byGenderEducation
 import io.icure.md.client.filter.byIdentifiers
 import io.icure.md.client.filter.byName
@@ -24,14 +25,15 @@ import org.junit.jupiter.api.TestInstance
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class FilterTest {
     @Test
-    internal fun dslTest() {
+    internal fun dslPatientTest() {
         val filter = filter<Patient> {
             forHcp(HealthcareProfessional(id = "123"))
             union {
                 byIdentifiers( Identifier("pat-1"), Identifier("pat-2") )
                 intersection {
                     byName("Churchill")
-                    byGenderEducation(Patient.Gender.male, "college")
+                    byGenderEducation(Patient.Gender.male, "college").byProfession("lawyer")
+                    byAge(30)
                 }
             }
         }.build()
@@ -61,7 +63,7 @@ internal class FilterTest {
                 byIdentifiers( Identifier("pat-1"), Identifier("pat-2") )
                 intersection {
                     byName("Churchill")
-                    byGenderEducation(Patient.Gender.male, "college").byProfession("lawyer")
+                    byGenderEducation(Patient.Gender.male, "master")
                 }
             }
         }.build()

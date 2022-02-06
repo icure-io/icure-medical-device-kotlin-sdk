@@ -45,6 +45,7 @@ import io.icure.md.client.models.MedicalDevice
 import io.icure.md.client.models.Patient
 import io.icure.md.client.models.User
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.time.temporal.TemporalUnit
 
@@ -258,10 +259,11 @@ class PatientByHealthcarePartyGenderEducationProfessionBuilder(
 
 fun FilterBuilder<Patient>.byDateOfBirth(after: LocalDateTime?, before: LocalDateTime?) {
     this.registerInParent { hcp ->
+        val formatter = DateTimeFormatter.ofPattern("yyyyMMdd")
         PatientByHealthcarePartyDateOfBirthBetweenFilter(
             null,
-            after?.let { "${it.year}${it.month}${it.dayOfMonth}".toInt() },
-            before?.let { "${it.year}${it.month}${it.dayOfMonth}".toInt() }
+            after?.format(formatter)?.toInt(),
+            before?.format(formatter)?.toInt(),
         )
     }
 }
