@@ -135,22 +135,16 @@ data class HealthcareProfessional(
     enum class Gender(val value: kotlin.String) {
         @JsonProperty(value = "male")
         male("male"),
-
         @JsonProperty(value = "female")
         female("female"),
-
         @JsonProperty(value = "indeterminate")
         indeterminate("indeterminate"),
-
         @JsonProperty(value = "changed")
         changed("changed"),
-
         @JsonProperty(value = "changedToMale")
         changedToMale("changedToMale"),
-
         @JsonProperty(value = "changedToFemale")
         changedToFemale("changedToFemale"),
-
         @JsonProperty(value = "unknown")
         unknown("unknown");
     }

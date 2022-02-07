@@ -35,12 +35,17 @@ All URIs are relative to *http://localhost:8912*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*CodingApi* | [**createOrModifyCoding**](docs/CodingApi.md#createormodifycoding) | **PUT** /rest/v2/coding | Create or update a [Coding]
-*CodingApi* | [**createOrModifyCodings**](docs/CodingApi.md#createormodifycodings) | **PUT** /rest/v2/coding/batch | Create or update a batch of [Coding]
-*CodingApi* | [**filterCoding**](docs/CodingApi.md#filtercoding) | **POST** /rest/v2/coding/filter | Load codings from the database by filtering them using the provided [filter].
+*CodingApi* | [**createOrModifyCoding**](docs/CodingApi.md#createormodifycoding) | **
+PUT** /rest/v2/coding | Create or update a [Coding]
+*CodingApi* | [**createOrModifyCodings**](docs/CodingApi.md#createormodifycodings) | **
+PUT** /rest/v2/coding/batch | Create or update a batch of [Coding]
+*CodingApi* | [**filterCoding**](docs/CodingApi.md#filtercoding) | **
+POST** /rest/v2/coding/filter | Load codings from the database by filtering them using the provided [filter].
 *CodingApi* | [**getCoding**](docs/CodingApi.md#getcoding) | **GET** /rest/v2/coding/{codingId} | Get a [Coding]
-*CodingApi* | [**matchCoding**](docs/CodingApi.md#matchcoding) | **POST** /rest/v2/coding/match | Load coding ids from the database by filtering them using the provided [filter].
-*DataSampleApi* | [**createOrModifyDataSampleFor**](docs/DataSampleApi.md#createormodifydatasamplefor) | **PUT** /rest/v2/data/sample/for/{patientId} | Create or update a [DataSample] for a patient
+*CodingApi* | [**matchCoding**](docs/CodingApi.md#matchcoding) | **
+POST** /rest/v2/coding/match | Load coding ids from the database by filtering them using the provided [filter].
+*DataSampleApi* | [**createOrModifyDataSampleFor**](docs/DataSampleApi.md#createormodifydatasamplefor) | **
+PUT** /rest/v2/data/sample/for/{patientId} | Create or update a [DataSample] for a patient
 *DataSampleApi* | [**createOrModifyDataSamplesFor**](docs/DataSampleApi.md#createormodifydatasamplesfor) | **
 PUT** /rest/v2/data/sample/batch/for/{patientId} | Create or update a batch of [DataSample] for a patient
 *DataSampleApi* | [**deleteAttachment**](docs/DataSampleApi.md#deleteattachment) | **
@@ -102,15 +107,23 @@ POST** /rest/v2/medical/device/batch | Delete a batch of [MedicalDevice]
 POST** /rest/v2/medical/device/filter | Load devices from the database by filtering them using the provided [filter].
 *MedicalDeviceApi* | [**getMedicalDevice**](docs/MedicalDeviceApi.md#getmedicaldevice) | **
 GET** /rest/v2/medical/device/{medicalDeviceId} | Get a Medical Device
-*MedicalDeviceApi* | [**matchMedicalDevices**](docs/MedicalDeviceApi.md#matchmedicaldevices) | **POST** /rest/v2/medical/device/match | Load medical device ids from the database by filtering them using the provided Filter.
-*PatientApi* | [**createOrModifyPatient**](docs/PatientApi.md#createormodifypatient) | **PUT** /rest/v2/patient | Create or update a [Patient]
-*PatientApi* | [**deletePatient**](docs/PatientApi.md#deletepatient) | **DELETE** /rest/v2/patient/{patientId} | Delete a [Patient]
-*PatientApi* | [**filterPatients**](docs/PatientApi.md#filterpatients) | **POST** /rest/v2/patient/filter | Load patients from the database by filtering them using the provided [filter].
+*MedicalDeviceApi* | [**matchMedicalDevices**](docs/MedicalDeviceApi.md#matchmedicaldevices) | **
+POST** /rest/v2/medical/device/match | Load medical device ids from the database by filtering them using the provided Filter.
+*PatientApi* | [**createOrModifyPatient**](docs/PatientApi.md#createormodifypatient) | **
+PUT** /rest/v2/patient | Create or update a [Patient]
+*PatientApi* | [**deletePatient**](docs/PatientApi.md#deletepatient) | **
+DELETE** /rest/v2/patient/{patientId} | Delete a [Patient]
+*PatientApi* | [**filterPatients**](docs/PatientApi.md#filterpatients) | **
+POST** /rest/v2/patient/filter | Load patients from the database by filtering them using the provided [filter].
 *PatientApi* | [**getPatient**](docs/PatientApi.md#getpatient) | **GET** /rest/v2/patient/{patientId} | Get a [Patient]
-*PatientApi* | [**matchPatients**](docs/PatientApi.md#matchpatients) | **POST** /rest/v2/patient/match | Load patient ids from the database by filtering them using the provided [filter].
-*UserApi* | [**checkTokenValidity**](docs/UserApi.md#checktokenvalidity) | **GET** /rest/v2/user/token/{userId} | Check token validity for a user.
-*UserApi* | [**createOrModifyUser**](docs/UserApi.md#createormodifyuser) | **PUT** /rest/v2/user | Create a new user or modify an existing one.
-*UserApi* | [**createToken**](docs/UserApi.md#createtoken) | **POST** /rest/v2/user/token/{userId} | Create a token for a user.
+*PatientApi* | [**matchPatients**](docs/PatientApi.md#matchpatients) | **
+POST** /rest/v2/patient/match | Load patient ids from the database by filtering them using the provided [filter].
+*UserApi* | [**checkTokenValidity**](docs/UserApi.md#checktokenvalidity) | **
+GET** /rest/v2/user/token/{userId} | Check token validity for a user.
+*UserApi* | [**createOrModifyUser**](docs/UserApi.md#createormodifyuser) | **
+PUT** /rest/v2/user | Create a new user or modify an existing one.
+*UserApi* | [**createToken**](docs/UserApi.md#createtoken) | **
+POST** /rest/v2/user/token/{userId} | Create a token for a user.
 *UserApi* | [**deleteUser**](docs/UserApi.md#deleteuser) | **DELETE** /rest/v2/user/{userId} | Delete an existing user.
 *UserApi* | [**filterUsers**](docs/UserApi.md#filterusers) | **POST** /rest/v2/user/filter | Load users from the database by filtering them using the provided Filter.
 *UserApi* | [**getLoggedUser**](docs/UserApi.md#getloggeduser) | **GET** /rest/v2/user | Get the details of the logged User.
