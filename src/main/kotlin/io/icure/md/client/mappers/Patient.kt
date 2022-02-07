@@ -2,6 +2,7 @@ package io.icure.md.client.mappers
 
 import io.icure.kraken.client.models.decrypted.PatientDto
 import io.icure.md.client.models.Patient
+import io.icure.md.client.models.SystemMetaDataOwnerEncrypted
 import java.util.*
 
 fun PatientDto.toPatient() = Patient(
@@ -54,6 +55,14 @@ fun PatientDto.toPatient() = Patient(
     ethnicity = this.ethnicity,
     picture = this.picture,
     externalId = this.externalId,
+    systemMetaData = SystemMetaDataOwnerEncrypted(
+        this.hcPartyKeys,
+        this.privateKeyShamirPartitions,
+        this.secretForeignKeys,
+        this.cryptedForeignKeys?.mapValues { (k, v) -> v.map { it.toDelegation() }.toSet() },
+        this.delegations?.mapValues { (k, v) -> v.map { it.toDelegation() }.toSet() },
+        this.encryptionKeys?.mapValues { (k, v) -> v.map { it.toDelegation() }.toSet() }
+    )
 )
 
 fun PatientDto.DeactivationReason.toDeactivationReason() = Patient.DeactivationReason.valueOf(this.name)
@@ -117,6 +126,16 @@ fun Patient.toPatientDto() = PatientDto(
     ethnicity = this.ethnicity,
     picture = this.picture,
     externalId = this.externalId,
+    hcPartyKeys = this.systemMetaData?.hcPartyKeys ?: emptyMap(),
+    privateKeyShamirPartitions = this.systemMetaData?.privateKeyShamirPartitions ?: emptyMap(),
+    secretForeignKeys = this.systemMetaData?.secretForeignKeys ?: listOf(),
+    cryptedForeignKeys = this.systemMetaData?.cryptedForeignKeys?.mapValues { (k, v) ->
+        v.map { it.toDelegationDto() }.toSet()
+    } ?: emptyMap(),
+    delegations = this.systemMetaData?.delegations?.mapValues { (k, v) -> v.map { it.toDelegationDto() }.toSet() }
+        ?: emptyMap(),
+    encryptionKeys = this.systemMetaData?.encryptionKeys?.mapValues { (k, v) -> v.map { it.toDelegationDto() }.toSet() }
+        ?: emptyMap(),
 )
 
 fun Patient.DeactivationReason.toDeactivationReason() = PatientDto.DeactivationReason.valueOf(this.name)

@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **closingDate** | **kotlin.Long** | The date (unix epoch in ms) marking the end of the healthcare element. |  [optional]
 **description** | **kotlin.String** | Description of the healthcare element. |  [optional]
 **note** | **kotlin.String** | A text note (can be confidential, encrypted by default). |  [optional]
+**systemMetaData** | [**SystemMetaDataEncrypted**](SystemMetaDataEncrypted.md) |  |  [optional]
 
 
 

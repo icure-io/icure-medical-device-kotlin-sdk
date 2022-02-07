@@ -2,6 +2,7 @@ package io.icure.md.client.mappers
 
 import io.icure.kraken.client.models.DeviceDto
 import io.icure.md.client.models.MedicalDevice
+import io.icure.md.client.models.SystemMetaDataOwner
 import java.util.*
 
 fun DeviceDto.toMedicalDevice() = MedicalDevice(
@@ -25,6 +26,10 @@ fun DeviceDto.toMedicalDevice() = MedicalDevice(
     serialNumber = this.serialNumber,
     parentId = this.parentId,
     picture = this.picture,
+    systemMetaData = SystemMetaDataOwner(
+        this.hcPartyKeys,
+        this.privateKeyShamirPartitions,
+    )
 )
 
 fun MedicalDevice.toDeviceDto() = DeviceDto(
@@ -54,4 +59,6 @@ fun MedicalDevice.toDeviceDto() = DeviceDto(
     serialNumber = this.serialNumber,
     parentId = this.parentId,
     picture = this.picture,
+    hcPartyKeys = this.systemMetaData?.hcPartyKeys ?: emptyMap(),
+    privateKeyShamirPartitions = this.systemMetaData?.privateKeyShamirPartitions ?: emptyMap(),
 )

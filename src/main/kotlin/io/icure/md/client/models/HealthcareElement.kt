@@ -38,6 +38,7 @@ import com.github.pozo.KotlinBuilder
  * @param closingDate The date (unix epoch in ms) marking the end of the healthcare element.
  * @param description Description of the healthcare element.
  * @param note A text note (can be confidential, encrypted by default).
+ * @param systemMetaData
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -105,7 +106,10 @@ data class HealthcareElement(
 
     /* A text note (can be confidential, encrypted by default). */
     @field:JsonProperty("note")
-    val note: kotlin.String? = null
+    val note: kotlin.String? = null,
+
+    @field:JsonProperty("systemMetaData")
+    val systemMetaData: SystemMetaDataEncrypted? = null
 
 )
 

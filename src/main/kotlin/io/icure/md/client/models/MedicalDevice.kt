@@ -40,6 +40,7 @@ import com.github.pozo.KotlinBuilder
  * @param parentId
  * @param picture Picture of the device/application
  * @param properties
+ * @param systemMetaData
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -123,7 +124,10 @@ data class MedicalDevice(
     val picture: kotlin.collections.List<io.icure.kraken.client.infrastructure.ByteArrayWrapper>? = null,
 
     @field:JsonProperty("properties")
-    val properties: kotlin.collections.List<Property> = emptyList()
+    val properties: kotlin.collections.List<Property> = emptyList(),
+
+    @field:JsonProperty("systemMetaData")
+    val systemMetaData: SystemMetaDataOwner? = null
 
 )
 
