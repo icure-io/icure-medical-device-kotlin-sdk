@@ -65,7 +65,7 @@ class MedicalDeviceApiImpl(private val api: MedTechApi) : MedicalDeviceApi {
      * @return id of the deleted device
      */
     override suspend fun deleteMedicalDevice(id: String): String {
-        return api.deviceApi().deleteDevice(id).id!!
+        return api.deviceApi().deleteDevice(id).rev ?: throw IllegalArgumentException("Invalid medical device id")
     }
 
     /**
