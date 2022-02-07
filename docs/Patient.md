@@ -53,6 +53,7 @@ Name | Type | Description | Notes
 **patientProfessions** | [**kotlin.collections.List&lt;CodingReference&gt;**](CodingReference.md) | Codified list of professions exercised by this patient. | 
 **parameters** | **kotlin.collections.Map&lt;kotlin.String, kotlin.collections.List&lt;kotlin.String&gt;&gt;** | Extra parameters | 
 **properties** | [**kotlin.collections.Set&lt;Property&gt;**](Property.md) | Extra properties | 
+**systemMetaData** | [**SystemMetaDataOwnerEncrypted**](SystemMetaDataOwnerEncrypted.md) |  |  [optional]
 
 
 <a name="GenderEnum"></a>

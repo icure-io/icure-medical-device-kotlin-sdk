@@ -39,6 +39,7 @@ import com.github.pozo.KotlinBuilder
  * @param specialityCodes Medical specialty of the healthcare party codified using FHIR or Kmehr codificaiton scheme
  * @param notes Text notes.
  * @param properties
+ * @param systemMetaData
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -119,7 +120,10 @@ data class HealthcareProfessional(
     val notes: kotlin.String? = null,
 
     @field:JsonProperty("properties")
-    val properties: kotlin.collections.List<Property> = emptyList()
+    val properties: kotlin.collections.List<Property> = emptyList(),
+
+    @field:JsonProperty("systemMetaData")
+    val systemMetaData: SystemMetaDataOwner? = null
 
 ) {
 

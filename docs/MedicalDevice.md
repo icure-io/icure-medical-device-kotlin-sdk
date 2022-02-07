@@ -24,6 +24,7 @@ Name | Type | Description | Notes
 **parentId** | **kotlin.String** |  |  [optional]
 **picture** | [**kotlin.collections.List&lt;io.icure.kraken.client.infrastructure.ByteArrayWrapper&gt;**](io.icure.kraken.client.infrastructure.ByteArrayWrapper.md) | Picture of the device/application |  [optional]
 **properties** | [**kotlin.collections.Set&lt;Property&gt;**](Property.md) |  | 
+**systemMetaData** | [**SystemMetaDataOwner**](SystemMetaDataOwner.md) |  |  [optional]
 
 
 

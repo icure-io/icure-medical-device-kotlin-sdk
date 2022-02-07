@@ -15,17 +15,23 @@ package io.icure.md.client.filter
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.github.pozo.KotlinBuilder
-import io.icure.kraken.client.models.filter.hcparty.AllHealthcarePartiesFilter
-import io.icure.kraken.client.models.filter.hcparty.HealthcarePartyByIdsFilter
+
+import io.icure.kraken.client.crypto.LocalCrypto
 import io.icure.md.client.filter.coding.AllCodesFilter
 import io.icure.md.client.filter.coding.CodeByIdsFilter
 import io.icure.md.client.filter.datasample.DataSampleByHealthcarePartyFilter
+import io.icure.md.client.filter.datasample.DataSampleByHealthcarePartyIdentifiersFilter
+import io.icure.md.client.filter.datasample.DataSampleByHealthcarePartyLabelCodeDateFilter
 import io.icure.md.client.filter.datasample.DataSampleByIdsFilter
+import io.icure.md.client.filter.datasample.DataSampleByPatientFilter
 import io.icure.md.client.filter.device.AllDevicesFilter
 import io.icure.md.client.filter.device.DeviceByIdsFilter
 import io.icure.md.client.filter.hcp.AllHealthcareProfessionalsFilter
 import io.icure.md.client.filter.hcp.HealthcareProfessionalByIdsFilter
 import io.icure.md.client.filter.healthcareelement.HealthcareElementByHealthcarePartyFilter
+import io.icure.md.client.filter.healthcareelement.HealthcareElementByHealthcarePartyIdentifiersFilter
+import io.icure.md.client.filter.healthcareelement.HealthcareElementByHealthcarePartyLabelCodeFilter
+import io.icure.md.client.filter.healthcareelement.HealthcareElementByHealthcarePartyPatientFilter
 import io.icure.md.client.filter.healthcareelement.HealthcareElementByIdsFilter
 import io.icure.md.client.filter.patient.PatientByHealthcarePartyAndIdentifiersFilter
 import io.icure.md.client.filter.patient.PatientByHealthcarePartyDateOfBirthBetweenFilter
@@ -36,6 +42,7 @@ import io.icure.md.client.filter.patient.PatientByHealthcarePartyNameFilter
 import io.icure.md.client.filter.patient.PatientByIdsFilter
 import io.icure.md.client.filter.user.AllUsersFilter
 import io.icure.md.client.filter.user.UserByIdsFilter
+import io.icure.md.client.mappers.toDelegationDto
 import io.icure.md.client.models.Coding
 import io.icure.md.client.models.DataSample
 import io.icure.md.client.models.HealthcareElement
@@ -44,6 +51,7 @@ import io.icure.md.client.models.Identifier
 import io.icure.md.client.models.MedicalDevice
 import io.icure.md.client.models.Patient
 import io.icure.md.client.models.User
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -142,6 +150,114 @@ inline fun <reified T : Any> FilterBuilder<T>.byIds(vararg ids: String) = when (
     else -> throw IllegalArgumentException("All is not supported fot ${T::class}")
 }
 
+inline fun <reified T : Any> FilterBuilder<T>.byIdentifiers(vararg identifiers: Identifier) = when (T::class) {
+    DataSample::class -> (this as FilterBuilder<DataSample>).dataSamplesByIdentifiers(*identifiers)
+    HealthcareElement::class -> (this as FilterBuilder<HealthcareElement>).healthcareElementsByIdentifiers(*identifiers)
+    Patient::class -> (this as FilterBuilder<Patient>).patientsByIdentifiers(*identifiers)
+    else -> throw IllegalArgumentException("All is not supported fot ${T::class}")
+}
+
+
+inline fun <reified T : Any> FilterBuilder<T>.withLabel(type: String, code: String?) = when (T::class) {
+    DataSample::class -> (this as FilterBuilder<DataSample>).dataSamplesWithLabel(type, code)
+    HealthcareElement::class -> (this as FilterBuilder<HealthcareElement>).healthcareElementsWithLabel(type, code)
+    else -> throw IllegalArgumentException("withLabel is not supported fot ${T::class}")
+}
+
+inline fun <reified T : Any> FilterBuilder<T>.withCode(type: String, code: String?) = when (T::class) {
+    DataSample::class -> (this as FilterBuilder<DataSample>).dataSamplesWithCode(type, code)
+    HealthcareElement::class -> (this as FilterBuilder<HealthcareElement>).healthcareElementsWithCode(type, code)
+    else -> throw IllegalArgumentException("withCode is not supported fot ${T::class}")
+}
+
+@ExperimentalCoroutinesApi
+@ExperimentalStdlibApi
+suspend inline fun <reified T : Any> FilterBuilder<T>.ofPatients(localCrypto: LocalCrypto, vararg patients: Patient) = when (T::class) {
+    DataSample::class -> (this as FilterBuilder<DataSample>).dataSamplesOfPatients(localCrypto, *patients)
+    HealthcareElement::class -> (this as FilterBuilder<HealthcareElement>).healthcareElementsOfPatients(localCrypto, *patients)
+    else -> throw IllegalArgumentException("ofPatient is not supported fot ${T::class}")
+}
+
+fun FilterBuilder<HealthcareElement>.healthcareElementsWithLabel(type: String, code: String?) {
+    this.registerInParent { hcp ->
+        HealthcareElementByHealthcarePartyLabelCodeFilter(
+            null,
+            hcp?.id,
+            type,
+            code,
+            null,
+            null,
+        )
+    }
+}
+
+fun FilterBuilder<DataSample>.dataSamplesWithLabel(type: String, code: String?) {
+    this.registerInParent { hcp ->
+        DataSampleByHealthcarePartyLabelCodeDateFilter(
+            null,
+            hcp?.id,
+            null,
+            type,
+            code,
+            null,
+            null,
+        )
+    }
+
+}
+
+fun FilterBuilder<DataSample>.dataSamplesWithCode(type: String, code: String?) {
+    this.registerInParent { hcp ->
+        DataSampleByHealthcarePartyLabelCodeDateFilter(
+            null,
+            hcp?.id,
+            null,
+            null,
+            null,
+            type,
+            code,
+        )
+    }
+}
+
+fun FilterBuilder<HealthcareElement>.healthcareElementsWithCode(type: String, code: String?) {
+    this.registerInParent { hcp ->
+        HealthcareElementByHealthcarePartyLabelCodeFilter(
+            null,
+            hcp?.id,
+            null,
+            null,
+            type,
+            code,
+        )
+    }
+}
+
+@ExperimentalCoroutinesApi
+@ExperimentalStdlibApi
+suspend fun FilterBuilder<DataSample>.dataSamplesOfPatients(localCrypto: LocalCrypto, vararg patients: Patient) {
+    this.registerInParent { hcp ->
+        DataSampleByPatientFilter(
+            null,
+            hcp?.id ?: throw IllegalArgumentException("DataSampleByPatientFilter needs a hcp to be registered in the builder using a forHcp call"),
+            patients.toSet().flatMap { localCrypto.decryptEncryptionKeys(hcp.id, it.systemMetaData?.delegations?.mapValues { (k,v) -> v.map { it.toDelegationDto() }.toSet() } ?: emptyMap()) }.toSet()
+        )
+    }
+
+}
+
+@ExperimentalCoroutinesApi
+@ExperimentalStdlibApi
+suspend fun FilterBuilder<HealthcareElement>.healthcareElementsOfPatients(localCrypto: LocalCrypto, vararg patients: Patient) {
+    this.registerInParent { hcp ->
+        HealthcareElementByHealthcarePartyPatientFilter(
+            null,
+            hcp?.id ?: throw IllegalArgumentException("HealthcareElementByHealthcarePartyPatientFilter needs a hcp to be registered in the builder using a forHcp call"),
+            patients.flatMap { localCrypto.decryptEncryptionKeys(hcp.id, it.systemMetaData?.delegations?.mapValues { (k,v) -> v.map { it.toDelegationDto() }.toSet() } ?: emptyMap()) }.toSet()
+        )
+    }
+}
+
 fun FilterBuilder<Coding>.allCodings() {
     this.registerInParent { hcp -> AllCodesFilter(null) }
 }
@@ -162,6 +278,17 @@ fun FilterBuilder<DataSample>.allDataSamples() {
 
 fun FilterBuilder<DataSample>.dataSamplesByIds(vararg ids: String) {
     this.registerInParent { hcp -> DataSampleByIdsFilter(ids.toSet(), null) }
+}
+
+fun FilterBuilder<DataSample>.dataSamplesByIdentifiers(vararg identifiers: Identifier) {
+    this.registerInParent { hcp ->
+        DataSampleByHealthcarePartyIdentifiersFilter(
+            null,
+            hcp?.id
+                ?: throw IllegalArgumentException("DataSampleByHealthcarePartyAndIdentifiersFilter needs a hcp to be registered in the builder using a forHcp call"),
+            identifiers.toList()
+        )
+    }
 }
 
 fun FilterBuilder<MedicalDevice>.allMedicalDevices() {
@@ -191,6 +318,18 @@ fun FilterBuilder<HealthcareElement>.healthcareElementsByIds(vararg ids: String)
     this.registerInParent { hcp -> HealthcareElementByIdsFilter(ids.toSet(), null) }
 }
 
+fun FilterBuilder<HealthcareElement>.healthcareElementsByIdentifiers(vararg identifiers: Identifier) {
+    this.registerInParent { hcp ->
+        HealthcareElementByHealthcarePartyIdentifiersFilter(
+            null,
+            hcp?.id
+                ?: throw IllegalArgumentException("DataSampleByHealthcarePartyAndIdentifiersFilter needs a hcp to be registered in the builder using a forHcp call"),
+            identifiers.toList()
+        )
+    }
+}
+
+
 fun FilterBuilder<Patient>.allPatients() {
     this.registerInParent { hcp -> PatientByHealthcarePartyFilter(null, hcp?.id) }
 }
@@ -199,7 +338,7 @@ fun FilterBuilder<Patient>.patientsByIds(vararg ids: String) {
     this.registerInParent { hcp -> PatientByIdsFilter(null, ids.toList()) }
 }
 
-fun FilterBuilder<Patient>.byIdentifiers(vararg identifiers: Identifier) {
+fun FilterBuilder<Patient>.patientsByIdentifiers(vararg identifiers: Identifier) {
     this.registerInParent { hcp ->
         PatientByHealthcarePartyAndIdentifiersFilter(
             null,

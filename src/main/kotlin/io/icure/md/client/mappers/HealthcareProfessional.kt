@@ -2,6 +2,8 @@ package io.icure.md.client.mappers
 
 import io.icure.kraken.client.models.HealthcarePartyDto
 import io.icure.md.client.models.HealthcareProfessional
+import io.icure.md.client.models.SystemMetaDataOwner
+import io.icure.md.client.models.SystemMetaDataOwnerEncrypted
 import java.util.*
 
 fun HealthcarePartyDto.toHealthcareProfessional() = HealthcareProfessional(
@@ -22,6 +24,10 @@ fun HealthcarePartyDto.toHealthcareProfessional() = HealthcareProfessional(
     parentId = this.parentId,
     picture = this.picture,
     notes = this.notes,
+    systemMetaData = SystemMetaDataOwner(
+        this.hcPartyKeys,
+        this.privateKeyShamirPartitions,
+    )
 )
 
 private fun HealthcarePartyDto.Gender.toGender() = HealthcareProfessional.Gender.valueOf(this.name)

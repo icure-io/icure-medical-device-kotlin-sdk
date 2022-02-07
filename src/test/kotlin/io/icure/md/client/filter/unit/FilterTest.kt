@@ -23,9 +23,9 @@ import org.junit.jupiter.api.TestInstance
 @ExperimentalCoroutinesApi
 @DisplayName("Filter tests")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-internal class FilterTest {
+class FilterTest {
     @Test
-    internal fun dslPatientTest() {
+    fun dslPatientTest() {
         val filter = filter<Patient> {
             forHcp(HealthcareProfessional(id = "123"))
             union {
@@ -45,7 +45,7 @@ internal class FilterTest {
     }
 
     @Test
-    internal fun dslForHcpOrderTest() {
+    fun dslForHcpOrderTest() {
         val filter1 = filter<Patient> {
             union {
                 byIdentifiers( Identifier("pat-1"), Identifier("pat-2") )

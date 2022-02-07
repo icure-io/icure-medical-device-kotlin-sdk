@@ -2,6 +2,7 @@ package io.icure.md.client.mappers
 
 import io.icure.kraken.client.models.HealthElementDto
 import io.icure.md.client.models.HealthcareElement
+import io.icure.md.client.models.SystemMetaDataEncrypted
 import java.util.*
 
 fun HealthElementDto.toHealthcareElement() = HealthcareElement(
@@ -23,6 +24,12 @@ fun HealthElementDto.toHealthcareElement() = HealthcareElement(
     closingDate = this.closingDate,
     description = this.descr,
     note = this.note,
+    systemMetaData = SystemMetaDataEncrypted(
+        this.secretForeignKeys,
+        this.cryptedForeignKeys?.mapValues { (k,v) -> v.map { it.toDelegation() }.toSet() } ?: emptyMap(),
+        this.delegations?.mapValues { (k,v) -> v.map { it.toDelegation() }.toSet() } ?: emptyMap(),
+        this.encryptionKeys?.mapValues { (k,v) -> v.map { it.toDelegation() }.toSet() } ?: emptyMap()
+    )
 )
 
 fun HealthcareElement.toHealthcareElementDto() = HealthElementDto(
@@ -51,5 +58,13 @@ fun HealthcareElement.toHealthcareElementDto() = HealthElementDto(
     descr = this.description,
     note = this.note,
     relevant = true,
-    status = 0
-)
+    status = 0,
+    secretForeignKeys = this.systemMetaData?.secretForeignKeys ?: listOf(),
+    cryptedForeignKeys = this.systemMetaData?.cryptedForeignKeys?.mapValues { (k, v) ->
+        v.map { it.toDelegationDto() }.toSet()
+    } ?: emptyMap(),
+    delegations = this.systemMetaData?.delegations?.mapValues { (k, v) -> v.map { it.toDelegationDto() }.toSet() }
+        ?: emptyMap(),
+    encryptionKeys = this.systemMetaData?.encryptionKeys?.mapValues { (k, v) -> v.map { it.toDelegationDto() }.toSet() }
+        ?: emptyMap(),
+    )

@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **specialityCodes** | [**kotlin.collections.Set&lt;CodingReference&gt;**](CodingReference.md) | Medical specialty of the healthcare party codified using FHIR or Kmehr codificaiton scheme | 
 **notes** | **kotlin.String** | Text notes. |  [optional]
 **properties** | [**kotlin.collections.Set&lt;Property&gt;**](Property.md) |  | 
+**systemMetaData** | [**SystemMetaDataOwner**](SystemMetaDataOwner.md) |  |  [optional]
 
 
 <a name="GenderEnum"></a>
