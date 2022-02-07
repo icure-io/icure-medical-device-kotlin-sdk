@@ -14,8 +14,6 @@ package io.icure.md.client.filter
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
-import com.github.pozo.KotlinBuilder
-
 import io.icure.kraken.client.crypto.LocalCrypto
 import io.icure.md.client.filter.coding.AllCodesFilter
 import io.icure.md.client.filter.coding.CodeByIdsFilter
@@ -65,7 +63,6 @@ import java.time.temporal.TemporalUnit
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-@KotlinBuilder
 interface Filter<T> {
     val description: String?
 }
