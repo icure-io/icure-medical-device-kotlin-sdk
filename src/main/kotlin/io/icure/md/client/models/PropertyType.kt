@@ -45,22 +45,16 @@ data class PropertyType(
     enum class Type(val value: kotlin.String) {
         @JsonProperty(value = "BOOLEAN")
         bOOLEAN("BOOLEAN"),
-
         @JsonProperty(value = "INTEGER")
         iNTEGER("INTEGER"),
-
         @JsonProperty(value = "DOUBLE")
         dOUBLE("DOUBLE"),
-
         @JsonProperty(value = "STRING")
         sTRING("STRING"),
-
         @JsonProperty(value = "DATE")
         dATE("DATE"),
-
         @JsonProperty(value = "CLOB")
         cLOB("CLOB"),
-
         @JsonProperty(value = "JSON")
         jSON("JSON");
     }

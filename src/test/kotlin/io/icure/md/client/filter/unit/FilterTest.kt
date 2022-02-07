@@ -1,6 +1,5 @@
 package io.icure.md.client.filter.unit
 
-import io.icure.kraken.client.infrastructure.Diff
 import io.icure.md.client.filter.UnionFilter
 import io.icure.md.client.filter.byAge
 import io.icure.md.client.filter.byGenderEducation
@@ -29,7 +28,7 @@ class FilterTest {
         val filter = filter<Patient> {
             forHcp(HealthcareProfessional(id = "123"))
             union {
-                byIdentifiers( Identifier("pat-1"), Identifier("pat-2") )
+                byIdentifiers(Identifier("pat-1"), Identifier("pat-2"))
                 intersection {
                     byName("Churchill")
                     byGenderEducation(Patient.Gender.male, "college").byProfession("lawyer")
@@ -40,15 +39,23 @@ class FilterTest {
 
         Assertions.assertEquals(UnionFilter::class, filter::class, "Generated filter should be UnionFilter")
         Assertions.assertEquals(2, (filter as UnionFilter).filters.size, "Union filter should have 2 children")
-        Assertions.assertEquals(PatientByHealthcarePartyAndIdentifiersFilter::class, filter.filters[0]::class, "First filter in union must be of class PatientByHealthcarePartyAndIdentifiersFilter")
-        Assertions.assertEquals("123", (filter.filters[0] as PatientByHealthcarePartyAndIdentifiersFilter).healthcarePartyId, "Hcp must be set in filters")
+        Assertions.assertEquals(
+            PatientByHealthcarePartyAndIdentifiersFilter::class,
+            filter.filters[0]::class,
+            "First filter in union must be of class PatientByHealthcarePartyAndIdentifiersFilter"
+        )
+        Assertions.assertEquals(
+            "123",
+            (filter.filters[0] as PatientByHealthcarePartyAndIdentifiersFilter).healthcarePartyId,
+            "Hcp must be set in filters"
+        )
     }
 
     @Test
     fun dslForHcpOrderTest() {
         val filter1 = filter<Patient> {
             union {
-                byIdentifiers( Identifier("pat-1"), Identifier("pat-2") )
+                byIdentifiers(Identifier("pat-1"), Identifier("pat-2"))
                 intersection {
                     byName("Churchill")
                     byGenderEducation(Patient.Gender.male, "college")
@@ -60,7 +67,7 @@ class FilterTest {
         val filter2 = filter<Patient> {
             forHcp(HealthcareProfessional(id = "123"))
             union {
-                byIdentifiers( Identifier("pat-1"), Identifier("pat-2") )
+                byIdentifiers(Identifier("pat-1"), Identifier("pat-2"))
                 intersection {
                     byName("Churchill")
                     byGenderEducation(Patient.Gender.male, "master")

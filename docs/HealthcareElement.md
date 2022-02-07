@@ -19,7 +19,8 @@ kotlin.String** | The id of the [User] that created this healthcare element. Whe
 **responsible** | **
 kotlin.String** | The id of the data owner that is responsible of this healthcare element. When creating the healthcare element, will be filled automatically by the current user data owner id ([HealthcareProfessional], [Patient] or [MedicalDevice]) if missing |  [optional]
 **medicalLocationId** | **kotlin.String** |  |  [optional]
-**tags** | [**kotlin.collections.Set&lt;CodingReference&gt;**](CodingReference.md) |  |
+**labels** | [**
+kotlin.collections.Set&lt;CodingReference&gt;**](CodingReference.md) | A label is an item from a codification system that qualifies a healthcare element as being member of a certain class, whatever the value it might have taken. If the label qualifies the content of a field, it means that whatever the content of the field, the label will always apply. LOINC is a codification system typically used for labels. |
 **codes** | [**
 kotlin.collections.Set&lt;CodingReference&gt;**](CodingReference.md) | A code is an item from a codification system that qualifies the content of this healthcare element. SNOMED-CT, ICPC-2 or ICD-10 codifications systems can be used for codes |
 **endOfLife** | **kotlin.Long** | Soft delete (unix epoch in ms) timestamp of the healthcare element |  [optional]

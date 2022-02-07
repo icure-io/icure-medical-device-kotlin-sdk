@@ -69,25 +69,18 @@ data class PersonName(
     enum class Use(val value: kotlin.String) {
         @JsonProperty(value = "usual")
         usual("usual"),
-
         @JsonProperty(value = "official")
         official("official"),
-
         @JsonProperty(value = "temp")
         temp("temp"),
-
         @JsonProperty(value = "nickname")
         nickname("nickname"),
-
         @JsonProperty(value = "anonymous")
         anonymous("anonymous"),
-
         @JsonProperty(value = "maiden")
         maiden("maiden"),
-
         @JsonProperty(value = "old")
         old("old"),
-
         @JsonProperty(value = "other")
         other("other");
     }

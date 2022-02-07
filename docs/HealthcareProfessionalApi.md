@@ -8,7 +8,8 @@ Method | HTTP request | Description
 PUT** /rest/v2/healthcareprofessional | Create a new healthcare professional or modify an existing one.
 [**deleteHealthcareProfessional**](HealthcareProfessionalApi.md#deleteHealthcareProfessional) | **
 DELETE** /rest/v2/healthcareprofessional/{hcpId} | Delete an existing healthcare professional.
-[**filterHealthcareProfessionalBy**](HealthcareProfessionalApi.md#filterHealthcareProfessionalBy) | **POST** /rest/v2/healthcareprofessional/filter | Load healthcare professionals from the database by filtering them using the provided Filter.
+[**filterHealthcareProfessionalBy**](HealthcareProfessionalApi.md#filterHealthcareProfessionalBy) | **
+POST** /rest/v2/healthcareprofessional/filter | Load healthcare professionals from the database by filtering them using the provided Filter.
 [**getHealthcareProfessional**](HealthcareProfessionalApi.md#getHealthcareProfessional) | **
 GET** /rest/v2/healthcareprofessional/{hcpId} | Get a Healthcare professional by id.
 [**matchHealthcareProfessionalBy**](HealthcareProfessionalApi.md#matchHealthcareProfessionalBy) | **
