@@ -33,12 +33,10 @@ import io.icure.md.client.models.Content
 import io.icure.md.client.models.DataSample
 import io.icure.md.client.models.Document
 import io.icure.md.client.models.PaginatedListDataSample
+import io.icure.md.client.toHex
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.toCollection
 import org.taktik.commons.uti.UTI
 import org.taktik.commons.uti.impl.SimpleUTIDetector
 import java.io.ByteArrayInputStream
@@ -332,49 +330,41 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         val md = MessageDigest.getInstance("SHA-256")
         var uti: UTI? = null
 
-        val byteBufferElements = body.map {
-            if (uti == null) {
-                val byteArray = ByteArray(it.remaining().coerceAtMost(256))
-                it.slice().get(byteArray, 0, byteArray.size)
-                uti = utiDetector.detectUTI(ByteArrayInputStream(byteArray), null, null)
-            }
-            md.update(it.slice())
-            it
-        }.toCollection(mutableListOf())
-
         val createdDocument = medTechApi.documentApi().createDocument(currentUser, documentToCreate, documentConfig)
             .let { createdDoc ->
                 medTechApi.documentApi().setDocumentAttachment(
                     user = currentUser,
                     documentId = createdDoc.id,
-                    requestBody = byteBufferElements.asFlow(),
+                    requestBody = body.map {
+                        if (uti == null) {
+                            val byteArray = ByteArray(it.remaining().coerceAtMost(256))
+                            it.slice().get(byteArray, 0, byteArray.size)
+                            uti = utiDetector.detectUTI(ByteArrayInputStream(byteArray), null, null)
+                        }
+                        md.update(it.slice())
+                        it
+                    },
                     enckeys = getDocumentEncryptionKeys(localCrypto, currentUser, createdDoc).firstOrNull(),
                     config = documentConfig
                 )
             }
 
-        val documentHash = md.digest()
-            .joinToString { Integer.toHexString(0xFF and it.toInt()) }
+        // Updating data sample with docId
+        val contentIso = documentLanguage ?: medTechApi.defaultLanguage()
+        createOrModifyDataSampleFor(
+            patientOfContact,
+            existingDataSample.copy(content = mapOf(contentIso to Content(documentId = createdDocument.id)))
+        )
 
         // Add the hash and UTI of the document
         val finalDoc = medTechApi.documentApi()
             .modifyDocument(
                 currentUser,
-                createdDocument.copy(hash = documentHash, mainUti = uti.toString()),
+                createdDocument.copy(hash = md.digest().toHex(), mainUti = uti.toString()),
                 documentConfig
             )
 
-        val contentIso = documentLanguage ?: medTechApi.defaultLanguage()
-        createOrModifyDataSampleFor(
-            patientOfContact,
-            existingDataSample.copy(content = mapOf(contentIso to Content(documentId = finalDoc.id)))
-        )
-
         return finalDoc.toDocument()
-    }
-
-    private suspend fun tmpFlow(byteBuffer: ByteBuffer) = flow {
-        emit(byteBuffer)
     }
 
     private suspend fun getDocumentEncryptionKeys(
