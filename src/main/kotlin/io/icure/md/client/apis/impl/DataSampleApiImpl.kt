@@ -166,10 +166,12 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         val localCrypto = medTechApi.localCrypto()
         val currentUser = medTechApi.userApi().getCurrentUser()
 
-        val existingService = getServiceFromICure(dataSampleId)
-        val existingContact = existingService?.contactId
-            ?.let { getContactFromICure(localCrypto, currentUser, it) }
+        val existingContact = findContactsForDataSampleIds(currentUser, localCrypto, listOf(dataSampleId))
+            .firstOrNull()
             ?: throw RuntimeException("Could not find batch information of the data sample $dataSampleId")
+
+        val existingService = existingContact.services.find { it.id == dataSampleId }
+            ?: throw RuntimeException("Could not find data sample $dataSampleId")
 
         val patientOfContact = getPatientOfContact(localCrypto, currentUser, existingContact)
             ?: throw IllegalArgumentException("Can not set an attachment to a data sample not linked to a patient")
@@ -202,15 +204,9 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
 
     override suspend fun deleteDataSamples(dataSampleIds: List<String>): List<String> {
         val localCrypto = medTechApi.localCrypto()
-        val contactApi = medTechApi.contactApi()
         val currentUser = medTechApi.userApi().getCurrentUser()
 
-        val existingContacts = contactApi
-            .filterContactsBy(
-                currentUser, FilterChain(ContactByServiceIdsFilter(ids = dataSampleIds)), null, null,
-                dataSampleIds.size, null, null, null, contactCryptoConfig(localCrypto, currentUser)
-            )
-            .rows
+        val existingContacts = findContactsForDataSampleIds(currentUser, localCrypto, dataSampleIds)
 
         if (existingContacts.size > 1) {
             throw IllegalArgumentException("Only data samples of a same batch can be processed together")
@@ -233,6 +229,17 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
             .filter { it.endOfLife != null }
             .map { it.id }
     }
+
+    private suspend fun findContactsForDataSampleIds(
+        currentUser: UserDto,
+        localCrypto: LocalCrypto,
+        dataSampleIds: List<String>
+    ) = medTechApi.contactApi()
+        .filterContactsBy(
+            currentUser, FilterChain(ContactByServiceIdsFilter(ids = dataSampleIds)), null, null,
+            dataSampleIds.size, null, null, null, contactCryptoConfig(localCrypto, currentUser)
+        )
+        .rows
 
     override suspend fun filterDataSample(filter: Filter<DataSample>): PaginatedListDataSample {
         TODO("Not yet implemented")
@@ -332,6 +339,14 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
 
         val createdDocument = medTechApi.documentApi().createDocument(currentUser, documentToCreate, documentConfig)
             .let { createdDoc ->
+                // Updating data sample with docId
+                val contentIso = documentLanguage ?: medTechApi.defaultLanguage()
+                createOrModifyDataSampleFor(
+                    patientOfContact,
+                    existingDataSample.copy(content = mapOf(contentIso to Content(documentId = createdDoc.id)))
+                )
+
+                // Adding attachment to document
                 medTechApi.documentApi().setDocumentAttachment(
                     user = currentUser,
                     documentId = createdDoc.id,
@@ -348,13 +363,6 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
                     config = documentConfig
                 )
             }
-
-        // Updating data sample with docId
-        val contentIso = documentLanguage ?: medTechApi.defaultLanguage()
-        createOrModifyDataSampleFor(
-            patientOfContact,
-            existingDataSample.copy(content = mapOf(contentIso to Content(documentId = createdDocument.id)))
-        )
 
         // Add the hash and UTI of the document
         val finalDoc = medTechApi.documentApi()
