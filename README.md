@@ -31,7 +31,7 @@ This runs all tests and packages the library.
 <a name="documentation-for-api-endpoints"></a>
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://127.0.0.1:8912*
+All URIs are relative to *http://localhost:8912*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -41,33 +41,67 @@ Class | Method | HTTP request | Description
 *CodingApi* | [**getCoding**](docs/CodingApi.md#getcoding) | **GET** /rest/v2/coding/{codingId} | Get a [Coding]
 *CodingApi* | [**matchCoding**](docs/CodingApi.md#matchcoding) | **POST** /rest/v2/coding/match | Load coding ids from the database by filtering them using the provided [filter].
 *DataSampleApi* | [**createOrModifyDataSampleFor**](docs/DataSampleApi.md#createormodifydatasamplefor) | **PUT** /rest/v2/data/sample/for/{patientId} | Create or update a [DataSample] for a patient
-*DataSampleApi* | [**createOrModifyDataSamplesFor**](docs/DataSampleApi.md#createormodifydatasamplesfor) | **PUT** /rest/v2/data/sample/batch/for/{patientId} | Create or update a batch of [DataSample] for a patient
-*DataSampleApi* | [**deleteAttachment**](docs/DataSampleApi.md#deleteattachment) | **DELETE** /rest/v2/data/sample/{dataSampleId}/attachment/{documentId} | Delete an attachment of a DataSample
-*DataSampleApi* | [**deleteDataSample**](docs/DataSampleApi.md#deletedatasample) | **DELETE** /rest/v2/data/sample/{dataSampleId} | Delete a [DataSample] by its id
-*DataSampleApi* | [**deleteDataSamples**](docs/DataSampleApi.md#deletedatasamples) | **POST** /rest/v2/data/sample/batch | Delete a batch of [Data Samples]
-*DataSampleApi* | [**filterDataSample**](docs/DataSampleApi.md#filterdatasample) | **POST** /rest/v2/data/sample/filter | Find data samples using the provided [filter].
-*DataSampleApi* | [**getDataSample**](docs/DataSampleApi.md#getdatasample) | **GET** /rest/v2/data/sample/{dataSampleId} | Get a [DataSample] by its id
-*DataSampleApi* | [**getDataSampleAttachmentContent**](docs/DataSampleApi.md#getdatasampleattachmentcontent) | **GET** /rest/v2/data/sample/{dataSampleId}/attachment/{documentId}/{attachmentId} | Get attachment content of a DataSample
-*DataSampleApi* | [**getDataSampleAttachmentDocument**](docs/DataSampleApi.md#getdatasampleattachmentdocument) | **GET** /rest/v2/data/sample/{dataSampleId}/attachment/{documentId} | Get document metadata of a DataSample attachment
-*DataSampleApi* | [**matchDataSample**](docs/DataSampleApi.md#matchdatasample) | **POST** /rest/v2/data/sample/match | Find data samples ids using the provided Filter.
-*DataSampleApi* | [**setDataSampleAttachment**](docs/DataSampleApi.md#setdatasampleattachment) | **PUT** /rest/v2/data/sample/{dataSampleId}/attachment | Add or update the attachment of a DataSample
-*HealthcareElementApi* | [**createOrModifyHealthcareElement**](docs/HealthcareElementApi.md#createormodifyhealthcareelement) | **PUT** /rest/v2/hce | Create a Healthcare Element
-*HealthcareElementApi* | [**createOrModifyHealthcareElements**](docs/HealthcareElementApi.md#createormodifyhealthcareelements) | **PUT** /rest/v2/hce/batch | Create a Healthcare Element
-*HealthcareElementApi* | [**deleteHealthcareElement**](docs/HealthcareElementApi.md#deletehealthcareelement) | **DELETE** /rest/v2/hce/{id} | Delete a Healthcare Element
-*HealthcareElementApi* | [**filterHealthcareElement**](docs/HealthcareElementApi.md#filterhealthcareelement) | **POST** /rest/v2/hce/filter | Find Healthcare Elements using a filter
-*HealthcareElementApi* | [**getHealthcareElement**](docs/HealthcareElementApi.md#gethealthcareelement) | **GET** /rest/v2/hce/{id} | Get a Healthcare Element
-*HealthcareElementApi* | [**matchHealthcareElement**](docs/HealthcareElementApi.md#matchhealthcareelement) | **POST** /rest/v2/hce/match | Find Healthcare Elements using a filter
-*HealthcareProfessionalApi* | [**createOrModifyHealthcareProfessional**](docs/HealthcareProfessionalApi.md#createormodifyhealthcareprofessional) | **PUT** /rest/v2/healthcareprofessional | Create a newhealthcare professional or modify an existing one.
-*HealthcareProfessionalApi* | [**deleteHealthcareProfessional**](docs/HealthcareProfessionalApi.md#deletehealthcareprofessional) | **DELETE** /rest/v2/healthcareprofessional/{hcpId} | Delete an existing healthcare professional.
-*HealthcareProfessionalApi* | [**filterHealthcareProfessionalBy**](docs/HealthcareProfessionalApi.md#filterhealthcareprofessionalby) | **POST** /rest/v2/healthcareprofessional/filter | Load healthcare professionals from the database by filtering them using the provided Filter.
-*HealthcareProfessionalApi* | [**getHealthcareProfessional**](docs/HealthcareProfessionalApi.md#gethealthcareprofessional) | **GET** /rest/v2/healthcareprofessional/{hcpId} | Get a Healthcare professional by id.
-*HealthcareProfessionalApi* | [**matchHealthcareProfessionalBy**](docs/HealthcareProfessionalApi.md#matchhealthcareprofessionalby) | **POST** /rest/v2/healthcareprofessional/match | Loadhealthcare professional ids from the database by filtering them using the provided Filter.
-*MedicalDeviceApi* | [**createOrModifyMedicalDevice**](docs/MedicalDeviceApi.md#createormodifymedicaldevice) | **PUT** /rest/v2/medical/device | Create or update a [MedicalDevice]
-*MedicalDeviceApi* | [**createOrModifyMedicalDevices**](docs/MedicalDeviceApi.md#createormodifymedicaldevices) | **PUT** /rest/v2/medical/device/batch | Create or update a batch of [MedicalDevice]
-*MedicalDeviceApi* | [**deleteMedicalDevice**](docs/MedicalDeviceApi.md#deletemedicaldevice) | **DELETE** /rest/v2/medical/device/{medicalDeviceId} | Delete a [MedicalDevice]
-*MedicalDeviceApi* | [**deleteMedicalDevices**](docs/MedicalDeviceApi.md#deletemedicaldevices) | **POST** /rest/v2/medical/device/batch | Delete a batch of [MedicalDevice]
-*MedicalDeviceApi* | [**filterMedicalDevices**](docs/MedicalDeviceApi.md#filtermedicaldevices) | **POST** /rest/v2/medical/device/filter | Load devices from the database by filtering them using the provided [filter].
-*MedicalDeviceApi* | [**getMedicalDevice**](docs/MedicalDeviceApi.md#getmedicaldevice) | **GET** /rest/v2/medical/device/{medicalDeviceId} | Get a Medical Device
+*DataSampleApi* | [**createOrModifyDataSamplesFor**](docs/DataSampleApi.md#createormodifydatasamplesfor) | **
+PUT** /rest/v2/data/sample/batch/for/{patientId} | Create or update a batch of [DataSample] for a patient
+*DataSampleApi* | [**deleteAttachment**](docs/DataSampleApi.md#deleteattachment) | **
+DELETE** /rest/v2/data/sample/{dataSampleId}/attachment/{documentId} | Delete an attachment of a DataSample
+*DataSampleApi* | [**deleteDataSample**](docs/DataSampleApi.md#deletedatasample) | **
+DELETE** /rest/v2/data/sample/{dataSampleId} | Delete a [DataSample] by its id
+*DataSampleApi* | [**deleteDataSamples**](docs/DataSampleApi.md#deletedatasamples) | **
+POST** /rest/v2/data/sample/batch | Delete a batch of [Data Samples]
+*DataSampleApi* | [**filterDataSample**](docs/DataSampleApi.md#filterdatasample) | **
+POST** /rest/v2/data/sample/filter | Find data samples using the provided [filter].
+*DataSampleApi* | [**getDataSample**](docs/DataSampleApi.md#getdatasample) | **
+GET** /rest/v2/data/sample/{dataSampleId} | Get a [DataSample] by its id
+*DataSampleApi* | [**getDataSampleAttachmentContent**](docs/DataSampleApi.md#getdatasampleattachmentcontent) | **
+GET** /rest/v2/data/sample/{dataSampleId}/attachment/{documentId}/{attachmentId} | Get attachment content of a DataSample
+*DataSampleApi* | [**getDataSampleAttachmentDocument**](docs/DataSampleApi.md#getdatasampleattachmentdocument) | **
+GET** /rest/v2/data/sample/{dataSampleId}/attachment/{documentId} | Get document metadata of a DataSample attachment
+*DataSampleApi* | [**matchDataSample**](docs/DataSampleApi.md#matchdatasample) | **
+POST** /rest/v2/data/sample/match | Find data samples ids using the provided Filter.
+*DataSampleApi* | [**setDataSampleAttachment**](docs/DataSampleApi.md#setdatasampleattachment) | **
+PUT** /rest/v2/data/sample/{dataSampleId}/attachment | Add or update the attachment of a DataSample
+*HealthcareElementApi* | [**
+createOrModifyHealthcareElement**](docs/HealthcareElementApi.md#createormodifyhealthcareelement) | **
+PUT** /rest/v2/hce/{patientId} | Create a [HealthcareElement]
+*HealthcareElementApi* | [**
+createOrModifyHealthcareElements**](docs/HealthcareElementApi.md#createormodifyhealthcareelements) | **
+PUT** /rest/v2/hce/batch/{patientId} | Create a batch of [HealthcareElement]
+*HealthcareElementApi* | [**deleteHealthcareElement**](docs/HealthcareElementApi.md#deletehealthcareelement) | **
+DELETE** /rest/v2/hce/{healthElementId} | Delete a Healthcare Element
+*HealthcareElementApi* | [**filterHealthcareElement**](docs/HealthcareElementApi.md#filterhealthcareelement) | **
+POST** /rest/v2/hce/filter | Load healthcare elements from the database by filtering them using the provided [filter].
+*HealthcareElementApi* | [**getHealthcareElement**](docs/HealthcareElementApi.md#gethealthcareelement) | **
+GET** /rest/v2/hce/{healthcareElementId} | Get a [HealthcareElement]
+*HealthcareElementApi* | [**matchHealthcareElement**](docs/HealthcareElementApi.md#matchhealthcareelement) | **
+POST** /rest/v2/hce/match | Load healthcare elements ids from the database by filtering them using the provided [filter].
+*HealthcareProfessionalApi* | [**
+createOrModifyHealthcareProfessional**](docs/HealthcareProfessionalApi.md#createormodifyhealthcareprofessional) | **
+PUT** /rest/v2/healthcareprofessional | Create a new healthcare professional or modify an existing one.
+*HealthcareProfessionalApi* | [**
+deleteHealthcareProfessional**](docs/HealthcareProfessionalApi.md#deletehealthcareprofessional) | **
+DELETE** /rest/v2/healthcareprofessional/{hcpId} | Delete an existing healthcare professional.
+*HealthcareProfessionalApi* | [**
+filterHealthcareProfessionalBy**](docs/HealthcareProfessionalApi.md#filterhealthcareprofessionalby) | **
+POST** /rest/v2/healthcareprofessional/filter | Load healthcare professionals from the database by filtering them using the provided Filter.
+*HealthcareProfessionalApi* | [**
+getHealthcareProfessional**](docs/HealthcareProfessionalApi.md#gethealthcareprofessional) | **
+GET** /rest/v2/healthcareprofessional/{hcpId} | Get a Healthcare professional by id.
+*HealthcareProfessionalApi* | [**
+matchHealthcareProfessionalBy**](docs/HealthcareProfessionalApi.md#matchhealthcareprofessionalby) | **
+POST** /rest/v2/healthcareprofessional/match | Load healthcare professional ids from the database by filtering them using the provided Filter.
+*MedicalDeviceApi* | [**createOrModifyMedicalDevice**](docs/MedicalDeviceApi.md#createormodifymedicaldevice) | **
+PUT** /rest/v2/medical/device | Create or update a [MedicalDevice]
+*MedicalDeviceApi* | [**createOrModifyMedicalDevices**](docs/MedicalDeviceApi.md#createormodifymedicaldevices) | **
+PUT** /rest/v2/medical/device/batch | Create or update a batch of [MedicalDevice]
+*MedicalDeviceApi* | [**deleteMedicalDevice**](docs/MedicalDeviceApi.md#deletemedicaldevice) | **
+DELETE** /rest/v2/medical/device/{medicalDeviceId} | Delete a [MedicalDevice]
+*MedicalDeviceApi* | [**deleteMedicalDevices**](docs/MedicalDeviceApi.md#deletemedicaldevices) | **
+POST** /rest/v2/medical/device/batch | Delete a batch of [MedicalDevice]
+*MedicalDeviceApi* | [**filterMedicalDevices**](docs/MedicalDeviceApi.md#filtermedicaldevices) | **
+POST** /rest/v2/medical/device/filter | Load devices from the database by filtering them using the provided [filter].
+*MedicalDeviceApi* | [**getMedicalDevice**](docs/MedicalDeviceApi.md#getmedicaldevice) | **
+GET** /rest/v2/medical/device/{medicalDeviceId} | Get a Medical Device
 *MedicalDeviceApi* | [**matchMedicalDevices**](docs/MedicalDeviceApi.md#matchmedicaldevices) | **POST** /rest/v2/medical/device/match | Load medical device ids from the database by filtering them using the provided Filter.
 *PatientApi* | [**createOrModifyPatient**](docs/PatientApi.md#createormodifypatient) | **PUT** /rest/v2/patient | Create or update a [Patient]
 *PatientApi* | [**deletePatient**](docs/PatientApi.md#deletepatient) | **DELETE** /rest/v2/patient/{patientId} | Delete a [Patient]

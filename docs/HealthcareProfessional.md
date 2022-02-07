@@ -8,8 +8,10 @@ Name | Type | Description | Notes
 **rev** | **kotlin.String** | the revision of the healthcare party in the database, used for conflict management / optimistic locking. |  [optional]
 **created** | **kotlin.Long** | creation timestamp of the object. |  [optional]
 **modified** | **kotlin.Long** | last modification timestamp of the object. |  [optional]
-**deletionDate** | **kotlin.Long** | the soft delete timestamp. When a user is ”deleted“, this is set to a non null value: the moment of the deletion |  [optional]
-**name** | **kotlin.String** | The full name of the healthcare party, used mainly when the healthcare party is an organization |  [optional]
+**deletionDate** | **
+kotlin.Long** | the soft delete timestamp. When a healthcare professional is ”deleted“, this is set to a non null value: the moment of the deletion |  [optional]
+**name** | **
+kotlin.String** | The full name of the healthcare party, used mainly when the healthcare party is an organization |  [optional]
 **lastName** | **kotlin.String** | the lastname (surname) of the healthcare party. This is the official lastname that should be used for official administrative purposes. |  [optional]
 **firstName** | **kotlin.String** | the firstname (name) of the healthcare party. |  [optional]
 **names** | [**kotlin.collections.List&lt;PersonName&gt;**](PersonName.md) | the list of all names of the healthcare party, also containing the official full name information. Ordered by preference of use. First element is therefore the official name used for the healthcare party in the application | 

@@ -22,7 +22,7 @@ import com.github.pozo.KotlinBuilder
  *
  * @param id The Id of the Data sample. We encourage using either a v4 UUID or a HL7 Id.
  * @param transactionId The transactionId is used when a single data sample had to be split into parts for technical reasons. Several data samples with the same non null transaction id form one single data sample
- * @param identifier Typically used for business / client identifiers. An identifier should identify a data sample uniquely and unambiguously. However, iCure can't guarantee the uniqueness of those identifiers : This is something you need to take care of.
+ * @param identifiers Typically used for business / client identifiers. An identifier should identify a data sample uniquely and unambiguously. However, iCure can't guarantee the uniqueness of those identifiers : This is something you need to take care of.
  * @param batchId Id of the batch that embeds this data sample
  * @param healthElementsIds List of IDs of all healthcare elements for which the data sample is provided. Only used when the Data sample is emitted outside of its batch
  * @param canvasesIds List of Ids of all canvases linked to the Data sample. Only used when the Data sample is emitted outside of its batch.
@@ -56,8 +56,8 @@ data class DataSample(
     val transactionId: kotlin.String? = null,
 
     /* Typically used for business / client identifiers. An identifier should identify a data sample uniquely and unambiguously. However, iCure can't guarantee the uniqueness of those identifiers : This is something you need to take care of. */
-    @field:JsonProperty("identifier")
-    val identifier: kotlin.collections.List<Identifier> = emptyList(),
+    @field:JsonProperty("identifiers")
+    val identifiers: kotlin.collections.List<Identifier> = emptyList(),
 
     /* Id of the batch that embeds this data sample */
     @field:JsonProperty("batchId")

@@ -3,9 +3,9 @@ package io.icure.md.client.mappers
 import io.icure.kraken.client.models.PaginatedDocumentKeyIdPairObject
 import io.icure.kraken.client.models.PaginatedListCodeDto
 import io.icure.kraken.client.models.PaginatedListDeviceDto
-import io.icure.kraken.client.models.PaginatedListHealthElementDto
 import io.icure.kraken.client.models.PaginatedListHealthcarePartyDto
 import io.icure.kraken.client.models.PaginatedListUserDto
+import io.icure.kraken.client.models.decrypted.PaginatedListHealthElementDto
 import io.icure.kraken.client.models.decrypted.PaginatedListPatientDto
 import io.icure.kraken.client.models.decrypted.PaginatedListServiceDto
 import io.icure.md.client.models.PaginatedDocumentKeyAndIdPairObject
