@@ -29,7 +29,6 @@ When modifying an healthcare element, you must ensure that the rev obtained when
 element is present as the rev is used to guarantee that the healthcare element has not been modified by a third party.
 
 ### Example
-
 ```kotlin
 // Import classes:
 //import io.icure.kraken.client.infrastructure.*
@@ -72,9 +71,7 @@ No authorization required
 - **Accept**: */*
 
 <a name="createOrModifyHealthcareElements"></a>
-
 # **createOrModifyHealthcareElements**
-
 > kotlin.collections.List&lt;HealthcareElement&gt; createOrModifyHealthcareElements(patientId, healthcareElement)
 
 Create a batch of [HealthcareElement]
@@ -128,9 +125,7 @@ No authorization required
 - **Accept**: */*
 
 <a name="deleteHealthcareElement"></a>
-
 # **deleteHealthcareElement**
-
 > kotlin.String deleteHealthcareElement(healthElementId)
 
 Delete a Healthcare Element
@@ -138,7 +133,6 @@ Delete a Healthcare Element
 Deletes the healthcare element identified by the provided unique [healthElementId].
 
 ### Example
-
 ```kotlin
 // Import classes:
 //import io.icure.kraken.client.infrastructure.*
@@ -178,9 +172,7 @@ No authorization required
 - **Accept**: */*
 
 <a name="filterHealthcareElement"></a>
-
 # **filterHealthcareElement**
-
 > PaginatedListHealthcareElement filterHealthcareElement(filter, nextHealthElementId, limit)
 
 Load healthcare elements from the database by filtering them using the provided [filter].
@@ -190,7 +182,6 @@ Healthcare element are AllHealthcareElementsFilter and HealthcareElementsByIdsFi
 list of healthcare element (with a cursor that lets you query the following items).
 
 ### Example
-
 ```kotlin
 // Import classes:
 //import io.icure.kraken.client.infrastructure.*
@@ -235,9 +226,7 @@ No authorization required
 - **Accept**: */*
 
 <a name="getHealthcareElement"></a>
-
 # **getHealthcareElement**
-
 > HealthcareElement getHealthcareElement(healthcareElementId)
 
 Get a [HealthcareElement]
@@ -246,7 +235,6 @@ Each [HealthcareElement] is uniquely identified by a healthcare element id. The 
 This [healthcareElementId] is the preferred method to retrieve one specific healthcare element.
 
 ### Example
-
 ```kotlin
 // Import classes:
 //import io.icure.kraken.client.infrastructure.*
@@ -286,9 +274,7 @@ No authorization required
 - **Accept**: */*
 
 <a name="matchHealthcareElement"></a>
-
 # **matchHealthcareElement**
-
 > kotlin.collections.List&lt;kotlin.String&gt; matchHealthcareElement(filter)
 
 Load healthcare elements ids from the database by filtering them using the provided [filter].
@@ -298,7 +284,6 @@ Healthcare element are AllHealthcareElementsFilter and HealthcareElementsByIdsFi
 list of healthcare element (with a cursor that lets you query the following items).
 
 ### Example
-
 ```kotlin
 // Import classes:
 //import io.icure.kraken.client.infrastructure.*

@@ -8,7 +8,7 @@ import java.util.*
 fun HealthElementDto.toHealthcareElement() = HealthcareElement(
     id = this.id,
     identifiers = this.identifiers.map { it.toIdentifier() },
-    tags = this.tags.map { it.toCodingReference() },
+    labels = this.tags.map { it.toCodingReference() },
     codes = this.codes.map { it.toCodingReference() },
     rev = this.rev,
     created = this.created,
@@ -41,7 +41,7 @@ fun HealthcareElement.toHealthcareElementDto() = HealthElementDto(
         }
     } ?: UUID.randomUUID().toString(),
     identifiers = this.identifiers.map { it.toIdentifierDto() },
-    tags = this.tags.map { it.toCodeStubDto() },
+    tags = this.labels.map { it.toCodeStubDto() },
     codes = this.codes.map { it.toCodeStubDto() },
     rev = this.rev,
     created = this.created,

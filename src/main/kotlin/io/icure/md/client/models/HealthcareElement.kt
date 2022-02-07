@@ -28,7 +28,7 @@ import com.github.pozo.KotlinBuilder
  * @param author The id of the [User] that created this healthcare element. When creating the healthcare element, will be filled automatically by the current user id if not provided.
  * @param responsible The id of the data owner that is responsible of this healthcare element. When creating the healthcare element, will be filled automatically by the current user data owner id ([HealthcareProfessional], [Patient] or [MedicalDevice]) if missing
  * @param medicalLocationId
- * @param tags
+ * @param labels A label is an item from a codification system that qualifies a healthcare element as being member of a certain class, whatever the value it might have taken. If the label qualifies the content of a field, it means that whatever the content of the field, the label will always apply. LOINC is a codification system typically used for labels.
  * @param codes A code is an item from a codification system that qualifies the content of this healthcare element. SNOMED-CT, ICPC-2 or ICD-10 codifications systems can be used for codes
  * @param endOfLife Soft delete (unix epoch in ms) timestamp of the healthcare element
  * @param deletionDate the soft delete timestamp. When a healthcare element is ”deleted“, this is set to a non null value: the moment of the deletion
@@ -77,8 +77,9 @@ data class HealthcareElement(
     @field:JsonProperty("medicalLocationId")
     val medicalLocationId: kotlin.String? = null,
 
-    @field:JsonProperty("tags")
-    val tags: kotlin.collections.List<CodingReference> = emptyList(),
+    /* A label is an item from a codification system that qualifies a healthcare element as being member of a certain class, whatever the value it might have taken. If the label qualifies the content of a field, it means that whatever the content of the field, the label will always apply. LOINC is a codification system typically used for labels. */
+    @field:JsonProperty("labels")
+    val labels: kotlin.collections.List<CodingReference> = emptyList(),
 
     /* A code is an item from a codification system that qualifies the content of this healthcare element. SNOMED-CT, ICPC-2 or ICD-10 codifications systems can be used for codes */
     @field:JsonProperty("codes")
