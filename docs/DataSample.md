@@ -27,12 +27,17 @@ kotlin.Long** | The timestamp (unix epoch in ms) of creation of this data sample
 **modified** | **
 kotlin.Long** | The timestamp (unix epoch in ms) of the latest modification of this data sample in iCure system. Will be filled automatically if not provided. |  [optional]
 **endOfLife** | **kotlin.Long** | Soft delete (unix epoch in ms) timestamp of the data sample |  [optional]
-**author** | **kotlin.String** | The id of the [User] that created this data sample. When creating the data sample, will be filled automatically by the current user id if not provided. |  [optional]
-**responsible** | **kotlin.String** | The id of the data owner that is responsible of this data sample. When creating the data sample, will be filled automatically by the current user data owner id ([HealthcareProfessional], [Patient] or [MedicalDevice]) if missing |  [optional]
+**author** | **
+kotlin.String** | The id of the [User] that created this data sample. When creating the data sample, will be filled automatically by the current user id if not provided. |  [optional]
+**responsible** | **
+kotlin.String** | The id of the data owner that is responsible of this data sample. When creating the data sample, will be filled automatically by the current user data owner id ([HealthcareProfessional], [Patient] or [MedicalDevice]) if missing |  [optional]
 **comment** | **kotlin.String** | Text, comments on the Data sample provided |  [optional]
-**qualifiedLinks** | **kotlin.collections.Map&lt;kotlin.String, kotlin.collections.Map&lt;kotlin.String, kotlin.String&gt;&gt;** | Links towards related data samples (possibly in other batches) | 
-**codes** | [**kotlin.collections.Set&lt;CodingReference&gt;**](CodingReference.md) | A code is an item from a codification system that qualifies the content of this data sample. SNOMED-CT, ICPC-2 or ICD-10 codifications systems can be used for codes | 
-**labels** | [**kotlin.collections.Set&lt;CodingReference&gt;**](CodingReference.md) | A label is an item from a codification system that qualifies a data sample as being member of a certain class, whatever the value it might have taken. If the label qualifies the content of a field, it means that whatever the content of the field, the label will always apply. LOINC is a codification system typically used for labels. | 
+**qualifiedLinks** | **kotlin.collections.Map&lt;kotlin.String, kotlin.collections.Map&lt;kotlin.String,
+kotlin.String&gt;&gt;** | Links towards related data samples (possibly in other batches) |
+**codes** | [**
+kotlin.collections.Set&lt;CodingReference&gt;**](CodingReference.md) | A code is an item from a codification system that qualifies the content of this data sample. SNOMED-CT, ICPC-2 or ICD-10 codifications systems can be used for codes |
+**labels** | [**
+kotlin.collections.Set&lt;CodingReference&gt;**](CodingReference.md) | A label is an item from a codification system that qualifies a data sample as being member of a certain class, whatever the value it might have taken. If the label qualifies the content of a field, it means that whatever the content of the field, the label will always apply. LOINC is a codification system typically used for labels. | 
 
 
 

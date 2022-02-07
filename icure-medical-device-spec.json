@@ -3953,7 +3953,7 @@
         "required": [
           "codes",
           "identifiers",
-          "tags"
+          "labels"
         ],
         "type": "object",
         "properties": {
@@ -3993,9 +3993,10 @@
           "medicalLocationId": {
             "type": "string"
           },
-          "tags": {
+          "labels": {
             "uniqueItems": true,
             "type": "array",
+            "description": "A label is an item from a codification system that qualifies a healthcare element as being member of a certain class, whatever the value it might have taken. If the label qualifies the content of a field, it means that whatever the content of the field, the label will always apply. LOINC is a codification system typically used for labels.",
             "items": {
               "$ref": "#/components/schemas/CodingReference"
             }
