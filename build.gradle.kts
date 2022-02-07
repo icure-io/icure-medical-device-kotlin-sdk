@@ -81,6 +81,7 @@ dependencies {
     testImplementation(group = "io.kotlintest", name = "kotlintest", version = "2.0.7")
     testImplementation(group = "org.junit.jupiter", name = "junit-jupiter", version = "5.7.0")
     testImplementation(group = "com.willowtreeapps.assertk", name = "assertk-jvm", version = "0.24")
+    testImplementation(group = "io.icure", name = "diff-utils", version = "0.1.3-959d0c98a9")
 }
 
 
