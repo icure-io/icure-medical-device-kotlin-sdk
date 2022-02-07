@@ -24,3 +24,7 @@ fun String.isUUID(): Boolean {
         false
     }
 }
+
+fun ByteArray.toHex(): String {
+    return joinToString("") { "%02x".format(it) }
+}
