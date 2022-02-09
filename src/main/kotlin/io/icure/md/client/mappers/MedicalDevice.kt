@@ -26,10 +26,11 @@ fun DeviceDto.toMedicalDevice() = MedicalDevice(
     serialNumber = this.serialNumber,
     parentId = this.parentId,
     picture = this.picture,
-    systemMetaData = SystemMetaDataOwner(
-        this.hcPartyKeys,
-        this.privateKeyShamirPartitions,
-    )
+    systemMetaData = if (this.hcPartyKeys.isNotEmpty() || this.privateKeyShamirPartitions.isNotEmpty())
+        SystemMetaDataOwner(
+            this.hcPartyKeys,
+            this.privateKeyShamirPartitions,
+        ) else null
 )
 
 fun MedicalDevice.toDeviceDto() = DeviceDto(

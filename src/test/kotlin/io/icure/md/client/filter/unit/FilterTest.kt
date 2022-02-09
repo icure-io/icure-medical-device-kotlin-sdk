@@ -70,12 +70,11 @@ class FilterTest {
                 byIdentifiers(Identifier("pat-1"), Identifier("pat-2"))
                 intersection {
                     byName("Churchill")
-                    byGenderEducation(Patient.Gender.male, "master")
+                    byGenderEducation(Patient.Gender.male, "college")
                 }
             }
         }.build()
 
         Assertions.assertEquals(filter1, filter2, "Generated filters should be the same")
     }
-
 }
