@@ -43,7 +43,7 @@ internal class DeviceApiImplTest {
         val createdDevice = testedInstance.createOrModifyMedicalDevice(device)
 
         val diffs = device.differences(createdDevice)
-        val filters = listOf("id", "author", "created", "modified", "responsible", "rev")
+        val filters = listOf("id", "author", "created", "modified", "responsible", "rev", "systemMetaData")
         val filteredDiffs = filterDiffs(createdDevice, device, diffs, filters)
         Assertions.assertEquals(emptyList<Diff>(), filteredDiffs)
     }

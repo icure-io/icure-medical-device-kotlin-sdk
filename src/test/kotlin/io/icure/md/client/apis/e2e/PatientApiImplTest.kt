@@ -39,19 +39,19 @@ internal class PatientApiImplTest {
 
     @Test
     @DisplayName("Create patient test - HappyFlow")
-    fun createDeviceHappyFlow() = runBlocking {
+    fun createPatientHappyFlow() = runBlocking {
         val patient = patient()
         val createdPatient = testedInstance.createOrModifyPatient(patient)
 
         val diffs = patient.differences(createdPatient)
-        val filters = listOf("id", "author", "created", "modified", "responsible", "rev", "names")
+        val filters = listOf("id", "author", "created", "modified", "responsible", "rev", "names", "systemMetaData")
         val filteredDiffs = filterDiffs(createdPatient, patient, diffs, filters)
         Assertions.assertEquals(emptyList<Diff>(), filteredDiffs)
     }
 
     @Test
     @DisplayName("Get patient test - HappyFlow")
-    fun getDeviceHappyFlow() = runBlocking {
+    fun getPatientHappyFlow() = runBlocking {
         val patient = patient()
         val createdPatient = testedInstance.createOrModifyPatient(patient)
         val gotDevice = testedInstance.getPatient(createdPatient.id!!)
