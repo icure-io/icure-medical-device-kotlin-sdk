@@ -1,5 +1,6 @@
 package io.icure.md.client.apis.impl
 
+import com.github.benmanes.caffeine.cache.Caffeine
 import io.icure.kraken.client.crypto.LocalCrypto
 import io.icure.kraken.client.crypto.contactCryptoConfig
 import io.icure.kraken.client.crypto.documentCryptoConfig
@@ -12,6 +13,7 @@ import io.icure.kraken.client.extendedapis.getContact
 import io.icure.kraken.client.extendedapis.getDocument
 import io.icure.kraken.client.extendedapis.getPatient
 import io.icure.kraken.client.extendedapis.listServices
+import io.icure.kraken.client.extendedapis.modifyContact
 import io.icure.kraken.client.extendedapis.modifyDocument
 import io.icure.kraken.client.extendedapis.setDocumentAttachment
 import io.icure.kraken.client.models.ListOfIdsDto
@@ -43,10 +45,16 @@ import java.io.ByteArrayInputStream
 import java.nio.ByteBuffer
 import java.security.MessageDigest
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
 class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
+    private val contactsCache = Caffeine.newBuilder()
+        .expireAfterAccess(medTechApi.shortLivedCachesDuration(), TimeUnit.SECONDS)
+        .maximumSize(medTechApi.shortLivedCachesMaxSize())
+        .build<Pair<String, String>, ContactDto>()
+
     private val utiDetector = SimpleUTIDetector()
 
     override suspend fun createOrModifyDataSampleFor(patientId: String, dataSample: DataSample): DataSample {
@@ -67,7 +75,8 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
 
         val localCrypto = medTechApi.localCrypto()
         val currentUser = medTechApi.userApi().getCurrentUser()
-        val existingContact = getContactOfDataSample(localCrypto, currentUser, dataSample.first())
+
+        val (contactCached, existingContact) = getContactOfDataSample(localCrypto, currentUser, dataSample.first())
 
         val contactPatientId = existingContact?.let {
             getPatientIdOfContact(localCrypto, currentUser, it)
@@ -79,21 +88,56 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
 
         val existingPatient =
             medTechApi.patientApi().getPatient(currentUser, patientId, patientCryptoConfig(localCrypto))
-        val contactToCreate = createContactDtoBasedOn(dataSample, existingContact)
 
-        return medTechApi.contactApi()
-            .createContact(currentUser, existingPatient, contactToCreate, contactCryptoConfig(localCrypto, currentUser))
-            .let { createdContact ->
-                createdContact.services.map { it.toDataSample(batchId = contactToCreate.id) }
-            }
+        val createdOrModifiedContact = if (contactCached && existingContact != null) {
+            val servicesToModify = dataSample.map { it.toServiceDto() }
+            val contactToModify = existingContact.copy(
+                services = servicesToModify,
+                openingDate = servicesToModify.mapNotNull { it.openingDate ?: it.valueDate }
+                    .minOfOrNull { it },
+                closingDate = servicesToModify.mapNotNull { it.closingDate ?: it.valueDate }
+                    .maxOfOrNull { it }
+            )
+
+            medTechApi.contactApi()
+                .modifyContact(currentUser, contactToModify, contactCryptoConfig(localCrypto, currentUser))
+        } else {
+            val contactToCreate = createContactDtoBasedOn(dataSample, existingContact)
+
+            medTechApi.contactApi()
+                .createContact(
+                    currentUser,
+                    existingPatient,
+                    contactToCreate,
+                    contactCryptoConfig(localCrypto, currentUser)
+                )
+        }
+
+        createdOrModifiedContact.services
+            .forEach { contactsCache.put(currentUser.id to it.id, createdOrModifiedContact) }
+
+        return createdOrModifiedContact.services
+            .map { it.toDataSample(batchId = createdOrModifiedContact.id) }
     }
 
+    /**
+     * @return A boolean to know if the contact was cached or not, and the Contact containing the provided data sample.
+     */
     private suspend fun getContactOfDataSample(
         localCrypto: LocalCrypto,
         currentUser: UserDto,
         dataSample: DataSample
-    ): ContactDto? {
-        return dataSample.batchId?.let { contactId -> getContactFromICure(localCrypto, currentUser, contactId) }
+    ): Pair<Boolean, ContactDto?> {
+        return dataSample.id
+            ?.let { contactsCache.getIfPresent(currentUser.id to it) }
+            ?.let { true to it }
+            ?: false to dataSample.batchId?.let { contactId ->
+                getContactFromICure(
+                    localCrypto,
+                    currentUser,
+                    contactId
+                )
+            }
     }
 
     private suspend fun getContactFromICure(
@@ -141,7 +185,9 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         dataSamples: List<DataSample>,
         existingContact: ContactDto? = null
     ): ContactDto {
-        val servicesToCreate = dataSamples.map { it.toServiceDto() }
+        val servicesToCreate = dataSamples
+            .map { it.toServiceDto() }
+            .map { it.copy(modified = null) }
         return createContactDtoUsing(servicesToCreate, existingContact)
     }
 
@@ -173,26 +219,17 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         val existingService = existingContact.services.find { it.id == dataSampleId }
             ?: throw RuntimeException("Could not find data sample $dataSampleId")
 
-        val patientOfContact = getPatientOfContact(localCrypto, currentUser, existingContact)
+        val contactPatientId = getPatientIdOfContact(localCrypto, currentUser, existingContact)
             ?: throw IllegalArgumentException("Can not set an attachment to a data sample not linked to a patient")
 
         val contentToDelete = existingService.content.entries.find { (_, content) -> content.documentId == documentId }
             ?.key
             ?: throw IllegalArgumentException("Id $documentId does not reference any document in the data sample $dataSampleId")
 
-        val contactToCreate = createContactDtoUsing(
-            existingContact.services
-                .filterNot { it.id != existingService.id } + listOf(existingService.copy(content = existingService.content.filterKeys { it != contentToDelete })),
-            existingContact
+        createOrModifyDataSampleFor(
+            contactPatientId,
+            existingService.copy(content = existingService.content.filterKeys { it != contentToDelete }).toDataSample()
         )
-
-        medTechApi.contactApi()
-            .createContact(
-                currentUser,
-                patientOfContact,
-                contactToCreate,
-                contactCryptoConfig(localCrypto, currentUser)
-            )
 
         return documentId
     }
@@ -206,13 +243,15 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         val localCrypto = medTechApi.localCrypto()
         val currentUser = medTechApi.userApi().getCurrentUser()
 
-        val existingContacts = findContactsForDataSampleIds(currentUser, localCrypto, dataSampleIds)
+        val existingContact = findContactsForDataSampleIds(currentUser, localCrypto, dataSampleIds)
+            .firstOrNull()
+            ?: throw RuntimeException("Could not find batch information of data samples $dataSampleIds")
+        val existingServiceIds = existingContact.services.map { serv -> serv.id }
 
-        if (existingContacts.size > 1) {
-            throw IllegalArgumentException("Only data samples of a same batch can be processed together")
+        if (dataSampleIds.any { it !in existingServiceIds }) {
+            throw RuntimeException("Could not find all data samples in same batch ${existingContact.id}")
         }
 
-        val existingContact = existingContacts.first()
         val contactPatient = getPatientOfContact(localCrypto, currentUser, existingContact)
             ?: throw RuntimeException("Couldn't find patient related to batch of data samples ${existingContact.id}")
 
@@ -234,12 +273,31 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         currentUser: UserDto,
         localCrypto: LocalCrypto,
         dataSampleIds: List<String>
-    ) = medTechApi.contactApi()
-        .filterContactsBy(
-            currentUser, FilterChain(ContactByServiceIdsFilter(ids = dataSampleIds)), null, null,
-            dataSampleIds.size, null, null, null, contactCryptoConfig(localCrypto, currentUser)
-        )
-        .rows
+    ): Set<ContactDto> {
+        val cachedContacts = contactsCache.getAllPresent(dataSampleIds.map { currentUser.id to it })
+        val dataSampleIdsToSearch = dataSampleIds
+            .filterNot { cachedContacts.containsKey(currentUser.id to it) }
+
+        return if (dataSampleIdsToSearch.isNotEmpty()) {
+            val notCachedContacts = medTechApi.contactApi()
+                .filterContactsBy(
+                    currentUser, FilterChain(ContactByServiceIdsFilter(ids = dataSampleIdsToSearch)), null, null,
+                    dataSampleIds.size, null, null, null, contactCryptoConfig(localCrypto, currentUser)
+                )
+                .rows
+                .sortedByDescending { it.modified }
+
+            dataSampleIdsToSearch.forEach { dataSampleId ->
+                notCachedContacts
+                    .find { contact -> dataSampleId in contact.services.map { s -> s.id } }
+                    ?.let { contactsCache.put(currentUser.id to dataSampleId, it) }
+            }
+
+            (cachedContacts.values + notCachedContacts).toSet()
+        } else {
+            cachedContacts.values.toSet()
+        }
+    }
 
     override suspend fun filterDataSample(filter: Filter<DataSample>): PaginatedListDataSample {
         TODO("Not yet implemented")
@@ -322,7 +380,9 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
 
         val existingDataSample = getDataSample(dataSampleId)
         val existingContact = getContactOfDataSample(localCrypto, currentUser, existingDataSample)
+            .second
             ?: throw RuntimeException("Could not find batch information of the data sample $dataSampleId")
+
         val patientOfContact = getPatientIdOfContact(localCrypto, currentUser, existingContact)
             ?: throw IllegalArgumentException("Can not set an attachment to a data sample not linked to a patient")
 
