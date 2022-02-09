@@ -9,6 +9,7 @@ import io.icure.kraken.client.extendedapis.createContact
 import io.icure.kraken.client.extendedapis.createDocument
 import io.icure.kraken.client.extendedapis.deleteServices
 import io.icure.kraken.client.extendedapis.filterContactsBy
+import io.icure.kraken.client.extendedapis.filterServicesBy
 import io.icure.kraken.client.extendedapis.getContact
 import io.icure.kraken.client.extendedapis.getDocument
 import io.icure.kraken.client.extendedapis.getPatient
@@ -28,8 +29,10 @@ import io.icure.md.client.apis.DataSampleApi
 import io.icure.md.client.apis.MedTechApi
 import io.icure.md.client.filter.Filter
 import io.icure.md.client.mappers.findDataOwnerId
+import io.icure.md.client.mappers.toAbstractFilterDto
 import io.icure.md.client.mappers.toDataSample
 import io.icure.md.client.mappers.toDocument
+import io.icure.md.client.mappers.toPaginatedListDataSamples
 import io.icure.md.client.mappers.toServiceDto
 import io.icure.md.client.models.Content
 import io.icure.md.client.models.DataSample
@@ -282,7 +285,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
             val notCachedContacts = medTechApi.contactApi()
                 .filterContactsBy(
                     currentUser, FilterChain(ContactByServiceIdsFilter(ids = dataSampleIdsToSearch)), null, null,
-                    dataSampleIds.size, null, null, null, contactCryptoConfig(localCrypto, currentUser)
+                    dataSampleIds.size, contactCryptoConfig(localCrypto, currentUser)
                 )
                 .rows
                 .sortedByDescending { it.modified }
@@ -299,8 +302,22 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         }
     }
 
-    override suspend fun filterDataSample(filter: Filter<DataSample>): PaginatedListDataSample {
-        TODO("Not yet implemented")
+    override suspend fun filterDataSamples(
+        filter: Filter<DataSample>,
+        nextDataSampleId: String?,
+        limit: Int?
+    ): PaginatedListDataSample {
+        val currentUser = medTechApi.userApi().getCurrentUser()
+        val localCrypto = medTechApi.localCrypto()
+
+        return medTechApi.contactApi()
+            .filterServicesBy(currentUser,
+                FilterChain(filter.toAbstractFilterDto(), null),
+                nextDataSampleId,
+                limit,
+                contactCryptoConfig(localCrypto, currentUser).crypto
+            )
+            .toPaginatedListDataSamples()
     }
 
     override suspend fun getDataSample(dataSampleId: String): DataSample {
@@ -363,8 +380,8 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         return medTechApi.documentApi().getDocument(currentUser, documentId, documentCryptoConfig(localCrypto))
     }
 
-    override suspend fun matchDataSample(filter: Filter<DataSample>): List<String> {
-        TODO("Not yet implemented")
+    override suspend fun matchDataSamples(filter: Filter<DataSample>): List<String> {
+        return medTechApi.contactApi().matchServicesBy(filter.toAbstractFilterDto())
     }
 
     override suspend fun setDataSampleAttachment(

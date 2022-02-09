@@ -1,11 +1,14 @@
 package io.icure.md.client.apis.impl
 
+import io.icure.kraken.client.models.filter.chain.FilterChain
 import io.icure.md.client.apis.CodingApi
 import io.icure.md.client.apis.MedTechApi
 import io.icure.md.client.filter.Filter
 import io.icure.md.client.isUUID
+import io.icure.md.client.mappers.toAbstractFilterDto
 import io.icure.md.client.mappers.toCodeDto
 import io.icure.md.client.mappers.toCoding
+import io.icure.md.client.mappers.toPaginatedListCoding
 import io.icure.md.client.models.Coding
 import io.icure.md.client.models.PaginatedListCoding
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -37,14 +40,16 @@ class CodingApiImpl(private val api: MedTechApi) : CodingApi {
     }
 
     override suspend fun filterCoding(filter: Filter<Coding>, nextCodingId: String?, limit: Int?): PaginatedListCoding {
-        TODO("Not yet implemented")
+        return api.codeApi()
+            .filterCodesBy(null, nextCodingId, limit, null, null, null, FilterChain(filter.toAbstractFilterDto(), null))
+            .toPaginatedListCoding()
     }
 
-    override suspend fun getCoding(id: String): Coding {
-        return api.codeApi().getCode(id).toCoding()
+    override suspend fun getCoding(codingId: String): Coding {
+        return api.codeApi().getCode(codingId).toCoding()
     }
 
     override suspend fun matchCoding(filter: Filter<Coding>): List<String> {
-        TODO("Not yet implemented")
+        return api.codeApi().matchCodesBy(filter.toAbstractFilterDto())
     }
 }

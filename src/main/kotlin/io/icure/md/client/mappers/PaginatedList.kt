@@ -45,13 +45,6 @@ fun PaginatedListCodeDto.toPaginatedListCoding() = PaginatedListCoding(
     nextKeyPair = PaginatedDocumentKeyAndIdPairObject(this.nextKeyPair?.startKey, this.nextKeyPair?.startKeyDocId)
 )
 
-fun PaginatedListServiceDto.toPaginatedListDataSample() = PaginatedListDataSample(
-    pageSize = this.pageSize,
-    totalSize = this.totalSize,
-    rows = this.rows.map { it.toDataSample() },
-    nextKeyPair = PaginatedDocumentKeyAndIdPairObject(this.nextKeyPair?.startKey, this.nextKeyPair?.startKeyDocId)
-)
-
 fun PaginatedListHealthcarePartyDto.toPaginatedListHealthcareProfessional() = PaginatedListHealthcareProfessional(
     pageSize = this.pageSize,
     totalSize = this.totalSize,
@@ -64,6 +57,15 @@ fun PaginatedListDeviceDto.toPaginatedListMedicalDevice(): PaginatedListMedicalD
         pageSize = this.pageSize,
         totalSize = this.totalSize,
         rows = this.rows.map { it.toMedicalDevice() },
+        nextKeyPair = this.nextKeyPair?.toPaginatedDocumentKeyAndIdPairObject()
+    )
+}
+
+fun PaginatedListServiceDto.toPaginatedListDataSamples(): PaginatedListDataSample {
+    return PaginatedListDataSample(
+        pageSize = this.pageSize,
+        totalSize = this.totalSize,
+        rows = this.rows.map { it.toDataSample() },
         nextKeyPair = this.nextKeyPair?.toPaginatedDocumentKeyAndIdPairObject()
     )
 }

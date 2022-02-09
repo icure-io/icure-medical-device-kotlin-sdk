@@ -9,11 +9,11 @@ Method | HTTP request | Description
 [**deleteAttachment**](DataSampleApi.md#deleteAttachment) | **DELETE** /rest/v2/data/sample/{dataSampleId}/attachment/{documentId} | Delete an attachment of a DataSample
 [**deleteDataSample**](DataSampleApi.md#deleteDataSample) | **DELETE** /rest/v2/data/sample/{dataSampleId} | Delete a [DataSample] by its id
 [**deleteDataSamples**](DataSampleApi.md#deleteDataSamples) | **POST** /rest/v2/data/sample/batch | Delete a batch of [Data Samples]
-[**filterDataSample**](DataSampleApi.md#filterDataSample) | **POST** /rest/v2/data/sample/filter | Find data samples using the provided [filter].
+[**filterDataSamples**](DataSampleApi.md#filterDataSamples) | **POST** /rest/v2/data/sample/filter | Find data samples using the provided [filter].
 [**getDataSample**](DataSampleApi.md#getDataSample) | **GET** /rest/v2/data/sample/{dataSampleId} | Get a [DataSample] by its id
 [**getDataSampleAttachmentContent**](DataSampleApi.md#getDataSampleAttachmentContent) | **GET** /rest/v2/data/sample/{dataSampleId}/attachment/{documentId}/{attachmentId} | Get attachment content of a DataSample
 [**getDataSampleAttachmentDocument**](DataSampleApi.md#getDataSampleAttachmentDocument) | **GET** /rest/v2/data/sample/{dataSampleId}/attachment/{documentId} | Get document metadata of a DataSample attachment
-[**matchDataSample**](DataSampleApi.md#matchDataSample) | **POST** /rest/v2/data/sample/match | Find data samples ids using the provided Filter.
+[**matchDataSamples**](DataSampleApi.md#matchDataSamples) | **POST** /rest/v2/data/sample/match | Find data samples ids using the provided Filter.
 [**setDataSampleAttachment**](DataSampleApi.md#setDataSampleAttachment) | **PUT** /rest/v2/data/sample/{dataSampleId}/attachment | Add or update the attachment of a DataSample
 
 
@@ -258,9 +258,9 @@ No authorization required
  - **Content-Type**: application/json, application/xml
  - **Accept**: */*
 
-<a name="filterDataSample"></a>
-# **filterDataSample**
-> PaginatedListDataSample filterDataSample(filter)
+<a name="filterDataSamples"></a>
+# **filterDataSamples**
+> PaginatedListDataSample filterDataSamples(filter, nextDataSampleId, limit)
 
 Find data samples using the provided [filter].
 
@@ -274,14 +274,16 @@ Filters are complex selectors that are built by combining basic building blocks.
 
 val apiInstance = DataSampleApi()
 val filter : Filter =  // Filter | The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+val nextDataSampleId : kotlin.String = nextDataSampleId_example // kotlin.String | The id of the first data sample in the next page
+val limit : kotlin.Int = 56 // kotlin.Int | The number of data samples to return in the queried page
 try {
-    val result : PaginatedListDataSample = apiInstance.filterDataSample(filter)
+    val result : PaginatedListDataSample = apiInstance.filterDataSamples(filter, nextDataSampleId, limit)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling DataSampleApi#filterDataSample")
+    println("4xx response calling DataSampleApi#filterDataSamples")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling DataSampleApi#filterDataSample")
+    println("5xx response calling DataSampleApi#filterDataSamples")
     e.printStackTrace()
 }
 ```
@@ -291,6 +293,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **filter** | [**Filter**](Filter.md)| The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill |
+ **nextDataSampleId** | **kotlin.String**| The id of the first data sample in the next page | [optional]
+ **limit** | **kotlin.Int**| The number of data samples to return in the queried page | [optional]
 
 ### Return type
 
@@ -452,9 +456,9 @@ No authorization required
  - **Content-Type**: Not defined
  - **Accept**: */*
 
-<a name="matchDataSample"></a>
-# **matchDataSample**
-> kotlin.collections.List&lt;kotlin.String&gt; matchDataSample(filter)
+<a name="matchDataSamples"></a>
+# **matchDataSamples**
+> kotlin.collections.List&lt;kotlin.String&gt; matchDataSamples(filter)
 
 Find data samples ids using the provided Filter.
 
@@ -469,13 +473,13 @@ Filters are complex selectors that are built by combining basic building blocks.
 val apiInstance = DataSampleApi()
 val filter : Filter =  // Filter | The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
 try {
-    val result : kotlin.collections.List<kotlin.String> = apiInstance.matchDataSample(filter)
+    val result : kotlin.collections.List<kotlin.String> = apiInstance.matchDataSamples(filter)
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling DataSampleApi#matchDataSample")
+    println("4xx response calling DataSampleApi#matchDataSamples")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling DataSampleApi#matchDataSample")
+    println("5xx response calling DataSampleApi#matchDataSamples")
     e.printStackTrace()
 }
 ```

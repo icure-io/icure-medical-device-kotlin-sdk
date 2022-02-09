@@ -4,16 +4,11 @@ All URIs are relative to *http://localhost:8912*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createOrModifyHealthcareProfessional**](HealthcareProfessionalApi.md#createOrModifyHealthcareProfessional) | **
-PUT** /rest/v2/healthcareprofessional | Create a new healthcare professional or modify an existing one.
-[**deleteHealthcareProfessional**](HealthcareProfessionalApi.md#deleteHealthcareProfessional) | **
-DELETE** /rest/v2/healthcareprofessional/{hcpId} | Delete an existing healthcare professional.
-[**filterHealthcareProfessionalBy**](HealthcareProfessionalApi.md#filterHealthcareProfessionalBy) | **
-POST** /rest/v2/healthcareprofessional/filter | Load healthcare professionals from the database by filtering them using the provided Filter.
-[**getHealthcareProfessional**](HealthcareProfessionalApi.md#getHealthcareProfessional) | **
-GET** /rest/v2/healthcareprofessional/{hcpId} | Get a Healthcare professional by id.
-[**matchHealthcareProfessionalBy**](HealthcareProfessionalApi.md#matchHealthcareProfessionalBy) | **
-POST** /rest/v2/healthcareprofessional/match | Load healthcare professional ids from the database by filtering them using the provided Filter.
+[**createOrModifyHealthcareProfessional**](HealthcareProfessionalApi.md#createOrModifyHealthcareProfessional) | **PUT** /rest/v2/healthcareprofessional | Create a new healthcare professional or modify an existing one.
+[**deleteHealthcareProfessional**](HealthcareProfessionalApi.md#deleteHealthcareProfessional) | **DELETE** /rest/v2/healthcareprofessional/{hcpId} | Delete an existing healthcare professional.
+[**filterHealthcareProfessionalBy**](HealthcareProfessionalApi.md#filterHealthcareProfessionalBy) | **POST** /rest/v2/healthcareprofessional/filter | Load healthcare professionals from the database by filtering them using the provided Filter.
+[**getHealthcareProfessional**](HealthcareProfessionalApi.md#getHealthcareProfessional) | **GET** /rest/v2/healthcareprofessional/{hcpId} | Get a Healthcare professional by id.
+[**matchHealthcareProfessionalBy**](HealthcareProfessionalApi.md#matchHealthcareProfessionalBy) | **POST** /rest/v2/healthcareprofessional/match | Load healthcare professional ids from the database by filtering them using the provided Filter.
 
 
 <a name="createOrModifyHealthcareProfessional"></a>
@@ -22,9 +17,7 @@ POST** /rest/v2/healthcareprofessional/match | Load healthcare professional ids 
 
 Create a new healthcare professional or modify an existing one.
 
-When modifying an healthcare professional, you must ensure that the rev obtained when getting or creating the healthcare
-professional is present as the rev is used to guarantee that the healthcare professional has not been modified by a
-third party.
+When modifying an healthcare professional, you must ensure that the rev obtained when getting or creating the healthcare professional is present as the rev is used to guarantee that the healthcare professional has not been modified by a third party.
 
 ### Example
 ```kotlin
@@ -50,8 +43,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**healthcareProfessional** | [**
-HealthcareProfessional**](HealthcareProfessional.md)| The healthcare professional that must be created in the database. |
+ **healthcareProfessional** | [**HealthcareProfessional**](HealthcareProfessional.md)| The healthcare professional that must be created in the database. |
 
 ### Return type
 
@@ -98,7 +90,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**hcpId** | **kotlin.String**| The UUID that uniquely identifies the healthcare professional to be deleted. |
+ **hcpId** | **kotlin.String**| The UUID that uniquely identifies the healthcare professional to be deleted. |
 
 ### Return type
 
@@ -170,8 +162,7 @@ No authorization required
 
 Get a Healthcare professional by id.
 
-Each healthcare professional is uniquely identified by a healthcare professional id. The healthcare professional id is a
-UUID. This hcpId is the preferred method to retrieve one specific healthcare professional.
+Each healthcare professional is uniquely identified by a healthcare professional id. The healthcare professional id is a UUID. This hcpId is the preferred method to retrieve one specific healthcare professional.
 
 ### Example
 ```kotlin
@@ -197,7 +188,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-**hcpId** | **kotlin.String**| The UUID that identifies the healthcare professional uniquely |
+ **hcpId** | **kotlin.String**| The UUID that identifies the healthcare professional uniquely |
 
 ### Return type
 
@@ -218,9 +209,7 @@ No authorization required
 
 Load healthcare professional ids from the database by filtering them using the provided Filter.
 
-Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for
-Healthcare professionals are AllHealthcare professionalsFilter and Healthcare professionalsByIdsFilter. This method
-returns the list of the ids of the healthcare professionals matching the filter.
+Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for Healthcare professionals are AllHealthcare professionalsFilter and Healthcare professionalsByIdsFilter. This method returns the list of the ids of the healthcare professionals matching the filter.
 
 ### Example
 ```kotlin

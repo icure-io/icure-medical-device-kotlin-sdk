@@ -80,22 +80,22 @@ class MedicalDeviceApiImpl(private val api: MedTechApi) : MedicalDeviceApi {
 
     override suspend fun filterMedicalDevices(
         filter: Filter<MedicalDevice>,
-        nextUserId: String?,
+        nextDeviceId: String?,
         limit: Int?
     ): PaginatedListMedicalDevice {
         return api.deviceApi()
-            .filterDevicesBy(FilterChain(filter.toAbstractFilterDto(), null), nextUserId, limit)
+            .filterDevicesBy(FilterChain(filter.toAbstractFilterDto(), null), nextDeviceId, limit)
             .toPaginatedListMedicalDevice()
     }
 
     /**
      * Get a [MedicalDevice] based on its id
      *
-     * @param id id of the [MedicalDevice]
+     * @param medicalDeviceId id of the [MedicalDevice]
      * @return [MedicalDevice]
      */
-    override suspend fun getMedicalDevice(id: String): MedicalDevice {
-        return api.deviceApi().getDevice(id).toMedicalDevice()
+    override suspend fun getMedicalDevice(medicalDeviceId: String): MedicalDevice {
+        return api.deviceApi().getDevice(medicalDeviceId).toMedicalDevice()
     }
 
     /**
