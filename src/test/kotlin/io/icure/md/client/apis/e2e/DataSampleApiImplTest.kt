@@ -10,9 +10,7 @@ import io.icure.md.client.models.CodingReference
 import io.icure.md.client.models.Content
 import io.icure.md.client.models.DataSample
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toCollection
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -20,8 +18,6 @@ import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import org.taktik.commons.uti.impl.SimpleUTIDetector
-import java.io.ByteArrayInputStream
 import java.nio.ByteBuffer
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -180,6 +176,9 @@ internal class DataSampleApiImplTest {
             assert(createdDocument.attachmentId != null)
             assertEquals("public.xml", createdDocument.mainUti)
             assertEquals(documentExternalUuid, createdDocument.externalUuid)
+
+            val updatedDataSample = testedInstance.getDataSample(createdDataSample.id!!)
+            assert(updatedDataSample.content["en"]?.documentId == createdDocument.id)
         }
     }
 
@@ -244,26 +243,5 @@ internal class DataSampleApiImplTest {
             val updatedDataSample = testedInstance.getDataSample(createdDataSample.id!!)
             assert(updatedDataSample.content["en"]?.documentId == null)
         }
-    }
-
-    @Test
-    internal fun testUTIDetection() {
-        runBlocking {
-            // Init
-            val documentToAdd =
-                flowOf(ByteBuffer.wrap(Files.readAllBytes(Paths.get("src/test/resources/io/icure/md/client/attachments/data_sample_attachment_note.xml"))))
-            val byteArray = documentToAdd.map {
-                val ba = ByteArray(it.remaining().coerceAtMost(256))
-                it.slice().get(ba, 0, ba.size)
-                ba
-            }.first()
-
-            // When
-            val uti = SimpleUTIDetector().detectUTI(ByteArrayInputStream(byteArray), null, null)
-
-            // Then
-            assertEquals(uti, "public.xml")
-        }
-
     }
 }

@@ -16,7 +16,7 @@ fun ServiceDto.toDataSample(batchId: String? = null): DataSample = DataSample(
     codes = this.codes.map { it.toCodingReference() },
     labels = this.tags.map { it.toCodingReference() },
     transactionId = this.transactionId,
-    batchId = this.contactId ?: batchId,
+    batchId = batchId ?: this.contactId,
     healthElementsIds = this.healthElementsIds,
     canvasesIds = this.formIds,
     index = this.index,

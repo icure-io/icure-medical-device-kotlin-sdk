@@ -59,6 +59,8 @@ dependencies {
     implementation(group = "io.icure", name = "icure-reactive-kotlin-client", version = "0.1.307-73a4ed6fad")
     implementation(group = "org.taktik.commons", name = "commons-uti", version = "1.0")
 
+    implementation(group = "com.github.ben-manes.caffeine", name = "caffeine", version = "3.0.4")
+
     implementation(group = "javax.inject", name = "javax.inject", version = "1")
     implementation(group = "org.mapstruct", name = "mapstruct", version = "1.3.1.Final")
     implementation(group = "com.github.ben-manes.caffeine", name = "caffeine", version = "3.0.3")
