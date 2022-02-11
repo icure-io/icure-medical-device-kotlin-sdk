@@ -3,9 +3,9 @@ package io.icure.md.client.mappers
 import io.icure.kraken.client.models.PaginatedDocumentKeyIdPairObject
 import io.icure.kraken.client.models.PaginatedListCodeDto
 import io.icure.kraken.client.models.PaginatedListDeviceDto
-import io.icure.kraken.client.models.PaginatedListHealthElementDto
 import io.icure.kraken.client.models.PaginatedListHealthcarePartyDto
 import io.icure.kraken.client.models.PaginatedListUserDto
+import io.icure.kraken.client.models.decrypted.PaginatedListHealthElementDto
 import io.icure.kraken.client.models.decrypted.PaginatedListPatientDto
 import io.icure.kraken.client.models.decrypted.PaginatedListServiceDto
 import io.icure.md.client.models.PaginatedDocumentKeyAndIdPairObject
@@ -45,13 +45,6 @@ fun PaginatedListCodeDto.toPaginatedListCoding() = PaginatedListCoding(
     nextKeyPair = PaginatedDocumentKeyAndIdPairObject(this.nextKeyPair?.startKey, this.nextKeyPair?.startKeyDocId)
 )
 
-fun PaginatedListServiceDto.toPaginatedListDataSample() = PaginatedListDataSample(
-    pageSize = this.pageSize,
-    totalSize = this.totalSize,
-    rows = this.rows.map { it.toDataSample() },
-    nextKeyPair = PaginatedDocumentKeyAndIdPairObject(this.nextKeyPair?.startKey, this.nextKeyPair?.startKeyDocId)
-)
-
 fun PaginatedListHealthcarePartyDto.toPaginatedListHealthcareProfessional() = PaginatedListHealthcareProfessional(
     pageSize = this.pageSize,
     totalSize = this.totalSize,
@@ -64,6 +57,15 @@ fun PaginatedListDeviceDto.toPaginatedListMedicalDevice(): PaginatedListMedicalD
         pageSize = this.pageSize,
         totalSize = this.totalSize,
         rows = this.rows.map { it.toMedicalDevice() },
+        nextKeyPair = this.nextKeyPair?.toPaginatedDocumentKeyAndIdPairObject()
+    )
+}
+
+fun PaginatedListServiceDto.toPaginatedListDataSamples(): PaginatedListDataSample {
+    return PaginatedListDataSample(
+        pageSize = this.pageSize,
+        totalSize = this.totalSize,
+        rows = this.rows.map { it.toDataSample() },
         nextKeyPair = this.nextKeyPair?.toPaginatedDocumentKeyAndIdPairObject()
     )
 }

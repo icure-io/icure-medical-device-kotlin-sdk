@@ -19,7 +19,9 @@ class MedTechApi(
     iCureUrlPath: String,
     authorization: String,
     rsaKeyPairs: MutableMap<String, Pair<RSAPrivateKey, RSAPublicKey>>,
-    private val defaultLanguage: String
+    private val defaultLanguage: String,
+    private val shortLivedCachesDuration: Long,
+    private val shortLivedCachesMaxSize: Long,
 ) {
     private val userApi = UserApi(basePath = iCureUrlPath, authHeader = authorization)
     private val patientApi = PatientApi(basePath = iCureUrlPath, authHeader = authorization)
@@ -32,6 +34,10 @@ class MedTechApi(
     private val localCrypto = LocalCrypto(hcpApi, rsaKeyPairs)
 
     fun defaultLanguage() = defaultLanguage
+
+    fun shortLivedCachesDuration() = shortLivedCachesDuration
+
+    fun shortLivedCachesMaxSize() = shortLivedCachesMaxSize
 
     fun localCrypto() = localCrypto
 
@@ -55,9 +61,14 @@ class MedTechApi(
         private var iCureUrlPath: String = defaultBasePath,
         private var authorization: String? = null,
         private var rsaKeyPairs: MutableMap<String, Pair<RSAPrivateKey, RSAPublicKey>> = mutableMapOf(),
-        private var defaultLanguage: String = "en"
+        private var defaultLanguage: String = "en",
+        private var shortLivedCachesDuration: Long = 5 * 60,
+        private var shortLivedCachesMaxSize: Long = 1000
     ) {
         fun defaultLanguage(language: String) = apply { this.defaultLanguage = language }
+        fun shortLivedCacheDurationInSeconds(seconds: Long) = apply { this.shortLivedCachesDuration = seconds }
+        fun shortLivedCacheMaxSize(maxSize: Long) = apply { this.shortLivedCachesMaxSize = maxSize }
+
         fun iCureUrlPath(iCureUrlPath: String) = apply { this.iCureUrlPath = iCureUrlPath }
         fun authorization(authorization: String) = apply { this.authorization = authorization }
         fun addKeyPair(keyId: String, publicKey: RSAPublicKey, privateKey: RSAPrivateKey) =
@@ -72,7 +83,10 @@ class MedTechApi(
                 throw IllegalArgumentException("In order to encrypt/decrypt your data, you need to provide at least a RSA Key Pair")
             }
 
-            return MedTechApi(iCureUrlPath, authorization!!, rsaKeyPairs, defaultLanguage)
+            return MedTechApi(
+                iCureUrlPath, authorization!!, rsaKeyPairs, defaultLanguage, shortLivedCachesDuration,
+                shortLivedCachesMaxSize
+            )
         }
     }
 

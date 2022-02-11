@@ -10,13 +10,13 @@ import java.util.*
 
 fun ServiceDto.toDataSample(batchId: String? = null): DataSample = DataSample(
     id = this.id,
-    identifier = this.identifier.map { it.toIdentifier() },
+    identifiers = this.identifier.map { it.toIdentifier() },
     content = this.content.mapValues { it.value.toContent() },
     qualifiedLinks = this.qualifiedLinks.map { (k, v) -> k.name to v }.toMap(),
     codes = this.codes.map { it.toCodingReference() },
     labels = this.tags.map { it.toCodingReference() },
     transactionId = this.transactionId,
-    batchId = this.contactId ?: batchId,
+    batchId = batchId ?: this.contactId,
     healthElementsIds = this.healthElementsIds,
     canvasesIds = this.formIds,
     index = this.index,
@@ -68,7 +68,7 @@ fun DataSample.toServiceDto(): ServiceDto = ServiceDto(
             throw IllegalArgumentException("Invalid id, id must be a valid UUID")
         }
     } ?: UUID.randomUUID().toString(),
-    identifier = this.identifier.map { it.toIdentifierDto() },
+    identifier = this.identifiers.map { it.toIdentifierDto() },
     content = this.content.mapValues { it.value.toContentDto() },
     qualifiedLinks = this.qualifiedLinks.map { (k, v) -> ServiceDto.LinkQualification.valueOf(k) to v }.toMap(),
     codes = this.codes.map { it.toCodeStubDto() },

@@ -154,7 +154,6 @@ inline fun <reified T : Any> FilterBuilder<T>.byIdentifiers(vararg identifiers: 
     else -> throw IllegalArgumentException("All is not supported fot ${T::class}")
 }
 
-
 inline fun <reified T : Any> FilterBuilder<T>.withLabel(type: String, code: String?) = when (T::class) {
     DataSample::class -> (this as FilterBuilder<DataSample>).dataSamplesWithLabel(type, code)
     HealthcareElement::class -> (this as FilterBuilder<HealthcareElement>).healthcareElementsWithLabel(type, code)
@@ -169,11 +168,15 @@ inline fun <reified T : Any> FilterBuilder<T>.withCode(type: String, code: Strin
 
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
-suspend inline fun <reified T : Any> FilterBuilder<T>.ofPatients(localCrypto: LocalCrypto, vararg patients: Patient) = when (T::class) {
-    DataSample::class -> (this as FilterBuilder<DataSample>).dataSamplesOfPatients(localCrypto, *patients)
-    HealthcareElement::class -> (this as FilterBuilder<HealthcareElement>).healthcareElementsOfPatients(localCrypto, *patients)
-    else -> throw IllegalArgumentException("ofPatient is not supported fot ${T::class}")
-}
+suspend inline fun <reified T : Any> FilterBuilder<T>.ofPatients(localCrypto: LocalCrypto, vararg patients: Patient) =
+    when (T::class) {
+        DataSample::class -> (this as FilterBuilder<DataSample>).dataSamplesOfPatients(localCrypto, *patients)
+        HealthcareElement::class -> (this as FilterBuilder<HealthcareElement>).healthcareElementsOfPatients(
+            localCrypto,
+            *patients
+        )
+        else -> throw IllegalArgumentException("ofPatient is not supported fot ${T::class}")
+    }
 
 fun FilterBuilder<HealthcareElement>.healthcareElementsWithLabel(type: String, code: String?) {
     this.registerInParent { hcp ->
@@ -236,8 +239,14 @@ suspend fun FilterBuilder<DataSample>.dataSamplesOfPatients(localCrypto: LocalCr
     this.registerInParent { hcp ->
         DataSampleByPatientFilter(
             null,
-            hcp?.id ?: throw IllegalArgumentException("DataSampleByPatientFilter needs a hcp to be registered in the builder using a forHcp call"),
-            patients.toSet().flatMap { localCrypto.decryptEncryptionKeys(hcp.id, it.systemMetaData?.delegations?.mapValues { (k,v) -> v.map { it.toDelegationDto() }.toSet() } ?: emptyMap()) }.toSet()
+            hcp?.id
+                ?: throw IllegalArgumentException("DataSampleByPatientFilter needs a hcp to be registered in the builder using a forHcp call"),
+            patients.toSet().flatMap {
+                localCrypto.decryptEncryptionKeys(
+                    hcp.id,
+                    it.systemMetaData?.delegations?.mapValues { (k, v) -> v.map { it.toDelegationDto() }.toSet() }
+                        ?: emptyMap())
+            }.toSet()
         )
     }
 
@@ -245,12 +254,21 @@ suspend fun FilterBuilder<DataSample>.dataSamplesOfPatients(localCrypto: LocalCr
 
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
-suspend fun FilterBuilder<HealthcareElement>.healthcareElementsOfPatients(localCrypto: LocalCrypto, vararg patients: Patient) {
+suspend fun FilterBuilder<HealthcareElement>.healthcareElementsOfPatients(
+    localCrypto: LocalCrypto,
+    vararg patients: Patient
+) {
     this.registerInParent { hcp ->
         HealthcareElementByHealthcarePartyPatientFilter(
             null,
-            hcp?.id ?: throw IllegalArgumentException("HealthcareElementByHealthcarePartyPatientFilter needs a hcp to be registered in the builder using a forHcp call"),
-            patients.flatMap { localCrypto.decryptEncryptionKeys(hcp.id, it.systemMetaData?.delegations?.mapValues { (k,v) -> v.map { it.toDelegationDto() }.toSet() } ?: emptyMap()) }.toSet()
+            hcp?.id
+                ?: throw IllegalArgumentException("HealthcareElementByHealthcarePartyPatientFilter needs a hcp to be registered in the builder using a forHcp call"),
+            patients.flatMap {
+                localCrypto.decryptEncryptionKeys(
+                    hcp.id,
+                    it.systemMetaData?.delegations?.mapValues { (k, v) -> v.map { it.toDelegationDto() }.toSet() }
+                        ?: emptyMap())
+            }.toSet()
         )
     }
 }
@@ -305,10 +323,13 @@ fun FilterBuilder<HealthcareProfessional>.healthcareProfessionalsByIds(vararg id
 }
 
 fun FilterBuilder<HealthcareElement>.allHealthcareElements() {
-    this.registerInParent { hcp -> HealthcareElementByHealthcarePartyFilter(
-        hcp?.id
-            ?: throw IllegalArgumentException("HealthcareElementByHealthcarePartyFilter needs a hcp to be registered in the builder using a forHcp call"),
-        null) }
+    this.registerInParent { hcp ->
+        HealthcareElementByHealthcarePartyFilter(
+            hcp?.id
+                ?: throw IllegalArgumentException("HealthcareElementByHealthcarePartyFilter needs a hcp to be registered in the builder using a forHcp call"),
+            null
+        )
+    }
 }
 
 fun FilterBuilder<HealthcareElement>.healthcareElementsByIds(vararg ids: String) {
@@ -325,7 +346,6 @@ fun FilterBuilder<HealthcareElement>.healthcareElementsByIdentifiers(vararg iden
         )
     }
 }
-
 
 fun FilterBuilder<Patient>.allPatients() {
     this.registerInParent { hcp -> PatientByHealthcarePartyFilter(null, hcp?.id) }
