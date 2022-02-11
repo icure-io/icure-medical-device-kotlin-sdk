@@ -59,9 +59,9 @@ fun PatientDto.toPatient() = Patient(
         this.hcPartyKeys,
         this.privateKeyShamirPartitions,
         this.secretForeignKeys,
-        this.cryptedForeignKeys?.mapValues { (k, v) -> v.map { it.toDelegation() }.toSet() },
-        this.delegations?.mapValues { (k, v) -> v.map { it.toDelegation() }.toSet() },
-        this.encryptionKeys?.mapValues { (k, v) -> v.map { it.toDelegation() }.toSet() }
+        this.cryptedForeignKeys.mapValues { (_, v) -> v.map { it.toDelegation() }.toSet() },
+        this.delegations.mapValues { (_, v) -> v.map { it.toDelegation() }.toSet() },
+        this.encryptionKeys.mapValues { (_, v) -> v.map { it.toDelegation() }.toSet() }
     )
 )
 

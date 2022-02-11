@@ -56,8 +56,10 @@ dependencies {
     implementation(group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-jsr310", version = jacksonVersion)
 
     implementation(group = "io.icure", name = "async-jackson-http-client", version = "0.1.15-9cf193799d")
-    implementation(group = "io.icure", name = "icure-reactive-kotlin-client", version = "0.1.295-70ed48e565")
+    implementation(group = "io.icure", name = "icure-reactive-kotlin-client", version = "0.1.309-24f78bf5b6")
     implementation(group = "org.taktik.commons", name = "commons-uti", version = "1.0")
+
+    implementation(group = "com.github.ben-manes.caffeine", name = "caffeine", version = "3.0.4")
 
     implementation(group = "javax.inject", name = "javax.inject", version = "1")
     implementation(group = "org.mapstruct", name = "mapstruct", version = "1.3.1.Final")
@@ -81,6 +83,7 @@ dependencies {
     testImplementation(group = "io.kotlintest", name = "kotlintest", version = "2.0.7")
     testImplementation(group = "org.junit.jupiter", name = "junit-jupiter", version = "5.7.0")
     testImplementation(group = "com.willowtreeapps.assertk", name = "assertk-jvm", version = "0.24")
+    testImplementation(group = "io.icure", name = "diff-utils", version = "0.1.3-959d0c98a9")
 }
 
 

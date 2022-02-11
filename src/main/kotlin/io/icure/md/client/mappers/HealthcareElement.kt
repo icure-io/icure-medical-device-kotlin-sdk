@@ -1,6 +1,6 @@
 package io.icure.md.client.mappers
 
-import io.icure.kraken.client.models.HealthElementDto
+import io.icure.kraken.client.models.decrypted.HealthElementDto
 import io.icure.md.client.models.HealthcareElement
 import io.icure.md.client.models.SystemMetaDataEncrypted
 import java.util.*
@@ -8,7 +8,7 @@ import java.util.*
 fun HealthElementDto.toHealthcareElement() = HealthcareElement(
     id = this.id,
     identifiers = this.identifiers.map { it.toIdentifier() },
-    tags = this.tags.map { it.toCodingReference() },
+    labels = this.tags.map { it.toCodingReference() },
     codes = this.codes.map { it.toCodingReference() },
     rev = this.rev,
     created = this.created,
@@ -26,9 +26,9 @@ fun HealthElementDto.toHealthcareElement() = HealthcareElement(
     note = this.note,
     systemMetaData = SystemMetaDataEncrypted(
         this.secretForeignKeys,
-        this.cryptedForeignKeys?.mapValues { (k,v) -> v.map { it.toDelegation() }.toSet() } ?: emptyMap(),
-        this.delegations?.mapValues { (k,v) -> v.map { it.toDelegation() }.toSet() } ?: emptyMap(),
-        this.encryptionKeys?.mapValues { (k,v) -> v.map { it.toDelegation() }.toSet() } ?: emptyMap()
+        this.cryptedForeignKeys?.mapValues { (k, v) -> v.map { it.toDelegation() }.toSet() } ?: emptyMap(),
+        this.delegations?.mapValues { (k, v) -> v.map { it.toDelegation() }.toSet() } ?: emptyMap(),
+        this.encryptionKeys?.mapValues { (k, v) -> v.map { it.toDelegation() }.toSet() } ?: emptyMap()
     )
 )
 
@@ -41,7 +41,7 @@ fun HealthcareElement.toHealthcareElementDto() = HealthElementDto(
         }
     } ?: UUID.randomUUID().toString(),
     identifiers = this.identifiers.map { it.toIdentifierDto() },
-    tags = this.tags.map { it.toCodeStubDto() },
+    tags = this.labels.map { it.toCodeStubDto() },
     codes = this.codes.map { it.toCodeStubDto() },
     rev = this.rev,
     created = this.created,
@@ -67,4 +67,4 @@ fun HealthcareElement.toHealthcareElementDto() = HealthElementDto(
         ?: emptyMap(),
     encryptionKeys = this.systemMetaData?.encryptionKeys?.mapValues { (k, v) -> v.map { it.toDelegationDto() }.toSet() }
         ?: emptyMap(),
-    )
+)

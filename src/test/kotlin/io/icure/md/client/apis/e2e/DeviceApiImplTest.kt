@@ -1,10 +1,10 @@
 package io.icure.md.client.apis.e2e
 
-import io.icure.kraken.client.infrastructure.Diff
-import io.icure.kraken.client.infrastructure.differences
-import io.icure.kraken.client.infrastructure.filterDiffs
-import io.icure.md.client.apis.MedicalDeviceApi
+import io.icure.diffutils.Diff
+import io.icure.diffutils.differences
+import io.icure.diffutils.filterDiffs
 import io.icure.md.client.apis.MedTechApi
+import io.icure.md.client.apis.MedicalDeviceApi
 import io.icure.md.client.apis.impl.MedicalDeviceApiImpl
 import io.icure.md.client.models.MedicalDevice
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -43,7 +43,7 @@ internal class DeviceApiImplTest {
         val createdDevice = testedInstance.createOrModifyMedicalDevice(device)
 
         val diffs = device.differences(createdDevice)
-        val filters = listOf("id", "author", "created", "modified", "responsible", "rev")
+        val filters = listOf("id", "author", "created", "modified", "responsible", "rev", "systemMetaData")
         val filteredDiffs = filterDiffs(createdDevice, device, diffs, filters)
         Assertions.assertEquals(emptyList<Diff>(), filteredDiffs)
     }

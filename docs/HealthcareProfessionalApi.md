@@ -1,23 +1,23 @@
 # HealthcareProfessionalApi
 
-All URIs are relative to *http://127.0.0.1:8912*
+All URIs are relative to *http://localhost:8912*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createOrModifyHealthcareProfessional**](HealthcareProfessionalApi.md#createOrModifyHealthcareProfessional) | **PUT** /rest/v2/healthcareprofessional | Create a newhealthcare professional or modify an existing one.
+[**createOrModifyHealthcareProfessional**](HealthcareProfessionalApi.md#createOrModifyHealthcareProfessional) | **PUT** /rest/v2/healthcareprofessional | Create a new healthcare professional or modify an existing one.
 [**deleteHealthcareProfessional**](HealthcareProfessionalApi.md#deleteHealthcareProfessional) | **DELETE** /rest/v2/healthcareprofessional/{hcpId} | Delete an existing healthcare professional.
 [**filterHealthcareProfessionalBy**](HealthcareProfessionalApi.md#filterHealthcareProfessionalBy) | **POST** /rest/v2/healthcareprofessional/filter | Load healthcare professionals from the database by filtering them using the provided Filter.
 [**getHealthcareProfessional**](HealthcareProfessionalApi.md#getHealthcareProfessional) | **GET** /rest/v2/healthcareprofessional/{hcpId} | Get a Healthcare professional by id.
-[**matchHealthcareProfessionalBy**](HealthcareProfessionalApi.md#matchHealthcareProfessionalBy) | **POST** /rest/v2/healthcareprofessional/match | Loadhealthcare professional ids from the database by filtering them using the provided Filter.
+[**matchHealthcareProfessionalBy**](HealthcareProfessionalApi.md#matchHealthcareProfessionalBy) | **POST** /rest/v2/healthcareprofessional/match | Load healthcare professional ids from the database by filtering them using the provided Filter.
 
 
 <a name="createOrModifyHealthcareProfessional"></a>
 # **createOrModifyHealthcareProfessional**
 > HealthcareProfessional createOrModifyHealthcareProfessional(healthcareProfessional)
 
-Create a newhealthcare professional or modify an existing one.
+Create a new healthcare professional or modify an existing one.
 
-Ahealthcare professional must have a login, an email or a mobilePhone defined, ahealthcare professional should be linked to either a Healthcare Professional, a Patient or a Device. When modifying an healthcare professional, you must ensure that the rev obtained when getting or creating thehealthcare professional is present as the rev is used to guarantee that thehealthcare professional has not been modified by a third party.
+When modifying an healthcare professional, you must ensure that the rev obtained when getting or creating the healthcare professional is present as the rev is used to guarantee that the healthcare professional has not been modified by a third party.
 
 ### Example
 ```kotlin
@@ -26,7 +26,7 @@ Ahealthcare professional must have a login, an email or a mobilePhone defined, a
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareProfessionalApi()
-val healthcareProfessional : HealthcareProfessional =  // HealthcareProfessional | Thehealthcare professional that must be created in the database.
+val healthcareProfessional : HealthcareProfessional =  // HealthcareProfessional | The healthcare professional that must be created in the database.
 try {
     val result : HealthcareProfessional = apiInstance.createOrModifyHealthcareProfessional(healthcareProfessional)
     println(result)
@@ -43,7 +43,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **healthcareProfessional** | [**HealthcareProfessional**](HealthcareProfessional.md)| Thehealthcare professional that must be created in the database. |
+ **healthcareProfessional** | [**HealthcareProfessional**](HealthcareProfessional.md)| The healthcare professional that must be created in the database. |
 
 ### Return type
 
@@ -64,7 +64,7 @@ No authorization required
 
 Delete an existing healthcare professional.
 
-Deletes thehealthcare professional identified by the provided unique hcpId.
+Deletes the healthcare professional identified by the provided unique hcpId.
 
 ### Example
 ```kotlin
@@ -73,7 +73,7 @@ Deletes thehealthcare professional identified by the provided unique hcpId.
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareProfessionalApi()
-val hcpId : kotlin.String = hcpId_example // kotlin.String | The UUID that uniquely identifies thehealthcare professional to be deleted.
+val hcpId : kotlin.String = hcpId_example // kotlin.String | The UUID that uniquely identifies the healthcare professional to be deleted.
 try {
     val result : kotlin.String = apiInstance.deleteHealthcareProfessional(hcpId)
     println(result)
@@ -90,7 +90,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **hcpId** | **kotlin.String**| The UUID that uniquely identifies thehealthcare professional to be deleted. |
+ **hcpId** | **kotlin.String**| The UUID that uniquely identifies the healthcare professional to be deleted. |
 
 ### Return type
 
@@ -162,7 +162,7 @@ No authorization required
 
 Get a Healthcare professional by id.
 
-Eachhealthcare professional is uniquely identified by ahealthcare professional id. Thehealthcare professional id is a UUID. This hcpId is the preferred method to retrieve one specific healthcare professional.
+Each healthcare professional is uniquely identified by a healthcare professional id. The healthcare professional id is a UUID. This hcpId is the preferred method to retrieve one specific healthcare professional.
 
 ### Example
 ```kotlin
@@ -171,7 +171,7 @@ Eachhealthcare professional is uniquely identified by ahealthcare professional i
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareProfessionalApi()
-val hcpId : kotlin.String = hcpId_example // kotlin.String | The UUID that identifies thehealthcare professional uniquely
+val hcpId : kotlin.String = hcpId_example // kotlin.String | The UUID that identifies the healthcare professional uniquely
 try {
     val result : HealthcareProfessional = apiInstance.getHealthcareProfessional(hcpId)
     println(result)
@@ -188,7 +188,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **hcpId** | **kotlin.String**| The UUID that identifies thehealthcare professional uniquely |
+ **hcpId** | **kotlin.String**| The UUID that identifies the healthcare professional uniquely |
 
 ### Return type
 
@@ -207,7 +207,7 @@ No authorization required
 # **matchHealthcareProfessionalBy**
 > kotlin.collections.List&lt;kotlin.String&gt; matchHealthcareProfessionalBy(filter)
 
-Loadhealthcare professional ids from the database by filtering them using the provided Filter.
+Load healthcare professional ids from the database by filtering them using the provided Filter.
 
 Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for Healthcare professionals are AllHealthcare professionalsFilter and Healthcare professionalsByIdsFilter. This method returns the list of the ids of the healthcare professionals matching the filter.
 
