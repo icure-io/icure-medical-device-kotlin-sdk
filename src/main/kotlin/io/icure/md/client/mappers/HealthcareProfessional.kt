@@ -56,6 +56,8 @@ fun HealthcareProfessional.toHealthcarePartyDto() = HealthcarePartyDto(
     parentId = this.parentId,
     picture = this.picture,
     notes = this.notes,
+    hcPartyKeys = this.systemMetaData?.hcPartyKeys ?: emptyMap(),
+    privateKeyShamirPartitions = this.systemMetaData?.privateKeyShamirPartitions ?: emptyMap(),
 )
 
 private fun HealthcareProfessional.Gender.toGender() = HealthcarePartyDto.Gender.valueOf(this.name)
