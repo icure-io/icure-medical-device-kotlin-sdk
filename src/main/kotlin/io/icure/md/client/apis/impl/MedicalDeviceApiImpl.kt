@@ -75,7 +75,7 @@ class MedicalDeviceApiImpl(private val api: MedTechApi) : MedicalDeviceApi {
      * @return ids of the deleted devices
      */
     override suspend fun deleteMedicalDevices(requestBody: List<String>): List<String> {
-        return api.deviceApi().deleteDevices(ListOfIdsDto(ids = requestBody)).mapNotNull { it.id }
+        return api.deviceApi().deleteDevices(ListOfIdsDto(ids = requestBody)).mapNotNull { it.rev }
     }
 
     override suspend fun filterMedicalDevices(

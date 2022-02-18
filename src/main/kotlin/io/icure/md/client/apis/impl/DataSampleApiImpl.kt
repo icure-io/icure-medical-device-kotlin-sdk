@@ -83,6 +83,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
 
         val contactPatientId = existingContact?.let {
             getPatientIdOfContact(localCrypto, currentUser, it)
+                ?: throw IllegalArgumentException("Can't update a batch of data samples that is not linked to any patient yet.")
         }
 
         if (contactPatientId != null && contactPatientId != patientId) {
@@ -134,13 +135,13 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         return dataSample.id
             ?.let { contactsCache.getIfPresent(currentUser.id to it) }
             ?.let { true to it }
-            ?: false to dataSample.batchId?.let { contactId ->
+            ?: (false to dataSample.batchId?.let { contactId ->
                 getContactFromICure(
                     localCrypto,
                     currentUser,
                     contactId
                 )
-            }
+            })
     }
 
     private suspend fun getContactFromICure(

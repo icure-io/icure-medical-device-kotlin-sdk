@@ -25,6 +25,11 @@ fun String.isUUID(): Boolean {
     }
 }
 
+fun String.isCodeId(): Boolean {
+    val codeRegex = "[a-zA-Z0-9]*\\|[a-zA-Z0-9.-]*\\|[a-zA-Z0-9.]+".toRegex()
+    return codeRegex.matches(this)
+}
+
 fun ByteArray.toHex(): String {
     return joinToString("") { "%02x".format(it) }
 }
