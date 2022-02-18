@@ -15,15 +15,15 @@ package io.icure.md.client.filter
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
 import io.icure.kraken.client.crypto.LocalCrypto
-import io.icure.md.client.filter.coding.AllCodesFilter
-import io.icure.md.client.filter.coding.CodeByIdsFilter
+import io.icure.md.client.filter.coding.AllCodingsFilter
+import io.icure.md.client.filter.coding.CodingByIdsFilter
 import io.icure.md.client.filter.datasample.DataSampleByHealthcarePartyFilter
 import io.icure.md.client.filter.datasample.DataSampleByHealthcarePartyIdentifiersFilter
 import io.icure.md.client.filter.datasample.DataSampleByHealthcarePartyLabelCodeDateFilter
 import io.icure.md.client.filter.datasample.DataSampleByIdsFilter
 import io.icure.md.client.filter.datasample.DataSampleByPatientFilter
-import io.icure.md.client.filter.device.AllDevicesFilter
-import io.icure.md.client.filter.device.DeviceByIdsFilter
+import io.icure.md.client.filter.medicaldevice.AllMedicalDevicesFilter
+import io.icure.md.client.filter.medicaldevice.MedicalDeviceByIdsFilter
 import io.icure.md.client.filter.hcp.AllHealthcareProfessionalsFilter
 import io.icure.md.client.filter.hcp.HealthcareProfessionalByIdsFilter
 import io.icure.md.client.filter.healthcareelement.HealthcareElementByHealthcarePartyFilter
@@ -274,11 +274,11 @@ suspend fun FilterBuilder<HealthcareElement>.healthcareElementsOfPatients(
 }
 
 fun FilterBuilder<Coding>.allCodings() {
-    this.registerInParent { hcp -> AllCodesFilter(null) }
+    this.registerInParent { hcp -> AllCodingsFilter(null) }
 }
 
 fun FilterBuilder<Coding>.codingsByIds(vararg ids: String) {
-    this.registerInParent { hcp -> CodeByIdsFilter(null, ids.toSet()) }
+    this.registerInParent { hcp -> CodingByIdsFilter(null, ids.toSet()) }
 }
 
 fun FilterBuilder<DataSample>.allDataSamples() {
@@ -307,11 +307,11 @@ fun FilterBuilder<DataSample>.dataSamplesByIdentifiers(vararg identifiers: Ident
 }
 
 fun FilterBuilder<MedicalDevice>.allMedicalDevices() {
-    this.registerInParent { hcp -> AllDevicesFilter(null) }
+    this.registerInParent { hcp -> AllMedicalDevicesFilter(null) }
 }
 
 fun FilterBuilder<MedicalDevice>.medicalDevicesByIds(vararg ids: String) {
-    this.registerInParent { hcp -> DeviceByIdsFilter(ids.toSet(), null) }
+    this.registerInParent { hcp -> MedicalDeviceByIdsFilter(ids.toSet(), null) }
 }
 
 fun FilterBuilder<HealthcareProfessional>.allHealthcareProfessionals() {

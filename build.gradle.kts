@@ -15,11 +15,19 @@ buildscript {
     dependencies {
         classpath("com.taktik.gradle:gradle-plugin-git-version:2.0.2")
         classpath("com.taktik.gradle:gradle-plugin-maven-repository:1.0.2")
+        classpath("com.taktik.gradle:gradle-plugin-kt-to-ts:1.0")
     }
 }
 
 apply(plugin = "git-version")
 apply(plugin = "maven-repository")
+apply(plugin = "kt-to-ts")
+configure<KtToTsConfig> {
+    this.packageToGenerateFiles = "io.icure.md.client.filter.hcp"
+    this.pathCreateFiles = "./models-ts/filters/"
+}
+
+
 val gitVersion: String? by project
 
 group = "io.icure"
