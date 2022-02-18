@@ -5,12 +5,14 @@ import io.icure.md.client.apis.UserApi
 import io.icure.md.client.apis.impl.UserApiImpl
 import io.icure.md.client.models.User
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import java.time.Instant
 
+@FlowPreview
 @ExperimentalStdlibApi
 @ExperimentalCoroutinesApi
 @DisplayName("User tests")

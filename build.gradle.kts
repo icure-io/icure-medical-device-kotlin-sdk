@@ -64,7 +64,7 @@ dependencies {
     implementation(group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-jsr310", version = jacksonVersion)
 
     implementation(group = "io.icure", name = "async-jackson-http-client", version = "0.1.15-9cf193799d")
-    implementation(group = "io.icure", name = "icure-reactive-kotlin-client", version = "0.1.309-24f78bf5b6")
+    implementation(group = "io.icure", name = "icure-reactive-kotlin-client", version = "0.1.316-37cda9fd25")
     implementation(group = "org.taktik.commons", name = "commons-uti", version = "1.0")
 
     implementation(group = "com.github.ben-manes.caffeine", name = "caffeine", version = "3.0.4")
