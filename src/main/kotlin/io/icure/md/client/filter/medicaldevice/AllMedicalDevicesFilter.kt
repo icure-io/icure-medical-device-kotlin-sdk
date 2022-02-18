@@ -16,15 +16,15 @@
  *     <https://www.gnu.org/licenses/>.
  */
 
-package io.icure.md.client.filter.coding
+package io.icure.md.client.filter.medicaldevice
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
 import io.icure.md.client.filter.Filter
-import io.icure.md.client.models.Coding
+import io.icure.md.client.models.MedicalDevice
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class AllCodesFilter(
+data class AllMedicalDevicesFilter(
     override val description: String? = null,
-) : Filter<Coding>
+) : Filter<MedicalDevice>

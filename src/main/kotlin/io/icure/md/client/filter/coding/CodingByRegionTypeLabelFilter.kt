@@ -11,7 +11,7 @@ import io.icure.md.client.models.Coding
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class CodeByRegionTypeLabelFilter(
+data class CodingByRegionTypeLabelFilter(
     override val description: String? = null,
     val region: String? = null,
     val type: String? = null,

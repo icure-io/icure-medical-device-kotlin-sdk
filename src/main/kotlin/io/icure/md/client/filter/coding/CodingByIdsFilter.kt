@@ -24,7 +24,7 @@ import io.icure.md.client.models.Coding
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class CodeByIdsFilter(
+data class CodingByIdsFilter(
     override val description: String? = null,
     val ids: Set<String>
 ) : Filter<Coding>

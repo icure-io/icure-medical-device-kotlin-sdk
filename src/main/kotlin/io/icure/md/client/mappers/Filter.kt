@@ -12,16 +12,16 @@ import io.icure.md.client.filter.ComplementFilter
 import io.icure.md.client.filter.Filter
 import io.icure.md.client.filter.IntersectionFilter
 import io.icure.md.client.filter.UnionFilter
-import io.icure.md.client.filter.coding.AllCodesFilter
-import io.icure.md.client.filter.coding.CodeByIdsFilter
-import io.icure.md.client.filter.coding.CodeByRegionTypeLabelFilter
+import io.icure.md.client.filter.coding.AllCodingsFilter
+import io.icure.md.client.filter.coding.CodingByIdsFilter
+import io.icure.md.client.filter.coding.CodingByRegionTypeLabelFilter
 import io.icure.md.client.filter.datasample.DataSampleByHealthcarePartyFilter
 import io.icure.md.client.filter.datasample.DataSampleByHealthcarePartyIdentifiersFilter
 import io.icure.md.client.filter.datasample.DataSampleByHealthcarePartyLabelCodeDateFilter
 import io.icure.md.client.filter.datasample.DataSampleByIdsFilter
 import io.icure.md.client.filter.datasample.DataSampleByPatientFilter
-import io.icure.md.client.filter.device.AllDevicesFilter
-import io.icure.md.client.filter.device.DeviceByIdsFilter
+import io.icure.md.client.filter.medicaldevice.AllMedicalDevicesFilter
+import io.icure.md.client.filter.medicaldevice.MedicalDeviceByIdsFilter
 import io.icure.md.client.filter.hcp.AllHealthcareProfessionalsFilter
 import io.icure.md.client.filter.hcp.HealthcareProfessionalByIdsFilter
 import io.icure.md.client.filter.healthcareelement.HealthcareElementByHealthcarePartyFilter
@@ -64,9 +64,9 @@ fun Filter<Coding>.codingFilterToAbstractCodeFilterDto(): AbstractFilterDto<Code
     is ComplementFilter<Coding> -> this.toComplementFilterDto(Coding::class, CodeDto::class)
     is UnionFilter<Coding> -> this.toUnionFilterDto(Coding::class, CodeDto::class)
     is IntersectionFilter<Coding> -> this.toIntersectionFilterDto(Coding::class, CodeDto::class)
-    is AllCodesFilter -> this.toAllCodesFilterDto()
-    is CodeByIdsFilter -> this.toCodeByIdsFilterDto()
-    is CodeByRegionTypeLabelFilter -> this.toCodeByRegionTypeLabelFilterDto()
+    is AllCodingsFilter -> this.toAllCodesFilterDto()
+    is CodingByIdsFilter -> this.toCodeByIdsFilterDto()
+    is CodingByRegionTypeLabelFilter -> this.toCodeByRegionTypeLabelFilterDto()
     else -> throw IllegalArgumentException("Unsupported filter ${this::class}")
 }
 
@@ -86,8 +86,8 @@ fun Filter<MedicalDevice>.medicalDeviceFilterToAbstractDeviceFilterDto(): Abstra
     is ComplementFilter<MedicalDevice> -> this.toComplementFilterDto(MedicalDevice::class, DeviceDto::class)
     is UnionFilter<MedicalDevice> -> this.toUnionFilterDto(MedicalDevice::class, DeviceDto::class)
     is IntersectionFilter<MedicalDevice> -> this.toIntersectionFilterDto(MedicalDevice::class, DeviceDto::class)
-    is DeviceByIdsFilter -> this.toDeviceByIdsFilterDto()
-    is AllDevicesFilter -> this.toAllDevicesFilterDto()
+    is MedicalDeviceByIdsFilter -> this.toDeviceByIdsFilterDto()
+    is AllMedicalDevicesFilter -> this.toAllDevicesFilterDto()
     else -> throw IllegalArgumentException("Unsupported filter ${this::class}")
 }
 
@@ -151,16 +151,16 @@ fun Filter<User>.userFilterToAbstractUserFilterDto(): AbstractFilterDto<UserDto>
     else -> throw IllegalArgumentException("Unsupported filter ${this::class}")
 }
 
-fun AllCodesFilter.toAllCodesFilterDto(): io.icure.kraken.client.models.filter.code.AllCodesFilter {
+fun AllCodingsFilter.toAllCodesFilterDto(): io.icure.kraken.client.models.filter.code.AllCodesFilter {
     return io.icure.kraken.client.models.filter.code.AllCodesFilter(this.description)
 
 }
 
-fun CodeByIdsFilter.toCodeByIdsFilterDto(): io.icure.kraken.client.models.filter.code.CodeByIdsFilter {
+fun CodingByIdsFilter.toCodeByIdsFilterDto(): io.icure.kraken.client.models.filter.code.CodeByIdsFilter {
     return io.icure.kraken.client.models.filter.code.CodeByIdsFilter(this.description, this.ids)
 }
 
-fun CodeByRegionTypeLabelFilter.toCodeByRegionTypeLabelFilterDto(): io.icure.kraken.client.models.filter.code.CodeByRegionTypeLabelLanguageFilter {
+fun CodingByRegionTypeLabelFilter.toCodeByRegionTypeLabelFilterDto(): io.icure.kraken.client.models.filter.code.CodeByRegionTypeLabelLanguageFilter {
     return io.icure.kraken.client.models.filter.code.CodeByRegionTypeLabelLanguageFilter(
         this.description,
         this.region,
@@ -207,11 +207,11 @@ fun DataSampleByPatientFilter.toDataSampleByPatientFilterDto(): io.icure.kraken.
     )
 }
 
-fun DeviceByIdsFilter.toDeviceByIdsFilterDto(): io.icure.kraken.client.models.filter.device.DeviceByIdsFilter {
+fun MedicalDeviceByIdsFilter.toDeviceByIdsFilterDto(): io.icure.kraken.client.models.filter.device.DeviceByIdsFilter {
     return io.icure.kraken.client.models.filter.device.DeviceByIdsFilter(this.ids, this.description)
 }
 
-fun AllDevicesFilter.toAllDevicesFilterDto(): io.icure.kraken.client.models.filter.device.AllDevicesFilter {
+fun AllMedicalDevicesFilter.toAllDevicesFilterDto(): io.icure.kraken.client.models.filter.device.AllDevicesFilter {
     return io.icure.kraken.client.models.filter.device.AllDevicesFilter(this.description)
 }
 
