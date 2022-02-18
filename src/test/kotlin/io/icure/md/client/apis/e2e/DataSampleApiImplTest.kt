@@ -10,6 +10,7 @@ import io.icure.md.client.models.CodingReference
 import io.icure.md.client.models.Content
 import io.icure.md.client.models.DataSample
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toCollection
 import kotlinx.coroutines.runBlocking
@@ -23,6 +24,7 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.*
 
+@FlowPreview
 @ExperimentalStdlibApi
 @ExperimentalCoroutinesApi
 @DisplayName("Data Sample tests")
@@ -125,7 +127,6 @@ internal class DataSampleApiImplTest {
             )
         )
     )
-
 
     private fun patientDto() = PatientDto(
         id = UUID.randomUUID().toString(),
