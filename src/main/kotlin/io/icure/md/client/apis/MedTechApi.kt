@@ -9,10 +9,13 @@ import io.icure.kraken.client.apis.HealthcarePartyApi
 import io.icure.kraken.client.apis.PatientApi
 import io.icure.kraken.client.apis.UserApi
 import io.icure.kraken.client.crypto.LocalCrypto
+import io.icure.kraken.client.extendedapis.DataOwnerResolver
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
 
+@FlowPreview
 @ExperimentalStdlibApi
 @ExperimentalCoroutinesApi
 class MedTechApi(
@@ -31,7 +34,7 @@ class MedTechApi(
     private val codeApi = CodeApi(basePath = iCureUrlPath, authHeader = authorization)
     private val hcpApi = HealthcarePartyApi(basePath = iCureUrlPath, authHeader = authorization)
     private val documentApi = DocumentApi(basePath = iCureUrlPath, authHeader = authorization)
-    private val localCrypto = LocalCrypto(hcpApi, rsaKeyPairs)
+    private val localCrypto = LocalCrypto(DataOwnerResolver(hcpApi, patientApi, deviceApi), rsaKeyPairs)
 
     fun defaultLanguage() = defaultLanguage
 

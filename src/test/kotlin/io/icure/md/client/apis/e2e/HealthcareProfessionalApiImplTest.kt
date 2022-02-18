@@ -5,12 +5,14 @@ import io.icure.md.client.apis.MedTechApi
 import io.icure.md.client.apis.impl.HealthcareProfessionalApiImpl
 import io.icure.md.client.models.HealthcareProfessional
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import java.time.Instant
 
+@FlowPreview
 @ExperimentalStdlibApi
 @ExperimentalCoroutinesApi
 @DisplayName("HealthcareProfessional tests")

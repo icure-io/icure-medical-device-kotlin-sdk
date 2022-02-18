@@ -13,6 +13,7 @@ import io.icure.md.client.mappers.toPatientDto
 import io.icure.md.client.models.HealthcareElement
 import io.icure.md.client.models.Patient
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.runBlocking
@@ -22,6 +23,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import java.util.*
 
+@FlowPreview
 @ExperimentalStdlibApi
 @ExperimentalCoroutinesApi
 @DisplayName("MedicalDevice tests")
