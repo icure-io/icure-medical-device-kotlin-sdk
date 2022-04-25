@@ -64,7 +64,7 @@ dependencies {
     implementation(group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-jsr310", version = jacksonVersion)
 
     implementation(group = "io.icure", name = "async-jackson-http-client", version = "0.1.15-9cf193799d")
-    implementation(group = "io.icure", name = "icure-reactive-kotlin-client", version = "0.1.316-37cda9fd25")
+    implementation(group = "io.icure", name = "icure-reactive-kotlin-client", version = "0.1.325-2f9d104677")
     implementation(group = "org.taktik.commons", name = "commons-uti", version = "1.0")
 
     implementation(group = "com.github.ben-manes.caffeine", name = "caffeine", version = "3.0.4")
@@ -73,8 +73,8 @@ dependencies {
     implementation(group = "org.mapstruct", name = "mapstruct", version = "1.3.1.Final")
     implementation(group = "com.github.ben-manes.caffeine", name = "caffeine", version = "3.0.3")
 
-    implementation(group = "ch.qos.logback", name = "logback-classic", version = "1.2.3")
-    implementation(group = "ch.qos.logback", name = "logback-access", version = "1.2.3")
+    implementation(group = "ch.qos.logback", name = "logback-classic", version = "1.2.9")
+    implementation(group = "ch.qos.logback", name = "logback-access", version = "1.2.6")
 
     implementation(group = "org.slf4j", name = "slf4j-api", version = "1.7.12")
     implementation(group = "org.slf4j", name = "jul-to-slf4j", version = "1.7.12")
