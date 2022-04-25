@@ -26,3 +26,5 @@ api/
 icure-openapi-spec.json
 /.credentials
 out/
+/src/test/resources/io/icure/md/client/apis/impl/keys/
+/src/test/resources/io/icure/md/client/apis/impl/attachments/
