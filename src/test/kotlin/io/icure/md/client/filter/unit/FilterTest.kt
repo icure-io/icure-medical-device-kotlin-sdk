@@ -1,5 +1,7 @@
 package io.icure.md.client.filter.unit
 
+import io.icure.kraken.client.extendedapis.DataOwner
+import io.icure.kraken.client.extendedapis.DataOwnerType
 import io.icure.md.client.filter.UnionFilter
 import io.icure.md.client.filter.byAge
 import io.icure.md.client.filter.byGenderEducation
@@ -9,7 +11,6 @@ import io.icure.md.client.filter.filter
 import io.icure.md.client.filter.intersection
 import io.icure.md.client.filter.patient.PatientByHealthcarePartyAndIdentifiersFilter
 import io.icure.md.client.filter.union
-import io.icure.md.client.models.HealthcareProfessional
 import io.icure.md.client.models.Identifier
 import io.icure.md.client.models.Patient
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -26,7 +27,7 @@ class FilterTest {
     @Test
     fun dslPatientTest() {
         val filter = filter<Patient> {
-            forHcp(HealthcareProfessional(id = "123"))
+            forDataOwner(DataOwner(dataOwnerId = "123", type = DataOwnerType.HCP, rev = "1"))
             union {
                 byIdentifiers(Identifier("pat-1"), Identifier("pat-2"))
                 intersection {
@@ -61,11 +62,11 @@ class FilterTest {
                     byGenderEducation(Patient.Gender.male, "college")
                 }
             }
-            forHcp(HealthcareProfessional(id = "123"))
+            forDataOwner(DataOwner(dataOwnerId = "123", type = DataOwnerType.HCP, rev = "1"))
         }.build()
 
         val filter2 = filter<Patient> {
-            forHcp(HealthcareProfessional(id = "123"))
+            forDataOwner(DataOwner(dataOwnerId = "123", type = DataOwnerType.HCP, rev = "1"))
             union {
                 byIdentifiers(Identifier("pat-1"), Identifier("pat-2"))
                 intersection {
