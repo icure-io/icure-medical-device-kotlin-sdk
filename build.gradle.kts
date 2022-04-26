@@ -5,6 +5,15 @@ val jacksonVersion = "2.12.5"
 plugins {
     kotlin("jvm") version "1.4.32"
     kotlin("kapt") version "1.4.32"
+    id("org.sonarqube") version "3.3"
+}
+
+sonarqube {
+    properties {
+        property("sonar.projectKey", "icure-medical-device-kotlin-sdk")
+        property("sonar.organization", "icure-io")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
 }
 
 buildscript {
