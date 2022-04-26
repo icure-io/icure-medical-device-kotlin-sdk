@@ -1,7 +1,5 @@
 package io.icure.md.client.filter.unit
 
-import io.icure.kraken.client.extendedapis.DataOwner
-import io.icure.kraken.client.extendedapis.DataOwnerType
 import io.icure.md.client.filter.UnionFilter
 import io.icure.md.client.filter.byAge
 import io.icure.md.client.filter.byGenderEducation
@@ -27,7 +25,7 @@ class FilterTest {
     @Test
     fun dslPatientTest() {
         val filter = filter<Patient> {
-            forDataOwner(DataOwner(dataOwnerId = "123", type = DataOwnerType.HCP, rev = "1"))
+            forDataOwner("123")
             union {
                 byIdentifiers(Identifier("pat-1"), Identifier("pat-2"))
                 intersection {
@@ -62,11 +60,11 @@ class FilterTest {
                     byGenderEducation(Patient.Gender.male, "college")
                 }
             }
-            forDataOwner(DataOwner(dataOwnerId = "123", type = DataOwnerType.HCP, rev = "1"))
+            forDataOwner("123")
         }.build()
 
         val filter2 = filter<Patient> {
-            forDataOwner(DataOwner(dataOwnerId = "123", type = DataOwnerType.HCP, rev = "1"))
+            forDataOwner("123")
             union {
                 byIdentifiers(Identifier("pat-1"), Identifier("pat-2"))
                 intersection {
