@@ -22,8 +22,6 @@ import io.icure.md.client.filter.datasample.DataSampleByHealthcarePartyIdentifie
 import io.icure.md.client.filter.datasample.DataSampleByHealthcarePartyLabelCodeDateFilter
 import io.icure.md.client.filter.datasample.DataSampleByIdsFilter
 import io.icure.md.client.filter.datasample.DataSampleByPatientFilter
-import io.icure.md.client.filter.medicaldevice.AllMedicalDevicesFilter
-import io.icure.md.client.filter.medicaldevice.MedicalDeviceByIdsFilter
 import io.icure.md.client.filter.hcp.AllHealthcareProfessionalsFilter
 import io.icure.md.client.filter.hcp.HealthcareProfessionalByIdsFilter
 import io.icure.md.client.filter.healthcareelement.HealthcareElementByHealthcarePartyFilter
@@ -31,6 +29,8 @@ import io.icure.md.client.filter.healthcareelement.HealthcareElementByHealthcare
 import io.icure.md.client.filter.healthcareelement.HealthcareElementByHealthcarePartyLabelCodeFilter
 import io.icure.md.client.filter.healthcareelement.HealthcareElementByHealthcarePartyPatientFilter
 import io.icure.md.client.filter.healthcareelement.HealthcareElementByIdsFilter
+import io.icure.md.client.filter.medicaldevice.AllMedicalDevicesFilter
+import io.icure.md.client.filter.medicaldevice.MedicalDeviceByIdsFilter
 import io.icure.md.client.filter.patient.PatientByHealthcarePartyAndIdentifiersFilter
 import io.icure.md.client.filter.patient.PatientByHealthcarePartyDateOfBirthBetweenFilter
 import io.icure.md.client.filter.patient.PatientByHealthcarePartyFilter
@@ -74,24 +74,24 @@ fun <T> filter(init: FilterBuilder<T>.() -> Unit): FilterBuilder<T> {
 }
 
 open class FilterBuilder<T>(val parent: FilterBuilder<T>? = null) {
-    var hcp: HealthcareProfessional? = null
-    var proxiedFilterBuilder: ((hcp: HealthcareProfessional?) -> Filter<T>)? = null
+    var dataOwnerId: String? = null
+    var proxiedFilterBuilder: ((dataOwnerId: String?) -> Filter<T>)? = null
 
-    fun forHcp(hcp: HealthcareProfessional?): FilterBuilder<T> {
-        this.hcp = hcp
+    fun forDataOwner(dataOwnerId: String?): FilterBuilder<T> {
+        this.dataOwnerId = dataOwnerId
         return this
     }
 
-    fun hcp(): HealthcareProfessional? {
-        return hcp ?: parent?.hcp()
+    fun dataOwner(): String? {
+        return dataOwnerId ?: parent?.dataOwner()
     }
 
-    open fun registerInParent(builder: (hcp: HealthcareProfessional?) -> Filter<T>) {
+    open fun registerInParent(builder: (dataOwnerId: String?) -> Filter<T>) {
         proxiedFilterBuilder = builder
     }
 
     open fun build(): Filter<T> {
-        return proxiedFilterBuilder?.let { it(hcp) }
+        return proxiedFilterBuilder?.let { it(dataOwnerId) }
             ?: throw IllegalArgumentException("At least one condition must be set for this filter")
     }
 }
@@ -99,30 +99,30 @@ open class FilterBuilder<T>(val parent: FilterBuilder<T>? = null) {
 fun <T> FilterBuilder<T>.union(init: UnionFilterBuilder<T>.() -> Unit): FilterBuilder<T> {
     val filter = UnionFilterBuilder(this)
     filter.init()
-    this.registerInParent { hcp -> filter.forHcp(hcp).build() }
+    this.registerInParent { dataOwnerId -> filter.forDataOwner(dataOwnerId).build() }
     return filter
 }
 
 fun <T> FilterBuilder<T>.intersection(init: IntersectionFilterBuilder<T>.() -> Unit): FilterBuilder<T> {
     val filter = IntersectionFilterBuilder(this)
     filter.init()
-    this.registerInParent { hcp -> filter.forHcp(hcp).build() }
+    this.registerInParent { dataOwnerId -> filter.forDataOwner(dataOwnerId).build() }
     return filter
 }
 
 open class CompoundFilterBuilder<T>(parent: FilterBuilder<T>? = null) : FilterBuilder<T>(parent) {
-    var compoundedFilterBuilders: List<(hcp: HealthcareProfessional?) -> Filter<T>> = emptyList()
-    override fun registerInParent(builder: (hcp: HealthcareProfessional?) -> Filter<T>) {
+    var compoundedFilterBuilders: List<(dataOwnerId: String?) -> Filter<T>> = emptyList()
+    override fun registerInParent(builder: (dataOwnerId: String?) -> Filter<T>) {
         compoundedFilterBuilders = compoundedFilterBuilders + builder
     }
 }
 
 class UnionFilterBuilder<T>(parent: FilterBuilder<T>? = null) : CompoundFilterBuilder<T>(parent) {
-    override fun build() = UnionFilter(null, compoundedFilterBuilders.map { it(hcp()) })
+    override fun build() = UnionFilter(null, compoundedFilterBuilders.map { it(dataOwner()) })
 }
 
 class IntersectionFilterBuilder<T>(parent: FilterBuilder<T>? = null) : CompoundFilterBuilder<T>(parent) {
-    override fun build() = IntersectionFilter(null, compoundedFilterBuilders.map { it(hcp()) })
+    override fun build() = IntersectionFilter(null, compoundedFilterBuilders.map { it(dataOwner()) })
 }
 
 inline fun <reified T : Any> FilterBuilder<T>.all() = when (T::class) {
@@ -179,10 +179,10 @@ suspend inline fun <reified T : Any> FilterBuilder<T>.ofPatients(localCrypto: Lo
     }
 
 fun FilterBuilder<HealthcareElement>.healthcareElementsWithLabel(type: String, code: String?) {
-    this.registerInParent { hcp ->
+    this.registerInParent { dataOwnerId ->
         HealthcareElementByHealthcarePartyLabelCodeFilter(
             null,
-            hcp?.id,
+            dataOwnerId,
             type,
             code,
             null,
@@ -192,10 +192,10 @@ fun FilterBuilder<HealthcareElement>.healthcareElementsWithLabel(type: String, c
 }
 
 fun FilterBuilder<DataSample>.dataSamplesWithLabel(type: String, code: String?) {
-    this.registerInParent { hcp ->
+    this.registerInParent { dataOwnerId ->
         DataSampleByHealthcarePartyLabelCodeDateFilter(
             null,
-            hcp?.id,
+            dataOwnerId,
             null,
             type,
             code,
@@ -207,10 +207,10 @@ fun FilterBuilder<DataSample>.dataSamplesWithLabel(type: String, code: String?) 
 }
 
 fun FilterBuilder<DataSample>.dataSamplesWithCode(type: String, code: String?) {
-    this.registerInParent { hcp ->
+    this.registerInParent { dataOwnerId ->
         DataSampleByHealthcarePartyLabelCodeDateFilter(
             null,
-            hcp?.id,
+            dataOwnerId,
             null,
             null,
             null,
@@ -221,10 +221,10 @@ fun FilterBuilder<DataSample>.dataSamplesWithCode(type: String, code: String?) {
 }
 
 fun FilterBuilder<HealthcareElement>.healthcareElementsWithCode(type: String, code: String?) {
-    this.registerInParent { hcp ->
+    this.registerInParent { dataOwnerId ->
         HealthcareElementByHealthcarePartyLabelCodeFilter(
             null,
-            hcp?.id,
+            dataOwnerId,
             null,
             null,
             type,
@@ -236,14 +236,14 @@ fun FilterBuilder<HealthcareElement>.healthcareElementsWithCode(type: String, co
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
 suspend fun FilterBuilder<DataSample>.dataSamplesOfPatients(localCrypto: LocalCrypto, vararg patients: Patient) {
-    this.registerInParent { hcp ->
+    this.registerInParent { dataOwnerId ->
         DataSampleByPatientFilter(
             null,
-            hcp?.id
-                ?: throw IllegalArgumentException("DataSampleByPatientFilter needs a hcp to be registered in the builder using a forHcp call"),
+            dataOwnerId
+                ?: throw IllegalArgumentException("DataSampleByPatientFilter needs a hcp to be registered in the builder using a forDataOwner call"),
             patients.toSet().flatMap {
                 localCrypto.decryptEncryptionKeys(
-                    hcp.id,
+                    dataOwnerId,
                     it.systemMetaData?.delegations?.mapValues { (k, v) -> v.map { it.toDelegationDto() }.toSet() }
                         ?: emptyMap())
             }.toSet()
@@ -258,14 +258,14 @@ suspend fun FilterBuilder<HealthcareElement>.healthcareElementsOfPatients(
     localCrypto: LocalCrypto,
     vararg patients: Patient
 ) {
-    this.registerInParent { hcp ->
+    this.registerInParent { dataOwnerId ->
         HealthcareElementByHealthcarePartyPatientFilter(
             null,
-            hcp?.id
-                ?: throw IllegalArgumentException("HealthcareElementByHealthcarePartyPatientFilter needs a hcp to be registered in the builder using a forHcp call"),
+            dataOwnerId
+                ?: throw IllegalArgumentException("HealthcareElementByHealthcarePartyPatientFilter needs a dataOwner to be registered in the builder using a forDataOwner call"),
             patients.flatMap {
                 localCrypto.decryptEncryptionKeys(
-                    hcp.id,
+                    dataOwnerId,
                     it.systemMetaData?.delegations?.mapValues { (k, v) -> v.map { it.toDelegationDto() }.toSet() }
                         ?: emptyMap())
             }.toSet()
@@ -274,116 +274,116 @@ suspend fun FilterBuilder<HealthcareElement>.healthcareElementsOfPatients(
 }
 
 fun FilterBuilder<Coding>.allCodings() {
-    this.registerInParent { hcp -> AllCodingsFilter(null) }
+    this.registerInParent { dataOwnerId -> AllCodingsFilter(null) }
 }
 
 fun FilterBuilder<Coding>.codingsByIds(vararg ids: String) {
-    this.registerInParent { hcp -> CodingByIdsFilter(null, ids.toSet()) }
+    this.registerInParent { dataOwnerId -> CodingByIdsFilter(null, ids.toSet()) }
 }
 
 fun FilterBuilder<DataSample>.allDataSamples() {
-    this.registerInParent { hcp ->
+    this.registerInParent { dataOwnerId ->
         DataSampleByHealthcarePartyFilter(
-            hcp?.id
-                ?: throw IllegalArgumentException("DataSampleByHealthcarePartyFilter needs a hcp to be registered in the builder using a forHcp call"),
+            dataOwnerId
+                ?: throw IllegalArgumentException("DataSampleByHealthcarePartyFilter needs a dataOwner to be registered in the builder using a forDataOwner call"),
             null
         )
     }
 }
 
 fun FilterBuilder<DataSample>.dataSamplesByIds(vararg ids: String) {
-    this.registerInParent { hcp -> DataSampleByIdsFilter(ids.toSet(), null) }
+    this.registerInParent { dataOwnerId -> DataSampleByIdsFilter(ids.toSet(), null) }
 }
 
 fun FilterBuilder<DataSample>.dataSamplesByIdentifiers(vararg identifiers: Identifier) {
-    this.registerInParent { hcp ->
+    this.registerInParent { dataOwnerId ->
         DataSampleByHealthcarePartyIdentifiersFilter(
             null,
-            hcp?.id
-                ?: throw IllegalArgumentException("DataSampleByHealthcarePartyAndIdentifiersFilter needs a hcp to be registered in the builder using a forHcp call"),
+            dataOwnerId
+                ?: throw IllegalArgumentException("DataSampleByHealthcarePartyAndIdentifiersFilter needs a dataOwner to be registered in the builder using a forDataOwner call"),
             identifiers.toList()
         )
     }
 }
 
 fun FilterBuilder<MedicalDevice>.allMedicalDevices() {
-    this.registerInParent { hcp -> AllMedicalDevicesFilter(null) }
+    this.registerInParent { dataOwnerId -> AllMedicalDevicesFilter(null) }
 }
 
 fun FilterBuilder<MedicalDevice>.medicalDevicesByIds(vararg ids: String) {
-    this.registerInParent { hcp -> MedicalDeviceByIdsFilter(ids.toSet(), null) }
+    this.registerInParent { dataOwnerId -> MedicalDeviceByIdsFilter(ids.toSet(), null) }
 }
 
 fun FilterBuilder<HealthcareProfessional>.allHealthcareProfessionals() {
-    this.registerInParent { hcp -> AllHealthcareProfessionalsFilter(null) }
+    this.registerInParent { dataOwnerId -> AllHealthcareProfessionalsFilter(null) }
 }
 
 fun FilterBuilder<HealthcareProfessional>.healthcareProfessionalsByIds(vararg ids: String) {
-    this.registerInParent { hcp -> HealthcareProfessionalByIdsFilter(ids.toSet(), null) }
+    this.registerInParent { dataOwnerId -> HealthcareProfessionalByIdsFilter(ids.toSet(), null) }
 }
 
 fun FilterBuilder<HealthcareElement>.allHealthcareElements() {
-    this.registerInParent { hcp ->
+    this.registerInParent { dataOwnerId ->
         HealthcareElementByHealthcarePartyFilter(
-            hcp?.id
-                ?: throw IllegalArgumentException("HealthcareElementByHealthcarePartyFilter needs a hcp to be registered in the builder using a forHcp call"),
+            dataOwnerId
+                ?: throw IllegalArgumentException("HealthcareElementByHealthcarePartyFilter needs a dataOwner to be registered in the builder using a forDataOwner call"),
             null
         )
     }
 }
 
 fun FilterBuilder<HealthcareElement>.healthcareElementsByIds(vararg ids: String) {
-    this.registerInParent { hcp -> HealthcareElementByIdsFilter(ids.toSet(), null) }
+    this.registerInParent { dataOwnerId -> HealthcareElementByIdsFilter(ids.toSet(), null) }
 }
 
 fun FilterBuilder<HealthcareElement>.healthcareElementsByIdentifiers(vararg identifiers: Identifier) {
-    this.registerInParent { hcp ->
+    this.registerInParent { dataOwnerId ->
         HealthcareElementByHealthcarePartyIdentifiersFilter(
             null,
-            hcp?.id
-                ?: throw IllegalArgumentException("DataSampleByHealthcarePartyAndIdentifiersFilter needs a hcp to be registered in the builder using a forHcp call"),
+            dataOwnerId
+                ?: throw IllegalArgumentException("DataSampleByHealthcarePartyAndIdentifiersFilter needs a dataOwner to be registered in the builder using a forDataOwner call"),
             identifiers.toList()
         )
     }
 }
 
 fun FilterBuilder<Patient>.allPatients() {
-    this.registerInParent { hcp -> PatientByHealthcarePartyFilter(null, hcp?.id) }
+    this.registerInParent { dataOwnerId -> PatientByHealthcarePartyFilter(null, dataOwnerId) }
 }
 
 fun FilterBuilder<Patient>.patientsByIds(vararg ids: String) {
-    this.registerInParent { hcp -> PatientByIdsFilter(null, ids.toList()) }
+    this.registerInParent { dataOwnerId -> PatientByIdsFilter(null, ids.toList()) }
 }
 
 fun FilterBuilder<Patient>.patientsByIdentifiers(vararg identifiers: Identifier) {
-    this.registerInParent { hcp ->
+    this.registerInParent { dataOwnerId ->
         PatientByHealthcarePartyAndIdentifiersFilter(
             null,
-            hcp?.id
-                ?: throw IllegalArgumentException("PatientByHealthcarePartyAndIdentifiersFilter needs a hcp to be registered in the builder using a forHcp call"),
+            dataOwnerId
+                ?: throw IllegalArgumentException("PatientByHealthcarePartyAndIdentifiersFilter needs a dataOwner to be registered in the builder using a forDataOwner call"),
             identifiers.toList()
         )
     }
 }
 
 fun FilterBuilder<Patient>.byName(name: String) {
-    this.registerInParent { hcp ->
+    this.registerInParent { dataOwnerId ->
         PatientByHealthcarePartyNameFilter(
             null,
             name,
-            hcp?.id
-                ?: throw IllegalArgumentException("PatientByHealthcarePartyAndIdentifiersFilter needs a hcp to be registered in the builder using a forHcp call"),
+            dataOwnerId
+                ?: throw IllegalArgumentException("PatientByHealthcarePartyAndIdentifiersFilter needs a dataOwner to be registered in the builder using a forDataOwner call"),
         )
     }
 }
 
 fun FilterBuilder<Patient>.byFuzzyName(name: String) {
-    this.registerInParent { hcp ->
+    this.registerInParent { dataOwnerId ->
         PatientByHealthcarePartyNameContainsFuzzyFilter(
             null,
             name,
-            hcp?.id
-                ?: throw IllegalArgumentException("PatientByHealthcarePartyAndIdentifiersFilter needs a hcp to be registered in the builder using a forHcp call"),
+            dataOwnerId
+                ?: throw IllegalArgumentException("PatientByHealthcarePartyAndIdentifiersFilter needs a dataOwner to be registered in the builder using a forDataOwner call"),
         )
     }
 }
@@ -393,7 +393,7 @@ fun FilterBuilder<Patient>.byGenderEducation(gender: Patient.Gender, education: 
         gender,
         education,
     ).also {
-        this.registerInParent { hcp -> it.forHcp(hcp).build() }
+        this.registerInParent { dataOwnerId -> it.forDataOwner(dataOwnerId).build() }
     }
 
 class PatientByHealthcarePartyGenderEducationProfessionBuilder(
@@ -405,8 +405,8 @@ class PatientByHealthcarePartyGenderEducationProfessionBuilder(
     override fun build(): PatientByHealthcarePartyGenderEducationProfession {
         return PatientByHealthcarePartyGenderEducationProfession(
             null,
-            hcp?.id
-                ?: throw IllegalArgumentException("PatientByHealthcarePartyAndIdentifiersFilter needs a hcp to be registered in the builder using a forHcp call"),
+            dataOwnerId
+                ?: throw IllegalArgumentException("PatientByHealthcarePartyAndIdentifiersFilter needs a dataOwner to be registered in the builder using a forDataOwner call"),
             gender,
             education,
         )
@@ -414,7 +414,7 @@ class PatientByHealthcarePartyGenderEducationProfessionBuilder(
 }
 
 fun FilterBuilder<Patient>.byDateOfBirth(after: LocalDateTime?, before: LocalDateTime?) {
-    this.registerInParent { hcp ->
+    this.registerInParent { dataOwnerId ->
         val formatter = DateTimeFormatter.ofPattern("yyyyMMdd")
         PatientByHealthcarePartyDateOfBirthBetweenFilter(
             null,
@@ -432,10 +432,10 @@ fun FilterBuilder<Patient>.byAge(age: Int, units: TemporalUnit = ChronoUnit.YEAR
 }
 
 fun FilterBuilder<User>.allUsers() {
-    this.registerInParent { hcp -> AllUsersFilter(null) }
+    this.registerInParent { dataOwnerId -> AllUsersFilter(null) }
 }
 
 fun FilterBuilder<User>.usersByIds(vararg ids: String) {
-    this.registerInParent { hcp -> UserByIdsFilter(ids.toSet(), null) }
+    this.registerInParent { dataOwnerId -> UserByIdsFilter(ids.toSet(), null) }
 }
 
