@@ -13,10 +13,14 @@ import io.icure.md.client.mappers.toPaginatedListMedicalDevice
 import io.icure.md.client.models.MedicalDevice
 import io.icure.md.client.models.PaginatedListMedicalDevice
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlin.time.ExperimentalTime
 
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
-class MedicalDeviceApiImpl(private val api: MedTechApi) : MedicalDeviceApi {
+@FlowPreview
+@ExperimentalTime
+class MedicalDeviceApiImpl(private val medTechApi: MedTechApi) : MedicalDeviceApi {
 
     /**
      * Creates or modifies a [MedicalDevice]
@@ -52,20 +56,21 @@ class MedicalDeviceApiImpl(private val api: MedTechApi) : MedicalDeviceApi {
         val devicesToCreate = medicalDevicesToCreate.map { device -> device.toDeviceDto() }
         val devicesToUpdate = medicalDevicesToUpdate.map { device -> device.toDeviceDto() }
 
-        return (api.deviceApi().createDevices(devicesToCreate) + api.deviceApi()
+        return (medTechApi.baseDeviceApi.createDevices(devicesToCreate) + medTechApi.baseDeviceApi
             .updateDevices(devicesToUpdate)).mapNotNull { it.id }.let { ids ->
-            api.deviceApi().getDevices(ListOfIdsDto(ids)).map { deviceDto -> deviceDto.toMedicalDevice() }
+            medTechApi.baseDeviceApi.getDevices(ListOfIdsDto(ids)).map { deviceDto -> deviceDto.toMedicalDevice() }
         }
     }
 
     /**
-     * Deletes a medical device based on its [id]
+     * Deletes a medical device based on its [medicalDeviceId]
      *
-     * @param id id of the medical device to delete
+     * @param medicalDeviceId id of the medical device to delete
      * @return id of the deleted device
      */
-    override suspend fun deleteMedicalDevice(id: String): String {
-        return api.deviceApi().deleteDevice(id).rev ?: throw IllegalArgumentException("Invalid medical device id")
+    override suspend fun deleteMedicalDevice(medicalDeviceId: String): String {
+        return medTechApi.baseDeviceApi.deleteDevice(medicalDeviceId).rev
+            ?: throw IllegalArgumentException("Invalid medical device id")
     }
 
     /**
@@ -75,7 +80,7 @@ class MedicalDeviceApiImpl(private val api: MedTechApi) : MedicalDeviceApi {
      * @return ids of the deleted devices
      */
     override suspend fun deleteMedicalDevices(requestBody: List<String>): List<String> {
-        return api.deviceApi().deleteDevices(ListOfIdsDto(ids = requestBody)).mapNotNull { it.rev }
+        return medTechApi.baseDeviceApi.deleteDevices(ListOfIdsDto(ids = requestBody)).mapNotNull { it.rev }
     }
 
     override suspend fun filterMedicalDevices(
@@ -83,7 +88,7 @@ class MedicalDeviceApiImpl(private val api: MedTechApi) : MedicalDeviceApi {
         nextDeviceId: String?,
         limit: Int?
     ): PaginatedListMedicalDevice {
-        return api.deviceApi()
+        return medTechApi.baseDeviceApi
             .filterDevicesBy(FilterChain(filter.toAbstractFilterDto(), null), nextDeviceId, limit)
             .toPaginatedListMedicalDevice()
     }
@@ -95,7 +100,7 @@ class MedicalDeviceApiImpl(private val api: MedTechApi) : MedicalDeviceApi {
      * @return [MedicalDevice]
      */
     override suspend fun getMedicalDevice(medicalDeviceId: String): MedicalDevice {
-        return api.deviceApi().getDevice(medicalDeviceId).toMedicalDevice()
+        return medTechApi.baseDeviceApi.getDevice(medicalDeviceId).toMedicalDevice()
     }
 
     /**
@@ -105,6 +110,6 @@ class MedicalDeviceApiImpl(private val api: MedTechApi) : MedicalDeviceApi {
      * @return list of matched ids
      */
     override suspend fun matchMedicalDevices(filter: Filter<MedicalDevice>): List<String> {
-        return api.deviceApi().matchDevicesBy(filter.toAbstractFilterDto())
+        return medTechApi.baseDeviceApi.matchDevicesBy(filter.toAbstractFilterDto())
     }
 }
