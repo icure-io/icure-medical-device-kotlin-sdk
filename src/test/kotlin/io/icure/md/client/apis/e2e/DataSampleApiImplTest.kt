@@ -23,17 +23,20 @@ import java.nio.ByteBuffer
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.*
+import kotlin.time.ExperimentalTime
 
 @FlowPreview
 @ExperimentalStdlibApi
 @ExperimentalCoroutinesApi
+@ExperimentalTime
 @DisplayName("Data Sample tests")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class DataSampleApiImplTest {
 
-    private val iCurePath = "https://kraken.icure.dev"
-    private val authHeader = TestUtils.basicAuthFrom(".credentials")
-    private val healthcareProfessionalId = "782f1bcd-9f3f-408a-af1b-cd9f3f908a98"
+    private val iCurePath = "http://127.0.0.1:16043"
+    private val authHeader = TestUtils.basicAuthFrom(".hkPatientCredentials")
+    private val healthcareProfessionalId =
+        "a37e0a71-07d2-4414-9b2b-2120ae9a16fc" ?: "782f1bcd-9f3f-408a-af1b-cd9f3f908a98"
     private val healthcareProfessionalPrivateKey =
         TestUtils.healthcareProfessionalPrivateKey(healthcareProfessionalId, this::class.java)
     private val healthcareProfessionalPublicKey =
@@ -53,13 +56,14 @@ internal class DataSampleApiImplTest {
             // Init
             val weight = weightDataSample()
             val height = heightDataSample()
-            val currentUser = medTechApi.userApi().getCurrentUser()
-            val existingPatient = medTechApi.patientApi()
-                .createPatient(currentUser, patientDto(), patientCryptoConfig(medTechApi.localCrypto()))
+            val currentUser = medTechApi.baseUserApi.getCurrentUser()
+            //val existingPatient = medTechApi.basePatientApi.createPatient(currentUser, patientDto(), patientCryptoConfig(medTechApi.localCrypto))
 
             // When
-            val createdDataSamples =
-                testedInstance.createOrModifyDataSamplesFor(existingPatient.id, listOf(weight, height))
+            val createdDataSamples = testedInstance.createOrModifyDataSamplesFor(
+                "a37e0a71-07d2-4414-9b2b-2120ae9a16fc",
+                listOf(weight, height)
+            )
 
             // Then
             createdDataSamples.forEach { assert(it.id != null) }
@@ -73,10 +77,10 @@ internal class DataSampleApiImplTest {
         runBlocking {
             // Init
             val weight = weightDataSample()
-            val currentUser = medTechApi.userApi().getCurrentUser()
+            val currentUser = medTechApi.baseUserApi.getCurrentUser()
 
-            val existingPatient = medTechApi.patientApi()
-                .createPatient(currentUser, patientDto(), patientCryptoConfig(medTechApi.localCrypto()))
+            val existingPatient = medTechApi.basePatientApi
+                .createPatient(currentUser, patientDto(), patientCryptoConfig(medTechApi.localCrypto))
             val createdDataSample = testedInstance.createOrModifyDataSampleFor(existingPatient.id, weight)
 
             // When
@@ -157,10 +161,10 @@ internal class DataSampleApiImplTest {
         runBlocking {
             // Init
             val weight = prescriptionDataSample()
-            val currentUser = medTechApi.userApi().getCurrentUser()
+            val currentUser = medTechApi.baseUserApi.getCurrentUser()
 
-            val existingPatient = medTechApi.patientApi()
-                .createPatient(currentUser, patientDto(), patientCryptoConfig(medTechApi.localCrypto()))
+            val existingPatient = medTechApi.basePatientApi
+                .createPatient(currentUser, patientDto(), patientCryptoConfig(medTechApi.localCrypto))
             val createdDataSample = testedInstance.createOrModifyDataSampleFor(existingPatient.id, weight)
 
             val documentToAdd =
@@ -188,10 +192,10 @@ internal class DataSampleApiImplTest {
         runBlocking {
             // Init
             val weight = prescriptionDataSample()
-            val currentUser = medTechApi.userApi().getCurrentUser()
+            val currentUser = medTechApi.baseUserApi.getCurrentUser()
 
-            val existingPatient = medTechApi.patientApi()
-                .createPatient(currentUser, patientDto(), patientCryptoConfig(medTechApi.localCrypto()))
+            val existingPatient = medTechApi.basePatientApi
+                .createPatient(currentUser, patientDto(), patientCryptoConfig(medTechApi.localCrypto))
             val createdDataSample = testedInstance.createOrModifyDataSampleFor(existingPatient.id, weight)
 
             val attachmentToAdd =
@@ -222,10 +226,10 @@ internal class DataSampleApiImplTest {
         runBlocking {
             // Init
             val weight = prescriptionDataSample()
-            val currentUser = medTechApi.userApi().getCurrentUser()
+            val currentUser = medTechApi.baseUserApi.getCurrentUser()
 
-            val existingPatient = medTechApi.patientApi()
-                .createPatient(currentUser, patientDto(), patientCryptoConfig(medTechApi.localCrypto()))
+            val existingPatient = medTechApi.basePatientApi
+                .createPatient(currentUser, patientDto(), patientCryptoConfig(medTechApi.localCrypto))
             val createdDataSample = testedInstance.createOrModifyDataSampleFor(existingPatient.id, weight)
 
             val attachmentToAdd =
