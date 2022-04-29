@@ -9,6 +9,7 @@ import io.icure.kraken.client.apis.HealthcarePartyApi
 import io.icure.kraken.client.apis.PatientApi
 import io.icure.kraken.client.apis.UserApi
 import io.icure.kraken.client.crypto.LocalCrypto
+import io.icure.kraken.client.extendedapis.DataOwnerApi
 import io.icure.kraken.client.extendedapis.DataOwnerResolver
 import io.icure.md.client.apis.impl.AuthenticationApiImpl
 import io.icure.md.client.apis.impl.CodingApiImpl
@@ -54,6 +55,11 @@ class MedTechApi(
     internal val localCrypto: LocalCrypto = LocalCrypto(
         DataOwnerResolver(baseHcpApi, basePatientApi, baseDeviceApi),
         rsaKeyPairs
+    ),
+    internal val baseDataOwnerApi: DataOwnerApi = DataOwnerApi(
+        healthcarePartyApi = baseHcpApi,
+        patientApi = basePatientApi,
+        deviceApi = baseDeviceApi
     )
 ) {
     private var authenticationApi: AuthenticationApi? = null
@@ -74,7 +80,7 @@ class MedTechApi(
             throw IllegalArgumentException("To use AuthenticationApi, you need to provide the msgGtwUrl, your authServerUrl and your authProcessId!")
         }
 
-        return AuthenticationApiImpl(this)
+        return AuthenticationApiImpl.fromApi(this)
     }
 
     fun codingApi() = codingApi

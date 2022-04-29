@@ -139,8 +139,73 @@ fun Patient.toPatientDto() = PatientDto(
 )
 
 fun Patient.DeactivationReason.toDeactivationReason() = PatientDto.DeactivationReason.valueOf(this.name)
+fun io.icure.kraken.client.models.PatientDto.DeactivationReason.toDecryptedDeactivationReason() =
+    PatientDto.DeactivationReason.valueOf(this.name)
+
 fun Patient.Gender.toGender() = PatientDto.Gender.valueOf(this.name)
+fun io.icure.kraken.client.models.PatientDto.Gender.toGender() = PatientDto.Gender.valueOf(this.name)
 fun Patient.BirthSex.toBirthSex() = PatientDto.BirthSex.valueOf(this.name)
+fun io.icure.kraken.client.models.PatientDto.BirthSex.toBirthSex() = PatientDto.BirthSex.valueOf(this.name)
 fun Patient.PersonalStatus.toPersonalStatus() = PatientDto.PersonalStatus.valueOf(this.name)
+fun io.icure.kraken.client.models.PatientDto.PersonalStatus.toPersonalStatus() =
+    PatientDto.PersonalStatus.valueOf(this.name)
 
 fun Patient.Gender.toDbGender() = io.icure.kraken.client.models.PatientDto.Gender.valueOf(this.name)
+
+fun io.icure.kraken.client.models.PatientDto.toDecryptedPatientDto(): PatientDto = PatientDto(
+    id = this.id,
+    identifier = this.identifier,
+    tags = this.tags,
+    codes = this.codes,
+    names = this.names,
+    languages = this.languages,
+    addresses = this.addresses,
+    mergedIds = this.mergedIds,
+    active = this.active,
+    deactivationReason = this.deactivationReason.toDecryptedDeactivationReason(),
+    partnerships = this.partnerships,
+    patientHealthCareParties = this.patientHealthCareParties,
+    patientProfessions = this.patientProfessions,
+    parameters = this.parameters,
+    properties = this.properties,
+    rev = this.rev,
+    created = this.created,
+    modified = this.modified,
+    author = this.author,
+    responsible = this.responsible,
+    endOfLife = this.endOfLife,
+    deletionDate = this.deletionDate,
+    firstName = this.firstName,
+    lastName = this.lastName,
+    companyName = this.companyName,
+    civility = this.civility,
+    gender = this.gender?.toGender(),
+    birthSex = this.birthSex?.toBirthSex(),
+    mergeToPatientId = this.mergeToPatientId,
+    alias = this.alias,
+    ssin = this.ssin,
+    maidenName = this.maidenName,
+    spouseName = this.spouseName,
+    partnerName = this.partnerName,
+    personalStatus = this.personalStatus?.toPersonalStatus(),
+    dateOfBirth = this.dateOfBirth,
+    dateOfDeath = this.dateOfDeath,
+    placeOfBirth = this.placeOfBirth,
+    placeOfDeath = this.placeOfDeath,
+    deceased = this.deceased,
+    education = this.education,
+    profession = this.profession,
+    note = this.note,
+    administrativeNote = this.administrativeNote,
+    nationality = this.nationality,
+    race = this.race,
+    ethnicity = this.ethnicity,
+    picture = this.picture,
+    externalId = this.externalId,
+    hcPartyKeys = this.hcPartyKeys,
+    privateKeyShamirPartitions = this.privateKeyShamirPartitions,
+    secretForeignKeys = this.secretForeignKeys,
+    cryptedForeignKeys = this.cryptedForeignKeys,
+    delegations = this.delegations,
+    encryptionKeys = this.encryptionKeys,
+)

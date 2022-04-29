@@ -9,7 +9,7 @@ plugins {
 
 buildscript {
     repositories {
-        mavenCentral()
+        mavenLocal()
         maven { url = uri("https://maven.taktik.be/content/groups/public") }
     }
     dependencies {
@@ -34,7 +34,7 @@ group = "io.icure"
 version = gitVersion ?: "0.0.1-SNAPSHOT"
 
 repositories {
-    mavenCentral()
+    mavenLocal()
     maven {
         url = uri("https://maven.taktik.be/content/groups/public")
     }
@@ -64,7 +64,11 @@ dependencies {
     implementation(group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-jsr310", version = jacksonVersion)
 
     implementation(group = "io.icure", name = "async-jackson-http-client", version = "0.1.15-9cf193799d")
-    implementation(group = "io.icure", name = "icure-reactive-kotlin-client", version = "0.1.325-2f9d104677")
+    implementation(
+        group = "io.icure",
+        name = "icure-reactive-kotlin-client",
+        version = "0.1.330-IMKS2-createanonymousm.d4114316d3"
+    )
     implementation(group = "org.taktik.commons", name = "commons-uti", version = "1.0")
 
     implementation(group = "com.github.ben-manes.caffeine", name = "caffeine", version = "3.0.4")
