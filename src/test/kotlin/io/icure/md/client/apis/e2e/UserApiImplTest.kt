@@ -45,6 +45,7 @@ internal class UserApiImplTest {
             .iCureUrlPath("http://127.0.0.1:16043").build()
 
     @Test
+    @DisplayName("Creating an account on its own")
     fun selfCreatedUser() {
         runBlocking {
             val emailAddress = MailUtils.getEmailAddress()
@@ -99,7 +100,33 @@ internal class UserApiImplTest {
                 currentUser.patientId?.let { "pat_" } ?: currentUser.healthcarePartyId?.let { "hcp_" }
                 ?: currentUser.deviceId?.let { "dev_" } ?: "s"
             )
+        }
+    }
 
+    @Test
+    @DisplayName("Getting itself its user by email")
+    fun getItselfByEmail() {
+        runBlocking {
+            val credentials = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+
+            val userByEmail = credentials.api.userApi().getUserByEmail(credentials.userName)
+            val currentUser = credentials.api.userApi().getLoggedUser()
+
+            assert(userByEmail == currentUser)
+        }
+    }
+
+    @Test
+    @DisplayName("Getting the user of a patient as HCP")
+    fun getUserOfAPatientAsHCP() {
+        runBlocking {
+            val patCred = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+            val hcpCred = TestUtils.UserCredentials.fromFile("hcp_2c5f952e-512b-4fd3-bc6d-0f66c282c159.json")
+
+            val patUserByEmailFromHcp = hcpCred.api.userApi().getUserByEmail(patCred.userName)
+            val patCurrentUser = patCred.api.userApi().getLoggedUser()
+
+            assert(patUserByEmailFromHcp == patCurrentUser)
         }
     }
 
