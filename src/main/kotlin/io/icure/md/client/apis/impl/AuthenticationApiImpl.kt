@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import io.icure.kraken.client.crypto.patientCryptoConfig
+import io.icure.kraken.client.crypto.privateKeyAsString
+import io.icure.kraken.client.crypto.publicKeyAsString
 import io.icure.kraken.client.crypto.toPrivateKey
 import io.icure.kraken.client.crypto.toPublicKey
 import io.icure.kraken.client.extendedapis.DataOwnerApi
@@ -29,12 +31,13 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.retry
+import kotlinx.coroutines.reactive.awaitFirst
 import kotlinx.coroutines.reactive.awaitFirstOrNull
 import reactor.core.publisher.Mono
 import reactor.netty.ByteBufFlux
 import reactor.netty.http.client.HttpClient
 import java.io.IOException
-import java.net.URLEncoder
+import java.security.KeyPair
 import java.util.*
 import kotlin.time.DurationUnit
 import kotlin.time.ExperimentalTime
@@ -45,6 +48,7 @@ import io.icure.kraken.client.models.decrypted.PatientDto as DecryptedPatientDto
 @FlowPreview
 @ExperimentalCoroutinesApi
 @ExperimentalTime
+@ExperimentalUnsignedTypes
 class AuthenticationApiImpl(
     private val iCureUrlPath: String,
     private val authServerUrl: String,
@@ -77,7 +81,6 @@ class AuthenticationApiImpl(
 
     override suspend fun startAuthentication(
         healthcareProfessionalId: String,
-        dataOwnerId: String,
         firstName: String,
         lastName: String,
         email: String,
@@ -95,14 +98,11 @@ class AuthenticationApiImpl(
             "hcpId" to healthcareProfessionalId
         )
 
+        val body = objectMapper.writeValueAsString(params)
+
         val response = client().post()
-            .uri(
-                URLEncoder.encode(
-                    "${authServerUrl}/process/${authProcessId}/$requestId",
-                    Charsets.UTF_8
-                )
-            )
-            .send(ByteBufFlux.fromString(Mono.just(objectMapper.writeValueAsString(params))))
+            .uri("${authServerUrl}/process/${authProcessId}/$requestId")
+            .send(ByteBufFlux.fromString(Mono.just(body)))
             .response()
             .awaitFirstOrNull()
 
@@ -112,20 +112,15 @@ class AuthenticationApiImpl(
     override suspend fun completeAuthentication(
         process: AuthenticationProcess,
         validationCode: String,
-        patientKeyPair: Pair<String, String>,
+        patientKeyPair: KeyPair,
         tokenAndKeyPairProvider: (String, String) -> Triple<String, String, String>?
     ): AuthenticationResult {
         val response = client().get()
-            .uri(
-                URLEncoder.encode(
-                    "${authServerUrl}/process/validate/${process.processId}-$validationCode",
-                    Charsets.UTF_8
-                )
-            )
+            .uri("${authServerUrl}/process/validate/${process.processId}-$validationCode")
             .response()
-            .awaitFirstOrNull()
+            .awaitFirst()
 
-        if (response!!.status().code() < 400) {
+        if (response.status().code() < 400) {
             return flow {
                 val (api, initResult) = initApiAndUserAuthenticationToken(
                     process,
@@ -165,38 +160,38 @@ class AuthenticationApiImpl(
             .defaultLanguage(defaultLanguage)
             .build()
 
-        try {
-            val currentUser = api.baseUserApi.getCurrentUser()
-            val fromProvider = tokenAndKeyPairProvider(currentUser.groupId!!, currentUser.id)
-            val token =
-                fromProvider?.first ?: api.userApi().createToken(currentUser.id, 30.toDuration(DurationUnit.DAYS))
-            return api to ApiInitialisationResult(currentUser, token, fromProvider?.let { it.second to it.third })
-        } catch (e: Exception) {
-            throw IllegalArgumentException("Your validation code is expired")
-        }
+        val currentUser = api.baseUserApi.getCurrentUser()
+        val fromProvider = tokenAndKeyPairProvider(currentUser.groupId!!, currentUser.id)
+        val token =
+            fromProvider?.first ?: api.userApi().createToken(currentUser.id, 30.toDuration(DurationUnit.DAYS))
+        return api to ApiInitialisationResult(
+            currentUser,
+            token,
+            fromProvider?.let { KeyPair(it.third.toPublicKey(), it.second.toPrivateKey()) })
     }
 
     override suspend fun initUserCrypto(
         api: MedTechApi,
         token: String,
         user: UserDto,
-        patientKeyPair: Pair<String, String>
+        patientKeyPair: KeyPair
     ): MedTechApi {
+        val publicKey = patientKeyPair.publicKeyAsString()
         val authenticatedApi = MedTechApi.Builder.from(api, "${user.groupId}/${user.id}", token)
-            .addKeyPair(user.dataOwnerId(), patientKeyPair.second.toPublicKey(), patientKeyPair.second.toPrivateKey())
+            .addKeyPair(user.dataOwnerId(), publicKey.toPublicKey(), patientKeyPair.privateKeyAsString().toPrivateKey())
             .build()
 
         val dataOwnerApi = api.baseDataOwnerApi
 
         dataOwnerApi.getDataOwner<HealthcarePartyDto>(user.dataOwnerId())?.let {
             if (it.publicKey == null) {
-                dataOwnerApi.modifyDataOwner(it.copy(publicKey = patientKeyPair.second))
+                dataOwnerApi.modifyDataOwner(it.copy(publicKey = publicKey))
             } else {
                 TODO("HCP User lost his key")
             }
         } ?: dataOwnerApi.getDataOwner<PatientDto>(user.dataOwnerId())?.let {
             if (it.publicKey == null) {
-                val updatedPatient = dataOwnerApi.modifyDataOwner(it.copy(publicKey = patientKeyPair.second))
+                val updatedPatient = dataOwnerApi.modifyDataOwner(it.copy(publicKey = publicKey))
                 initPatientDelegationAndSave(
                     authenticatedApi,
                     updatedPatient.toDecryptedPatientDto(),
@@ -208,7 +203,7 @@ class AuthenticationApiImpl(
             }
         } ?: dataOwnerApi.getDataOwner<DeviceDto>(user.dataOwnerId())?.let {
             if (it.publicKey == null) {
-                dataOwnerApi.modifyDataOwner(it.copy(publicKey = patientKeyPair.second))
+                dataOwnerApi.modifyDataOwner(it.copy(publicKey = publicKey))
             } else {
                 TODO("Device User lost his key")
             }

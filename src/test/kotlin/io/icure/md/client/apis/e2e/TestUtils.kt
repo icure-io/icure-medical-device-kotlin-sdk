@@ -48,6 +48,13 @@ object TestUtils {
             ?: throw RuntimeException("Couldn't read HCP Public Key")
     }
 
+    fun writeUserCredentials(userCredentials: UserCredentials, prefix: String = "") {
+        File("src/test/resources/io/icure/md/client/apis/impl/credentials/$prefix${userCredentials.dataOwnerId}.json").writeText(
+            defaultObjectMapper.writeValueAsString(userCredentials),
+            Charsets.UTF_8
+        )
+    }
+
     fun basicAuthFrom(credentialsFilePath: String): String {
         val usernamePassword: UsernamePassword = defaultObjectMapper.readValue(File(credentialsFilePath).readText())!!
         return usernamePassword.toBasicAuth()
@@ -56,4 +63,13 @@ object TestUtils {
     data class UsernamePassword(val username: String, val password: String) {
         fun toBasicAuth() = "Basic ${java.util.Base64.getEncoder().encodeToString("$username:$password".toByteArray())}"
     }
+
+    data class UserCredentials(
+        val userName: String,
+        val token: String,
+        val dataOwnerId: String,
+        val publicKey: String,
+        val privateKey: String
+    )
+
 }

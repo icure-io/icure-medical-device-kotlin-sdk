@@ -14,10 +14,12 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
+import kotlin.time.ExperimentalTime
 
 @FlowPreview
 @ExperimentalStdlibApi
 @ExperimentalCoroutinesApi
+@ExperimentalTime
 @DisplayName("MedicalDevice tests")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class DeviceApiImplTest {

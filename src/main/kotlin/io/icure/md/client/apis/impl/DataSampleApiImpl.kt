@@ -28,7 +28,7 @@ import io.icure.kraken.client.models.filter.contact.ContactByServiceIdsFilter
 import io.icure.md.client.apis.DataSampleApi
 import io.icure.md.client.apis.MedTechApi
 import io.icure.md.client.filter.Filter
-import io.icure.md.client.mappers.findDataOwnerId
+import io.icure.md.client.mappers.dataOwnerId
 import io.icure.md.client.mappers.toAbstractFilterDto
 import io.icure.md.client.mappers.toDataSample
 import io.icure.md.client.mappers.toDocument
@@ -167,7 +167,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         localCrypto: LocalCrypto,
         currentUser: UserDto,
         contact: ContactDto
-    ) = localCrypto.decryptEncryptionKeys(currentUser.findDataOwnerId(), contact.cryptedForeignKeys)
+    ) = localCrypto.decryptEncryptionKeys(currentUser.dataOwnerId(), contact.cryptedForeignKeys)
         .firstOrNull()
 
     private suspend fun getPatientOfContact(
@@ -469,5 +469,5 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         localCrypto: LocalCrypto,
         currentUser: UserDto,
         document: DocumentDto
-    ) = localCrypto.decryptEncryptionKeys(currentUser.findDataOwnerId(), document.encryptionKeys)
+    ) = localCrypto.decryptEncryptionKeys(currentUser.dataOwnerId(), document.encryptionKeys)
 }
