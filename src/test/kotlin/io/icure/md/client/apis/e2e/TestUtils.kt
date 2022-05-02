@@ -96,6 +96,15 @@ object TestUtils {
                         .readText()
                 )!!
             }
+
+            fun fromDir(dirPath: String = "io/icure/md/client/apis/impl/credentials/"): List<UserCredentials> {
+                return File(this::class.java.classLoader.getResource(dirPath).toURI()).walkBottomUp()
+                    .mapNotNull { file ->
+                        file.takeIf { it.isFile }?.let {
+                            defaultObjectMapper.readValue<UserCredentials>(it.readText(Charsets.UTF_8))
+                        }
+                    }.toList()
+            }
         }
     }
 
