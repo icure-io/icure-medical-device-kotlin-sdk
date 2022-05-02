@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalTime::class, FlowPreview::class)
+
 package io.icure.md.client.apis.e2e
 
 import com.fasterxml.jackson.annotation.JsonInclude
@@ -10,13 +12,18 @@ import com.fasterxml.jackson.module.kotlin.readValue
 import io.icure.kraken.client.apis.HealthcarePartyApi
 import io.icure.kraken.client.crypto.toPrivateKey
 import io.icure.kraken.client.crypto.toPublicKey
+import io.icure.md.client.apis.MedTechApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import java.io.File
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
+import kotlin.time.ExperimentalTime
 
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
+@ExperimentalTime
+@FlowPreview
 object TestUtils {
 
     private val defaultHcpId = "782f1bcd-9f3f-408a-af1b-cd9f3f908a98"
@@ -69,7 +76,27 @@ object TestUtils {
         val token: String,
         val dataOwnerId: String,
         val publicKey: String,
-        val privateKey: String
-    )
+        val privateKey: String,
+    ) {
+        val api: MedTechApi by lazy {
+            MedTechApi.Builder()
+                .authProcessId(System.getProperty("ICURE_AUTH_PROCESS_ID", "f0ced6c6-d7cb-4f78-841e-2674ad09621e"))
+                .authServerUrl(System.getProperty("ICURE_AUTH_SERVER_URL", "https://msg-gw.icure.cloud/km"))
+                .iCureUrlPath(System.getProperty("ICURE_URL_PATH", "https://kraken.icure.dev"))
+                .userName(userName)
+                .password(token)
+                .addKeyPair(dataOwnerId, publicKey.toPublicKey(), privateKey.toPrivateKey())
+                .build()
+        }
+
+        companion object {
+            fun fromFile(fileName: String): UserCredentials {
+                return defaultObjectMapper.readValue(
+                    this::class.java.classLoader.getResource("io/icure/md/client/apis/impl/credentials/$fileName")
+                        .readText()
+                )!!
+            }
+        }
+    }
 
 }
