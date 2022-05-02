@@ -107,12 +107,14 @@ internal class UserApiImplTest {
     @DisplayName("Getting itself its user by email")
     fun getItselfByEmail() {
         runBlocking {
-            val credentials = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+            TestUtils.UserCredentials.fromDir().forEach { cred ->
+                cred.api.let { api ->
+                    val userByEmail = api.userApi().getUserByEmail(cred.userName)
+                    val currentUser = api.userApi().getLoggedUser()
 
-            val userByEmail = credentials.api.userApi().getUserByEmail(credentials.userName)
-            val currentUser = credentials.api.userApi().getLoggedUser()
-
-            assert(userByEmail == currentUser)
+                    assert(userByEmail == currentUser)
+                }
+            }
         }
     }
 
