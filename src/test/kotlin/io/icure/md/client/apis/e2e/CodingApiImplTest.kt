@@ -15,10 +15,12 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import java.util.*
+import kotlin.time.ExperimentalTime
 
 @FlowPreview
 @ExperimentalStdlibApi
 @ExperimentalCoroutinesApi
+@ExperimentalTime
 @DisplayName("Coding tests")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class CodingApiImplTest {

@@ -8,6 +8,7 @@ import io.icure.md.client.models.AuthenticationProcess
 import io.icure.md.client.models.AuthenticationResult
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import java.security.KeyPair
 import kotlin.time.ExperimentalTime
 
 @ExperimentalStdlibApi
@@ -17,7 +18,6 @@ import kotlin.time.ExperimentalTime
 interface AuthenticationApi {
     suspend fun startAuthentication(
         healthcareProfessionalId: String,
-        dataOwnerId: String,
         firstName: String,
         lastName: String,
         email: String,
@@ -28,7 +28,7 @@ interface AuthenticationApi {
     suspend fun completeAuthentication(
         process: AuthenticationProcess,
         validationCode: String,
-        patientKeyPair: Pair<String, String>,
+        patientKeyPair: KeyPair,
         tokenAndKeyPairProvider: (String, String) -> Triple<String, String, String>?
     ): AuthenticationResult
 
@@ -42,7 +42,7 @@ interface AuthenticationApi {
         api: MedTechApi,
         token: String,
         user: UserDto,
-        patientKeyPair: Pair<String, String>
+        patientKeyPair: KeyPair
     ): MedTechApi
 
     suspend fun initPatientDelegationAndSave(

@@ -3,6 +3,7 @@ package io.icure.md.client.models
 import io.icure.md.client.apis.MedTechApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import java.security.KeyPair
 import kotlin.time.ExperimentalTime
 
 @ExperimentalStdlibApi
@@ -11,7 +12,7 @@ import kotlin.time.ExperimentalTime
 @ExperimentalTime
 data class AuthenticationResult(
     val medTechApi: MedTechApi,
-    val keyPair: Pair<String, String>,
+    val keyPair: KeyPair,
     val token: String,
     val groupId: String,
     val userId: String

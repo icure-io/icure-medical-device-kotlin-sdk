@@ -63,13 +63,13 @@ class MedTechApi(
     )
 ) {
     private var authenticationApi: AuthenticationApi? = null
-    private val codingApi = CodingApiImpl(this)
-    private val dataSampleApi = DataSampleApiImpl(this)
-    private val healthcareElementApi = HealthcareElementApiImpl(this)
-    private val healthcareProfessionalApi = HealthcareProfessionalApiImpl(this)
-    private val medicalDeviceApi = MedicalDeviceApiImpl(this)
-    private val patientApi = PatientApiImpl(this)
-    private val userApi = UserApiImpl(this)
+    private val codingApi by lazy { CodingApiImpl(this) }
+    private val dataSampleApi by lazy { DataSampleApiImpl(this) }
+    private val healthcareElementApi by lazy { HealthcareElementApiImpl(this) }
+    private val healthcareProfessionalApi by lazy { HealthcareProfessionalApiImpl(this) }
+    private val medicalDeviceApi by lazy { MedicalDeviceApiImpl(this) }
+    private val patientApi by lazy { PatientApiImpl(this) }
+    private val userApi by lazy { UserApiImpl(this) }
 
     fun authenticationApi(): AuthenticationApi {
         if (this.authenticationApi != null) {
@@ -124,10 +124,6 @@ class MedTechApi(
                 throw IllegalArgumentException("In order to request iCure APIs, you need to provide your credentials")
             }
 
-            if (rsaKeyPairs.isEmpty()) {
-                throw IllegalArgumentException("In order to encrypt/decrypt your data, you need to provide at least a RSA Key Pair")
-            }
-
             return MedTechApi(
                 iCureUrlPath = iCureUrlPath,
                 authorization = authorization ?: basicAuth(userName = userName!!, password = password!!),
@@ -153,6 +149,7 @@ class MedTechApi(
                 return Builder()
                     .authProcessId(api.authProcessId)
                     .authServerUrl(api.authServerUrl)
+                    .iCureUrlPath(api.iCureUrlPath)
                     .userName(username)
                     .password(password)
                     .defaultLanguage(api.defaultLanguage)
