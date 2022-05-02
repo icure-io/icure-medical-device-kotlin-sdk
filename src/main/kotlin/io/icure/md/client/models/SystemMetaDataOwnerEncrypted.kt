@@ -49,7 +49,16 @@ data class SystemMetaDataOwnerEncrypted (
     val delegations: kotlin.collections.Map<kotlin.String, kotlin.collections.Set<Delegation>> = emptyMap(),
 
     @field:JsonProperty("encryptionKeys")
-    val encryptionKeys: kotlin.collections.Map<kotlin.String, kotlin.collections.Set<Delegation>> = emptyMap()
+    val encryptionKeys: kotlin.collections.Map<kotlin.String, kotlin.collections.Set<Delegation>> = emptyMap(),
 
-)
+    @field:JsonProperty("aesExchangeKeys")
+    val aesExchangeKeys: Map<String, Map<String, List<String>>> = emptyMap(),
+
+    @field:JsonProperty("transferKeys")
+    val transferKeys: Map<String, Map<String, String>> = emptyMap(),
+
+    @field:JsonProperty("lostHcPartyKeys")
+    val lostHcPartyKeys: List<String> = emptyList(),
+
+    )
 
