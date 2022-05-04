@@ -1,7 +1,5 @@
 package io.icure.md.client.apis.e2e
 
-import io.icure.kraken.client.crypto.patientCryptoConfig
-import io.icure.kraken.client.extendedapis.createPatient
 import io.icure.kraken.client.models.decrypted.PatientDto
 import io.icure.md.client.models.CodingReference
 import io.icure.md.client.models.Content
@@ -225,11 +223,11 @@ internal class DataSampleApiImplTest {
             val medTechApi = credentials.api
             // Init
             val weight = prescriptionDataSample()
-            val currentUser = medTechApi.baseUserApi.getCurrentUser()
+            val currentUser = medTechApi.userApi().getLoggedUser()
 
-            val existingPatient = medTechApi.basePatientApi
-                .createPatient(currentUser, patientDto(), patientCryptoConfig(medTechApi.localCrypto))
-            val createdDataSample = medTechApi.dataSampleApi().createOrModifyDataSampleFor(existingPatient.id, weight)
+            val existingPatient = medTechApi.patientApi()
+                .getPatient(currentUser.patientId ?: throw IllegalArgumentException("Test user should be a patient"))
+            val createdDataSample = medTechApi.dataSampleApi().createOrModifyDataSampleFor(existingPatient.id!!, weight)
 
             val attachmentToAdd =
                 Files.readAllBytes(Paths.get("src/test/resources/io/icure/md/client/attachments/data_sample_attachment_note.xml"))
