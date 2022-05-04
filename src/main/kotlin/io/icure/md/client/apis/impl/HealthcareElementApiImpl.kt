@@ -127,7 +127,7 @@ class HealthcareElementApiImpl(private val medTechApi: MedTechApi) : HealthcareE
             throw IllegalStateException("DataOwner $dataOwnerId does not have the right to access it ${healthcareElement.id}")
         }
 
-        if (healthcareElement.systemMetaData.delegations.keys.any { it == dataOwnerId }) {
+        if (healthcareElement.systemMetaData.delegations.keys.any { it == delegateTo }) {
             return healthcareElement
         }
 
