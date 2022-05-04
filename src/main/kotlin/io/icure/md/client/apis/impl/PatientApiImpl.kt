@@ -88,7 +88,7 @@ class PatientApiImpl(private val medTechApi: MedTechApi) : PatientApi {
             throw IllegalStateException("DataOwner $dataOwnerId does not have the right to access patient ${patient.id}")
         }
 
-        if (patient.systemMetaData.delegations.keys.any { it == dataOwnerId }) {
+        if (patient.systemMetaData.delegations.keys.any { it == delegateTo }) {
             return patient
         }
 

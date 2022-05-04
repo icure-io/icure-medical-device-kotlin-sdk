@@ -25,24 +25,12 @@ import kotlin.time.ExperimentalTime
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class UserApiImplTest {
 
-//    private val iCurePath = "https://kraken.icure.dev"
-//    private val authHeader = TestUtils.basicAuthFrom(".credentials")
-//    private val healthcareProfessionalId = "782f1bcd-9f3f-408a-af1b-cd9f3f908a98"
-//    private val healthcareProfessionalPrivateKey =
-//        TestUtils.healthcareProfessionalPrivateKey(healthcareProfessionalId, this::class.java)
-//    private val healthcareProfessionalPublicKey =
-//        runBlocking { TestUtils.healthcareProfessionalPublicKey(iCurePath, authHeader, healthcareProfessionalId) }
-
-//    private val medTechApi = MedTechApi.Builder()
-//        .iCureUrlPath(iCurePath)
-//        .authorization(authHeader)
-//        .addKeyPair(healthcareProfessionalId, healthcareProfessionalPublicKey, healthcareProfessionalPrivateKey)
-//        .build()
-
-    // private val anonymousMedTechApi = AnonymousMedTechApi.Builder().authProcessId(authProcessId = "f0ced6c6-d7cb-4f78-841e-2674ad09621e").iCureUrlPath("http://127.0.0.1:16043").build()
     private val anonymousMedTechApi =
-        AnonymousMedTechApi.Builder().authProcessId(authProcessId = "6a355458dbfa392cb56244031907f47a")
+        AnonymousMedTechApi.Builder().authProcessId(authProcessId = "f0ced6c6-d7cb-4f78-841e-2674ad09621e")
             .iCureUrlPath("http://127.0.0.1:16043").build()
+//    private val anonymousMedTechApi =
+//        AnonymousMedTechApi.Builder().authProcessId(authProcessId = "6a355458dbfa392cb56244031907f47a")
+//            .iCureUrlPath("http://127.0.0.1:16043").build()
 
     @Test
     @DisplayName("Creating an account on its own")
