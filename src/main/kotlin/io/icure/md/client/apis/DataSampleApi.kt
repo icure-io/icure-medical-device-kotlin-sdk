@@ -18,6 +18,7 @@ import io.icure.md.client.filter.Filter
 import io.icure.md.client.models.DataSample
 import io.icure.md.client.models.Document
 import io.icure.md.client.models.PaginatedListDataSample
+import io.icure.md.client.models.Patient
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import java.util.*
 import javax.inject.Named
@@ -178,16 +179,41 @@ interface DataSampleApi {
     * @param body  
     * @param documentName  (optional)
     * @param documentVersion  (optional)
-    * @param documentExternalUuid  (optional)
-    * @param documentLanguage  (optional)
-    * @return Returns the created or modified attachment as a [Document] object, with updated information
-    * @throws ClientException if you make this call without providing or (by providing an invalid) authentication token (BASIC, SesssionId).
-    * @throws ClientException if there is no data sample corresponding to the provided [dataSampleId].
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ServerException If the API returns a server error response
-    */
+     * @param documentExternalUuid  (optional)
+     * @param documentLanguage  (optional)
+     * @return Returns the created or modified attachment as a [Document] object, with updated information
+     * @throws ClientException if you make this call without providing or (by providing an invalid) authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is no data sample corresponding to the provided [dataSampleId].
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ServerException If the API returns a server error response
+     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun setDataSampleAttachment(dataSampleId: kotlin.String, body: kotlinx.coroutines.flow.Flow<java.nio.ByteBuffer>, documentName: kotlin.String?, documentVersion: kotlin.String?, documentExternalUuid: kotlin.String?, documentLanguage: kotlin.String?) : Document 
+    suspend fun setDataSampleAttachment(
+        dataSampleId: kotlin.String,
+        body: kotlinx.coroutines.flow.Flow<java.nio.ByteBuffer>,
+        documentName: kotlin.String?,
+        documentVersion: kotlin.String?,
+        documentExternalUuid: kotlin.String?,
+        documentLanguage: kotlin.String?
+    ): Document
 
+    /**
+     * Give access to another dataOwner to the [dataSample]
+     * @param dataSample dataSample to giveAccessTo [delegateTo]
+     * @param delegateTo dataOwnerId to giveAccessTo
+     * @return Returns the updated [DataSample].
+     *
+     * Data owner id can be either a:
+     * - healthcarePartyId,
+     * - patientId
+     * - deviceId
+     *
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    suspend fun giveAccessTo(dataSample: DataSample, delegateTo: String): DataSample
 }
