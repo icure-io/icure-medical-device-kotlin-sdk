@@ -11,10 +11,12 @@ import io.icure.md.client.apis.MedTechApi
 import io.icure.md.client.apis.PatientApi
 import io.icure.md.client.filter.Filter
 import io.icure.md.client.isUUID
+import io.icure.md.client.mappers.dataOwnerId
 import io.icure.md.client.mappers.toAbstractFilterDto
 import io.icure.md.client.mappers.toPaginatedListPatient
 import io.icure.md.client.mappers.toPatient
 import io.icure.md.client.mappers.toPatientDto
+import io.icure.md.client.models.Delegation
 import io.icure.md.client.models.PaginatedListPatient
 import io.icure.md.client.models.Patient
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -75,5 +77,60 @@ class PatientApiImpl(private val medTechApi: MedTechApi) : PatientApi {
 
     override suspend fun matchPatients(filter: Filter<Patient>): List<String> {
         return medTechApi.basePatientApi.matchPatientsBy(filter.toAbstractFilterDto())
+    }
+
+    override suspend fun giveAccessTo(patient: Patient, delegateTo: String): Patient {
+        val localCrypto = medTechApi.localCrypto
+        val currentUser = medTechApi.baseUserApi.getCurrentUser()
+        val dataOwnerId = currentUser.dataOwnerId()
+
+        if (!patient.systemMetaData!!.delegations.keys.any { it == dataOwnerId }) {
+            throw IllegalStateException("DataOwner $dataOwnerId does not have the right to access patient ${patient.id}")
+        }
+
+        if (patient.systemMetaData.delegations.keys.any { it == dataOwnerId }) {
+            return patient
+        }
+
+        return patient.toPatientDto().let { patientDto ->
+            val (delegation_Key, dataOwner) = localCrypto.encryptAESKeyForDataOwner(
+                dataOwnerId,
+                delegateTo,
+                patientDto.id,
+                localCrypto.decryptEncryptionKeys(dataOwnerId, patientDto.delegations).first()
+            )
+            val (encryptionKey_Key, _) = localCrypto.encryptAESKeyForDataOwner(
+                dataOwnerId,
+                delegateTo,
+                patientDto.id,
+                localCrypto.decryptEncryptionKeys(dataOwnerId, patientDto.encryptionKeys).first()
+            )
+
+            val delegation = Delegation(owner = dataOwnerId, delegatedTo = delegateTo, key = delegation_Key)
+            val encryptionKey = Delegation(owner = dataOwnerId, delegatedTo = delegateTo, key = encryptionKey_Key)
+
+            val delegations = patient.systemMetaData.delegations.plus(delegateTo to setOf(delegation))
+            val encryptionKeys = patient.systemMetaData.encryptionKeys.plus(delegateTo to setOf(encryptionKey))
+
+            val patientToUpdate = if (dataOwner != null && dataOwner.dataOwnerId == patientDto.id) {
+                patient.copy(
+                    rev = dataOwner.rev,
+                    systemMetaData = patient.systemMetaData.copy(
+                        hcPartyKeys = dataOwner.hcPartyKeys,
+                        delegations = delegations,
+                        encryptionKeys = encryptionKeys
+                    )
+                )
+            } else {
+                patient.copy(
+                    systemMetaData = patient.systemMetaData.copy(
+                        delegations = delegations,
+                        encryptionKeys = encryptionKeys
+                    )
+                )
+            }
+
+            createOrModifyPatient(patientToUpdate)
+        }
     }
 }
