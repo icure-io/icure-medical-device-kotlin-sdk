@@ -8,8 +8,6 @@ import io.icure.kraken.client.extendedapis.getPatient
 import io.icure.kraken.client.extendedapis.initDelegations
 import io.icure.kraken.client.extendedapis.modifyPatient
 import io.icure.md.client.apis.MedTechApi
-import io.icure.md.client.apis.PatientApi
-import io.icure.md.client.apis.impl.PatientApiImpl
 import io.icure.md.client.models.Patient
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -29,27 +27,14 @@ import kotlin.time.ExperimentalTime
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class PatientApiImplTest {
 
-    private val iCurePath = "https://kraken.icure.dev"
-    private val authHeader = TestUtils.basicAuthFrom(".credentials")
-    private val healthcareProfessionalId = "782f1bcd-9f3f-408a-af1b-cd9f3f908a98"
-    private val healthcareProfessionalPrivateKey =
-        TestUtils.healthcareProfessionalPrivateKey(healthcareProfessionalId, this::class.java)
-    private val healthcareProfessionalPublicKey =
-        runBlocking { TestUtils.healthcareProfessionalPublicKey(iCurePath, authHeader, healthcareProfessionalId) }
-
-    private val medTechApi = MedTechApi.Builder()
-        .iCureUrlPath(iCurePath)
-        .authorization(authHeader)
-        .addKeyPair(healthcareProfessionalId, healthcareProfessionalPublicKey, healthcareProfessionalPrivateKey)
-        .build()
-
-    private val testedInstance: PatientApi = PatientApiImpl(medTechApi)
-
     @Test
     @DisplayName("Create patient test - HappyFlow")
     fun createPatientHappyFlow() = runBlocking {
         val patient = patient()
-        val createdPatient = testedInstance.createOrModifyPatient(patient)
+        val patCred = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+        val api = patCred.api
+
+        val createdPatient = api.patientApi().createOrModifyPatient(patient)
 
         val diffs = patient.differences(createdPatient)
         val filters = listOf("id", "author", "created", "modified", "responsible", "rev", "names", "systemMetaData")
@@ -61,8 +46,11 @@ internal class PatientApiImplTest {
     @DisplayName("Get patient test - HappyFlow")
     fun getPatientHappyFlow() = runBlocking {
         val patient = patient()
-        val createdPatient = testedInstance.createOrModifyPatient(patient)
-        val gotDevice = testedInstance.getPatient(createdPatient.id!!)
+        val patCred = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+        val api = patCred.api
+
+        val createdPatient = api.patientApi().createOrModifyPatient(patient)
+        val gotDevice = api.patientApi().getPatient(createdPatient.id!!)
 
         val diffs = createdPatient.differences(gotDevice)
         Assertions.assertEquals(emptyList<Diff>(), diffs)
@@ -106,5 +94,29 @@ internal class PatientApiImplTest {
             hkMedTechApi.basePatientApi.modifyPatient(adminUser, initPat, patientCryptoConfig(hkMedTechApi.localCrypto))
 
         assert(updatedPatient != null)
+    }
+
+    @Test
+    fun sharingDelegationPatientToHcp() {
+        runBlocking {
+            val patCred = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+            val hcpCred = TestUtils.UserCredentials.fromFile("hcp_2c5f952e-512b-4fd3-bc6d-0f66c282c159.json")
+
+            val currentPatUser = patCred.api.userApi().getLoggedUser()
+            val currentHcpUser = hcpCred.api.userApi().getLoggedUser()
+
+            val patientFromPat = patCred.api.patientApi()
+                .getPatient(currentPatUser.patientId ?: throw IllegalArgumentException("User must be a Patient"))
+            val delegatedPatient = patCred.api.patientApi().giveAccessTo(
+                patientFromPat,
+                currentHcpUser.healthcarePartyId ?: throw IllegalArgumentException("User must be a HCP")
+            )
+
+            assert(delegatedPatient.systemMetaData!!.delegations.containsKey(currentHcpUser.healthcarePartyId))
+            assert(delegatedPatient.systemMetaData!!.encryptionKeys.containsKey(currentHcpUser.healthcarePartyId))
+
+            val patientFromHcp = hcpCred.api.patientApi().getPatient(patientFromPat.id!!)
+            assert(patientFromHcp == delegatedPatient)
+        }
     }
 }
