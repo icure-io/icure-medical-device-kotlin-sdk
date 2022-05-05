@@ -19,6 +19,7 @@ import kotlin.time.ExperimentalTime
 @ExperimentalTime
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
+@ExperimentalUnsignedTypes
 @FlowPreview
 class UserApiImpl(private val medTechApi: MedTechApi) : UserApi {
     override suspend fun checkTokenValidity(userId: String, token: String) =
