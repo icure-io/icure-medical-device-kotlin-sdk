@@ -120,7 +120,7 @@ class MedTechApi(
             "Basic ${java.util.Base64.getEncoder().encodeToString("$userName:$password".toByteArray())}"
 
         fun build(): MedTechApi {
-            if (userName == null || password == null) {
+            if (authorization == null && (userName == null || password == null)) {
                 throw IllegalArgumentException("In order to request iCure APIs, you need to provide your credentials")
             }
 
