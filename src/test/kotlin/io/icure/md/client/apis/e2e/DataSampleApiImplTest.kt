@@ -34,12 +34,11 @@ internal class DataSampleApiImplTest {
     fun createOrModifyDataSamples_HappyFlow_Creation() {
         runBlocking {
             // Init
-            val credentials = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+            val credentials = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
             val medTechApi = credentials.api
             val weight = weightDataSample()
             val height = heightDataSample()
             val currentUser = medTechApi.baseUserApi.getCurrentUser()
-            //val existingPatient = medTechApi.basePatientApi.createPatient(currentUser, patientDto(), patientCryptoConfig(medTechApi.localCrypto))
 
             // When
             val createdDataSamples = medTechApi.dataSampleApi().createOrModifyDataSamplesFor(
@@ -58,7 +57,7 @@ internal class DataSampleApiImplTest {
     fun deleteDataSample_HappyFlow() {
         runBlocking {
             // Init
-            val credentials = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+            val credentials = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
             val medTechApi = credentials.api
             val weight = weightDataSample()
 
@@ -132,7 +131,7 @@ internal class DataSampleApiImplTest {
         val patientId = UUID.randomUUID().toString()
         val weight = weightDataSample().copy(batchId = "batch-1")
         val height = heightDataSample().copy(batchId = "batch-2")
-        val credentials = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+        val credentials = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
         val medTechApi = credentials.api
 
         // When
@@ -150,7 +149,7 @@ internal class DataSampleApiImplTest {
     fun setDataSampleAttachment_HappyFlow() {
         runBlocking {
             // Init
-            val credentials = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+            val credentials = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
             val medTechApi = credentials.api
             val weight = prescriptionDataSample()
             val currentUser = medTechApi.userApi().getLoggedUser()
@@ -182,7 +181,7 @@ internal class DataSampleApiImplTest {
     @Test
     fun getDataSampleAttachment_HappyFlow() {
         runBlocking {
-            val credentials = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+            val credentials = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
             val medTechApi = credentials.api
             // Init
             val dataSample = prescriptionDataSample()
@@ -219,7 +218,7 @@ internal class DataSampleApiImplTest {
     @Test
     fun deleteDataSampleAttachment_HappyFlow() {
         runBlocking {
-            val credentials = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+            val credentials = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
             val medTechApi = credentials.api
             // Init
             val weight = prescriptionDataSample()

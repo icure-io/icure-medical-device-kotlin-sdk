@@ -75,7 +75,6 @@ internal class UserApiImplTest {
             assert(patient.id in patient.systemMetaData!!.encryptionKeys.keys)
             assert(patient.id in patient.systemMetaData!!.hcPartyKeys.keys)
 
-
             writeFile(
                 currentUser, TestUtils.UserCredentials(
                     emailAddress,

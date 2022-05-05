@@ -63,6 +63,9 @@ fun PatientDto.toPatient() = Patient(
         cryptedForeignKeys = this.cryptedForeignKeys.mapValues { (_, v) -> v.map { it.toDelegation() }.toSet() },
         delegations = this.delegations.mapValues { (_, v) -> v.map { it.toDelegation() }.toSet() },
         encryptionKeys = this.encryptionKeys.mapValues { (_, v) -> v.map { it.toDelegation() }.toSet() },
+        aesExchangeKeys = this.aesExchangeKeys,
+        transferKeys = this.transferKeys,
+        lostHcPartyKeys = this.lostHcPartyKeys
     )
 )
 
@@ -137,6 +140,9 @@ fun Patient.toPatientDto() = PatientDto(
         ?: emptyMap(),
     encryptionKeys = this.systemMetaData?.encryptionKeys?.mapValues { (k, v) -> v.map { it.toDelegationDto() }.toSet() }
         ?: emptyMap(),
+    aesExchangeKeys = this.systemMetaData?.aesExchangeKeys ?: emptyMap(),
+    transferKeys = this.systemMetaData?.transferKeys ?: emptyMap(),
+    lostHcPartyKeys = this.systemMetaData?.lostHcPartyKeys ?: emptyList(),
     publicKey = this.publicKey
 )
 
