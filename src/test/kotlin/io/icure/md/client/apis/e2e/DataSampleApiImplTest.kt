@@ -252,7 +252,7 @@ internal class DataSampleApiImplTest {
     @DisplayName("Create Data Sample linked to HealthElement - Success")
     fun createDataSampleLinkedToHealthElement() {
         runBlocking {
-            val credentials = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+            val credentials = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
             val api = credentials.api
 
             val currentUser = api.userApi().getLoggedUser()
@@ -265,7 +265,10 @@ internal class DataSampleApiImplTest {
             )
             val createdDataSample = api.dataSampleApi().createOrModifyDataSampleFor(patient.id!!, dataSampleToCreate)
 
-            assert(createdDataSample.healthElementsIds!!.single() == healthElement.id)
+            assert(healthElement.id!! in createdDataSample.healthElementsIds!!)
+
+            val contactOfDataSample = api.baseContactApi.getContact(createdDataSample.batchId!!)
+            assert(createdDataSample.healthElementsIds!!.all { it in contactOfDataSample.subContacts.map { subContactDto -> subContactDto.healthElementId } })
         }
     }
 
@@ -273,7 +276,7 @@ internal class DataSampleApiImplTest {
     @DisplayName("Create Data Sample and modify it to link it to HealthElement - Success")
     fun createDataSampleAndModifyItToLinkItToHealthElement() {
         runBlocking {
-            val credentials = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+            val credentials = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
             val api = credentials.api
 
             val currentUser = api.userApi().getLoggedUser()
@@ -288,7 +291,10 @@ internal class DataSampleApiImplTest {
                 createdDataSample.copy(modified = null, healthElementsIds = setOfNotNull(healthElement.id))
             )
 
-            assert(updatedDataSample.healthElementsIds!!.single() == healthElement.id)
+            assert(healthElement.id!! in updatedDataSample.healthElementsIds!!)
+
+            val contactOfDataSample = api.baseContactApi.getContact(createdDataSample.batchId!!)
+            assert(createdDataSample.healthElementsIds!!.all { it in contactOfDataSample.subContacts.map { subContactDto -> subContactDto.healthElementId } })
         }
     }
 }
