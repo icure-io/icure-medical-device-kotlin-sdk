@@ -26,6 +26,7 @@ import kotlin.time.ExperimentalTime
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class UserApiImplTest {
     @Test
+    @DisplayName("Creating an account on its own")
     fun selfCreatedUserPatient() {
         runBlocking {
             val anonymousMedTechApi =
@@ -137,6 +138,35 @@ internal class UserApiImplTest {
                     result.keyPair.privateKeyAsString()
                 )
             )
+        }
+    }
+
+    @Test
+    @DisplayName("Getting itself its user by email")
+    fun getItselfByEmail() {
+        runBlocking {
+            TestUtils.UserCredentials.fromDir().forEach { cred ->
+                cred.api.let { api ->
+                    val userByEmail = api.userApi().getUserByEmail(cred.userName)
+                    val currentUser = api.userApi().getLoggedUser()
+
+                    assert(userByEmail == currentUser)
+                }
+            }
+        }
+    }
+
+    @Test
+    @DisplayName("Getting the user of a patient as HCP")
+    fun getUserOfAPatientAsHCP() {
+        runBlocking {
+            val patCred = TestUtils.UserCredentials.fromFile("pat_2f2d94f4-9f57-443d-a2e1-3339da333d4a.json")
+            val hcpCred = TestUtils.UserCredentials.fromFile("hcp_9d66c6b7-e3f9-44a5-a104-0d0df27135e4.json")
+
+            val patUserByEmailFromHcp = hcpCred.api.userApi().getUserByEmail(patCred.userName)
+            val patCurrentUser = patCred.api.userApi().getLoggedUser()
+
+            assert(patUserByEmailFromHcp == patCurrentUser)
         }
     }
 
