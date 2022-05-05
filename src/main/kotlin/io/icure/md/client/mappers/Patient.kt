@@ -55,6 +55,7 @@ fun PatientDto.toPatient() = Patient(
     ethnicity = this.ethnicity,
     picture = this.picture,
     externalId = this.externalId,
+    publicKey = this.publicKey,
     systemMetaData = SystemMetaDataOwnerEncrypted(
         hcPartyKeys = this.hcPartyKeys,
         privateKeyShamirPartitions = this.privateKeyShamirPartitions,
@@ -142,6 +143,7 @@ fun Patient.toPatientDto() = PatientDto(
     aesExchangeKeys = this.systemMetaData?.aesExchangeKeys ?: emptyMap(),
     transferKeys = this.systemMetaData?.transferKeys ?: emptyMap(),
     lostHcPartyKeys = this.systemMetaData?.lostHcPartyKeys ?: emptyList()
+    publicKey = this.publicKey
 )
 
 fun Patient.DeactivationReason.toDeactivationReason() = PatientDto.DeactivationReason.valueOf(this.name)

@@ -9,12 +9,14 @@ import io.icure.kraken.client.extendedapis.getHealthElement
 import io.icure.kraken.client.extendedapis.getPatient
 import io.icure.kraken.client.extendedapis.modifyHealthElement
 import io.icure.kraken.client.extendedapis.modifyHealthElements
+import io.icure.kraken.client.models.DelegationDto
 import io.icure.kraken.client.models.ListOfIdsDto
 import io.icure.kraken.client.models.filter.chain.FilterChain
 import io.icure.md.client.apis.HealthcareElementApi
 import io.icure.md.client.apis.MedTechApi
 import io.icure.md.client.filter.Filter
 import io.icure.md.client.isUUID
+import io.icure.md.client.mappers.dataOwnerId
 import io.icure.md.client.mappers.toAbstractFilterDto
 import io.icure.md.client.mappers.toHealthcareElement
 import io.icure.md.client.mappers.toHealthcareElementDto
@@ -28,6 +30,7 @@ import kotlin.time.ExperimentalTime
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
 @ExperimentalTime
+@ExperimentalUnsignedTypes
 @FlowPreview
 class HealthcareElementApiImpl(private val medTechApi: MedTechApi) : HealthcareElementApi {
     override suspend fun createOrModifyHealthcareElement(
@@ -114,5 +117,65 @@ class HealthcareElementApiImpl(private val medTechApi: MedTechApi) : HealthcareE
 
     override suspend fun matchHealthcareElement(filter: Filter<HealthcareElement>): List<String> {
         return medTechApi.baseHealthElementApi.matchHealthElementsBy(filter.toAbstractFilterDto())
+    }
+
+    override suspend fun giveAccessTo(healthcareElement: HealthcareElement, delegateTo: String): HealthcareElement {
+        val localCrypto = medTechApi.localCrypto
+        val currentUser = medTechApi.baseUserApi.getCurrentUser()
+        val dataOwnerId = currentUser.dataOwnerId()
+
+        if (!healthcareElement.systemMetaData!!.delegations.keys.any { it == dataOwnerId }) {
+            throw IllegalStateException("DataOwner $dataOwnerId does not have the right to access it ${healthcareElement.id}")
+        }
+
+        if (healthcareElement.systemMetaData.delegations.keys.any { it == delegateTo }) {
+            return healthcareElement
+        }
+
+        return healthcareElement.toHealthcareElementDto().let { healthElementDto ->
+            val patientId = localCrypto.decryptEncryptionKeys(dataOwnerId, healthElementDto.cryptedForeignKeys).first()
+
+            val (patientIdKey, _) = localCrypto.encryptAESKeyForDataOwner(
+                dataOwnerId,
+                delegateTo,
+                healthElementDto.id,
+                patientId
+            )
+            val (secretForeignKey, _) = localCrypto.encryptAESKeyForDataOwner(
+                dataOwnerId,
+                delegateTo,
+                healthElementDto.id,
+                localCrypto.decryptEncryptionKeys(dataOwnerId, healthElementDto.delegations).first()
+            )
+            val (encryptionKey, _) = localCrypto.encryptAESKeyForDataOwner(
+                dataOwnerId,
+                delegateTo,
+                healthElementDto.id,
+                localCrypto.decryptEncryptionKeys(dataOwnerId, healthElementDto.encryptionKeys).first()
+            )
+
+            val delegation = DelegationDto(owner = dataOwnerId, delegatedTo = delegateTo, key = secretForeignKey)
+            val encryptionKeyDelegation =
+                DelegationDto(owner = dataOwnerId, delegatedTo = delegateTo, key = encryptionKey)
+            val cryptedForeignKeyDelegation =
+                DelegationDto(owner = dataOwnerId, delegatedTo = delegateTo, key = patientIdKey)
+
+            val delegations = healthElementDto.delegations.plus(delegateTo to setOf(delegation))
+            val encryptionKeys = healthElementDto.encryptionKeys.plus(delegateTo to setOf(encryptionKeyDelegation))
+            val cryptedForeignKeys =
+                healthElementDto.cryptedForeignKeys.plus(delegateTo to setOf(cryptedForeignKeyDelegation))
+
+            val healthcareElementToUpdate = healthElementDto.copy(
+                delegations = delegations,
+                encryptionKeys = encryptionKeys,
+                cryptedForeignKeys = cryptedForeignKeys
+            ).toHealthcareElement()
+
+            try {
+                createOrModifyHealthcareElement(patientId, healthcareElementToUpdate)
+            } catch (e: Exception) {
+                throw IllegalStateException("Couldn't give access to $delegateTo to healthcare element ${healthcareElementToUpdate.id}")
+            }
+        }
     }
 }

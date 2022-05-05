@@ -1,6 +1,7 @@
 package io.icure.md.client.mappers
 
 import io.icure.kraken.client.models.MeasureDto
+import io.icure.kraken.client.models.SubContactDto
 import io.icure.kraken.client.models.decrypted.ContentDto
 import io.icure.kraken.client.models.decrypted.ServiceDto
 import io.icure.md.client.models.Content
@@ -8,7 +9,11 @@ import io.icure.md.client.models.DataSample
 import io.icure.md.client.models.Measure
 import java.util.*
 
-fun ServiceDto.toDataSample(batchId: String? = null): DataSample = DataSample(
+fun ServiceDto.toDataSample(
+    batchId: String? = null,
+    subContacts: List<SubContactDto>? = null,
+    responsible: String? = null
+): DataSample = DataSample(
     id = this.id,
     identifiers = this.identifier.map { it.toIdentifier() },
     content = this.content.mapValues { it.value.toContent() },
@@ -16,9 +21,12 @@ fun ServiceDto.toDataSample(batchId: String? = null): DataSample = DataSample(
     codes = this.codes.map { it.toCodingReference() },
     labels = this.tags.map { it.toCodingReference() },
     transactionId = this.transactionId,
-    batchId = batchId ?: this.contactId,
-    healthElementsIds = this.healthElementsIds,
-    canvasesIds = this.formIds,
+    batchId = this.contactId ?: batchId,
+    healthElementsIds = this.healthElementsIds
+        ?: subContacts?.mapNotNull { subContactDto -> subContactDto.healthElementId }?.toSet() ?: emptySet(),
+    canvasesIds = subContacts?.mapNotNull { subContactDto -> subContactDto.formId }?.takeIf { it.isNotEmpty() }?.toSet()
+        ?: emptySet()
+        ?: this.formIds,
     index = this.index,
     valueDate = this.valueDate,
     openingDate = this.openingDate,
@@ -27,7 +35,7 @@ fun ServiceDto.toDataSample(batchId: String? = null): DataSample = DataSample(
     modified = this.modified,
     endOfLife = this.endOfLife,
     author = this.author,
-    responsible = this.responsible,
+    responsible = this.responsible ?: responsible,
     comment = this.comment
 )
 
