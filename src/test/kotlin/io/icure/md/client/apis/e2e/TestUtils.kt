@@ -1,5 +1,6 @@
 package io.icure.md.client.apis.e2e
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.core.json.JsonReadFeature
 import com.fasterxml.jackson.databind.DeserializationFeature
@@ -64,6 +65,7 @@ object TestUtils {
         fun toBasicAuth() = "Basic ${java.util.Base64.getEncoder().encodeToString("$username:$password".toByteArray())}"
     }
 
+    @JsonIgnoreProperties(value = ["api"])
     data class UserCredentials(
         val userName: String,
         val token: String,
