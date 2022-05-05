@@ -1,5 +1,6 @@
 package io.icure.md.client.apis.e2e
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.core.json.JsonReadFeature
 import com.fasterxml.jackson.databind.DeserializationFeature
@@ -48,6 +49,13 @@ object TestUtils {
             ?: throw RuntimeException("Couldn't read HCP Public Key")
     }
 
+    fun writeUserCredentials(userCredentials: UserCredentials, prefix: String = "") {
+        File("src/test/resources/io/icure/md/client/apis/impl/credentials/$prefix${userCredentials.dataOwnerId}.json").writeText(
+            defaultObjectMapper.writeValueAsString(userCredentials),
+            Charsets.UTF_8
+        )
+    }
+
     fun basicAuthFrom(credentialsFilePath: String): String {
         val usernamePassword: UsernamePassword = defaultObjectMapper.readValue(File(credentialsFilePath).readText())!!
         return usernamePassword.toBasicAuth()
@@ -56,4 +64,14 @@ object TestUtils {
     data class UsernamePassword(val username: String, val password: String) {
         fun toBasicAuth() = "Basic ${java.util.Base64.getEncoder().encodeToString("$username:$password".toByteArray())}"
     }
+
+    @JsonIgnoreProperties(value = ["api"])
+    data class UserCredentials(
+        val userName: String,
+        val token: String,
+        val dataOwnerId: String,
+        val publicKey: String,
+        val privateKey: String
+    )
+
 }

@@ -19,6 +19,8 @@ import io.icure.md.client.models.PaginatedListUser
 import io.icure.md.client.models.User
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Named
+import kotlin.time.Duration
+import kotlin.time.ExperimentalTime
 
 @Named
 @ExperimentalStdlibApi
@@ -56,27 +58,42 @@ interface UserApi {
 
     /**
     * Create a token for a user.
-    * A token is used to authenticate the user. It is just like a password but it is destined to be used by programs instead of humans. Tokens have a limited validity period (one month).
-    * @param userId The UUID that identifies the user uniquely 
-    * @return Returns the token that can be subsequently used to authenticate the user with id userId.
-    * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
-    * @throws ClientException if there is no user with the provided userId.
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ServerException If the API returns a server error response
-    */
+     * A token is used to authenticate the user. It is just like a password but it is destined to be used by programs instead of humans. Tokens have a limited validity period (one month).
+     * @param userId The UUID that identifies the user uniquely
+     * @return Returns the token that can be subsequently used to authenticate the user with id userId.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is no user with the provided userId.
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ServerException If the API returns a server error response
+     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun createToken(userId: kotlin.String) : kotlin.String 
+    suspend fun createToken(userId: kotlin.String): kotlin.String
 
     /**
-    * Delete an existing user.
-    * Deletes the user identified by the provided unique userId.
-    * @param userId The UUID that uniquely identifies the user to be deleted. 
-    * @return Returns the rev of the deleted object.
-    * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
-    * @throws ClientException if there is no user with the provided userId.
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ServerException If the API returns a server error response
+     * Create a token for a user.
+     * A token is used to authenticate the user. It is just like a password but it is destined to be used by programs instead of humans. Tokens have a limited validity period (one month).
+     * @param userId The UUID that identifies the user uniquely
+     * @return Returns the token that can be subsequently used to authenticate the user with id userId.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is no user with the provided userId.
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ServerException If the API returns a server error response
+     */
+    @OptIn(ExperimentalTime::class)
+    @Suppress("UNCHECKED_CAST")
+    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    suspend fun createToken(userId: String, validity: Duration): String?
+
+    /**
+     * Delete an existing user.
+     * Deletes the user identified by the provided unique userId.
+     * @param userId The UUID that uniquely identifies the user to be deleted.
+     * @return Returns the rev of the deleted object.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is no user with the provided userId.
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ServerException If the API returns a server error response
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
@@ -125,16 +142,26 @@ interface UserApi {
     suspend fun getUser(userId: kotlin.String) : User 
 
     /**
-    * Load user ids from the database by filtering them using the provided Filter.
-    * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for Users are AllUsersFilter and UsersByIdsFilter. This method returns the list of the ids of the users matching the filter.
-    * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill 
-    * @return Returns a list of all user ids matching the filter.
-    * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ServerException If the API returns a server error response
-    */
+     * Load user ids from the database by filtering them using the provided Filter.
+     * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for Users are AllUsersFilter and UsersByIdsFilter. This method returns the list of the ids of the users matching the filter.
+     * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+     * @return Returns a list of all user ids matching the filter.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ServerException If the API returns a server error response
+     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun matchUsers(filter: Filter<User>) : kotlin.collections.List<kotlin.String> 
+    suspend fun matchUsers(filter: Filter<User>): kotlin.collections.List<kotlin.String>
+
+    /**
+     * Load user ids from the database by filtering them using the provided Filter.
+     * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for Users are AllUsersFilter and UsersByIdsFilter. This method returns the list of the ids of the users matching the filter.
+     * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+     * @return Returns a list of all user ids matching the filter.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ServerException If the API returns a server error response
+     */
 
 }

@@ -142,5 +142,4 @@ fun Patient.DeactivationReason.toDeactivationReason() = PatientDto.DeactivationR
 fun Patient.Gender.toGender() = PatientDto.Gender.valueOf(this.name)
 fun Patient.BirthSex.toBirthSex() = PatientDto.BirthSex.valueOf(this.name)
 fun Patient.PersonalStatus.toPersonalStatus() = PatientDto.PersonalStatus.valueOf(this.name)
-
 fun Patient.Gender.toDbGender() = io.icure.kraken.client.models.PatientDto.Gender.valueOf(this.name)

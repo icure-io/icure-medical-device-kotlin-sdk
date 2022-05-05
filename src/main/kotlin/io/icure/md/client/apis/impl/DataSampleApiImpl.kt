@@ -28,7 +28,7 @@ import io.icure.kraken.client.models.filter.contact.ContactByServiceIdsFilter
 import io.icure.md.client.apis.DataSampleApi
 import io.icure.md.client.apis.MedTechApi
 import io.icure.md.client.filter.Filter
-import io.icure.md.client.mappers.findDataOwnerId
+import io.icure.md.client.mappers.dataOwnerId
 import io.icure.md.client.mappers.toAbstractFilterDto
 import io.icure.md.client.mappers.toDataSample
 import io.icure.md.client.mappers.toDocument
@@ -40,6 +40,7 @@ import io.icure.md.client.models.Document
 import io.icure.md.client.models.PaginatedListDataSample
 import io.icure.md.client.toHex
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.taktik.commons.uti.UTI
@@ -49,13 +50,16 @@ import java.nio.ByteBuffer
 import java.security.MessageDigest
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.time.ExperimentalTime
 
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
+@ExperimentalTime
+@FlowPreview
 class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
     private val contactsCache = Caffeine.newBuilder()
-        .expireAfterAccess(medTechApi.shortLivedCachesDuration(), TimeUnit.SECONDS)
-        .maximumSize(medTechApi.shortLivedCachesMaxSize())
+        .expireAfterAccess(medTechApi.shortLivedCachesDuration, TimeUnit.SECONDS)
+        .maximumSize(medTechApi.shortLivedCachesMaxSize)
         .build<Pair<String, String>, ContactDto>()
 
     private val utiDetector = SimpleUTIDetector()
@@ -76,8 +80,8 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
             throw IllegalArgumentException("Can't process more than 1000 data samples in the same batch")
         }
 
-        val localCrypto = medTechApi.localCrypto()
-        val currentUser = medTechApi.userApi().getCurrentUser()
+        val localCrypto = medTechApi.localCrypto
+        val currentUser = medTechApi.baseUserApi.getCurrentUser()
 
         val (contactCached, existingContact) = getContactOfDataSample(localCrypto, currentUser, dataSample.first())
 
@@ -91,7 +95,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         }
 
         val existingPatient =
-            medTechApi.patientApi().getPatient(currentUser, patientId, patientCryptoConfig(localCrypto))
+            medTechApi.basePatientApi.getPatient(currentUser, patientId, patientCryptoConfig(localCrypto))
 
         val createdOrModifiedContact = if (contactCached && existingContact != null) {
             val servicesToModify = dataSample.map { it.toServiceDto() }
@@ -103,12 +107,15 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
                     .maxOfOrNull { it }
             )
 
-            medTechApi.contactApi()
-                .modifyContact(currentUser, contactToModify, contactCryptoConfig(localCrypto, currentUser))
+            medTechApi.baseContactApi.modifyContact(
+                currentUser,
+                contactToModify,
+                contactCryptoConfig(localCrypto, currentUser)
+            )
         } else {
             val contactToCreate = createContactDtoBasedOn(dataSample, existingContact)
 
-            medTechApi.contactApi()
+            medTechApi.baseContactApi
                 .createContact(
                     currentUser,
                     existingPatient,
@@ -149,14 +156,18 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         currentUser: UserDto,
         contactId: String
     ): ContactDto {
-        return medTechApi.contactApi().getContact(currentUser, contactId, contactCryptoConfig(localCrypto, currentUser))
+        return medTechApi.baseContactApi.getContact(
+            currentUser,
+            contactId,
+            contactCryptoConfig(localCrypto, currentUser)
+        )
     }
 
     private suspend fun getPatientIdOfContact(
         localCrypto: LocalCrypto,
         currentUser: UserDto,
         contact: ContactDto
-    ) = localCrypto.decryptEncryptionKeys(currentUser.findDataOwnerId(), contact.cryptedForeignKeys)
+    ) = localCrypto.decryptEncryptionKeys(currentUser.dataOwnerId(), contact.cryptedForeignKeys)
         .firstOrNull()
 
     private suspend fun getPatientOfContact(
@@ -165,7 +176,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         contact: ContactDto
     ): PatientDto? {
         return getPatientIdOfContact(localCrypto, currentUser, contact)
-            ?.let { medTechApi.patientApi().getPatient(currentUser, it, patientCryptoConfig(localCrypto)) }
+            ?.let { medTechApi.basePatientApi.getPatient(currentUser, it, patientCryptoConfig(localCrypto)) }
     }
 
     private fun countHierarchyOfDataSamples(
@@ -213,8 +224,8 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
     }
 
     override suspend fun deleteAttachment(dataSampleId: String, documentId: String): String {
-        val localCrypto = medTechApi.localCrypto()
-        val currentUser = medTechApi.userApi().getCurrentUser()
+        val localCrypto = medTechApi.localCrypto
+        val currentUser = medTechApi.baseUserApi.getCurrentUser()
 
         val existingContact = findContactsForDataSampleIds(currentUser, localCrypto, listOf(dataSampleId))
             .firstOrNull()
@@ -244,8 +255,8 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
     }
 
     override suspend fun deleteDataSamples(dataSampleIds: List<String>): List<String> {
-        val localCrypto = medTechApi.localCrypto()
-        val currentUser = medTechApi.userApi().getCurrentUser()
+        val localCrypto = medTechApi.localCrypto
+        val currentUser = medTechApi.baseUserApi.getCurrentUser()
 
         val existingContact = findContactsForDataSampleIds(currentUser, localCrypto, dataSampleIds)
             .firstOrNull()
@@ -261,7 +272,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
 
         val servicesToDelete = existingContact.services.filter { it.id in dataSampleIds }
 
-        return medTechApi.contactApi().deleteServices(
+        return medTechApi.baseContactApi.deleteServices(
             currentUser,
             contactPatient,
             servicesToDelete,
@@ -283,7 +294,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
             .filterNot { cachedContacts.containsKey(currentUser.id to it) }
 
         return if (dataSampleIdsToSearch.isNotEmpty()) {
-            val notCachedContacts = medTechApi.contactApi()
+            val notCachedContacts = medTechApi.baseContactApi
                 .filterContactsBy(
                     currentUser, FilterChain(ContactByServiceIdsFilter(ids = dataSampleIdsToSearch)), null, null,
                     dataSampleIds.size, contactCryptoConfig(localCrypto, currentUser)
@@ -308,11 +319,12 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         nextDataSampleId: String?,
         limit: Int?
     ): PaginatedListDataSample {
-        val currentUser = medTechApi.userApi().getCurrentUser()
-        val localCrypto = medTechApi.localCrypto()
+        val currentUser = medTechApi.baseUserApi.getCurrentUser()
+        val localCrypto = medTechApi.localCrypto
 
-        return medTechApi.contactApi()
-            .filterServicesBy(currentUser,
+        return medTechApi.baseContactApi
+            .filterServicesBy(
+                currentUser,
                 FilterChain(filter.toAbstractFilterDto(), null),
                 nextDataSampleId,
                 limit,
@@ -328,10 +340,10 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
     }
 
     private suspend fun getServiceFromICure(dataSampleId: String): ServiceDto? {
-        val localCrypto = medTechApi.localCrypto()
-        val currentUser = medTechApi.userApi().getCurrentUser()
+        val localCrypto = medTechApi.localCrypto
+        val currentUser = medTechApi.baseUserApi.getCurrentUser()
 
-        return medTechApi.contactApi().listServices(
+        return medTechApi.baseContactApi.listServices(
             currentUser,
             ListOfIdsDto(listOf(dataSampleId)),
             contactCryptoConfig(localCrypto, currentUser).crypto
@@ -340,8 +352,8 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
     }
 
     override suspend fun getDataSampleAttachmentDocument(dataSampleId: String, documentId: String): Document {
-        val localCrypto = medTechApi.localCrypto()
-        val currentUser = medTechApi.userApi().getCurrentUser()
+        val localCrypto = medTechApi.localCrypto
+        val currentUser = medTechApi.baseUserApi.getCurrentUser()
 
         return getDataSampleAttachmentDocumentFromICure(localCrypto, currentUser, dataSampleId, documentId)
             .toDocument()
@@ -352,13 +364,13 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         documentId: String,
         attachmentId: String
     ): Flow<ByteBuffer> {
-        val localCrypto = medTechApi.localCrypto()
-        val currentUser = medTechApi.userApi().getCurrentUser()
+        val localCrypto = medTechApi.localCrypto
+        val currentUser = medTechApi.baseUserApi.getCurrentUser()
 
         val documentOfAttachment =
             getDataSampleAttachmentDocumentFromICure(localCrypto, currentUser, dataSampleId, documentId)
 
-        return medTechApi.documentApi().getDocumentAttachment(
+        return medTechApi.baseDocumentApi.getDocumentAttachment(
             documentId,
             attachmentId,
             getDocumentEncryptionKeys(localCrypto, currentUser, documentOfAttachment).joinToString(","),
@@ -378,11 +390,11 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
             throw IllegalArgumentException("Id $documentId does not reference any document in the data sample $dataSampleId")
         }
 
-        return medTechApi.documentApi().getDocument(currentUser, documentId, documentCryptoConfig(localCrypto))
+        return medTechApi.baseDocumentApi.getDocument(currentUser, documentId, documentCryptoConfig(localCrypto))
     }
 
     override suspend fun matchDataSamples(filter: Filter<DataSample>): List<String> {
-        return medTechApi.contactApi().matchServicesBy(filter.toAbstractFilterDto())
+        return medTechApi.baseContactApi.matchServicesBy(filter.toAbstractFilterDto())
     }
 
     override suspend fun setDataSampleAttachment(
@@ -393,8 +405,8 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         documentExternalUuid: String?,
         documentLanguage: String?
     ): Document {
-        val localCrypto = medTechApi.localCrypto()
-        val currentUser = medTechApi.userApi().getCurrentUser()
+        val localCrypto = medTechApi.localCrypto
+        val currentUser = medTechApi.baseUserApi.getCurrentUser()
 
         val existingDataSample = getDataSample(dataSampleId)
         val existingContact = getContactOfDataSample(localCrypto, currentUser, existingDataSample)
@@ -415,17 +427,17 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         val md = MessageDigest.getInstance("SHA-256")
         var uti: UTI? = null
 
-        val createdDocument = medTechApi.documentApi().createDocument(currentUser, documentToCreate, documentConfig)
+        val createdDocument = medTechApi.baseDocumentApi.createDocument(currentUser, documentToCreate, documentConfig)
             .let { createdDoc ->
                 // Updating data sample with docId
-                val contentIso = documentLanguage ?: medTechApi.defaultLanguage()
+                val contentIso = documentLanguage ?: medTechApi.defaultLanguage
                 createOrModifyDataSampleFor(
                     patientOfContact,
                     existingDataSample.copy(content = mapOf(contentIso to Content(documentId = createdDoc.id)))
                 )
 
                 // Adding attachment to document
-                medTechApi.documentApi().setDocumentAttachment(
+                medTechApi.baseDocumentApi.setDocumentAttachment(
                     user = currentUser,
                     documentId = createdDoc.id,
                     requestBody = body.map {
@@ -443,7 +455,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
             }
 
         // Add the hash and UTI of the document
-        val finalDoc = medTechApi.documentApi()
+        val finalDoc = medTechApi.baseDocumentApi
             .modifyDocument(
                 currentUser,
                 createdDocument.copy(hash = md.digest().toHex(), mainUti = uti.toString()),
@@ -457,5 +469,5 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         localCrypto: LocalCrypto,
         currentUser: UserDto,
         document: DocumentDto
-    ) = localCrypto.decryptEncryptionKeys(currentUser.findDataOwnerId(), document.encryptionKeys)
+    ) = localCrypto.decryptEncryptionKeys(currentUser.dataOwnerId(), document.encryptionKeys)
 }
