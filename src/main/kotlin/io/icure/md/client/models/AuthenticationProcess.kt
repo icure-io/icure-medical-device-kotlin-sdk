@@ -1,6 +1,6 @@
 package io.icure.md.client.models
 
 data class AuthenticationProcess(
-    val processId: String,
+    val requestId: String,
     val login: String
 )
