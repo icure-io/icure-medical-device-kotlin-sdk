@@ -34,7 +34,16 @@ data class SystemMetaDataOwner (
     val hcPartyKeys: kotlin.collections.Map<kotlin.String, kotlin.collections.List<kotlin.String>> = emptyMap(),
 
     @field:JsonProperty("privateKeyShamirPartitions")
-    val privateKeyShamirPartitions: kotlin.collections.Map<kotlin.String, kotlin.String> = emptyMap()
+    val privateKeyShamirPartitions: kotlin.collections.Map<kotlin.String, kotlin.String> = emptyMap(),
 
-)
+    @field:JsonProperty("aesExchangeKeys")
+    val aesExchangeKeys: Map<String, Map<String, List<String>>> = emptyMap(),
+
+    @field:JsonProperty("transferKeys")
+    val transferKeys: Map<String, Map<String, String>> = emptyMap(),
+
+    @field:JsonProperty("lostHcPartyKeys")
+    val lostHcPartyKeys: List<String> = emptyList(),
+
+    )
 

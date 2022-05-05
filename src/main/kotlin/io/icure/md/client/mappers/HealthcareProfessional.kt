@@ -24,8 +24,11 @@ fun HealthcarePartyDto.toHealthcareProfessional() = HealthcareProfessional(
     picture = this.picture,
     notes = this.notes,
     systemMetaData = SystemMetaDataOwner(
-        this.hcPartyKeys,
-        this.privateKeyShamirPartitions,
+        hcPartyKeys = this.hcPartyKeys,
+        privateKeyShamirPartitions = this.privateKeyShamirPartitions,
+        aesExchangeKeys = this.aesExchangeKeys,
+        transferKeys = this.transferKeys,
+        lostHcPartyKeys = this.lostHcPartyKeys
     )
 )
 
@@ -57,6 +60,9 @@ fun HealthcareProfessional.toHealthcarePartyDto() = HealthcarePartyDto(
     notes = this.notes,
     hcPartyKeys = this.systemMetaData?.hcPartyKeys ?: emptyMap(),
     privateKeyShamirPartitions = this.systemMetaData?.privateKeyShamirPartitions ?: emptyMap(),
+    aesExchangeKeys = this.systemMetaData?.aesExchangeKeys ?: emptyMap(),
+    transferKeys = this.systemMetaData?.transferKeys ?: emptyMap(),
+    lostHcPartyKeys = this.systemMetaData?.lostHcPartyKeys ?: emptyList()
 )
 
 private fun HealthcareProfessional.Gender.toGender() = HealthcarePartyDto.Gender.valueOf(this.name)
