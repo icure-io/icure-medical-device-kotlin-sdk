@@ -67,7 +67,7 @@ dependencies {
     implementation(
         group = "io.icure",
         name = "icure-reactive-kotlin-client",
-        version = "0.1.332-IMKS2-createanonymousm.f6ec5fa84d"
+        version = "0.1.333-IMKS2-createanonymousm.31e4d78e9c"
     )
     implementation(group = "org.taktik.commons", name = "commons-uti", version = "1.0")
 

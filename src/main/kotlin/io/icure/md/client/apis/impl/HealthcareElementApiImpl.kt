@@ -133,24 +133,24 @@ class HealthcareElementApiImpl(private val medTechApi: MedTechApi) : HealthcareE
 
         val ccHealthElement = healthElementCryptoConfig(localCrypto)
 
-        return healthcareElement.toHealthcareElementDto().let {
+        return healthcareElement.toHealthcareElementDto().let { healthElementDto ->
             val (patientIdKey, _) = localCrypto.encryptAESKeyForDataOwner(
                 dataOwnerId,
                 delegateTo,
-                it.id,
-                localCrypto.decryptEncryptionKeys(dataOwnerId, it.cryptedForeignKeys).first()
+                healthElementDto.id,
+                localCrypto.decryptEncryptionKeys(dataOwnerId, healthElementDto.cryptedForeignKeys).first()
             )
             val (secretForeignKey, _) = localCrypto.encryptAESKeyForDataOwner(
                 dataOwnerId,
                 delegateTo,
-                it.id,
-                localCrypto.decryptEncryptionKeys(dataOwnerId, it.delegations).first()
+                healthElementDto.id,
+                localCrypto.decryptEncryptionKeys(dataOwnerId, healthElementDto.delegations).first()
             )
             val (encryptionKey, _) = localCrypto.encryptAESKeyForDataOwner(
                 dataOwnerId,
                 delegateTo,
-                it.id,
-                localCrypto.decryptEncryptionKeys(dataOwnerId, it.encryptionKeys).first()
+                healthElementDto.id,
+                localCrypto.decryptEncryptionKeys(dataOwnerId, healthElementDto.encryptionKeys).first()
             )
 
             val delegation = DelegationDto(owner = dataOwnerId, delegatedTo = delegateTo, key = secretForeignKey)
@@ -159,11 +159,12 @@ class HealthcareElementApiImpl(private val medTechApi: MedTechApi) : HealthcareE
             val cryptedForeignKeyDelegation =
                 DelegationDto(owner = dataOwnerId, delegatedTo = delegateTo, key = patientIdKey)
 
-            val delegations = it.delegations.plus(delegateTo to setOf(delegation))
-            val encryptionKeys = it.encryptionKeys.plus(delegateTo to setOf(encryptionKeyDelegation))
-            val cryptedForeignKeys = it.cryptedForeignKeys.plus(delegateTo to setOf(cryptedForeignKeyDelegation))
+            val delegations = healthElementDto.delegations.plus(delegateTo to setOf(delegation))
+            val encryptionKeys = healthElementDto.encryptionKeys.plus(delegateTo to setOf(encryptionKeyDelegation))
+            val cryptedForeignKeys =
+                healthElementDto.cryptedForeignKeys.plus(delegateTo to setOf(cryptedForeignKeyDelegation))
 
-            val healthElementDtoToUpdate = it.copy(
+            val healthElementDtoToUpdate = healthElementDto.copy(
                 delegations = delegations,
                 encryptionKeys = encryptionKeys,
                 cryptedForeignKeys = cryptedForeignKeys
