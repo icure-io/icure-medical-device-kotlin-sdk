@@ -54,9 +54,14 @@ fun User.toUserDto() = UserDto(
     mobilePhone = this.mobilePhone,
 )
 
-fun UserDto.findDataOwnerId(): String {
+fun UserDto.dataOwnerId(): String {
     return this.healthcarePartyId
         ?: this.patientId
         ?: this.deviceId
         ?: throw IllegalCallerException("Can't find any ID to decrypt encryption keys")
 }
+
+fun User.dataOwnerId(): String = this.healthcarePartyId
+    ?: this.patientId
+    ?: this.deviceId
+    ?: throw IllegalCallerException("User isn't a dataOwner")
