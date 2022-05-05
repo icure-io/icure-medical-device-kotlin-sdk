@@ -28,6 +28,7 @@ import kotlin.time.ExperimentalTime
 @FlowPreview
 @ExperimentalStdlibApi
 @ExperimentalCoroutinesApi
+@ExperimentalUnsignedTypes
 @ExperimentalTime
 class MedTechApi(
     internal val iCureUrlPath: String,
@@ -62,7 +63,18 @@ class MedTechApi(
         deviceApi = baseDeviceApi
     )
 ) {
-    private var authenticationApi: AuthenticationApi? = null
+    private val authenticationApi by lazy {
+        if (this.authServerUrl == null || this.authProcessId == null) {
+            throw IllegalArgumentException("To use AuthenticationApi, you need to provide the msgGtwUrl, your authServerUrl and your authProcessId!")
+        }
+
+        AuthenticationApiImpl(
+            iCureUrlPath = iCureUrlPath,
+            authServerUrl = authServerUrl,
+            authProcessId = authProcessId,
+            defaultLanguage = defaultLanguage
+        )
+    }
     private val codingApi by lazy { CodingApiImpl(this) }
     private val dataSampleApi by lazy { DataSampleApiImpl(this) }
     private val healthcareElementApi by lazy { HealthcareElementApiImpl(this) }
@@ -71,18 +83,7 @@ class MedTechApi(
     private val patientApi by lazy { PatientApiImpl(this) }
     private val userApi by lazy { UserApiImpl(this) }
 
-    fun authenticationApi(): AuthenticationApi {
-        if (this.authenticationApi != null) {
-            return this.authenticationApi!!
-        }
-
-        if (this.authServerUrl == null || this.authProcessId == null) {
-            throw IllegalArgumentException("To use AuthenticationApi, you need to provide the msgGtwUrl, your authServerUrl and your authProcessId!")
-        }
-
-        return AuthenticationApiImpl.fromApi(this)
-    }
-
+    fun authenticationApi(): AuthenticationApi = authenticationApi
     fun codingApi() = codingApi
     fun dataSampleApi() = dataSampleApi
     fun healthcareElementApi() = healthcareElementApi
@@ -146,13 +147,9 @@ class MedTechApi(
             }
 
             fun from(api: MedTechApi, username: String, password: String): Builder {
-                return Builder()
-                    .authProcessId(api.authProcessId)
-                    .authServerUrl(api.authServerUrl)
-                    .iCureUrlPath(api.iCureUrlPath)
+                return from(api)
                     .userName(username)
                     .password(password)
-                    .defaultLanguage(api.defaultLanguage)
             }
         }
     }
