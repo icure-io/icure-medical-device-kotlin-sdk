@@ -11,7 +11,6 @@ import io.icure.kraken.client.crypto.privateKeyAsString
 import io.icure.kraken.client.crypto.publicKeyAsString
 import io.icure.kraken.client.crypto.toPrivateKey
 import io.icure.kraken.client.crypto.toPublicKey
-import io.icure.kraken.client.extendedapis.DataOwnerApi
 import io.icure.kraken.client.extendedapis.PatientMapperFactory
 import io.icure.kraken.client.extendedapis.dataOwnerId
 import io.icure.kraken.client.extendedapis.initDelegations
@@ -197,8 +196,7 @@ class AuthenticationApiImpl(
                 initPatientDelegationAndSave(
                     authenticatedApi,
                     PatientMapperFactory.instance.map(updatedPatient),
-                    user,
-                    dataOwnerApi
+                    user
                 )
             } else {
                 TODO("Patient User lost his key")
@@ -217,8 +215,7 @@ class AuthenticationApiImpl(
     private suspend fun initPatientDelegationAndSave(
         apiWithNewKeyPair: MedTechApi,
         modPat: DecryptedPatientDto,
-        user: UserDto,
-        dataOwnerApi: DataOwnerApi
+        user: UserDto
     ): DecryptedPatientDto {
         val ccPatient = patientCryptoConfig(apiWithNewKeyPair.localCrypto)
         val dataOwnerWithDelegations = modPat.initDelegations(user, ccPatient)
