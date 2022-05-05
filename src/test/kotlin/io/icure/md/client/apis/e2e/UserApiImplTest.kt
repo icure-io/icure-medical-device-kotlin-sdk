@@ -160,8 +160,8 @@ internal class UserApiImplTest {
     @DisplayName("Getting the user of a patient as HCP")
     fun getUserOfAPatientAsHCP() {
         runBlocking {
-            val patCred = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
-            val hcpCred = TestUtils.UserCredentials.fromFile("hcp_2c5f952e-512b-4fd3-bc6d-0f66c282c159.json")
+            val patCred = TestUtils.UserCredentials.fromFile("pat_2f2d94f4-9f57-443d-a2e1-3339da333d4a.json")
+            val hcpCred = TestUtils.UserCredentials.fromFile("hcp_9d66c6b7-e3f9-44a5-a104-0d0df27135e4.json")
 
             val patUserByEmailFromHcp = hcpCred.api.userApi().getUserByEmail(patCred.userName)
             val patCurrentUser = patCred.api.userApi().getLoggedUser()
