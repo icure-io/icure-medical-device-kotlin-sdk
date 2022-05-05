@@ -97,16 +97,35 @@ interface HealthcareElementApi {
     suspend fun getHealthcareElement(healthcareElementId: kotlin.String) : HealthcareElement 
 
     /**
-    * Load healthcare elements ids from the database by filtering them using the provided [filter].
-    * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for Healthcare element are AllHealthcareElementsFilter and HealthcareElementsByIdsFilter. This method returns a paginated list of healthcare element (with a cursor that lets you query the following items).
-    * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill 
-    * @return Returns a list of all healthcare elements ids matching the filter.
-    * @throws ClientException if you make this call without providing an authentication token (BASIC, SessionId).
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ServerException If the API returns a server error response
-    */
+     * Load healthcare elements ids from the database by filtering them using the provided [filter].
+     * Filters are complex selectors that are built by combining basic building blocks. Examples of filters available for Healthcare element are AllHealthcareElementsFilter and HealthcareElementsByIdsFilter. This method returns a paginated list of healthcare element (with a cursor that lets you query the following items).
+     * @param filter The Filter object that describes which condition(s) the elements whose the ids should be returned must fulfill
+     * @return Returns a list of all healthcare elements ids matching the filter.
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SessionId).
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ServerException If the API returns a server error response
+     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun matchHealthcareElement(filter: Filter<HealthcareElement>) : kotlin.collections.List<kotlin.String> 
+    suspend fun matchHealthcareElement(filter: Filter<HealthcareElement>): kotlin.collections.List<kotlin.String>
+
+    /**
+     * Give access to another dataOwner to the [healthcareElement]
+     * @param healthcareElement dataSample to giveAccessTo [delegateTo]
+     * @param delegateTo dataOwnerId to giveAccessTo
+     * @return Returns the updated [HealthcareElement].
+     *
+     * Data owner id can be either a:
+     * - healthcarePartyId,
+     * - patientId
+     * - deviceId
+     *
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    suspend fun giveAccessTo(healthcareElement: HealthcareElement, delegateTo: String): HealthcareElement
 
 }
