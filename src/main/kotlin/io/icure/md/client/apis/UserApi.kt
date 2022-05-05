@@ -129,17 +129,31 @@ interface UserApi {
 
     /**
     * Get a User by id.
-    * Each user is uniquely identified by a user id. The user id is a UUID. This userId is the preferred method to retrieve one specific user.
-    * @param userId The UUID that identifies the user uniquely 
-    * @return Returns the fetched user as a User object
-    * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
-    * @throws ClientException if there is no user with the provided userId.
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ServerException If the API returns a server error response
-    */
+     * Each user is uniquely identified by a user id. The user id is a UUID. This userId is the preferred method to retrieve one specific user.
+     * @param userId The UUID that identifies the user uniquely
+     * @return Returns the fetched user as a User object
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is no user with the provided userId.
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ServerException If the API returns a server error response
+     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun getUser(userId: kotlin.String) : User 
+    suspend fun getUser(userId: kotlin.String): User
+
+    /**
+     * Get a User by its email.
+     * Each user is uniquely identified by a user email.
+     * @param email The email that identifies the user
+     * @return Returns the fetched user as a User object
+     * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
+     * @throws ClientException if there is no user with the provided userId.
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ServerException If the API returns a server error response
+     */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    suspend fun getUserByEmail(email: kotlin.String): User
 
     /**
      * Load user ids from the database by filtering them using the provided Filter.

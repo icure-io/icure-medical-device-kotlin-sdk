@@ -19,6 +19,7 @@ import kotlin.time.ExperimentalTime
 @ExperimentalTime
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
+@ExperimentalUnsignedTypes
 @FlowPreview
 class UserApiImpl(private val medTechApi: MedTechApi) : UserApi {
     override suspend fun checkTokenValidity(userId: String, token: String) =
@@ -49,6 +50,7 @@ class UserApiImpl(private val medTechApi: MedTechApi) : UserApi {
     override suspend fun getLoggedUser() = medTechApi.baseUserApi.getCurrentUser().toUser()
 
     override suspend fun getUser(userId: String) = medTechApi.baseUserApi.getUser(userId).toUser()
+    override suspend fun getUserByEmail(email: String): User = medTechApi.baseUserApi.getUserByEmail(email).toUser()
 
     override suspend fun matchUsers(filter: Filter<User>) =
         medTechApi.baseUserApi.matchUsersBy(filter.toAbstractFilterDto())
