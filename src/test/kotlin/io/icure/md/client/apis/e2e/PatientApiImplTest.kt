@@ -27,8 +27,8 @@ internal class PatientApiImplTest {
     @DisplayName("Create patient test - HappyFlow")
     fun createPatientHappyFlow() = runBlocking {
         val patient = patient()
-        val patCred = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
-        val api = patCred.api
+        val hcpCred = TestUtils.UserCredentials.fromFile("hcp_0b464cfc-384a-4ad1-9264-28a1524ea09e.json")
+        val api = hcpCred.api
 
         val createdPatient = api.patientApi().createOrModifyPatient(patient)
 
@@ -42,13 +42,13 @@ internal class PatientApiImplTest {
     @DisplayName("Get patient test - HappyFlow")
     fun getPatientHappyFlow() = runBlocking {
         val patient = patient()
-        val patCred = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
-        val api = patCred.api
+        val hcpCred = TestUtils.UserCredentials.fromFile("hcp_0b464cfc-384a-4ad1-9264-28a1524ea09e.json")
+        val api = hcpCred.api
 
         val createdPatient = api.patientApi().createOrModifyPatient(patient)
-        val gotDevice = api.patientApi().getPatient(createdPatient.id!!)
+        val gotPatient = api.patientApi().getPatient(createdPatient.id!!)
 
-        val diffs = createdPatient.differences(gotDevice)
+        val diffs = createdPatient.differences(gotPatient)
         Assertions.assertEquals(emptyList<Diff>(), diffs)
     }
 

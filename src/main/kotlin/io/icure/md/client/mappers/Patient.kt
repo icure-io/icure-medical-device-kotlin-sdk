@@ -142,7 +142,7 @@ fun Patient.toPatientDto() = PatientDto(
         ?: emptyMap(),
     aesExchangeKeys = this.systemMetaData?.aesExchangeKeys ?: emptyMap(),
     transferKeys = this.systemMetaData?.transferKeys ?: emptyMap(),
-    lostHcPartyKeys = this.systemMetaData?.lostHcPartyKeys ?: emptyList()
+    lostHcPartyKeys = this.systemMetaData?.lostHcPartyKeys ?: emptyList(),
     publicKey = this.publicKey
 )
 
