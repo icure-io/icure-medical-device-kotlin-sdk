@@ -19,6 +19,7 @@ import io.icure.kraken.client.extendedapis.listServices
 import io.icure.kraken.client.extendedapis.modifyContact
 import io.icure.kraken.client.extendedapis.modifyDocument
 import io.icure.kraken.client.extendedapis.setDocumentAttachment
+import io.icure.kraken.client.models.DelegationDto
 import io.icure.kraken.client.models.ListOfIdsDto
 import io.icure.kraken.client.models.ServiceLinkDto
 import io.icure.kraken.client.models.SubContactDto
@@ -59,6 +60,7 @@ import kotlin.time.ExperimentalTime
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
 @ExperimentalTime
+@ExperimentalUnsignedTypes
 @FlowPreview
 class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
     private val contactsCache = Caffeine.newBuilder()
@@ -138,7 +140,8 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
             .map {
                 it.toDataSample(
                     batchId = createdOrModifiedContact.id,
-                    createdOrModifiedContact.subContacts.filter { subContactDto -> subContactDto.services.any { service -> service.serviceId == it.id } })
+                    responsible = createdOrModifiedContact.responsible,
+                    subContacts = createdOrModifiedContact.subContacts.filter { subContactDto -> subContactDto.services.any { service -> service.serviceId == it.id } })
             }
     }
 
@@ -192,9 +195,11 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
     private suspend fun getContactOfDataSample(
         localCrypto: LocalCrypto,
         currentUser: UserDto,
-        dataSample: DataSample
+        dataSample: DataSample,
+        byPassCache: Boolean = false
     ): Pair<Boolean, ContactDto?> {
         return dataSample.id
+            ?.takeUnless { byPassCache }
             ?.let { contactsCache.getIfPresent(currentUser.id to it) }
             ?.let { true to it }
             ?: (false to dataSample.batchId?.let { contactId ->
@@ -513,6 +518,61 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
             )
 
         return finalDoc.toDocument()
+    }
+
+    override suspend fun giveAccessTo(dataSample: DataSample, delegateTo: String): DataSample {
+        val localCrypto = medTechApi.localCrypto
+        val currentUser = medTechApi.baseUserApi.getCurrentUser()
+        val dataOwnerId = currentUser.dataOwnerId()
+        val (_, contact) = getContactOfDataSample(localCrypto, currentUser, dataSample, true)
+
+        if (!contact!!.delegations.keys.any { it == dataOwnerId }) {
+            throw IllegalStateException("DataOwner $dataOwnerId does not have the right to access contact ${contact.id}")
+        }
+
+        if (contact.delegations.keys.any { it == dataOwnerId }) {
+            return dataSample
+        }
+
+        val ccContact = contactCryptoConfig(localCrypto, currentUser)
+
+        val (patientIdKey, _) = localCrypto.encryptAESKeyForDataOwner(
+            dataOwnerId,
+            delegateTo,
+            contact.id,
+            localCrypto.decryptEncryptionKeys(dataOwnerId, contact.cryptedForeignKeys).first()
+        )
+        val (secretForeignKey, _) = localCrypto.encryptAESKeyForDataOwner(
+            dataOwnerId,
+            delegateTo,
+            contact.id,
+            localCrypto.decryptEncryptionKeys(dataOwnerId, contact.delegations).first()
+        )
+        val (encryptionKey, _) = localCrypto.encryptAESKeyForDataOwner(
+            dataOwnerId,
+            delegateTo,
+            contact.id,
+            localCrypto.decryptEncryptionKeys(dataOwnerId, contact.encryptionKeys).first()
+        )
+
+        val delegation = DelegationDto(owner = dataOwnerId, delegatedTo = delegateTo, key = secretForeignKey)
+        val encryptionKeyDelegation = DelegationDto(owner = dataOwnerId, delegatedTo = delegateTo, key = encryptionKey)
+        val cryptedForeignKeyDelegation =
+            DelegationDto(owner = dataOwnerId, delegatedTo = delegateTo, key = patientIdKey)
+
+        val delegations = contact.delegations.plus(delegateTo to setOf(delegation))
+        val encryptionKeys = contact.encryptionKeys.plus(delegateTo to setOf(encryptionKeyDelegation))
+        val cryptedForeignKeys = contact.cryptedForeignKeys.plus(delegateTo to setOf(cryptedForeignKeyDelegation))
+
+        val contactToUpdate = contact.copy(
+            delegations = delegations,
+            encryptionKeys = encryptionKeys,
+            cryptedForeignKeys = cryptedForeignKeys
+        )
+
+        val updatedContact = medTechApi.baseContactApi.modifyContact(currentUser, contactToUpdate, ccContact)
+        return updatedContact.services.singleOrNull()?.toDataSample(updatedContact.id)
+            ?: throw IllegalStateException("Couldn't give access to $delegateTo to dataSample ${dataSample.id}")
     }
 
     private suspend fun getDocumentEncryptionKeys(

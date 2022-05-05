@@ -69,6 +69,7 @@ import com.github.pozo.KotlinBuilder
  * @param patientProfessions Codified list of professions exercised by this patient.
  * @param parameters Extra parameters
  * @param properties Extra properties
+ * @param publicKey public key of this patient as dataOwner
  * @param systemMetaData 
  */
 
@@ -272,6 +273,10 @@ data class Patient (
     /* Extra properties */
     @field:JsonProperty("properties")
     val properties: kotlin.collections.List<Property> = emptyList(),
+
+    /* The public key of this hcp */
+    @field:JsonProperty("publicKey")
+    val publicKey: kotlin.String? = null,
 
     @field:JsonProperty("systemMetaData")
     val systemMetaData: SystemMetaDataOwnerEncrypted? = null
