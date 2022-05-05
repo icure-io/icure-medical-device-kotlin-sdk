@@ -5,6 +5,15 @@ val jacksonVersion = "2.12.5"
 plugins {
     kotlin("jvm") version "1.4.32"
     kotlin("kapt") version "1.4.32"
+    id("org.sonarqube") version "3.3"
+}
+
+sonarqube {
+    properties {
+        property("sonar.projectKey", "icure-medical-device-kotlin-sdk")
+        property("sonar.organization", "icure-io")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
 }
 
 buildscript {
@@ -64,7 +73,11 @@ dependencies {
     implementation(group = "com.fasterxml.jackson.datatype", name = "jackson-datatype-jsr310", version = jacksonVersion)
 
     implementation(group = "io.icure", name = "async-jackson-http-client", version = "0.1.15-9cf193799d")
-    implementation(group = "io.icure", name = "icure-reactive-kotlin-client", version = "0.1.325-2f9d104677")
+    implementation(
+        group = "io.icure",
+        name = "icure-reactive-kotlin-client",
+        version = "0.1.326-417da87ccd"
+    )
     implementation(group = "org.taktik.commons", name = "commons-uti", version = "1.0")
 
     implementation(group = "com.github.ben-manes.caffeine", name = "caffeine", version = "3.0.4")
