@@ -29,7 +29,8 @@ internal class UserApiImplTest {
     fun selfCreatedUserPatient() {
         runBlocking {
             val anonymousMedTechApi =
-                AnonymousMedTechApi.Builder().authProcessId(authProcessId = "6a355458dbfa392cb56244031907f47a").build()
+                AnonymousMedTechApi.Builder().authProcessId(authProcessId = "f0ced6c6-d7cb-4f78-841e-2674ad09621e")
+                    .build()
 
             val emailAddress = MailUtils.getRandomEmailAddress()
             val userName = UUID.randomUUID().toString().take(8)
@@ -90,8 +91,7 @@ internal class UserApiImplTest {
     fun selfCreatedUserHcp() {
         runBlocking {
             val anonymousMedTechApi =
-                AnonymousMedTechApi.Builder().authProcessId(authProcessId = "f0ced6c6-d7cb-4f78-841e-2674ad09621e")
-                    .build()
+                AnonymousMedTechApi.Builder().authProcessId(authProcessId = "6a355458dbfa392cb56244031907f47a").build()
 
             val emailAddress = MailUtils.getRandomEmailAddress()
             val userName = UUID.randomUUID().toString().take(8)

@@ -102,8 +102,7 @@ class AuthenticationApiImpl(
             when (it.status().code()) {
                 in 400..599 -> throw AuthenticationException(
                     status = it.status().code(),
-                    reason = it.status().reasonPhrase(),
-                    message = "Start Authentication failed"
+                    reason = it.status().reasonPhrase()
                 )
                 else -> AuthenticationProcess(requestId, email)
             }
