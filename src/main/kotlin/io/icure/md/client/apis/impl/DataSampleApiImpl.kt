@@ -4,6 +4,7 @@ import com.github.benmanes.caffeine.cache.Caffeine
 import io.icure.kraken.client.crypto.LocalCrypto
 import io.icure.kraken.client.crypto.contactCryptoConfig
 import io.icure.kraken.client.crypto.documentCryptoConfig
+import io.icure.kraken.client.crypto.healthElementCryptoConfig
 import io.icure.kraken.client.crypto.patientCryptoConfig
 import io.icure.kraken.client.extendedapis.createContact
 import io.icure.kraken.client.extendedapis.createDocument
@@ -12,6 +13,7 @@ import io.icure.kraken.client.extendedapis.filterContactsBy
 import io.icure.kraken.client.extendedapis.filterServicesBy
 import io.icure.kraken.client.extendedapis.getContact
 import io.icure.kraken.client.extendedapis.getDocument
+import io.icure.kraken.client.extendedapis.getHealthElements
 import io.icure.kraken.client.extendedapis.getPatient
 import io.icure.kraken.client.extendedapis.listServices
 import io.icure.kraken.client.extendedapis.modifyContact
@@ -19,6 +21,8 @@ import io.icure.kraken.client.extendedapis.modifyDocument
 import io.icure.kraken.client.extendedapis.setDocumentAttachment
 import io.icure.kraken.client.models.DelegationDto
 import io.icure.kraken.client.models.ListOfIdsDto
+import io.icure.kraken.client.models.ServiceLinkDto
+import io.icure.kraken.client.models.SubContactDto
 import io.icure.kraken.client.models.UserDto
 import io.icure.kraken.client.models.decrypted.ContactDto
 import io.icure.kraken.client.models.decrypted.DocumentDto
@@ -71,20 +75,20 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
 
     override suspend fun createOrModifyDataSamplesFor(
         patientId: String,
-        dataSample: List<DataSample>
+        dataSamples: List<DataSample>
     ): List<DataSample> {
-        if (dataSample.distinctBy { ds -> ds.batchId }.count() > 1) {
+        if (dataSamples.distinctBy { ds -> ds.batchId }.count() > 1) {
             throw IllegalArgumentException("Only data samples of a same batch can be processed together")
         }
 
-        if (countHierarchyOfDataSamples(0, 0, dataSample) > 1000) { // Arbitrary : 1 service = 1K
+        if (countHierarchyOfDataSamples(0, 0, dataSamples) > 1000) { // Arbitrary : 1 service = 1K
             throw IllegalArgumentException("Can't process more than 1000 data samples in the same batch")
         }
 
         val localCrypto = medTechApi.localCrypto
         val currentUser = medTechApi.baseUserApi.getCurrentUser()
 
-        val (contactCached, existingContact) = getContactOfDataSample(localCrypto, currentUser, dataSample.first())
+        val (contactCached, existingContact) = getContactOfDataSample(localCrypto, currentUser, dataSamples.first())
 
         val contactPatientId = existingContact?.let {
             getPatientIdOfContact(localCrypto, currentUser, it)
@@ -99,13 +103,16 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
             medTechApi.basePatientApi.getPatient(currentUser, patientId, patientCryptoConfig(localCrypto))
 
         val createdOrModifiedContact = if (contactCached && existingContact != null) {
-            val servicesToModify = dataSample.map { it.toServiceDto() }
+            val servicesToModify = dataSamples.map { it.toServiceDto() }
+            val subContacts = createPotentialSubContactsForHealthElements(servicesToModify, currentUser)
+
             val contactToModify = existingContact.copy(
-                services = servicesToModify,
+                services = servicesToModify.map { it.copy(healthElementsIds = null, formIds = null) },
                 openingDate = servicesToModify.mapNotNull { it.openingDate ?: it.valueDate }
                     .minOfOrNull { it },
                 closingDate = servicesToModify.mapNotNull { it.closingDate ?: it.valueDate }
-                    .maxOfOrNull { it }
+                    .maxOfOrNull { it },
+                subContacts = subContacts
             )
 
             medTechApi.baseContactApi.modifyContact(
@@ -114,7 +121,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
                 contactCryptoConfig(localCrypto, currentUser)
             )
         } else {
-            val contactToCreate = createContactDtoBasedOn(dataSample, existingContact)
+            val contactToCreate = createContactDtoUsing(currentUser, dataSamples, existingContact)
 
             medTechApi.baseContactApi
                 .createContact(
@@ -129,7 +136,55 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
             .forEach { contactsCache.put(currentUser.id to it.id, createdOrModifiedContact) }
 
         return createdOrModifiedContact.services
-            .map { it.toDataSample(batchId = createdOrModifiedContact.id) }
+            .map {
+                it.toDataSample(
+                    batchId = createdOrModifiedContact.id,
+                    createdOrModifiedContact.subContacts.filter { subContactDto -> subContactDto.services.any { service -> service.serviceId == it.id } })
+            }
+    }
+
+    private suspend fun createPotentialSubContactsForHealthElements(
+        servicesToCreate: List<ServiceDto>,
+        currentUser: UserDto
+    ): List<SubContactDto> {
+        val servicesWithHE = servicesToCreate.filterNot { it.healthElementsIds.isNullOrEmpty() }
+        return servicesWithHE.takeIf { it.isNotEmpty() }?.let {
+            checkAndRetrieveProvidedHealthElements(
+                it.flatMap { service -> service.healthElementsIds!! },
+                currentUser
+            ).map { heId ->
+                SubContactDto(
+                    healthElementId = heId,
+                    services = servicesWithHE.filter { serviceWithHE -> serviceWithHE.healthElementsIds!!.contains(heId) }
+                        .map { ServiceLinkDto(serviceId = it.id) }
+                )
+            }
+        } ?: emptyList()
+    }
+
+    private suspend fun checkAndRetrieveProvidedHealthElements(
+        healthElementIds: kotlin.collections.Collection<String>,
+        currentUser: UserDto
+    ): List<String> {
+        if (healthElementIds.isEmpty()) {
+            return emptyList()
+        }
+        val distinctHealthElementIds = healthElementIds.distinct()
+        return medTechApi.baseHealthElementApi.getHealthElements(
+            currentUser,
+            ListOfIdsDto(healthElementIds.toList()),
+            healthElementCryptoConfig(medTechApi.localCrypto)
+        ).map { it.id }.also { foundHealthElementIds ->
+            if (foundHealthElementIds.size != distinctHealthElementIds.size) {
+                throw IllegalStateException(
+                    "Health elements [${
+                        (distinctHealthElementIds - foundHealthElementIds).joinToString(
+                            ", "
+                        )
+                    }] do not exist or user ${currentUser.id} may not access them"
+                )
+            }
+        }
     }
 
     /**
@@ -199,30 +254,25 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         return countHierarchyOfDataSamples(currentCount + dataSampleCount, dataSampleIndex + 1, dataSamples)
     }
 
-    private fun createContactDtoBasedOn(
+    private suspend fun createContactDtoUsing(
+        currentUser: UserDto,
         dataSamples: List<DataSample>,
         existingContact: ContactDto? = null
     ): ContactDto {
-        val servicesToCreate = dataSamples
-            .map { it.toServiceDto() }
-            .map { it.copy(modified = null) }
-        return createContactDtoUsing(servicesToCreate, existingContact)
-    }
 
-    private fun createContactDtoUsing(
-        servicesToCreate: List<ServiceDto>,
-        existingContact: ContactDto? = null
-    ): ContactDto {
+        val servicesToCreate = dataSamples.map { it.toServiceDto().copy(modified = null) }
+        val subContacts = createPotentialSubContactsForHealthElements(servicesToCreate, currentUser)
         val baseContact =
             existingContact?.copy(id = UUID.randomUUID().toString(), rev = null, modified = System.currentTimeMillis())
                 ?: ContactDto(id = UUID.randomUUID().toString())
 
         return baseContact.copy(
             services = servicesToCreate,
+            subContacts = subContacts,
             openingDate = servicesToCreate.mapNotNull { it.openingDate ?: it.valueDate }
                 .minOfOrNull { it },
             closingDate = servicesToCreate.mapNotNull { it.closingDate ?: it.valueDate }
-                .maxOfOrNull { it }
+                .maxOfOrNull { it },
         )
     }
 
