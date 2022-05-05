@@ -8,6 +8,7 @@ import kotlin.time.ExperimentalTime
 @ExperimentalStdlibApi
 @ExperimentalCoroutinesApi
 @ExperimentalTime
+@ExperimentalUnsignedTypes
 @FlowPreview
 class AnonymousMedTechApi(
     iCureUrlPath: String,

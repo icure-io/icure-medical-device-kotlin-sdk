@@ -6,6 +6,7 @@ import io.icure.kraken.client.crypto.publicKeyAsString
 import io.icure.md.client.apis.AnonymousMedTechApi
 import io.icure.md.client.apis.infrastructure.MailUtils
 import io.icure.md.client.mappers.dataOwnerId
+import io.icure.md.client.models.User
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.delay
@@ -24,31 +25,15 @@ import kotlin.time.ExperimentalTime
 @DisplayName("User tests")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class UserApiImplTest {
-
-//    private val iCurePath = "https://kraken.icure.dev"
-//    private val authHeader = TestUtils.basicAuthFrom(".credentials")
-//    private val healthcareProfessionalId = "782f1bcd-9f3f-408a-af1b-cd9f3f908a98"
-//    private val healthcareProfessionalPrivateKey =
-//        TestUtils.healthcareProfessionalPrivateKey(healthcareProfessionalId, this::class.java)
-//    private val healthcareProfessionalPublicKey =
-//        runBlocking { TestUtils.healthcareProfessionalPublicKey(iCurePath, authHeader, healthcareProfessionalId) }
-
-//    private val medTechApi = MedTechApi.Builder()
-//        .iCureUrlPath(iCurePath)
-//        .authorization(authHeader)
-//        .addKeyPair(healthcareProfessionalId, healthcareProfessionalPublicKey, healthcareProfessionalPrivateKey)
-//        .build()
-
-    // private val anonymousMedTechApi = AnonymousMedTechApi.Builder().authProcessId(authProcessId = "f0ced6c6-d7cb-4f78-841e-2674ad09621e").iCureUrlPath("http://127.0.0.1:16043").build()
-    private val anonymousMedTechApi =
-        AnonymousMedTechApi.Builder().authProcessId(authProcessId = "6a355458dbfa392cb56244031907f47a")
-            .iCureUrlPath("http://127.0.0.1:16043").build()
-
     @Test
     @DisplayName("Creating an account on its own")
-    fun selfCreatedUser() {
+    fun selfCreatedUserPatient() {
         runBlocking {
-            val emailAddress = MailUtils.getEmailAddress()
+            val anonymousMedTechApi =
+                AnonymousMedTechApi.Builder().authProcessId(authProcessId = "f0ced6c6-d7cb-4f78-841e-2674ad09621e")
+                    .build()
+
+            val emailAddress = MailUtils.getRandomEmailAddress()
             val userName = UUID.randomUUID().toString().take(8)
             val process = anonymousMedTechApi.authenticationApi.startAuthentication(
                 "171f186a-7a2a-40f0-b842-b486428c771b",
@@ -60,8 +45,7 @@ internal class UserApiImplTest {
 
             println("UserName: $userName")
 
-            assert(process != null)
-            println("ProcessId: ${process!!.processId}")
+            println("ProcessId: ${process!!.requestId}")
             println("Login: ${process.login}")
 
             delay(10000)
@@ -84,21 +68,75 @@ internal class UserApiImplTest {
             val api = result.medTechApi
             val currentUser = api.userApi().getLoggedUser()
 
-            currentUser.patientId?.let { patientId ->
-                val patient = api.patientApi().getPatient(patientId)
-                assert(patient != null)
-            }
+            assert(currentUser.patientId != null)
 
-            TestUtils.writeUserCredentials(
-                TestUtils.UserCredentials(
+            val patient = api.patientApi().getPatient(currentUser.patientId!!)
+            assert(patient.id in patient.systemMetaData!!.delegations.keys)
+            assert(patient.id in patient.systemMetaData!!.encryptionKeys.keys)
+            assert(patient.id in patient.systemMetaData!!.hcPartyKeys.keys)
+
+
+            writeFile(
+                currentUser, TestUtils.UserCredentials(
                     emailAddress,
                     result.token,
                     currentUser.dataOwnerId(),
                     result.keyPair.publicKeyAsString(),
                     result.keyPair.privateKeyAsString()
-                ),
-                currentUser.patientId?.let { "pat_" } ?: currentUser.healthcarePartyId?.let { "hcp_" }
-                ?: currentUser.deviceId?.let { "dev_" } ?: "s"
+                )
+            )
+        }
+    }
+
+    @Test
+    fun selfCreatedUserHcp() {
+        runBlocking {
+            val anonymousMedTechApi =
+                AnonymousMedTechApi.Builder().authProcessId(authProcessId = "6a355458dbfa392cb56244031907f47a").build()
+
+            val emailAddress = MailUtils.getRandomEmailAddress()
+            val userName = UUID.randomUUID().toString().take(8)
+            val process = anonymousMedTechApi.authenticationApi.startAuthentication(
+                "171f186a-7a2a-40f0-b842-b486428c771b",
+                userName,
+                "",
+                emailAddress,
+                "a58afe0e-02dc-431b-8155-0351140099e4"
+            )
+
+            println("UserName: $userName")
+
+            println("ProcessId: ${process.requestId}")
+            println("Login: ${process.login}")
+
+            delay(10000)
+            val email = MailUtils.readInbox(emailAddress).firstOrNull()
+            assert(email != null)
+
+            val validationCode = email!!.mail_subject.takeLast(6)
+            val keyPair = CryptoUtils.generateKeyPairRSA()
+            val tokenAndKeyProvider: ((String, String) -> Triple<String, String, String>?) =
+                { _: String, _: String ->
+                    null
+                }
+            val result = anonymousMedTechApi.authenticationApi.completeAuthentication(
+                process,
+                validationCode,
+                keyPair,
+                tokenAndKeyProvider
+            )
+
+            val api = result.medTechApi
+            val currentUser = api.userApi().getLoggedUser()
+
+            writeFile(
+                currentUser, TestUtils.UserCredentials(
+                    emailAddress,
+                    result.token,
+                    currentUser.dataOwnerId(),
+                    result.keyPair.publicKeyAsString(),
+                    result.keyPair.privateKeyAsString()
+                )
             )
         }
     }
@@ -122,14 +160,22 @@ internal class UserApiImplTest {
     @DisplayName("Getting the user of a patient as HCP")
     fun getUserOfAPatientAsHCP() {
         runBlocking {
-            val patCred = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
-            val hcpCred = TestUtils.UserCredentials.fromFile("hcp_2c5f952e-512b-4fd3-bc6d-0f66c282c159.json")
+            val patCred = TestUtils.UserCredentials.fromFile("pat_2f2d94f4-9f57-443d-a2e1-3339da333d4a.json")
+            val hcpCred = TestUtils.UserCredentials.fromFile("hcp_9d66c6b7-e3f9-44a5-a104-0d0df27135e4.json")
 
             val patUserByEmailFromHcp = hcpCred.api.userApi().getUserByEmail(patCred.userName)
             val patCurrentUser = patCred.api.userApi().getLoggedUser()
 
             assert(patUserByEmailFromHcp == patCurrentUser)
         }
+    }
+
+    private fun writeFile(currentUser: User, credentials: TestUtils.UserCredentials) {
+        TestUtils.writeUserCredentials(
+            credentials,
+            currentUser.patientId?.let { "pat_" } ?: currentUser.healthcarePartyId?.let { "hcp_" }
+            ?: currentUser.deviceId?.let { "dev_" } ?: "s"
+        )
     }
 
 }

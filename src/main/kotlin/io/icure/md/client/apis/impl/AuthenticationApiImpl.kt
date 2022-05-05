@@ -11,7 +11,7 @@ import io.icure.kraken.client.crypto.privateKeyAsString
 import io.icure.kraken.client.crypto.publicKeyAsString
 import io.icure.kraken.client.crypto.toPrivateKey
 import io.icure.kraken.client.crypto.toPublicKey
-import io.icure.kraken.client.extendedapis.DataOwnerApi
+import io.icure.kraken.client.extendedapis.PatientMapperFactory
 import io.icure.kraken.client.extendedapis.dataOwnerId
 import io.icure.kraken.client.extendedapis.initDelegations
 import io.icure.kraken.client.extendedapis.modifyPatient
@@ -21,7 +21,7 @@ import io.icure.kraken.client.models.PatientDto
 import io.icure.kraken.client.models.UserDto
 import io.icure.md.client.apis.AuthenticationApi
 import io.icure.md.client.apis.MedTechApi
-import io.icure.md.client.mappers.toDecryptedPatientDto
+import io.icure.md.client.exceptions.AuthenticationException
 import io.icure.md.client.models.ApiInitialisationResult
 import io.icure.md.client.models.AuthenticationProcess
 import io.icure.md.client.models.AuthenticationResult
@@ -56,15 +56,6 @@ class AuthenticationApiImpl(
     private val defaultLanguage: String
 ) : AuthenticationApi {
 
-    companion object {
-        fun fromApi(api: MedTechApi) = AuthenticationApiImpl(
-            iCureUrlPath = api.iCureUrlPath,
-            authServerUrl = api.authServerUrl!!,
-            authProcessId = api.authProcessId!!,
-            defaultLanguage = api.defaultLanguage
-        )
-    }
-
     private val objectMapper: ObjectMapper = ObjectMapper()
         .registerModule(KotlinModule())
         .registerModule(JavaTimeModule()).apply {
@@ -86,7 +77,7 @@ class AuthenticationApiImpl(
         email: String,
         recaptcha: String,
         mobilePhone: String?
-    ): AuthenticationProcess? {
+    ): AuthenticationProcess {
         val requestId: String = UUID.randomUUID().toString()
 
         val params = mapOf(
@@ -106,17 +97,25 @@ class AuthenticationApiImpl(
             .response()
             .awaitFirstOrNull()
 
-        return response?.takeIf { it.status().code() < 400 }?.let { AuthenticationProcess(requestId, email) }
+        return response?.let {
+            when (it.status().code()) {
+                in 400..599 -> throw AuthenticationException(
+                    status = it.status().code(),
+                    reason = it.status().reasonPhrase()
+                )
+                else -> AuthenticationProcess(requestId, email)
+            }
+        } ?: throw IllegalStateException("No response found")
     }
 
     override suspend fun completeAuthentication(
         process: AuthenticationProcess,
         validationCode: String,
-        patientKeyPair: KeyPair,
+        userKeyPair: KeyPair,
         tokenAndKeyPairProvider: (String, String) -> Triple<String, String, String>?
     ): AuthenticationResult {
         val response = client().get()
-            .uri("${authServerUrl}/process/validate/${process.processId}-$validationCode")
+            .uri("${authServerUrl}/process/validate/${process.requestId}-$validationCode")
             .response()
             .awaitFirst()
 
@@ -127,7 +126,7 @@ class AuthenticationApiImpl(
                     validationCode,
                     tokenAndKeyPairProvider
                 )
-                val keyPair = initResult.keyPair ?: patientKeyPair
+                val keyPair = initResult.keyPair ?: userKeyPair
                 val authenticatedApi = initUserCrypto(api, initResult.token, initResult.userDto, keyPair)
 
                 emit(
@@ -146,7 +145,7 @@ class AuthenticationApiImpl(
         throw IllegalArgumentException("Invalid validation code")
     }
 
-    override suspend fun initApiAndUserAuthenticationToken(
+    private suspend fun initApiAndUserAuthenticationToken(
         process: AuthenticationProcess,
         validationCode: String,
         tokenAndKeyPairProvider: (String, String) -> Triple<String, String, String>?
@@ -170,14 +169,16 @@ class AuthenticationApiImpl(
             fromProvider?.let { KeyPair(it.third.toPublicKey(), it.second.toPrivateKey()) })
     }
 
-    override suspend fun initUserCrypto(
+    private suspend fun initUserCrypto(
         api: MedTechApi,
         token: String,
         user: UserDto,
         patientKeyPair: KeyPair
     ): MedTechApi {
         val publicKey = patientKeyPair.publicKeyAsString()
-        val authenticatedApi = MedTechApi.Builder.from(api, "${user.groupId}/${user.id}", token)
+        val authenticatedApi = MedTechApi.Builder.from(api)
+            .userName("${user.groupId}/${user.id}")
+            .password(token)
             .addKeyPair(user.dataOwnerId(), publicKey.toPublicKey(), patientKeyPair.privateKeyAsString().toPrivateKey())
             .build()
 
@@ -194,9 +195,8 @@ class AuthenticationApiImpl(
                 val updatedPatient = dataOwnerApi.modifyDataOwner(it.copy(publicKey = publicKey))
                 initPatientDelegationAndSave(
                     authenticatedApi,
-                    updatedPatient.toDecryptedPatientDto(),
-                    user,
-                    dataOwnerApi
+                    PatientMapperFactory.instance.map(updatedPatient),
+                    user
                 )
             } else {
                 TODO("Patient User lost his key")
@@ -212,11 +212,10 @@ class AuthenticationApiImpl(
         return authenticatedApi
     }
 
-    override suspend fun initPatientDelegationAndSave(
+    private suspend fun initPatientDelegationAndSave(
         apiWithNewKeyPair: MedTechApi,
         modPat: DecryptedPatientDto,
-        user: UserDto,
-        dataOwnerApi: DataOwnerApi
+        user: UserDto
     ): DecryptedPatientDto {
         val ccPatient = patientCryptoConfig(apiWithNewKeyPair.localCrypto)
         val dataOwnerWithDelegations = modPat.initDelegations(user, ccPatient)

@@ -29,7 +29,7 @@ object MailUtils {
             configure(JsonReadFeature.ALLOW_UNESCAPED_CONTROL_CHARS.mappedFeature(), true)
         }
 
-    suspend fun getEmailAddress(): String {
+    suspend fun getRandomEmailAddress(): String {
         val domain = httpClient.get().uri("https://privatix-temp-mail-v1.p.rapidapi.com/request/domains/")
             .responseSingle { response, bytes ->
                 if (response.status().code() < 400) {
