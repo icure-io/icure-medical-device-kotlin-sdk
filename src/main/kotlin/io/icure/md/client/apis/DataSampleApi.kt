@@ -45,18 +45,21 @@ interface DataSampleApi {
 
     /**
     * Create or update a batch of [DataSample] for a patient
-    * All the provided data samples will be created in the same batch. If you are trying to update some data samples, then those ones need to come from the same batch.                  When modifying a data sample, you can&#39;t update the patient of it : For this, you need to delete the faulty data sample and create a new one. When modifying the data sample, you also need to keep the same batchId : It is not possible to change the batch of a data sample.                 
-    * @param patientId  
-    * @param dataSample  
-    * @return Returns the created or modified data sample as a [DataSample] object, with updated information.
-    * @throws ClientException if you make this call without providing or (by providing an invalid) authentication token (BASIC, SesssionId).
-    * @throws ClientException May happen in one of the following cases :                      - You provided a patientId that does not correspond to any existing [Patient];                     - You provided a batchId that does not correspond to any existing batch;                      - You provided a batchId that does not correspond to the batch of the updated data sample;                     - You provided data samples coming from different batches : If you want to add new data samples in an existing batch, do not forget to refer the batch id for the new ones as well;                     - You tried to create / update more than 1000 data samples (including the ones contained in compound values) : iCure can&#39;t process more than 1000 data samples by batch;                        
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ServerException If the API returns a server error response
-    */
+    * All the provided data samples will be created in the same batch. If you are trying to update some data samples, then those ones need to come from the same batch.                  When modifying a data sample, you can&#39;t update the patient of it : For this, you need to delete the faulty data sample and create a new one. When modifying the data sample, you also need to keep the same batchId : It is not possible to change the batch of a data sample.
+     * @param patientId
+     * @param dataSample
+     * @return Returns the created or modified data sample as a [DataSample] object, with updated information.
+     * @throws ClientException if you make this call without providing or (by providing an invalid) authentication token (BASIC, SesssionId).
+     * @throws ClientException May happen in one of the following cases :                      - You provided a patientId that does not correspond to any existing [Patient];                     - You provided a batchId that does not correspond to any existing batch;                      - You provided a batchId that does not correspond to the batch of the updated data sample;                     - You provided data samples coming from different batches : If you want to add new data samples in an existing batch, do not forget to refer the batch id for the new ones as well;                     - You tried to create / update more than 1000 data samples (including the ones contained in compound values) : iCure can&#39;t process more than 1000 data samples by batch;
+     * @throws UnsupportedOperationException If the API returns an informational or redirection response
+     * @throws ServerException If the API returns a server error response
+     */
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun createOrModifyDataSamplesFor(patientId: kotlin.String, dataSample: kotlin.collections.List<DataSample>) : kotlin.collections.List<DataSample> 
+    suspend fun createOrModifyDataSamplesFor(
+        patientId: kotlin.String,
+        dataSamples: kotlin.collections.List<DataSample>
+    ): kotlin.collections.List<DataSample>
 
     /**
     * Delete an attachment of a DataSample

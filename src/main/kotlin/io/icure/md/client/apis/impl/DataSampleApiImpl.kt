@@ -60,6 +60,7 @@ import kotlin.time.ExperimentalTime
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
 @ExperimentalTime
+@ExperimentalUnsignedTypes
 @FlowPreview
 class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
     private val contactsCache = Caffeine.newBuilder()
@@ -139,7 +140,8 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
             .map {
                 it.toDataSample(
                     batchId = createdOrModifiedContact.id,
-                    createdOrModifiedContact.subContacts.filter { subContactDto -> subContactDto.services.any { service -> service.serviceId == it.id } })
+                    responsible = createdOrModifiedContact.responsible,
+                    subContacts = createdOrModifiedContact.subContacts.filter { subContactDto -> subContactDto.services.any { service -> service.serviceId == it.id } })
             }
     }
 
@@ -570,7 +572,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
 
         val updatedContact = medTechApi.baseContactApi.modifyContact(currentUser, contactToUpdate, ccContact)
         return updatedContact.services.singleOrNull()?.toDataSample(updatedContact.id)
-            ?: throw IllegalStateException("Couldn't give access to dataSample")
+            ?: throw IllegalStateException("Couldn't give access to $delegateTo to dataSample ${dataSample.id}")
     }
 
     private suspend fun getDocumentEncryptionKeys(

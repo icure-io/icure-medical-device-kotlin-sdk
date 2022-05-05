@@ -25,8 +25,9 @@ import kotlin.time.ExperimentalTime
 
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
-@FlowPreview
 @ExperimentalTime
+@ExperimentalUnsignedTypes
+@FlowPreview
 class PatientApiImpl(private val medTechApi: MedTechApi) : PatientApi {
     override suspend fun createOrModifyPatient(patient: Patient): Patient {
         val localCrypto = medTechApi.localCrypto
@@ -130,7 +131,11 @@ class PatientApiImpl(private val medTechApi: MedTechApi) : PatientApi {
                 )
             }
 
-            createOrModifyPatient(patientToUpdate)
+            try {
+                createOrModifyPatient(patientToUpdate)
+            } catch (e: Exception) {
+                throw IllegalStateException("Couldn't give access to $delegateTo to patient ${patient.id}")
+            }
         }
     }
 }

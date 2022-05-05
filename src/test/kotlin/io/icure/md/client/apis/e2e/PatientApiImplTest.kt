@@ -3,7 +3,6 @@ package io.icure.md.client.apis.e2e
 import io.icure.diffutils.Diff
 import io.icure.diffutils.differences
 import io.icure.diffutils.filterDiffs
-import io.icure.md.client.apis.MedTechApi
 import io.icure.md.client.models.Patient
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -18,6 +17,7 @@ import kotlin.time.ExperimentalTime
 @FlowPreview
 @ExperimentalStdlibApi
 @ExperimentalCoroutinesApi
+@ExperimentalUnsignedTypes
 @ExperimentalTime
 @DisplayName("Patient tests")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -65,7 +65,7 @@ internal class PatientApiImplTest {
     @Test
     fun sharingDelegationPatientToHcp() {
         runBlocking {
-            val patCred = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+            val patCred = TestUtils.UserCredentials.fromFile("pat_efa2933a-6bcf-4ab9-b9e7-60604fcb956f.json")
             val hcpCred = TestUtils.UserCredentials.fromFile("hcp_2c5f952e-512b-4fd3-bc6d-0f66c282c159.json")
 
             val currentPatUser = patCred.api.userApi().getLoggedUser()

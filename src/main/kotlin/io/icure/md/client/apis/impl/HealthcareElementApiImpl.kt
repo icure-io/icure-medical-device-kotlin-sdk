@@ -30,6 +30,7 @@ import kotlin.time.ExperimentalTime
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
 @ExperimentalTime
+@ExperimentalUnsignedTypes
 @FlowPreview
 class HealthcareElementApiImpl(private val medTechApi: MedTechApi) : HealthcareElementApi {
     override suspend fun createOrModifyHealthcareElement(
@@ -131,14 +132,14 @@ class HealthcareElementApiImpl(private val medTechApi: MedTechApi) : HealthcareE
             return healthcareElement
         }
 
-        val ccHealthElement = healthElementCryptoConfig(localCrypto)
-
         return healthcareElement.toHealthcareElementDto().let { healthElementDto ->
+            val patientId = localCrypto.decryptEncryptionKeys(dataOwnerId, healthElementDto.cryptedForeignKeys).first()
+
             val (patientIdKey, _) = localCrypto.encryptAESKeyForDataOwner(
                 dataOwnerId,
                 delegateTo,
                 healthElementDto.id,
-                localCrypto.decryptEncryptionKeys(dataOwnerId, healthElementDto.cryptedForeignKeys).first()
+                patientId
             )
             val (secretForeignKey, _) = localCrypto.encryptAESKeyForDataOwner(
                 dataOwnerId,
@@ -164,21 +165,16 @@ class HealthcareElementApiImpl(private val medTechApi: MedTechApi) : HealthcareE
             val cryptedForeignKeys =
                 healthElementDto.cryptedForeignKeys.plus(delegateTo to setOf(cryptedForeignKeyDelegation))
 
-            val healthElementDtoToUpdate = healthElementDto.copy(
+            val healthcareElementToUpdate = healthElementDto.copy(
                 delegations = delegations,
                 encryptionKeys = encryptionKeys,
                 cryptedForeignKeys = cryptedForeignKeys
-            )
+            ).toHealthcareElement()
 
             try {
-                medTechApi.baseHealthElementApi.modifyHealthElement(
-                    currentUser,
-                    healthElementDtoToUpdate,
-                    ccHealthElement
-                ).toHealthcareElement()
+                createOrModifyHealthcareElement(patientId, healthcareElementToUpdate)
             } catch (e: Exception) {
-                e.printStackTrace()
-                throw IllegalStateException("Couldn't give access to dataSample")
+                throw IllegalStateException("Couldn't give access to $delegateTo to healthcare element ${healthcareElementToUpdate.id}")
             }
         }
     }
