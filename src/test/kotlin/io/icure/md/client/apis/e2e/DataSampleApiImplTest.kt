@@ -297,4 +297,57 @@ internal class DataSampleApiImplTest {
             assert(createdDataSample.healthElementsIds!!.all { it in contactOfDataSample.subContacts.map { subContactDto -> subContactDto.healthElementId } })
         }
     }
+
+    @Test
+    @DisplayName("Share delegation of a DataSample from patient to HCP")
+    fun shareDelegationOfADataSampleFromPatientToHcp() {
+        runBlocking {
+            val patCred = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
+            val hcpCred = TestUtils.UserCredentials.fromFile("hcp_2c5f952e-512b-4fd3-bc6d-0f66c282c159.json")
+
+            val currentPatUser = patCred.api.userApi().getLoggedUser()
+            val currentHcpUser = hcpCred.api.userApi().getLoggedUser()
+
+            val patientFromPat = patCred.api.patientApi()
+                .getPatient(currentPatUser.patientId ?: throw IllegalArgumentException("User must be a Patient"))
+            val createdDataSampleFromPat =
+                patCred.api.dataSampleApi().createOrModifyDataSampleFor(patientFromPat.id!!, prescriptionDataSample())
+            val sharedDS = patCred.api.dataSampleApi().giveAccessTo(
+                createdDataSampleFromPat,
+                currentHcpUser.healthcarePartyId ?: throw IllegalArgumentException("User must be a HCP")
+            )
+            val gotDataSampleFromHcp = hcpCred.api.dataSampleApi().getDataSample(sharedDS.id!!)
+
+            assertEquals(sharedDS, gotDataSampleFromHcp)
+        }
+    }
+
+    @Test
+    @DisplayName("Share delegation of a DataSample from HCP to Patient")
+    fun shareDelegationOfADataSampleFromHcpToPatient() {
+        runBlocking {
+            val patCred = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
+            val hcpCred = TestUtils.UserCredentials.fromFile("hcp_2c5f952e-512b-4fd3-bc6d-0f66c282c159.json")
+
+            val currentPatUser = patCred.api.userApi().getLoggedUser()
+            val currentHcpUser = hcpCred.api.userApi().getLoggedUser()
+
+            val patientFromPat = patCred.api.patientApi()
+                .getPatient(currentPatUser.patientId ?: throw IllegalArgumentException("User must be a Patient"))
+            val delegatedPatient = patCred.api.patientApi().giveAccessTo(
+                patientFromPat,
+                currentHcpUser.healthcarePartyId ?: throw IllegalArgumentException("User must be a HCP")
+            )
+
+            val createdDataSampleFromHcp =
+                hcpCred.api.dataSampleApi().createOrModifyDataSampleFor(patientFromPat.id!!, prescriptionDataSample())
+            val sharedDS = hcpCred.api.dataSampleApi().giveAccessTo(
+                createdDataSampleFromHcp,
+                currentPatUser.patientId ?: throw IllegalArgumentException("User must be a Patient")
+            )
+            val gotDataSampleFromPat = patCred.api.dataSampleApi().getDataSample(sharedDS.id!!)
+
+            assertEquals(sharedDS, gotDataSampleFromPat)
+        }
+    }
 }

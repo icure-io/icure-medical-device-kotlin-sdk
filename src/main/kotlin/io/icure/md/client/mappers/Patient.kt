@@ -55,13 +55,14 @@ fun PatientDto.toPatient() = Patient(
     ethnicity = this.ethnicity,
     picture = this.picture,
     externalId = this.externalId,
+    publicKey = this.publicKey,
     systemMetaData = SystemMetaDataOwnerEncrypted(
-        this.hcPartyKeys,
-        this.privateKeyShamirPartitions,
-        this.secretForeignKeys,
-        this.cryptedForeignKeys.mapValues { (_, v) -> v.map { it.toDelegation() }.toSet() },
-        this.delegations.mapValues { (_, v) -> v.map { it.toDelegation() }.toSet() },
-        this.encryptionKeys.mapValues { (_, v) -> v.map { it.toDelegation() }.toSet() }
+        hcPartyKeys = this.hcPartyKeys,
+        privateKeyShamirPartitions = this.privateKeyShamirPartitions,
+        secretForeignKeys = this.secretForeignKeys,
+        cryptedForeignKeys = this.cryptedForeignKeys.mapValues { (_, v) -> v.map { it.toDelegation() }.toSet() },
+        delegations = this.delegations.mapValues { (_, v) -> v.map { it.toDelegation() }.toSet() },
+        encryptionKeys = this.encryptionKeys.mapValues { (_, v) -> v.map { it.toDelegation() }.toSet() },
     )
 )
 
@@ -136,6 +137,7 @@ fun Patient.toPatientDto() = PatientDto(
         ?: emptyMap(),
     encryptionKeys = this.systemMetaData?.encryptionKeys?.mapValues { (k, v) -> v.map { it.toDelegationDto() }.toSet() }
         ?: emptyMap(),
+    publicKey = this.publicKey
 )
 
 fun Patient.DeactivationReason.toDeactivationReason() = PatientDto.DeactivationReason.valueOf(this.name)
