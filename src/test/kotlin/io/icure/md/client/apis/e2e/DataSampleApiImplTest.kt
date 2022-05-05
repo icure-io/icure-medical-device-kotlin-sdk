@@ -1,14 +1,10 @@
 package io.icure.md.client.apis.e2e
 
-import io.icure.kraken.client.crypto.patientCryptoConfig
-import io.icure.kraken.client.extendedapis.createPatient
 import io.icure.kraken.client.models.decrypted.PatientDto
-import io.icure.md.client.apis.DataSampleApi
-import io.icure.md.client.apis.MedTechApi
-import io.icure.md.client.apis.impl.DataSampleApiImpl
 import io.icure.md.client.models.CodingReference
 import io.icure.md.client.models.Content
 import io.icure.md.client.models.DataSample
+import io.icure.md.client.models.HealthcareElement
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.flowOf
@@ -29,39 +25,25 @@ import kotlin.time.ExperimentalTime
 @ExperimentalStdlibApi
 @ExperimentalCoroutinesApi
 @ExperimentalTime
+@ExperimentalUnsignedTypes
 @DisplayName("Data Sample tests")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class DataSampleApiImplTest {
-
-    private val iCurePath = "http://127.0.0.1:16043"
-    private val authHeader = TestUtils.basicAuthFrom(".hkPatientCredentials")
-    private val healthcareProfessionalId =
-        "a37e0a71-07d2-4414-9b2b-2120ae9a16fc" ?: "782f1bcd-9f3f-408a-af1b-cd9f3f908a98"
-    private val healthcareProfessionalPrivateKey =
-        TestUtils.healthcareProfessionalPrivateKey(healthcareProfessionalId, this::class.java)
-    private val healthcareProfessionalPublicKey =
-        runBlocking { TestUtils.healthcareProfessionalPublicKey(iCurePath, authHeader, healthcareProfessionalId) }
-
-    private val medTechApi = MedTechApi.Builder()
-        .iCureUrlPath(iCurePath)
-        .authorization(authHeader)
-        .addKeyPair(healthcareProfessionalId, healthcareProfessionalPublicKey, healthcareProfessionalPrivateKey)
-        .build()
-
-    private val testedInstance: DataSampleApi = DataSampleApiImpl(medTechApi)
 
     @Test
     fun createOrModifyDataSamples_HappyFlow_Creation() {
         runBlocking {
             // Init
+            val credentials = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+            val medTechApi = credentials.api
             val weight = weightDataSample()
             val height = heightDataSample()
             val currentUser = medTechApi.baseUserApi.getCurrentUser()
             //val existingPatient = medTechApi.basePatientApi.createPatient(currentUser, patientDto(), patientCryptoConfig(medTechApi.localCrypto))
 
             // When
-            val createdDataSamples = testedInstance.createOrModifyDataSamplesFor(
-                "a37e0a71-07d2-4414-9b2b-2120ae9a16fc",
+            val createdDataSamples = medTechApi.dataSampleApi().createOrModifyDataSamplesFor(
+                currentUser.patientId ?: throw IllegalArgumentException("Test user should be a patient"),
                 listOf(weight, height)
             )
 
@@ -76,18 +58,20 @@ internal class DataSampleApiImplTest {
     fun deleteDataSample_HappyFlow() {
         runBlocking {
             // Init
+            val credentials = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+            val medTechApi = credentials.api
             val weight = weightDataSample()
-            val currentUser = medTechApi.baseUserApi.getCurrentUser()
 
-            val existingPatient = medTechApi.basePatientApi
-                .createPatient(currentUser, patientDto(), patientCryptoConfig(medTechApi.localCrypto))
-            val createdDataSample = testedInstance.createOrModifyDataSampleFor(existingPatient.id, weight)
+            val currentUser = medTechApi.userApi().getLoggedUser()
+            val patient = medTechApi.patientApi()
+                .getPatient(currentUser.patientId ?: throw IllegalArgumentException("Test user should be a patient"))
+            val createdDataSample = medTechApi.dataSampleApi().createOrModifyDataSampleFor(patient.id!!, weight)
 
             // When
-            val deletedDataSampleId = testedInstance.deleteDataSample(createdDataSample.id!!)
+            val deletedDataSampleId = medTechApi.dataSampleApi().deleteDataSample(createdDataSample.id!!)
 
             // Then
-            val deletedDataSample = testedInstance.getDataSample(deletedDataSampleId)
+            val deletedDataSample = medTechApi.dataSampleApi().getDataSample(deletedDataSampleId)
             assert(deletedDataSample.endOfLife != null)
             assert(deletedDataSample.content.isEmpty())
         }
@@ -100,7 +84,10 @@ internal class DataSampleApiImplTest {
             )
         ),
         valueDate = 20220203111128,
-        labels = listOf(CodingReference(id = "LOINC|8302-2|2", code = "8302-2", type = "LOINC", version = "2"))
+        labels = listOf(
+            CodingReference(id = "LOINC|8302-2|2", code = "8302-2", type = "LOINC", version = "2"),
+            CodingReference(type = "IC-TEST", code = "TEST")
+        )
     )
 
     private fun weightDataSample() = DataSample(
@@ -116,7 +103,8 @@ internal class DataSampleApiImplTest {
                 code = "29463-7",
                 type = "LOINC",
                 version = "2"
-            )
+            ),
+            CodingReference(type = "IC-TEST", code = "TEST")
         )
     )
 
@@ -144,11 +132,13 @@ internal class DataSampleApiImplTest {
         val patientId = UUID.randomUUID().toString()
         val weight = weightDataSample().copy(batchId = "batch-1")
         val height = heightDataSample().copy(batchId = "batch-2")
+        val credentials = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+        val medTechApi = credentials.api
 
         // When
         assertThrows(IllegalArgumentException::class.java) {
             runBlocking {
-                testedInstance.createOrModifyDataSamplesFor(
+                medTechApi.dataSampleApi().createOrModifyDataSamplesFor(
                     patientId,
                     listOf(weight, height)
                 )
@@ -160,19 +150,21 @@ internal class DataSampleApiImplTest {
     fun setDataSampleAttachment_HappyFlow() {
         runBlocking {
             // Init
+            val credentials = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+            val medTechApi = credentials.api
             val weight = prescriptionDataSample()
-            val currentUser = medTechApi.baseUserApi.getCurrentUser()
+            val currentUser = medTechApi.userApi().getLoggedUser()
 
-            val existingPatient = medTechApi.basePatientApi
-                .createPatient(currentUser, patientDto(), patientCryptoConfig(medTechApi.localCrypto))
-            val createdDataSample = testedInstance.createOrModifyDataSampleFor(existingPatient.id, weight)
+            val existingPatient = medTechApi.patientApi()
+                .getPatient(currentUser.patientId ?: throw IllegalArgumentException("Test user should be a patient"))
+            val createdDataSample = medTechApi.dataSampleApi().createOrModifyDataSampleFor(existingPatient.id!!, weight)
 
             val documentToAdd =
                 Files.readAllBytes(Paths.get("src/test/resources/io/icure/md/client/attachments/data_sample_attachment_note.xml"))
 
             // When
             val documentExternalUuid = UUID.randomUUID().toString()
-            val createdDocument = testedInstance.setDataSampleAttachment(
+            val createdDocument = medTechApi.dataSampleApi().setDataSampleAttachment(
                 createdDataSample.id!!, flowOf(ByteBuffer.wrap(documentToAdd)),
                 null, "1.0.0", documentExternalUuid, "en"
             )
@@ -182,7 +174,7 @@ internal class DataSampleApiImplTest {
             assertEquals("public.xml", createdDocument.mainUti)
             assertEquals(documentExternalUuid, createdDocument.externalUuid)
 
-            val updatedDataSample = testedInstance.getDataSample(createdDataSample.id!!)
+            val updatedDataSample = medTechApi.dataSampleApi().getDataSample(createdDataSample.id!!)
             assert(updatedDataSample.content["en"]?.documentId == createdDocument.id)
         }
     }
@@ -190,25 +182,28 @@ internal class DataSampleApiImplTest {
     @Test
     fun getDataSampleAttachment_HappyFlow() {
         runBlocking {
+            val credentials = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+            val medTechApi = credentials.api
             // Init
-            val weight = prescriptionDataSample()
-            val currentUser = medTechApi.baseUserApi.getCurrentUser()
+            val dataSample = prescriptionDataSample()
+            val currentUser = medTechApi.userApi().getLoggedUser()
 
-            val existingPatient = medTechApi.basePatientApi
-                .createPatient(currentUser, patientDto(), patientCryptoConfig(medTechApi.localCrypto))
-            val createdDataSample = testedInstance.createOrModifyDataSampleFor(existingPatient.id, weight)
+            val existingPatient = medTechApi.patientApi()
+                .getPatient(currentUser.patientId ?: throw IllegalArgumentException("Test user should be a patient"))
+            val createdDataSample =
+                medTechApi.dataSampleApi().createOrModifyDataSampleFor(existingPatient.id!!, dataSample)
 
             val attachmentToAdd =
                 Files.readAllBytes(Paths.get("src/test/resources/io/icure/md/client/attachments/data_sample_attachment_note.xml"))
-            val createdDocument = testedInstance.setDataSampleAttachment(
+            val createdDocument = medTechApi.dataSampleApi().setDataSampleAttachment(
                 createdDataSample.id!!, flowOf(ByteBuffer.wrap(attachmentToAdd)),
                 null, "1.0.0", UUID.randomUUID().toString(), "en"
             )
 
             // When
             val attachmentDoc =
-                testedInstance.getDataSampleAttachmentDocument(createdDataSample.id!!, createdDocument.id!!)
-            val attachment = testedInstance.getDataSampleAttachmentContent(
+                medTechApi.dataSampleApi().getDataSampleAttachmentDocument(createdDataSample.id!!, createdDocument.id!!)
+            val attachment = medTechApi.dataSampleApi().getDataSampleAttachmentContent(
                 createdDataSample.id!!,
                 createdDocument.id!!,
                 createdDocument.attachmentId!!
@@ -224,29 +219,82 @@ internal class DataSampleApiImplTest {
     @Test
     fun deleteDataSampleAttachment_HappyFlow() {
         runBlocking {
+            val credentials = TestUtils.UserCredentials.fromFile("pat_0857c725-3837-49ca-a3b6-f31cf7ebc61f.json")
+            val medTechApi = credentials.api
             // Init
             val weight = prescriptionDataSample()
-            val currentUser = medTechApi.baseUserApi.getCurrentUser()
+            val currentUser = medTechApi.userApi().getLoggedUser()
 
-            val existingPatient = medTechApi.basePatientApi
-                .createPatient(currentUser, patientDto(), patientCryptoConfig(medTechApi.localCrypto))
-            val createdDataSample = testedInstance.createOrModifyDataSampleFor(existingPatient.id, weight)
+            val existingPatient = medTechApi.patientApi()
+                .getPatient(currentUser.patientId ?: throw IllegalArgumentException("Test user should be a patient"))
+            val createdDataSample = medTechApi.dataSampleApi().createOrModifyDataSampleFor(existingPatient.id!!, weight)
 
             val attachmentToAdd =
                 Files.readAllBytes(Paths.get("src/test/resources/io/icure/md/client/attachments/data_sample_attachment_note.xml"))
-            val createdDocument = testedInstance.setDataSampleAttachment(
+            val createdDocument = medTechApi.dataSampleApi().setDataSampleAttachment(
                 createdDataSample.id!!, flowOf(ByteBuffer.wrap(attachmentToAdd)),
                 null, "1.0.0", UUID.randomUUID().toString(), "en"
             )
 
             // When
-            val attachmentDocId = testedInstance.deleteAttachment(createdDataSample.id!!, createdDocument.id!!)
+            val attachmentDocId =
+                medTechApi.dataSampleApi().deleteAttachment(createdDataSample.id!!, createdDocument.id!!)
 
             // Then
             assertEquals(createdDocument.id, attachmentDocId)
 
-            val updatedDataSample = testedInstance.getDataSample(createdDataSample.id!!)
+            val updatedDataSample = medTechApi.dataSampleApi().getDataSample(createdDataSample.id!!)
             assert(updatedDataSample.content["en"]?.documentId == null)
+        }
+    }
+
+    @Test
+    @DisplayName("Create Data Sample linked to HealthElement - Success")
+    fun createDataSampleLinkedToHealthElement() {
+        runBlocking {
+            val credentials = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
+            val api = credentials.api
+
+            val currentUser = api.userApi().getLoggedUser()
+            val patient = api.patientApi()
+                .getPatient(currentUser.patientId ?: throw IllegalArgumentException("Test user should be a patient"))
+            val healthElement = api.healthcareElementApi()
+                .createOrModifyHealthcareElement(patient.id!!, HealthcareElement(note = "Stay hungry. Stay foolish."))
+            val dataSampleToCreate = weightDataSample().copy(
+                healthElementsIds = setOf(healthElement.id!!)
+            )
+            val createdDataSample = api.dataSampleApi().createOrModifyDataSampleFor(patient.id!!, dataSampleToCreate)
+
+            assert(healthElement.id!! in createdDataSample.healthElementsIds!!)
+
+            val contactOfDataSample = api.baseContactApi.getContact(createdDataSample.batchId!!)
+            assert(createdDataSample.healthElementsIds!!.all { it in contactOfDataSample.subContacts.map { subContactDto -> subContactDto.healthElementId } })
+        }
+    }
+
+    @Test
+    @DisplayName("Create Data Sample and modify it to link it to HealthElement - Success")
+    fun createDataSampleAndModifyItToLinkItToHealthElement() {
+        runBlocking {
+            val credentials = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
+            val api = credentials.api
+
+            val currentUser = api.userApi().getLoggedUser()
+            val patient = api.patientApi()
+                .getPatient(currentUser.patientId ?: throw IllegalArgumentException("Test user should be a patient"))
+            val createdDataSample = api.dataSampleApi().createOrModifyDataSampleFor(patient.id!!, weightDataSample())
+
+            val healthElement = api.healthcareElementApi()
+                .createOrModifyHealthcareElement(patient.id!!, HealthcareElement(note = "Stay hungry. Stay foolish."))
+            val updatedDataSample = api.dataSampleApi().createOrModifyDataSampleFor(
+                patient.id!!,
+                createdDataSample.copy(modified = null, healthElementsIds = setOfNotNull(healthElement.id))
+            )
+
+            assert(healthElement.id!! in updatedDataSample.healthElementsIds!!)
+
+            val contactOfDataSample = api.baseContactApi.getContact(createdDataSample.batchId!!)
+            assert(createdDataSample.healthElementsIds!!.all { it in contactOfDataSample.subContacts.map { subContactDto -> subContactDto.healthElementId } })
         }
     }
 }
