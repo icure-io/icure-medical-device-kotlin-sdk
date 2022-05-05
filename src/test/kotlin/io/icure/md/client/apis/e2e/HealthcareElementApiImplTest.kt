@@ -22,10 +22,12 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import java.util.*
+import kotlin.time.ExperimentalTime
 
 @FlowPreview
 @ExperimentalStdlibApi
 @ExperimentalCoroutinesApi
+@ExperimentalTime
 @DisplayName("MedicalDevice tests")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class HealthcareElementApiImplTest {
@@ -51,10 +53,10 @@ internal class HealthcareElementApiImplTest {
 
     private fun createPatientFlow() = flow<Patient> {
         emit(
-            medTechApi.patientApi().createPatient(
-                medTechApi.userApi().getCurrentUser(),
+            medTechApi.basePatientApi.createPatient(
+                medTechApi.baseUserApi.getCurrentUser(),
                 patient().toPatientDto(),
-                patientCryptoConfig(medTechApi.localCrypto())
+                patientCryptoConfig(medTechApi.localCrypto)
             ).toPatient()
         )
     }

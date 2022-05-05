@@ -10,31 +10,48 @@ import io.icure.md.client.mappers.toUser
 import io.icure.md.client.mappers.toUserDto
 import io.icure.md.client.models.User
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
 import java.util.*
+import kotlin.time.Duration
+import kotlin.time.DurationUnit
+import kotlin.time.ExperimentalTime
 
+@ExperimentalTime
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
-class UserApiImpl(val api: MedTechApi) : UserApi {
+@ExperimentalUnsignedTypes
+@FlowPreview
+class UserApiImpl(private val medTechApi: MedTechApi) : UserApi {
     override suspend fun checkTokenValidity(userId: String, token: String) =
-        api.userApi().checkTokenValidity(userId, token)
+        medTechApi.baseUserApi.checkTokenValidity(userId, token)
 
     override suspend fun createOrModifyUser(user: User) =
-        (user.rev?.let { api.userApi().modifyUser(user.toUserDto()) } ?: api.userApi()
+        (user.rev?.let { medTechApi.baseUserApi.modifyUser(user.toUserDto()) } ?: medTechApi.baseUserApi
             .createUser(user.toUserDto())).toUser()
 
     override suspend fun createToken(userId: String) =
-        api.userApi().getToken(userId, UUID.randomUUID().toString(), 3600 * 24 * 30)
+        medTechApi.baseUserApi.getToken(userId, UUID.randomUUID().toString(), 3600 * 24 * 30)
+
+    override suspend fun createToken(userId: String, validity: Duration): String {
+        return medTechApi.baseUserApi.getToken(
+            userId,
+            UUID.randomUUID().toString(),
+            validity.toLong(DurationUnit.SECONDS)
+        )
+    }
 
     override suspend fun deleteUser(userId: String) =
-        api.userApi().deleteUser(userId).rev ?: throw IllegalArgumentException("Invalid user id")
+        medTechApi.baseUserApi.deleteUser(userId).rev ?: throw IllegalArgumentException("Invalid user id")
 
     override suspend fun filterUsers(filter: Filter<User>, nextUserId: String?, limit: Int?) =
-        api.userApi().filterUsersBy(FilterChain(filter.toAbstractFilterDto(), null), nextUserId, limit)
+        medTechApi.baseUserApi.filterUsersBy(FilterChain(filter.toAbstractFilterDto(), null), nextUserId, limit)
             .toPaginatedListUser()
 
-    override suspend fun getLoggedUser() = api.userApi().getCurrentUser().toUser()
+    override suspend fun getLoggedUser() = medTechApi.baseUserApi.getCurrentUser().toUser()
 
-    override suspend fun getUser(userId: String) = api.userApi().getUser(userId).toUser()
+    override suspend fun getUser(userId: String) = medTechApi.baseUserApi.getUser(userId).toUser()
+    override suspend fun getUserByEmail(email: String): User = medTechApi.baseUserApi.getUserByEmail(email).toUser()
 
-    override suspend fun matchUsers(filter: Filter<User>) = api.userApi().matchUsersBy(filter.toAbstractFilterDto())
+    override suspend fun matchUsers(filter: Filter<User>) =
+        medTechApi.baseUserApi.matchUsersBy(filter.toAbstractFilterDto())
 }

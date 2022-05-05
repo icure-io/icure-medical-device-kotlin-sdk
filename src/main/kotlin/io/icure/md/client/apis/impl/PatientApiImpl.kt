@@ -18,25 +18,29 @@ import io.icure.md.client.mappers.toPatientDto
 import io.icure.md.client.models.PaginatedListPatient
 import io.icure.md.client.models.Patient
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlin.time.ExperimentalTime
 
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
-class PatientApiImpl(private val api: MedTechApi) : PatientApi {
+@FlowPreview
+@ExperimentalTime
+class PatientApiImpl(private val medTechApi: MedTechApi) : PatientApi {
     override suspend fun createOrModifyPatient(patient: Patient): Patient {
-        val localCrypto = api.localCrypto()
-        val currentUser = api.userApi().getCurrentUser()
+        val localCrypto = medTechApi.localCrypto
+        val currentUser = medTechApi.baseUserApi.getCurrentUser()
         val ccPatient = patientCryptoConfig(localCrypto)
 
         return patient.takeIf { it.rev != null }?.let {
             if (it.id == null || !it.id.isUUID()) {
                 throw IllegalArgumentException("Update id should be provided as an UUID")
             }
-            api.patientApi().modifyPatient(currentUser, it.toPatientDto(), ccPatient).toPatient()
-        } ?: api.patientApi().createPatient(currentUser, patient.toPatientDto(), ccPatient).toPatient()
+            medTechApi.basePatientApi.modifyPatient(currentUser, it.toPatientDto(), ccPatient).toPatient()
+        } ?: medTechApi.basePatientApi.createPatient(currentUser, patient.toPatientDto(), ccPatient).toPatient()
     }
 
     override suspend fun deletePatient(patientId: String): String {
-        return api.patientApi().deletePatients(ListOfIdsDto(listOf(patientId))).singleOrNull()?.rev
+        return medTechApi.basePatientApi.deletePatients(ListOfIdsDto(listOf(patientId))).singleOrNull()?.rev
             ?: throw IllegalArgumentException("Invalid user id")
     }
 
@@ -45,10 +49,10 @@ class PatientApiImpl(private val api: MedTechApi) : PatientApi {
         nextPatientId: String?,
         limit: Int?
     ): PaginatedListPatient {
-        val currentUser = api.userApi().getCurrentUser()
-        val localCrypto = api.localCrypto()
+        val currentUser = medTechApi.baseUserApi.getCurrentUser()
+        val localCrypto = medTechApi.localCrypto
 
-        return api.patientApi()
+        return medTechApi.basePatientApi
             .filterPatientsBy(
                 currentUser,
                 FilterChain(filter.toAbstractFilterDto(), null),
@@ -62,13 +66,14 @@ class PatientApiImpl(private val api: MedTechApi) : PatientApi {
     }
 
     override suspend fun getPatient(patientId: String): Patient {
-        val localCrypto = api.localCrypto()
-        val currentUser = api.userApi().getCurrentUser()
+        val localCrypto = medTechApi.localCrypto
+        val currentUser = medTechApi.baseUserApi.getCurrentUser()
 
-        return api.patientApi().getPatient(currentUser, patientId, patientCryptoConfig(localCrypto)).toPatient()
+        return medTechApi.basePatientApi.getPatient(currentUser, patientId, patientCryptoConfig(localCrypto))
+            .toPatient()
     }
 
     override suspend fun matchPatients(filter: Filter<Patient>): List<String> {
-        return api.patientApi().matchPatientsBy(filter.toAbstractFilterDto())
+        return medTechApi.basePatientApi.matchPatientsBy(filter.toAbstractFilterDto())
     }
 }

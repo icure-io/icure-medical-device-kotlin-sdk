@@ -22,27 +22,35 @@ import io.icure.md.client.mappers.toPaginatedListHealthcareElement
 import io.icure.md.client.models.HealthcareElement
 import io.icure.md.client.models.PaginatedListHealthcareElement
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.FlowPreview
+import kotlin.time.ExperimentalTime
 
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
-class HealthcareElementApiImpl(private val api: MedTechApi) : HealthcareElementApi {
+@ExperimentalTime
+@FlowPreview
+class HealthcareElementApiImpl(private val medTechApi: MedTechApi) : HealthcareElementApi {
     override suspend fun createOrModifyHealthcareElement(
         patientId: String,
         healthcareElement: HealthcareElement
     ): HealthcareElement {
-        val localCrypto = api.localCrypto()
-        val currentUser = api.userApi().getCurrentUser()
+        val localCrypto = medTechApi.localCrypto
+        val currentUser = medTechApi.baseUserApi.getCurrentUser()
         val ccHealthElement = healthElementCryptoConfig(localCrypto)
 
         return healthcareElement.takeIf { it.rev != null }?.let {
             if (it.id == null || !it.id.isUUID()) {
                 throw IllegalArgumentException("Update id should be provided as an UUID")
             }
-            api.healthElementApi().modifyHealthElement(currentUser, it.toHealthcareElementDto(), ccHealthElement)
+            medTechApi.baseHealthElementApi.modifyHealthElement(
+                currentUser,
+                it.toHealthcareElementDto(),
+                ccHealthElement
+            )
                 .toHealthcareElement()
         } ?: let {
-            val patient = api.patientApi().getPatient(currentUser, patientId, patientCryptoConfig(localCrypto))
-            api.healthElementApi()
+            val patient = medTechApi.basePatientApi.getPatient(currentUser, patientId, patientCryptoConfig(localCrypto))
+            medTechApi.baseHealthElementApi
                 .createHealthElement(currentUser, patient, healthcareElement.toHealthcareElementDto(), ccHealthElement)
                 .toHealthcareElement()
         }
@@ -52,8 +60,8 @@ class HealthcareElementApiImpl(private val api: MedTechApi) : HealthcareElementA
         patientId: String,
         healthcareElement: List<HealthcareElement>
     ): List<HealthcareElement> {
-        val localCrypto = api.localCrypto()
-        val currentUser = api.userApi().getCurrentUser()
+        val localCrypto = medTechApi.localCrypto
+        val currentUser = medTechApi.baseUserApi.getCurrentUser()
         val ccHealthElement = healthElementCryptoConfig(localCrypto)
 
         val heToCreate = healthcareElement.filter { it.rev == null }
@@ -63,17 +71,18 @@ class HealthcareElementApiImpl(private val api: MedTechApi) : HealthcareElementA
             throw IllegalArgumentException("Update id should be provided as an UUID")
         }
 
-        val patient = api.patientApi().getPatient(currentUser, patientId, patientCryptoConfig(localCrypto))
-        val healthcareElementsCreated = api.healthElementApi()
+        val patient = medTechApi.basePatientApi.getPatient(currentUser, patientId, patientCryptoConfig(localCrypto))
+        val healthcareElementsCreated = medTechApi.baseHealthElementApi
             .createHealthElements(currentUser, patient, heToCreate.map { it.toHealthcareElementDto() }, ccHealthElement)
-        val healthcareElementsUpdated = api.healthElementApi()
+        val healthcareElementsUpdated = medTechApi.baseHealthElementApi
             .modifyHealthElements(currentUser, heToUpdate.map { it.toHealthcareElementDto() }, ccHealthElement)
 
         return (healthcareElementsCreated + healthcareElementsUpdated).map { it.toHealthcareElement() }
     }
 
     override suspend fun deleteHealthcareElement(healthElementId: String): String {
-        return api.healthElementApi().deleteHealthElements(ListOfIdsDto(listOf(healthElementId))).singleOrNull()?.rev
+        return medTechApi.baseHealthElementApi.deleteHealthElements(ListOfIdsDto(listOf(healthElementId)))
+            .singleOrNull()?.rev
             ?: throw IllegalArgumentException("Invalid healthcare element id")
     }
 
@@ -82,10 +91,10 @@ class HealthcareElementApiImpl(private val api: MedTechApi) : HealthcareElementA
         nextHealthElementId: String?,
         limit: Int?
     ): PaginatedListHealthcareElement {
-        val currentUser = api.userApi().getCurrentUser()
-        val localCrypto = api.localCrypto()
+        val currentUser = medTechApi.baseUserApi.getCurrentUser()
+        val localCrypto = medTechApi.localCrypto
 
-        return api.healthElementApi().filterHealthElementsBy(
+        return medTechApi.baseHealthElementApi.filterHealthElementsBy(
             currentUser,
             FilterChain(filter.toAbstractFilterDto()),
             healthElementCryptoConfig(localCrypto),
@@ -95,15 +104,15 @@ class HealthcareElementApiImpl(private val api: MedTechApi) : HealthcareElementA
     }
 
     override suspend fun getHealthcareElement(healthcareElementId: String): HealthcareElement {
-        val currentUser = api.userApi().getCurrentUser()
-        val localCrypto = api.localCrypto()
+        val currentUser = medTechApi.baseUserApi.getCurrentUser()
+        val localCrypto = medTechApi.localCrypto
 
-        return api.healthElementApi()
+        return medTechApi.baseHealthElementApi
             .getHealthElement(currentUser, healthcareElementId, healthElementCryptoConfig(localCrypto))
             .toHealthcareElement()
     }
 
     override suspend fun matchHealthcareElement(filter: Filter<HealthcareElement>): List<String> {
-        return api.healthElementApi().matchHealthElementsBy(filter.toAbstractFilterDto())
+        return medTechApi.baseHealthElementApi.matchHealthElementsBy(filter.toAbstractFilterDto())
     }
 }
