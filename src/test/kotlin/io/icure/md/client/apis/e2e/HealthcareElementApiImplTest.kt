@@ -18,6 +18,7 @@ import kotlin.time.ExperimentalTime
 @ExperimentalStdlibApi
 @ExperimentalCoroutinesApi
 @ExperimentalTime
+@ExperimentalUnsignedTypes
 @DisplayName("MedicalDevice tests")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class HealthcareElementApiImplTest {
