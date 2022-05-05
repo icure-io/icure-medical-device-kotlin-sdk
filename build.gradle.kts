@@ -9,7 +9,7 @@ plugins {
 
 buildscript {
     repositories {
-        mavenLocal()
+        mavenCentral()
         maven { url = uri("https://maven.taktik.be/content/groups/public") }
     }
     dependencies {
@@ -34,7 +34,7 @@ group = "io.icure"
 version = gitVersion ?: "0.0.1-SNAPSHOT"
 
 repositories {
-    mavenLocal()
+    mavenCentral()
     maven {
         url = uri("https://maven.taktik.be/content/groups/public")
     }
@@ -67,7 +67,7 @@ dependencies {
     implementation(
         group = "io.icure",
         name = "icure-reactive-kotlin-client",
-        version = "0.1.332-IMKS2-createanonymousm.f6ec5fa84d"
+        version = "0.1.326-417da87ccd"
     )
     implementation(group = "org.taktik.commons", name = "commons-uti", version = "1.0")
 
