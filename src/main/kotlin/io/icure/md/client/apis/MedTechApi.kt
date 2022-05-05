@@ -121,13 +121,17 @@ class MedTechApi(
             "Basic ${java.util.Base64.getEncoder().encodeToString("$userName:$password".toByteArray())}"
 
         fun build(): MedTechApi {
-            if (authorization == null && (userName == null || password == null)) {
+            if (userName != null && password != null) {
+                authorization = basicAuth(userName = userName!!, password = password!!)
+            }
+
+            if (authorization == null) {
                 throw IllegalArgumentException("In order to request iCure APIs, you need to provide your credentials")
             }
 
             return MedTechApi(
                 iCureUrlPath = iCureUrlPath,
-                authorization = authorization ?: basicAuth(userName = userName!!, password = password!!),
+                authorization = authorization!!,
                 rsaKeyPairs = rsaKeyPairs,
                 defaultLanguage = defaultLanguage,
                 shortLivedCachesDuration = shortLivedCachesDuration,
@@ -144,12 +148,10 @@ class MedTechApi(
                     .authServerUrl(api.authServerUrl)
                     .authorization(api.authorization)
                     .defaultLanguage(api.defaultLanguage)
-            }
-
-            fun from(api: MedTechApi, username: String, password: String): Builder {
-                return from(api)
-                    .userName(username)
-                    .password(password)
+                    .authorization(api.authorization)
+                    .shortLivedCacheDurationInSeconds(api.shortLivedCachesDuration)
+                    .shortLivedCacheMaxSize(api.shortLivedCachesMaxSize)
+                    .authorization(api.authorization)
             }
         }
     }
