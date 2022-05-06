@@ -10,7 +10,7 @@ plugins {
 
 sonarqube {
     properties {
-        property("sonar.projectKey", "icure-medical-device-kotlin-sdk")
+        property("sonar.projectKey", "icure-io_icure-medical-device-kotlin-sdk")
         property("sonar.organization", "icure-io")
         property("sonar.host.url", "https://sonarcloud.io")
     }
