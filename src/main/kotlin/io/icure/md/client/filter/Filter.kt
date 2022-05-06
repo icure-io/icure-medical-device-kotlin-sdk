@@ -18,6 +18,7 @@ import io.icure.kraken.client.crypto.LocalCrypto
 import io.icure.md.client.filter.coding.AllCodingsFilter
 import io.icure.md.client.filter.coding.CodingByIdsFilter
 import io.icure.md.client.filter.datasample.DataSampleByHealthcarePartyFilter
+import io.icure.md.client.filter.datasample.DataSampleByHealthcarePartyHealthcareElementIdsFilter
 import io.icure.md.client.filter.datasample.DataSampleByHealthcarePartyIdentifiersFilter
 import io.icure.md.client.filter.datasample.DataSampleByHealthcarePartyLabelCodeDateFilter
 import io.icure.md.client.filter.datasample.DataSampleByIdsFilter
@@ -153,6 +154,12 @@ inline fun <reified T : Any> FilterBuilder<T>.byIdentifiers(vararg identifiers: 
     Patient::class -> (this as FilterBuilder<Patient>).patientsByIdentifiers(*identifiers)
     else -> throw IllegalArgumentException("All is not supported fot ${T::class}")
 }
+
+inline fun <reified T : Any> FilterBuilder<T>.byHealthcareElementIds(vararg healthcareElementIds: String) =
+    when (T::class) {
+        DataSample::class -> (this as FilterBuilder<DataSample>).dataSamplesByHealthcareElementIds(*healthcareElementIds)
+        else -> throw IllegalArgumentException("All is not supported fot ${T::class}")
+    }
 
 inline fun <reified T : Any> FilterBuilder<T>.withLabel(type: String, code: String?) = when (T::class) {
     DataSample::class -> (this as FilterBuilder<DataSample>).dataSamplesWithLabel(type, code)
@@ -298,10 +305,19 @@ fun FilterBuilder<DataSample>.dataSamplesByIds(vararg ids: String) {
 fun FilterBuilder<DataSample>.dataSamplesByIdentifiers(vararg identifiers: Identifier) {
     this.registerInParent { dataOwnerId ->
         DataSampleByHealthcarePartyIdentifiersFilter(
-            null,
-            dataOwnerId
+            healthcarePartyId = dataOwnerId
                 ?: throw IllegalArgumentException("DataSampleByHealthcarePartyAndIdentifiersFilter needs a dataOwner to be registered in the builder using a forDataOwner call"),
-            identifiers.toList()
+            identifiers = identifiers.toList()
+        )
+    }
+}
+
+fun FilterBuilder<DataSample>.dataSamplesByHealthcareElementIds(vararg healthcareElementIds: String) {
+    this.registerInParent { dataOwnerId ->
+        DataSampleByHealthcarePartyHealthcareElementIdsFilter(
+            healthcarePartyId = dataOwnerId
+                ?: throw IllegalArgumentException("DataSampleByHealthcarePartyHealthcareElementIdsFilter needs a dataOwner to be registered in the builder using a forDataOwner call"),
+            healthcareElementIds = healthcareElementIds.toList()
         )
     }
 }

@@ -1,6 +1,8 @@
 package io.icure.md.client.apis.e2e
 
 import io.icure.kraken.client.models.decrypted.PatientDto
+import io.icure.md.client.filter.byHealthcareElementIds
+import io.icure.md.client.filter.filter
 import io.icure.md.client.models.CodingReference
 import io.icure.md.client.models.Content
 import io.icure.md.client.models.DataSample
@@ -115,6 +117,10 @@ internal class DataSampleApiImplTest {
                 code = "57833-6",
                 type = "LOINC",
                 version = "2"
+            ),
+            CodingReference(
+                type = "IC_TEST",
+                code = "TEST"
             )
         )
     )
@@ -347,6 +353,41 @@ internal class DataSampleApiImplTest {
             val gotDataSampleFromPat = patCred.api.dataSampleApi().getDataSample(sharedDS.id!!)
 
             assertEquals(sharedDS, gotDataSampleFromPat)
+        }
+    }
+
+    @Test
+    @DisplayName("Filter data samples by HealthcareElementIds - Success")
+    fun filterDataSamplesByHealthcareElementIds_HappyFlow() {
+        runBlocking {
+            // Given
+            val patCred = TestUtils.UserCredentials.fromFile("pat_efa2933a-6bcf-4ab9-b9e7-60604fcb956f.json")
+
+            val currentUser = patCred.api.userApi().getLoggedUser()
+            val patientFromPat = patCred.api.patientApi()
+                .getPatient(currentUser.patientId ?: throw IllegalArgumentException("User must be a Patient"))
+
+            val createdHealthcareElement = patCred.api.healthcareElementApi()
+                .createOrModifyHealthcareElement(
+                    patientFromPat.id!!,
+                    HealthcareElement(note = "Stay hungry. Stay foolish.")
+                )
+            val dataSampleToCreate = weightDataSample().copy(
+                healthElementsIds = setOf(createdHealthcareElement.id!!)
+            )
+
+            val createdDataSample =
+                patCred.api.dataSampleApi().createOrModifyDataSampleFor(patientFromPat.id!!, dataSampleToCreate)
+
+            val filter = filter<DataSample> {
+                forDataOwner(currentUser.patientId)
+                byHealthcareElementIds(createdHealthcareElement.id!!)
+            }.build()
+
+            val filteredDataSamples = patCred.api.dataSampleApi().filterDataSamples(filter, null, null)
+            assert(filteredDataSamples.rows.size == 1)
+            assert(filteredDataSamples.rows.first().id == createdDataSample.id)
+            assert(createdHealthcareElement.id in filteredDataSamples.rows.first().healthElementsIds!!)
         }
     }
 }
