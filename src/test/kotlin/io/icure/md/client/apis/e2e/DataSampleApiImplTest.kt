@@ -367,13 +367,13 @@ internal class DataSampleApiImplTest {
             val patientFromPat = patCred.api.patientApi()
                 .getPatient(currentUser.patientId ?: throw IllegalArgumentException("User must be a Patient"))
 
-            val createdHealcareElement = patCred.api.healthcareElementApi()
+            val createdHealthcareElement = patCred.api.healthcareElementApi()
                 .createOrModifyHealthcareElement(
                     patientFromPat.id!!,
                     HealthcareElement(note = "Stay hungry. Stay foolish.")
                 )
             val dataSampleToCreate = weightDataSample().copy(
-                healthElementsIds = setOf(createdHealcareElement.id!!)
+                healthElementsIds = setOf(createdHealthcareElement.id!!)
             )
 
             val createdDataSample =
@@ -381,13 +381,13 @@ internal class DataSampleApiImplTest {
 
             val filter = filter<DataSample> {
                 forDataOwner(currentUser.patientId)
-                byHealthcareElementIds(createdHealcareElement.id!!)
+                byHealthcareElementIds(createdHealthcareElement.id!!)
             }.build()
 
             val filteredDataSamples = patCred.api.dataSampleApi().filterDataSamples(filter, null, null)
             assert(filteredDataSamples.rows.size == 1)
             assert(filteredDataSamples.rows.first().id == createdDataSample.id)
-            assert(createdHealcareElement.id in filteredDataSamples.rows.first().healthElementsIds!!)
+            assert(createdHealthcareElement.id in filteredDataSamples.rows.first().healthElementsIds!!)
         }
     }
 }
