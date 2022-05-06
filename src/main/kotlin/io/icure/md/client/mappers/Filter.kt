@@ -8,6 +8,7 @@ import io.icure.kraken.client.models.PatientDto
 import io.icure.kraken.client.models.ServiceDto
 import io.icure.kraken.client.models.UserDto
 import io.icure.kraken.client.models.filter.AbstractFilterDto
+import io.icure.kraken.client.models.filter.service.ServiceByHcPartyHealthElementIdsFilter
 import io.icure.md.client.filter.ComplementFilter
 import io.icure.md.client.filter.Filter
 import io.icure.md.client.filter.IntersectionFilter
@@ -16,18 +17,19 @@ import io.icure.md.client.filter.coding.AllCodingsFilter
 import io.icure.md.client.filter.coding.CodingByIdsFilter
 import io.icure.md.client.filter.coding.CodingByRegionTypeLabelFilter
 import io.icure.md.client.filter.datasample.DataSampleByHealthcarePartyFilter
+import io.icure.md.client.filter.datasample.DataSampleByHealthcarePartyHealthcareElementIdsFilter
 import io.icure.md.client.filter.datasample.DataSampleByHealthcarePartyIdentifiersFilter
 import io.icure.md.client.filter.datasample.DataSampleByHealthcarePartyLabelCodeDateFilter
 import io.icure.md.client.filter.datasample.DataSampleByIdsFilter
 import io.icure.md.client.filter.datasample.DataSampleByPatientFilter
-import io.icure.md.client.filter.medicaldevice.AllMedicalDevicesFilter
-import io.icure.md.client.filter.medicaldevice.MedicalDeviceByIdsFilter
 import io.icure.md.client.filter.hcp.AllHealthcareProfessionalsFilter
 import io.icure.md.client.filter.hcp.HealthcareProfessionalByIdsFilter
 import io.icure.md.client.filter.healthcareelement.HealthcareElementByHealthcarePartyFilter
 import io.icure.md.client.filter.healthcareelement.HealthcareElementByHealthcarePartyIdentifiersFilter
 import io.icure.md.client.filter.healthcareelement.HealthcareElementByHealthcarePartyLabelCodeFilter
 import io.icure.md.client.filter.healthcareelement.HealthcareElementByIdsFilter
+import io.icure.md.client.filter.medicaldevice.AllMedicalDevicesFilter
+import io.icure.md.client.filter.medicaldevice.MedicalDeviceByIdsFilter
 import io.icure.md.client.filter.patient.PatientByHealthcarePartyAndIdentifiersFilter
 import io.icure.md.client.filter.patient.PatientByHealthcarePartyDateOfBirthBetweenFilter
 import io.icure.md.client.filter.patient.PatientByHealthcarePartyFilter
@@ -74,11 +76,12 @@ fun Filter<DataSample>.dataSampleFilterToAbstractServiceFilterDto(): AbstractFil
     is ComplementFilter<DataSample> -> this.toComplementFilterDto(DataSample::class, ServiceDto::class)
     is UnionFilter<DataSample> -> this.toUnionFilterDto(DataSample::class, ServiceDto::class)
     is IntersectionFilter<DataSample> -> this.toIntersectionFilterDto(DataSample::class, ServiceDto::class)
-    is DataSampleByHealthcarePartyFilter -> this.toDataSampleByHealthcarePartyFilterDto()
-    is DataSampleByHealthcarePartyIdentifiersFilter -> this.toDataSampleByHealthcarePartyIdentifiersFilterDto()
-    is DataSampleByHealthcarePartyLabelCodeDateFilter -> this.toDataSampleByHealthcarePartyLabelCodeDateFilterDto()
-    is DataSampleByIdsFilter -> this.toDataSampleByIdsFilterDto()
-    is DataSampleByPatientFilter -> this.toDataSampleByPatientFilterDto()
+    is DataSampleByHealthcarePartyFilter -> this.toServiceByHcPartyFilterDto()
+    is DataSampleByHealthcarePartyIdentifiersFilter -> this.toServiceByHcPartyIdentifiersFilterDto()
+    is DataSampleByHealthcarePartyHealthcareElementIdsFilter -> this.toServiceByHcPartyHealthElementIdsFilterDto()
+    is DataSampleByHealthcarePartyLabelCodeDateFilter -> this.toServiceByHcPartyTagCodeDateFilterDto()
+    is DataSampleByIdsFilter -> this.toServiceByIdsFilterDto()
+    is DataSampleByPatientFilter -> this.toServiceBySecretForeignKeysFilterDto()
     else -> throw IllegalArgumentException("Unsupported filter ${this::class}")
 }
 
@@ -170,18 +173,26 @@ fun CodingByRegionTypeLabelFilter.toCodeByRegionTypeLabelFilterDto(): io.icure.k
     )
 }
 
-fun DataSampleByHealthcarePartyFilter.toDataSampleByHealthcarePartyFilterDto(): io.icure.kraken.client.models.filter.service.ServiceByHcPartyFilter {
+fun DataSampleByHealthcarePartyFilter.toServiceByHcPartyFilterDto(): io.icure.kraken.client.models.filter.service.ServiceByHcPartyFilter {
     return io.icure.kraken.client.models.filter.service.ServiceByHcPartyFilter(this.hcpId, this.description)
 }
 
-fun DataSampleByHealthcarePartyIdentifiersFilter.toDataSampleByHealthcarePartyIdentifiersFilterDto(): io.icure.kraken.client.models.filter.service.ServiceByHcPartyIdentifiersFilter {
+fun DataSampleByHealthcarePartyIdentifiersFilter.toServiceByHcPartyIdentifiersFilterDto(): io.icure.kraken.client.models.filter.service.ServiceByHcPartyIdentifiersFilter {
     return io.icure.kraken.client.models.filter.service.ServiceByHcPartyIdentifiersFilter(
         this.healthcarePartyId,
         this.description,
         this.identifiers.map { it.toIdentifierDto() })
 }
 
-fun DataSampleByHealthcarePartyLabelCodeDateFilter.toDataSampleByHealthcarePartyLabelCodeDateFilterDto(): io.icure.kraken.client.models.filter.service.ServiceByHcPartyTagCodeDateFilter {
+fun DataSampleByHealthcarePartyHealthcareElementIdsFilter.toServiceByHcPartyHealthElementIdsFilterDto(): ServiceByHcPartyHealthElementIdsFilter {
+    return ServiceByHcPartyHealthElementIdsFilter(
+        desc = this.description,
+        healthcarePartyId = this.healthcarePartyId,
+        healthElementIds = this.healthcareElementIds
+    )
+}
+
+fun DataSampleByHealthcarePartyLabelCodeDateFilter.toServiceByHcPartyTagCodeDateFilterDto(): io.icure.kraken.client.models.filter.service.ServiceByHcPartyTagCodeDateFilter {
     return io.icure.kraken.client.models.filter.service.ServiceByHcPartyTagCodeDateFilter(
         this.description,
         this.healthcarePartyId,
@@ -195,11 +206,11 @@ fun DataSampleByHealthcarePartyLabelCodeDateFilter.toDataSampleByHealthcareParty
     )
 }
 
-fun DataSampleByIdsFilter.toDataSampleByIdsFilterDto(): io.icure.kraken.client.models.filter.service.ServiceByIdsFilter {
+fun DataSampleByIdsFilter.toServiceByIdsFilterDto(): io.icure.kraken.client.models.filter.service.ServiceByIdsFilter {
     return io.icure.kraken.client.models.filter.service.ServiceByIdsFilter(this.ids, this.description)
 }
 
-fun DataSampleByPatientFilter.toDataSampleByPatientFilterDto(): io.icure.kraken.client.models.filter.service.ServiceBySecretForeignKeys {
+fun DataSampleByPatientFilter.toServiceBySecretForeignKeysFilterDto(): io.icure.kraken.client.models.filter.service.ServiceBySecretForeignKeys {
     return io.icure.kraken.client.models.filter.service.ServiceBySecretForeignKeys(
         this.description,
         this.healthcarePartyId,
