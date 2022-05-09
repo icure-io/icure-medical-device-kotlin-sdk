@@ -3,6 +3,7 @@ package io.icure.md.client.apis.e2e
 import io.icure.diffutils.Diff
 import io.icure.diffutils.differences
 import io.icure.diffutils.filterDiffs
+import io.icure.kraken.client.crypto.toPrivateKey
 import io.icure.md.client.apis.CodingApi
 import io.icure.md.client.apis.MedTechApi
 import io.icure.md.client.apis.impl.CodingApiImpl
@@ -29,8 +30,7 @@ internal class CodingApiImplTest {
     private val iCurePath = System.getenv("TEST_ICURE_URL") ?: "https://kraken.icure.dev"
     private val authHeader = TestUtils.basicAuthFrom()
     private val healthcareProfessionalId = System.getenv("TEST_HCP_ID")
-    private val healthcareProfessionalPrivateKey =
-        TestUtils.healthcareProfessionalPrivateKey(healthcareProfessionalId, this::class.java)
+    private val healthcareProfessionalPrivateKey = System.getenv("TEST_HCP_PRIV_KEY").toPrivateKey()
     private val healthcareProfessionalPublicKey =
         runBlocking { TestUtils.healthcareProfessionalPublicKey(iCurePath, authHeader, healthcareProfessionalId) }
 
