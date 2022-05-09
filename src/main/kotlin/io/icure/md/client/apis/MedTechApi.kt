@@ -23,13 +23,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
-import kotlin.time.ExperimentalTime
 
 @FlowPreview
 @ExperimentalStdlibApi
 @ExperimentalCoroutinesApi
 @ExperimentalUnsignedTypes
-@ExperimentalTime
 class MedTechApi(
     internal val iCureUrlPath: String,
     internal val authorization: String,

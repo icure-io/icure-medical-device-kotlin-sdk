@@ -13,10 +13,10 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - name: Set up JDK 11
+      - name: Set up JDK 15
         uses: actions/setup-java@v1
         with:
-          java-version: 11
+          java-version: 15
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
@@ -38,4 +38,21 @@ jobs:
           ORG_GRADLE_PROJECT_mavenReleasesRepository: ${{ secrets.MAVEN_RELEASES_REPO }}
           ORG_GRADLE_PROJECT_mavenRepository: ${{ secrets.MAVEN_REPO }}
           ORG_GRADLE_PROJECT_mavenSnapshotsRepository: ${{ secrets.MAVEN_SNAPSHOTS_REPO }}
+          TEST_ICURE_URL: "https://kraken.icure.dev"
+          TEST_AUTH_SERVER_URL: "https://msg-gw.icure.cloud/km"
+          TEST_PAT_AUTH_PROCESS_ID: ${{ secrets.TEST_PAT_AUTH_PROCESS_ID }}
+          TEST_HCP_AUTH_PROCESS_ID: ${{ secrets.TEST_HCP_AUTH_PROCESS_ID }}
+          TEST_RAPID_API_KEY: ${{ secrets.TEST_RAPID_API_KEY }}
+          TEST_PAT_ID: "65912637-8e72-42ea-af17-124368bdad5d"
+          TEST_PAT_USERNAME: ${{ secrets.TEST_PAT_USERNAME }}
+          TEST_PAT_PASSWORD: ${{ secrets.TEST_PAT_PASSWORD }}
+          TEST_PAT_PRIV_KEY: ${{ secrets.TEST_PAT_PRIV_KEY }}
+          TEST_HCP_ID: "782f1bcd-9f3f-408a-af1b-cd9f3f908a98"
+          TEST_HCP_USERNAME: ${{ secrets.TEST_HCP_USERNAME }}
+          TEST_HCP_PASSWORD: ${{ secrets.TEST_HCP_PASSWORD }}
+          TEST_HCP_PRIV_KEY: ${{ secrets.TEST_HCP_PRIV_KEY }}
+          TEST_HCP_2_ID: "2af4476e-49d4-471d-9e95-5372e735238d"
+          TEST_HCP_2_USERNAME: ${{ secrets.TEST_HCP_2_USERNAME }}
+          TEST_HCP_2_PASSWORD: ${{ secrets.TEST_HCP_2_PASSWORD }}
+          TEST_HCP_2_PRIV_KEY: ${{ secrets.TEST_HCP_2_PRIV_KEY }}
         run: ./gradlew build sonarqube --info

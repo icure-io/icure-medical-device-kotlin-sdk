@@ -12,11 +12,10 @@ import io.icure.md.client.mappers.toPaginatedListHealthcareProfessional
 import io.icure.md.client.models.HealthcareProfessional
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlin.time.ExperimentalTime
 
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
-@ExperimentalTime
+@ExperimentalUnsignedTypes
 @FlowPreview
 class HealthcareProfessionalApiImpl(private val medTechApi: MedTechApi) : HealthcareProfessionalApi {
     override suspend fun createOrModifyHealthcareProfessional(healthcareProfessional: HealthcareProfessional) =

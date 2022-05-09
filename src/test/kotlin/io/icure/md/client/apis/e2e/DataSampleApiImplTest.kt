@@ -1,6 +1,5 @@
 package io.icure.md.client.apis.e2e
 
-import io.icure.kraken.client.models.decrypted.PatientDto
 import io.icure.md.client.filter.byHealthcareElementIds
 import io.icure.md.client.filter.filter
 import io.icure.md.client.models.CodingReference
@@ -36,8 +35,7 @@ internal class DataSampleApiImplTest {
     fun createOrModifyDataSamples_HappyFlow_Creation() {
         runBlocking {
             // Init
-            val credentials = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
-            val medTechApi = credentials.api
+            val medTechApi = TestUtils.patApiBasedOn()
             val weight = weightDataSample()
             val height = heightDataSample()
             val currentUser = medTechApi.baseUserApi.getCurrentUser()
@@ -59,8 +57,7 @@ internal class DataSampleApiImplTest {
     fun deleteDataSample_HappyFlow() {
         runBlocking {
             // Init
-            val credentials = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
-            val medTechApi = credentials.api
+            val medTechApi = TestUtils.patApiBasedOn()
             val weight = weightDataSample()
 
             val currentUser = medTechApi.userApi().getLoggedUser()
@@ -125,20 +122,13 @@ internal class DataSampleApiImplTest {
         )
     )
 
-    private fun patientDto() = PatientDto(
-        id = UUID.randomUUID().toString(),
-        firstName = "Max",
-        lastName = "LaMenace"
-    )
-
     @Test
     fun createOrModifyDataSamples_Error_Update_For_Different_Batch_Ids() {
         // Init
         val patientId = UUID.randomUUID().toString()
         val weight = weightDataSample().copy(batchId = "batch-1")
         val height = heightDataSample().copy(batchId = "batch-2")
-        val credentials = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
-        val medTechApi = credentials.api
+        val medTechApi = TestUtils.patApiBasedOn()
 
         // When
         assertThrows(IllegalArgumentException::class.java) {
@@ -155,8 +145,7 @@ internal class DataSampleApiImplTest {
     fun setDataSampleAttachment_HappyFlow() {
         runBlocking {
             // Init
-            val credentials = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
-            val medTechApi = credentials.api
+            val medTechApi = TestUtils.patApiBasedOn()
             val weight = prescriptionDataSample()
             val currentUser = medTechApi.userApi().getLoggedUser()
 
@@ -187,8 +176,8 @@ internal class DataSampleApiImplTest {
     @Test
     fun getDataSampleAttachment_HappyFlow() {
         runBlocking {
-            val credentials = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
-            val medTechApi = credentials.api
+            val medTechApi = TestUtils.patApiBasedOn()
+
             // Init
             val dataSample = prescriptionDataSample()
             val currentUser = medTechApi.userApi().getLoggedUser()
@@ -224,8 +213,7 @@ internal class DataSampleApiImplTest {
     @Test
     fun deleteDataSampleAttachment_HappyFlow() {
         runBlocking {
-            val credentials = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
-            val medTechApi = credentials.api
+            val medTechApi = TestUtils.patApiBasedOn()
             // Init
             val weight = prescriptionDataSample()
             val currentUser = medTechApi.userApi().getLoggedUser()
@@ -257,8 +245,7 @@ internal class DataSampleApiImplTest {
     @DisplayName("Create Data Sample linked to HealthElement - Success")
     fun createDataSampleLinkedToHealthElement() {
         runBlocking {
-            val credentials = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
-            val api = credentials.api
+            val api = TestUtils.patApiBasedOn()
 
             val currentUser = api.userApi().getLoggedUser()
             val patient = api.patientApi()
@@ -281,8 +268,7 @@ internal class DataSampleApiImplTest {
     @DisplayName("Create Data Sample and modify it to link it to HealthElement - Success")
     fun createDataSampleAndModifyItToLinkItToHealthElement() {
         runBlocking {
-            val credentials = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
-            val api = credentials.api
+            val api = TestUtils.patApiBasedOn()
 
             val currentUser = api.userApi().getLoggedUser()
             val patient = api.patientApi()
@@ -307,21 +293,21 @@ internal class DataSampleApiImplTest {
     @DisplayName("Share delegation of a DataSample from patient to HCP")
     fun shareDelegationOfADataSampleFromPatientToHcp() {
         runBlocking {
-            val patCred = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
-            val hcpCred = TestUtils.UserCredentials.fromFile("hcp_2c5f952e-512b-4fd3-bc6d-0f66c282c159.json")
+            val patApi = TestUtils.patApiBasedOn()
+            val hcpApi = TestUtils.hcpApiBasedOn()
 
-            val currentPatUser = patCred.api.userApi().getLoggedUser()
-            val currentHcpUser = hcpCred.api.userApi().getLoggedUser()
+            val currentPatUser = patApi.userApi().getLoggedUser()
+            val currentHcpUser = hcpApi.userApi().getLoggedUser()
 
-            val patientFromPat = patCred.api.patientApi()
+            val patientFromPat = patApi.patientApi()
                 .getPatient(currentPatUser.patientId ?: throw IllegalArgumentException("User must be a Patient"))
             val createdDataSampleFromPat =
-                patCred.api.dataSampleApi().createOrModifyDataSampleFor(patientFromPat.id!!, prescriptionDataSample())
-            val sharedDS = patCred.api.dataSampleApi().giveAccessTo(
+                patApi.dataSampleApi().createOrModifyDataSampleFor(patientFromPat.id!!, prescriptionDataSample())
+            val sharedDS = patApi.dataSampleApi().giveAccessTo(
                 createdDataSampleFromPat,
                 currentHcpUser.healthcarePartyId ?: throw IllegalArgumentException("User must be a HCP")
             )
-            val gotDataSampleFromHcp = hcpCred.api.dataSampleApi().getDataSample(sharedDS.id!!)
+            val gotDataSampleFromHcp = hcpApi.dataSampleApi().getDataSample(sharedDS.id!!)
 
             assertEquals(sharedDS, gotDataSampleFromHcp)
         }
@@ -331,26 +317,26 @@ internal class DataSampleApiImplTest {
     @DisplayName("Share delegation of a DataSample from HCP to Patient")
     fun shareDelegationOfADataSampleFromHcpToPatient() {
         runBlocking {
-            val patCred = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
-            val hcpCred = TestUtils.UserCredentials.fromFile("hcp_2c5f952e-512b-4fd3-bc6d-0f66c282c159.json")
+            val patApi = TestUtils.patApiBasedOn()
+            val hcpApi = TestUtils.hcpApiBasedOn()
 
-            val currentPatUser = patCred.api.userApi().getLoggedUser()
-            val currentHcpUser = hcpCred.api.userApi().getLoggedUser()
+            val currentPatUser = patApi.userApi().getLoggedUser()
+            val currentHcpUser = hcpApi.userApi().getLoggedUser()
 
-            val patientFromPat = patCred.api.patientApi()
+            val patientFromPat = patApi.patientApi()
                 .getPatient(currentPatUser.patientId ?: throw IllegalArgumentException("User must be a Patient"))
-            val delegatedPatient = patCred.api.patientApi().giveAccessTo(
+            val delegatedPatient = patApi.patientApi().giveAccessTo(
                 patientFromPat,
                 currentHcpUser.healthcarePartyId ?: throw IllegalArgumentException("User must be a HCP")
             )
 
             val createdDataSampleFromHcp =
-                hcpCred.api.dataSampleApi().createOrModifyDataSampleFor(patientFromPat.id!!, prescriptionDataSample())
-            val sharedDS = hcpCred.api.dataSampleApi().giveAccessTo(
+                hcpApi.dataSampleApi().createOrModifyDataSampleFor(patientFromPat.id!!, prescriptionDataSample())
+            val sharedDS = hcpApi.dataSampleApi().giveAccessTo(
                 createdDataSampleFromHcp,
                 currentPatUser.patientId ?: throw IllegalArgumentException("User must be a Patient")
             )
-            val gotDataSampleFromPat = patCred.api.dataSampleApi().getDataSample(sharedDS.id!!)
+            val gotDataSampleFromPat = patApi.dataSampleApi().getDataSample(sharedDS.id!!)
 
             assertEquals(sharedDS, gotDataSampleFromPat)
         }
@@ -361,13 +347,13 @@ internal class DataSampleApiImplTest {
     fun filterDataSamplesByHealthcareElementIds_HappyFlow() {
         runBlocking {
             // Given
-            val patCred = TestUtils.UserCredentials.fromFile("pat_efa2933a-6bcf-4ab9-b9e7-60604fcb956f.json")
+            val patApi = TestUtils.patApiBasedOn()
 
-            val currentUser = patCred.api.userApi().getLoggedUser()
-            val patientFromPat = patCred.api.patientApi()
+            val currentUser = patApi.userApi().getLoggedUser()
+            val patientFromPat = patApi.patientApi()
                 .getPatient(currentUser.patientId ?: throw IllegalArgumentException("User must be a Patient"))
 
-            val createdHealthcareElement = patCred.api.healthcareElementApi()
+            val createdHealthcareElement = patApi.healthcareElementApi()
                 .createOrModifyHealthcareElement(
                     patientFromPat.id!!,
                     HealthcareElement(note = "Stay hungry. Stay foolish.")
@@ -377,14 +363,14 @@ internal class DataSampleApiImplTest {
             )
 
             val createdDataSample =
-                patCred.api.dataSampleApi().createOrModifyDataSampleFor(patientFromPat.id!!, dataSampleToCreate)
+                patApi.dataSampleApi().createOrModifyDataSampleFor(patientFromPat.id!!, dataSampleToCreate)
 
             val filter = filter<DataSample> {
                 forDataOwner(currentUser.patientId)
                 byHealthcareElementIds(createdHealthcareElement.id!!)
             }.build()
 
-            val filteredDataSamples = patCred.api.dataSampleApi().filterDataSamples(filter, null, null)
+            val filteredDataSamples = patApi.dataSampleApi().filterDataSamples(filter, null, null)
             assert(filteredDataSamples.rows.size == 1)
             assert(filteredDataSamples.rows.first().id == createdDataSample.id)
             assert(createdHealthcareElement.id in filteredDataSamples.rows.first().healthElementsIds!!)
