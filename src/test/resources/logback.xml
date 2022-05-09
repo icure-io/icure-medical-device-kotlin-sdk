@@ -7,7 +7,7 @@
     </appender>
 
     <logger name="io.icure.asyncjacksonhttpclient.netty" level="INFO"/>
-    <logger name="logging.level.reactor.netty" level="DEBUG"/>
+    <logger name="logging.level.reactor.netty" level="INFO"/>
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
     </root>
