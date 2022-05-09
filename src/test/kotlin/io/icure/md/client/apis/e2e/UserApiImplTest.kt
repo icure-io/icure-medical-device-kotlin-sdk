@@ -28,7 +28,7 @@ internal class UserApiImplTest {
         runBlocking {
             val anonymousMedTechApi =
                 AnonymousMedTechApi.Builder().authProcessId(
-                    authProcessId = System.getenv("PAT_AUTH_PROCESS_ID") ?: "6a355458dbfa392cb5624403190c39e5"
+                    authProcessId = System.getenv("TEST_PAT_AUTH_PROCESS_ID") ?: "6a355458dbfa392cb5624403190c39e5"
                 )
                     .build()
 
@@ -41,11 +41,6 @@ internal class UserApiImplTest {
                 emailAddress,
                 "a58afe0e-02dc-431b-8155-0351140099e4"
             )
-
-            println("UserName: $userName")
-
-            println("ProcessId: ${process.requestId}")
-            println("Login: ${process.login}")
 
             delay(10000)
             val email = MailUtils.readInbox(emailAddress).firstOrNull()
@@ -100,11 +95,6 @@ internal class UserApiImplTest {
                 emailAddress,
                 "a58afe0e-02dc-431b-8155-0351140099e4"
             )
-
-            println("UserName: $userName")
-
-            println("ProcessId: ${process.requestId}")
-            println("Login: ${process.login}")
 
             delay(10000)
             val email = MailUtils.readInbox(emailAddress).firstOrNull()
