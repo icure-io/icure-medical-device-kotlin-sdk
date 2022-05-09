@@ -20,7 +20,7 @@ class AnonymousMedTechApi(
 
     data class Builder(
         private var iCureUrlPath: String = "https://kraken.icure.dev",
-        private var authServerUrl: String = "https://msg-gw.icure.cloud/km",
+        private var authServerUrl: String = "https://msg-gw.icure.cloud/ic",
         private var authProcessId: String? = null,
         private var defaultLanguage: String = "en"
     ) {

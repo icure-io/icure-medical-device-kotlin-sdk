@@ -39,7 +39,7 @@ jobs:
           ORG_GRADLE_PROJECT_mavenRepository: ${{ secrets.MAVEN_REPO }}
           ORG_GRADLE_PROJECT_mavenSnapshotsRepository: ${{ secrets.MAVEN_SNAPSHOTS_REPO }}
           TEST_ICURE_URL: "https://kraken.icure.dev"
-          TEST_AUTH_SERVER_URL: "https://msg-gw.icure.cloud/km"
+          TEST_AUTH_SERVER_URL: "https://msg-gw.icure.cloud/ic"
           TEST_PAT_AUTH_PROCESS_ID: ${{ secrets.TEST_PAT_AUTH_PROCESS_ID }}
           TEST_HCP_AUTH_PROCESS_ID: ${{ secrets.TEST_HCP_AUTH_PROCESS_ID }}
           TEST_RAPID_API_KEY: ${{ secrets.TEST_RAPID_API_KEY }}
