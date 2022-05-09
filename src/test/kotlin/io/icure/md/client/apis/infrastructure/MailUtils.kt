@@ -16,7 +16,7 @@ import java.security.MessageDigest
 import java.util.*
 
 object MailUtils {
-    private val API_KEY = System.getenv("RAPID_API_KEY")
+    private val API_KEY = System.getenv("TEST_RAPID_API_KEY")
     private val httpClient = HttpClient.create().headers { h ->
         h.set("X-RapidAPI-Host", "privatix-temp-mail-v1.p.rapidapi.com")
         h.set("X-RapidAPI-Key", API_KEY)

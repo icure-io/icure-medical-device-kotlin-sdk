@@ -1,7 +1,6 @@
 package io.icure.md.client.apis.e2e
 
 import io.icure.kraken.client.crypto.CryptoUtils
-import io.icure.kraken.client.crypto.privateKeyAsString
 import io.icure.kraken.client.crypto.publicKeyAsString
 import io.icure.md.client.apis.AnonymousMedTechApi
 import io.icure.md.client.apis.infrastructure.MailUtils
@@ -88,7 +87,7 @@ internal class UserApiImplTest {
             val anonymousMedTechApi =
                 AnonymousMedTechApi.Builder()
                     .authProcessId(
-                        authProcessId = System.getenv("HCP_AUTH_PROCESS_ID") ?: "6a355458dbfa392cb5624403190c6a19"
+                        authProcessId = System.getenv("TEST_HCP_AUTH_PROCESS_ID") ?: "6a355458dbfa392cb5624403190c6a19"
                     )
                     .build()
 
@@ -113,8 +112,6 @@ internal class UserApiImplTest {
 
             val validationCode = email!!.mail_subject.takeLast(6)
             val keyPair = CryptoUtils.generateKeyPairRSA()
-            println("Priv Key: ${keyPair.privateKeyAsString()}")
-            println("Pub Key: ${keyPair.publicKeyAsString()}")
 
             val tokenAndKeyProvider: ((String, String) -> Triple<String, String, String>?) =
                 { _: String, _: String ->
