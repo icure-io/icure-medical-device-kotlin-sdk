@@ -163,7 +163,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
     }
 
     private suspend fun checkAndRetrieveProvidedHealthElements(
-        healthElementIds: kotlin.collections.Collection<String>,
+        healthElementIds: Collection<String>,
         currentUser: UserDto
     ): List<String> {
         if (healthElementIds.isEmpty()) {

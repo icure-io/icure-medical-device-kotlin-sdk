@@ -122,12 +122,9 @@ class AuthenticationApiImpl(
                     validationCode,
                     tokenAndKeyPairProvider
                 )
-                println("API and AuthToken initialized")
 
                 val keyPair = initResult.keyPair ?: userKeyPair
                 val authenticatedApi = initUserCrypto(api, initResult.token, initResult.userDto, keyPair)
-                println("User crypto initialized")
-
                 emit(
                     AuthenticationResult(
                         authenticatedApi,
