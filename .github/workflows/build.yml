@@ -38,6 +38,9 @@ jobs:
           ORG_GRADLE_PROJECT_mavenReleasesRepository: ${{ secrets.MAVEN_RELEASES_REPO }}
           ORG_GRADLE_PROJECT_mavenRepository: ${{ secrets.MAVEN_REPO }}
           ORG_GRADLE_PROJECT_mavenSnapshotsRepository: ${{ secrets.MAVEN_SNAPSHOTS_REPO }}
+        run: ./gradlew build --info
+      - name: Test and report
+        env:
           TEST_ICURE_URL: "https://kraken.icure.dev"
           TEST_AUTH_SERVER_URL: "https://msg-gw.icure.cloud/km"
           TEST_PAT_AUTH_PROCESS_ID: ${{ secrets.TEST_PAT_AUTH_PROCESS_ID }}
@@ -55,4 +58,4 @@ jobs:
           TEST_HCP_2_USERNAME: ${{ secrets.TEST_HCP_2_USERNAME }}
           TEST_HCP_2_PASSWORD: ${{ secrets.TEST_HCP_2_PASSWORD }}
           TEST_HCP_2_PRIV_KEY: ${{ secrets.TEST_HCP_2_PRIV_KEY }}
-        run: ./gradlew build sonarqube --info
+        run: ./gradlew test jacocoTestReport sonarqube --info

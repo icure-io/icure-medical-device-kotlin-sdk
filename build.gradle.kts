@@ -5,6 +5,7 @@ val jacksonVersion = "2.12.5"
 plugins {
     kotlin("jvm") version "1.4.32"
     kotlin("kapt") version "1.4.32"
+    id("jacoco")
     id("org.sonarqube") version "3.3"
 }
 
@@ -238,3 +239,11 @@ tasks.create<Delete>("delete-unused-files") {
 tasks.test {
     useJUnitPlatform()
 }
+
+
+tasks.jacocoTestReport {
+    reports {
+        xml.isEnabled = true
+    }
+}
+
