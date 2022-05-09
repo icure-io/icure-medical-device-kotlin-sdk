@@ -19,7 +19,6 @@ import io.icure.md.client.models.PaginatedListUser
 import io.icure.md.client.models.User
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Named
-import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 
 @Named
@@ -74,6 +73,7 @@ interface UserApi {
      * Create a token for a user.
      * A token is used to authenticate the user. It is just like a password but it is destined to be used by programs instead of humans. Tokens have a limited validity period (one month).
      * @param userId The UUID that identifies the user uniquely
+     * @param validityInSeconds The validity of the token in seconds unit
      * @return Returns the token that can be subsequently used to authenticate the user with id userId.
      * @throws ClientException if you make this call without providing an authentication token (BASIC, SesssionId).
      * @throws ClientException if there is no user with the provided userId.
@@ -83,7 +83,7 @@ interface UserApi {
     @OptIn(ExperimentalTime::class)
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    suspend fun createToken(userId: String, validity: Duration): String?
+    suspend fun createToken(userId: String, validityInSeconds: Long): String?
 
     /**
      * Delete an existing user.

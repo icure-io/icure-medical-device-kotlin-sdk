@@ -4,12 +4,10 @@ import io.icure.md.client.apis.MedTechApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import java.security.KeyPair
-import kotlin.time.ExperimentalTime
 
 @ExperimentalStdlibApi
 @ExperimentalCoroutinesApi
 @FlowPreview
-@ExperimentalTime
 data class AuthenticationResult(
     val medTechApi: MedTechApi,
     val keyPair: KeyPair,

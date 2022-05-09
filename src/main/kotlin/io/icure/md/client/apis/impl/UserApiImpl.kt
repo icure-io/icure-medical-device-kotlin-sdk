@@ -12,11 +12,7 @@ import io.icure.md.client.models.User
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import java.util.*
-import kotlin.time.Duration
-import kotlin.time.DurationUnit
-import kotlin.time.ExperimentalTime
 
-@ExperimentalTime
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
 @ExperimentalUnsignedTypes
@@ -32,11 +28,11 @@ class UserApiImpl(private val medTechApi: MedTechApi) : UserApi {
     override suspend fun createToken(userId: String) =
         medTechApi.baseUserApi.getToken(userId, UUID.randomUUID().toString(), 3600 * 24 * 30)
 
-    override suspend fun createToken(userId: String, validity: Duration): String {
+    override suspend fun createToken(userId: String, validityInSeconds: Long): String {
         return medTechApi.baseUserApi.getToken(
             userId,
             UUID.randomUUID().toString(),
-            validity.toLong(DurationUnit.SECONDS)
+            validityInSeconds
         )
     }
 
