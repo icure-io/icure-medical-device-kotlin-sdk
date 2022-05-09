@@ -19,14 +19,15 @@ import kotlin.time.ExperimentalTime
 @FlowPreview
 @ExperimentalStdlibApi
 @ExperimentalCoroutinesApi
+@ExperimentalUnsignedTypes
 @ExperimentalTime
 @DisplayName("MedicalDevice tests")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class DeviceApiImplTest {
 
-    private val iCurePath = "https://kraken.icure.dev"
-    private val authHeader = TestUtils.basicAuthFrom(".credentials")
-    private val healthcareProfessionalId = "782f1bcd-9f3f-408a-af1b-cd9f3f908a98"
+    private val iCurePath = System.getenv("TEST_ICURE_URL") ?: "https://kraken.icure.dev"
+    private val authHeader = TestUtils.basicAuthFrom()
+    private val healthcareProfessionalId = System.getenv("TEST_HCP_ID")
     private val healthcareProfessionalPrivateKey =
         TestUtils.healthcareProfessionalPrivateKey(healthcareProfessionalId, this::class.java)
     private val healthcareProfessionalPublicKey =

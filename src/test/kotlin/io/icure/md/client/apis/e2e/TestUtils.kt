@@ -11,11 +11,13 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.readValue
 import io.icure.kraken.client.apis.HealthcarePartyApi
+import io.icure.kraken.client.apis.PatientApi
 import io.icure.kraken.client.crypto.toPrivateKey
 import io.icure.kraken.client.crypto.toPublicKey
 import io.icure.md.client.apis.MedTechApi
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.runBlocking
 import java.io.File
 import java.security.interfaces.RSAPrivateKey
 import java.security.interfaces.RSAPublicKey
@@ -28,7 +30,7 @@ import kotlin.time.ExperimentalTime
 @FlowPreview
 object TestUtils {
 
-    private val defaultHcpId = "782f1bcd-9f3f-408a-af1b-cd9f3f908a98"
+    private const val defaultHcpId = "782f1bcd-9f3f-408a-af1b-cd9f3f908a98"
     private val defaultObjectMapper: ObjectMapper = ObjectMapper()
         .registerModule(KotlinModule())
         .registerModule(JavaTimeModule()).apply {
@@ -57,16 +59,70 @@ object TestUtils {
             ?: throw RuntimeException("Couldn't read HCP Public Key")
     }
 
-    fun writeUserCredentials(userCredentials: UserCredentials, prefix: String = "") {
-        File("src/test/resources/io/icure/md/client/apis/impl/credentials/$prefix${userCredentials.dataOwnerId}.json").writeText(
-            defaultObjectMapper.writeValueAsString(userCredentials),
-            Charsets.UTF_8
-        )
+    private suspend fun patientPublicKey(
+        basePath: String,
+        authorization: String,
+        patId: String
+    ): RSAPublicKey {
+        return PatientApi(basePath = basePath, authHeader = authorization)
+            .getPatient(patId)
+            .publicKey
+            ?.toPublicKey()
+            ?: throw RuntimeException("Couldn't read HCP Public Key")
     }
 
-    fun basicAuthFrom(credentialsFilePath: String): String {
-        val usernamePassword: UsernamePassword = defaultObjectMapper.readValue(File(credentialsFilePath).readText())!!
-        return usernamePassword.toBasicAuth()
+    fun basicAuthFrom(
+        username: String = System.getenv("TEST_HCP_USERNAME"),
+        password: String = System.getenv("TEST_HCP_PASSWORD")
+    ): String {
+        return UsernamePassword(username, password).toBasicAuth()
+    }
+
+    fun simpleApiBasedOn(authorization: String): MedTechApi {
+        return MedTechApi.Builder()
+            .iCureUrlPath(System.getenv("TEST_ICURE_URL") ?: "https://kraken.icure.dev")
+            .authorization(authorization)
+            .build()
+    }
+
+    fun hcpApiBasedOn(
+        creds: String = basicAuthFrom(
+            System.getenv("TEST_HCP_USERNAME"),
+            System.getenv("TEST_HCP_PASSWORD")
+        ),
+        healthcareProfessionalId: String = System.getenv("TEST_HCP_ID"),
+        healthcareProfessionalPrivateKey: String = System.getenv("TEST_HCP_PRIV_KEY")
+    ): MedTechApi {
+        val iCurePath = System.getenv("TEST_ICURE_URL") ?: "https://kraken.icure.dev"
+        val healthcareProfessionalPublicKey =
+            runBlocking { healthcareProfessionalPublicKey(iCurePath, creds, healthcareProfessionalId) }
+
+        return MedTechApi.Builder()
+            .iCureUrlPath(iCurePath)
+            .authorization(creds)
+            .addKeyPair(
+                healthcareProfessionalId,
+                healthcareProfessionalPublicKey,
+                healthcareProfessionalPrivateKey.toPrivateKey()
+            )
+            .build()
+    }
+
+    fun patApiBasedOn(
+        creds: String = basicAuthFrom(
+            System.getenv("TEST_PAT_USERNAME"),
+            System.getenv("TEST_PAT_PASSWORD")
+        ), patId: String = System.getenv("TEST_PAT_ID"), patPrivateKey: String = System.getenv("TEST_PAT_PRIV_KEY")
+    ): MedTechApi {
+        val iCurePath = System.getenv("TEST_ICURE_URL") ?: "https://kraken.icure.dev"
+        val patPublicKey =
+            runBlocking { patientPublicKey(iCurePath, creds, patId) }
+
+        return MedTechApi.Builder()
+            .iCureUrlPath(iCurePath)
+            .authorization(creds)
+            .addKeyPair(patId, patPublicKey, patPrivateKey.toPrivateKey())
+            .build()
     }
 
     data class UsernamePassword(val username: String, val password: String) {
@@ -83,9 +139,9 @@ object TestUtils {
     ) {
         val api: MedTechApi by lazy {
             MedTechApi.Builder()
-                .authProcessId(System.getProperty("ICURE_AUTH_PROCESS_ID", "f0ced6c6-d7cb-4f78-841e-2674ad09621e"))
-                .authServerUrl(System.getProperty("ICURE_AUTH_SERVER_URL", "https://msg-gw.icure.cloud/km"))
-                .iCureUrlPath(System.getProperty("ICURE_URL_PATH", "https://kraken.icure.dev"))
+                .authProcessId(System.getenv("PAT_AUTH_PROCESS_ID") ?: "6a355458dbfa392cb5624403190c39e5")
+                .authServerUrl(System.getenv("TEST_AUTH_SERVER_URL") ?: "https://msg-gw.icure.cloud/km")
+                .iCureUrlPath(System.getenv("TEST_ICURE_URL") ?: "https://kraken.icure.dev")
                 .userName(userName)
                 .password(token)
                 .addKeyPair(dataOwnerId, publicKey.toPublicKey(), privateKey.toPrivateKey())

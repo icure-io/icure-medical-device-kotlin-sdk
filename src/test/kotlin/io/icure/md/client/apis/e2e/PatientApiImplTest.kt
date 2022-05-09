@@ -27,8 +27,7 @@ internal class PatientApiImplTest {
     @DisplayName("Create patient test - HappyFlow")
     fun createPatientHappyFlow() = runBlocking {
         val patient = patient()
-        val hcpCred = TestUtils.UserCredentials.fromFile("hcp_0b464cfc-384a-4ad1-9264-28a1524ea09e.json")
-        val api = hcpCred.api
+        val api = TestUtils.hcpApiBasedOn()
 
         val createdPatient = api.patientApi().createOrModifyPatient(patient)
 
@@ -42,8 +41,7 @@ internal class PatientApiImplTest {
     @DisplayName("Get patient test - HappyFlow")
     fun getPatientHappyFlow() = runBlocking {
         val patient = patient()
-        val hcpCred = TestUtils.UserCredentials.fromFile("hcp_0b464cfc-384a-4ad1-9264-28a1524ea09e.json")
-        val api = hcpCred.api
+        val api = TestUtils.hcpApiBasedOn(TestUtils.basicAuthFrom())
 
         val createdPatient = api.patientApi().createOrModifyPatient(patient)
         val gotPatient = api.patientApi().getPatient(createdPatient.id!!)
@@ -65,15 +63,15 @@ internal class PatientApiImplTest {
     @Test
     fun sharingDelegationPatientToHcp() {
         runBlocking {
-            val patCred = TestUtils.UserCredentials.fromFile("pat_efa2933a-6bcf-4ab9-b9e7-60604fcb956f.json")
-            val hcpCred = TestUtils.UserCredentials.fromFile("hcp_2c5f952e-512b-4fd3-bc6d-0f66c282c159.json")
+            val patApi = TestUtils.patApiBasedOn()
+            val hcpApi = TestUtils.hcpApiBasedOn()
 
-            val currentPatUser = patCred.api.userApi().getLoggedUser()
-            val currentHcpUser = hcpCred.api.userApi().getLoggedUser()
+            val currentPatUser = patApi.userApi().getLoggedUser()
+            val currentHcpUser = hcpApi.userApi().getLoggedUser()
 
-            val patientFromPat = patCred.api.patientApi()
+            val patientFromPat = patApi.patientApi()
                 .getPatient(currentPatUser.patientId ?: throw IllegalArgumentException("User must be a Patient"))
-            val delegatedPatient = patCred.api.patientApi().giveAccessTo(
+            val delegatedPatient = patApi.patientApi().giveAccessTo(
                 patientFromPat,
                 currentHcpUser.healthcarePartyId ?: throw IllegalArgumentException("User must be a HCP")
             )
@@ -81,7 +79,7 @@ internal class PatientApiImplTest {
             assert(delegatedPatient.systemMetaData!!.delegations.containsKey(currentHcpUser.healthcarePartyId))
             assert(delegatedPatient.systemMetaData!!.encryptionKeys.containsKey(currentHcpUser.healthcarePartyId))
 
-            val patientFromHcp = hcpCred.api.patientApi().getPatient(patientFromPat.id!!)
+            val patientFromHcp = hcpApi.patientApi().getPatient(patientFromPat.id!!)
             assert(patientFromHcp == delegatedPatient)
         }
     }

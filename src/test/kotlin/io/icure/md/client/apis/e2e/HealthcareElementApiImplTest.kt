@@ -3,6 +3,7 @@ package io.icure.md.client.apis.e2e
 import io.icure.diffutils.Diff
 import io.icure.diffutils.differences
 import io.icure.diffutils.filterDiffs
+import io.icure.md.client.mappers.dataOwnerId
 import io.icure.md.client.models.HealthcareElement
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
@@ -26,11 +27,11 @@ internal class HealthcareElementApiImplTest {
     @Test
     @DisplayName("Create healthcare element test - HappyFlow")
     fun createHealthcareElementHappyFlow() = runBlocking {
-        val patCred = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
-        val api = patCred.api
+        val api = TestUtils.patApiBasedOn()
+        val currentUser = api.userApi().getLoggedUser()
 
         val he = healthElement()
-        val createdHe = api.healthcareElementApi().createOrModifyHealthcareElement(patCred.dataOwnerId, he)
+        val createdHe = api.healthcareElementApi().createOrModifyHealthcareElement(currentUser.dataOwnerId(), he)
 
         val diffs = he.differences(createdHe)
         val filters = listOf(
@@ -52,11 +53,11 @@ internal class HealthcareElementApiImplTest {
     @Test
     @DisplayName("Get healthcare element test - HappyFlow")
     fun getHealthcareElementHappyFlow() = runBlocking {
-        val patCred = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
-        val api = patCred.api
+        val api = TestUtils.patApiBasedOn()
+        val currentUser = api.userApi().getLoggedUser()
 
         val he = healthElement()
-        val createdHe = api.healthcareElementApi().createOrModifyHealthcareElement(patCred.dataOwnerId, he)
+        val createdHe = api.healthcareElementApi().createOrModifyHealthcareElement(currentUser.dataOwnerId(), he)
         val gotHe = api.healthcareElementApi().getHealthcareElement(createdHe.id!!)
 
         val diffs = createdHe.differences(gotHe)
@@ -67,28 +68,44 @@ internal class HealthcareElementApiImplTest {
     @DisplayName("Sharing delegation of DecryptedHealthElementDto patient to HCP and HCP to HCP")
     fun shareDelegationOhHealthCareElementFromPatientToHcp() {
         runBlocking {
-            val patCred = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
-            val hcpCred1 = TestUtils.UserCredentials.fromFile("hcp_2c5f952e-512b-4fd3-bc6d-0f66c282c159.json")
-            val hcpCred2 = TestUtils.UserCredentials.fromFile("hcp_0b464cfc-384a-4ad1-9264-28a1524ea09e.json")
+            val patApi = TestUtils.patApiBasedOn()
+            val hcpApi1 = TestUtils.hcpApiBasedOn(
+                TestUtils.basicAuthFrom(
+                    System.getenv("TEST_HCP_USERNAME"),
+                    System.getenv("TEST_HCP_PASSWORD")
+                ),
+                System.getenv("TEST_HCP_ID"),
+                System.getenv("TEST_HCP_PRIV_KEY")
+            )
+            val hcpApi2 = TestUtils.hcpApiBasedOn(
+                TestUtils.basicAuthFrom(
+                    System.getenv("TEST_HCP_2_USERNAME"),
+                    System.getenv("TEST_HCP_2_PASSWORD")
+                ),
+                System.getenv("TEST_HCP_2_ID"),
+                System.getenv("TEST_HCP_2_PRIV_KEY")
+            )
 
-            val currentPatUser = patCred.api.userApi().getLoggedUser()
-            val currentHcpUser = hcpCred1.api.userApi().getLoggedUser()
+            val currentPatUser = patApi.userApi().getLoggedUser()
+            val currentHcpUser = hcpApi1.userApi().getLoggedUser()
+            val currentHcpUser2 = hcpApi2.userApi().getLoggedUser()
 
-            val patientFromPat = patCred.api.patientApi()
+            val patientFromPat = patApi.patientApi()
                 .getPatient(currentPatUser.patientId ?: throw IllegalArgumentException("User must be a Patient"))
             val createdHEFromPatient =
-                patCred.api.healthcareElementApi().createOrModifyHealthcareElement(patientFromPat.id!!, healthElement())
-            val sharedHE = patCred.api.healthcareElementApi().giveAccessTo(
+                patApi.healthcareElementApi().createOrModifyHealthcareElement(patientFromPat.id!!, healthElement())
+            val sharedHE = patApi.healthcareElementApi().giveAccessTo(
                 createdHEFromPatient,
                 currentHcpUser.healthcarePartyId ?: throw IllegalArgumentException("User must be a HCP")
             )
-            val gotHEFromHCP1 = hcpCred1.api.healthcareElementApi().getHealthcareElement(sharedHE.id!!)
+            val gotHEFromHCP1 = hcpApi1.healthcareElementApi().getHealthcareElement(sharedHE.id!!)
 
-            assertThrows<Exception> { hcpCred2.api.healthcareElementApi().getHealthcareElement(sharedHE.id!!) }
+            assertThrows<Exception> { hcpApi2.healthcareElementApi().getHealthcareElement(sharedHE.id!!) }
             Assertions.assertEquals(sharedHE, gotHEFromHCP1)
 
-            val sharedHEFromHCP1 = hcpCred1.api.healthcareElementApi().giveAccessTo(gotHEFromHCP1, hcpCred2.dataOwnerId)
-            val gotHEFromHCP2 = hcpCred2.api.healthcareElementApi().getHealthcareElement(sharedHE.id!!)
+            val sharedHEFromHCP1 =
+                hcpApi1.healthcareElementApi().giveAccessTo(gotHEFromHCP1, currentHcpUser2.dataOwnerId())
+            val gotHEFromHCP2 = hcpApi2.healthcareElementApi().getHealthcareElement(sharedHE.id!!)
 
             Assertions.assertEquals(sharedHEFromHCP1, gotHEFromHCP2)
         }
@@ -98,32 +115,46 @@ internal class HealthcareElementApiImplTest {
     @DisplayName("Sharing delegation of DecryptedHealthElementDto HCP to Patient")
     fun shareDelegationOhHealthCareElementFromHcpToPatient() {
         runBlocking {
-            val patCred = TestUtils.UserCredentials.fromFile("pat_e810366a-89b6-4cd5-a36a-41e002344e6c.json")
-            val hcpCred1 = TestUtils.UserCredentials.fromFile("hcp_2c5f952e-512b-4fd3-bc6d-0f66c282c159.json")
-            val hcpCred2 = TestUtils.UserCredentials.fromFile("hcp_0b464cfc-384a-4ad1-9264-28a1524ea09e.json")
+            val patApi = TestUtils.patApiBasedOn()
+            val hcpApi1 = TestUtils.hcpApiBasedOn(
+                TestUtils.basicAuthFrom(
+                    System.getenv("TEST_HCP_USERNAME"),
+                    System.getenv("TEST_HCP_PASSWORD")
+                ),
+                System.getenv("TEST_HCP_ID"),
+                System.getenv("TEST_HCP_PRIV_KEY")
+            )
+            val hcpApi2 = TestUtils.hcpApiBasedOn(
+                TestUtils.basicAuthFrom(
+                    System.getenv("TEST_HCP_2_USERNAME"),
+                    System.getenv("TEST_HCP_2_PASSWORD")
+                ),
+                System.getenv("TEST_HCP_2_ID"),
+                System.getenv("TEST_HCP_2_PRIV_KEY")
+            )
 
-            val currentPatUser = patCred.api.userApi().getLoggedUser()
-            val currentHcpUser = hcpCred1.api.userApi().getLoggedUser()
+            val currentPatUser = patApi.userApi().getLoggedUser()
+            val currentHcpUser = hcpApi1.userApi().getLoggedUser()
 
-            val patientFromPat = patCred.api.patientApi()
+            val patientFromPat = patApi.patientApi()
                 .getPatient(currentPatUser.patientId ?: throw IllegalArgumentException("User must be a Patient"))
-            val delegatedPatient = patCred.api.patientApi().giveAccessTo(
+            val delegatedPatient = patApi.patientApi().giveAccessTo(
                 patientFromPat,
                 currentHcpUser.healthcarePartyId ?: throw IllegalArgumentException("User must be a HCP")
             )
 
             val createdHEFromHCP1 =
-                hcpCred1.api.healthcareElementApi()
+                hcpApi1.healthcareElementApi()
                     .createOrModifyHealthcareElement(patientFromPat.id!!, healthElement())
-            assertThrows<Exception> { patCred.api.healthcareElementApi().getHealthcareElement(createdHEFromHCP1.id!!) }
+            assertThrows<Exception> { patApi.healthcareElementApi().getHealthcareElement(createdHEFromHCP1.id!!) }
 
-            val sharedHEFromHCP1 = hcpCred1.api.healthcareElementApi().giveAccessTo(
+            val sharedHEFromHCP1 = hcpApi1.healthcareElementApi().giveAccessTo(
                 createdHEFromHCP1,
                 currentPatUser.patientId ?: throw IllegalArgumentException("User must be a Patient")
             )
-            val gotHEFromPat = patCred.api.healthcareElementApi().getHealthcareElement(sharedHEFromHCP1.id!!)
+            val gotHEFromPat = patApi.healthcareElementApi().getHealthcareElement(sharedHEFromHCP1.id!!)
 
-            assertThrows<Exception> { hcpCred2.api.healthcareElementApi().getHealthcareElement(sharedHEFromHCP1.id!!) }
+            assertThrows<Exception> { hcpApi2.healthcareElementApi().getHealthcareElement(sharedHEFromHCP1.id!!) }
             Assertions.assertEquals(sharedHEFromHCP1, gotHEFromPat)
         }
     }
