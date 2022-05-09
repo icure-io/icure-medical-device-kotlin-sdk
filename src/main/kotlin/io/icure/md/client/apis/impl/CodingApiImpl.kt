@@ -13,11 +13,10 @@ import io.icure.md.client.models.Coding
 import io.icure.md.client.models.PaginatedListCoding
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlin.time.ExperimentalTime
 
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
-@ExperimentalTime
+@ExperimentalUnsignedTypes
 @FlowPreview
 class CodingApiImpl(private val medTechApi: MedTechApi) : CodingApi {
     override suspend fun createOrModifyCoding(coding: Coding): Coding {

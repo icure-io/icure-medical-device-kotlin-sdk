@@ -5,12 +5,10 @@ import io.icure.md.client.models.AuthenticationResult
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import java.security.KeyPair
-import kotlin.time.ExperimentalTime
 
 @ExperimentalStdlibApi
 @ExperimentalCoroutinesApi
 @FlowPreview
-@ExperimentalTime
 interface AuthenticationApi {
 
     /**

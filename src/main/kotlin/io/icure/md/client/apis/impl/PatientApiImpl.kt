@@ -21,11 +21,9 @@ import io.icure.md.client.models.PaginatedListPatient
 import io.icure.md.client.models.Patient
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlin.time.ExperimentalTime
 
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
-@ExperimentalTime
 @ExperimentalUnsignedTypes
 @FlowPreview
 class PatientApiImpl(private val medTechApi: MedTechApi) : PatientApi {

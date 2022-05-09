@@ -39,15 +39,11 @@ import reactor.netty.http.client.HttpClient
 import java.io.IOException
 import java.security.KeyPair
 import java.util.*
-import kotlin.time.DurationUnit
-import kotlin.time.ExperimentalTime
-import kotlin.time.toDuration
 import io.icure.kraken.client.models.decrypted.PatientDto as DecryptedPatientDto
 
 @ExperimentalStdlibApi
 @FlowPreview
 @ExperimentalCoroutinesApi
-@ExperimentalTime
 @ExperimentalUnsignedTypes
 class AuthenticationApiImpl(
     private val iCureUrlPath: String,
@@ -162,7 +158,7 @@ class AuthenticationApiImpl(
         val currentUser = api.baseUserApi.getCurrentUser()
         val fromProvider = tokenAndKeyPairProvider(currentUser.groupId!!, currentUser.id)
         val token =
-            fromProvider?.first ?: api.userApi().createToken(currentUser.id, 30.toDuration(DurationUnit.DAYS))
+            fromProvider?.first ?: api.userApi().createToken(currentUser.id, 3600 * 24 * 30)
         return api to ApiInitialisationResult(
             currentUser,
             token,

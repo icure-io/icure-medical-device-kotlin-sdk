@@ -55,11 +55,9 @@ import java.nio.ByteBuffer
 import java.security.MessageDigest
 import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.time.ExperimentalTime
 
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
-@ExperimentalTime
 @ExperimentalUnsignedTypes
 @FlowPreview
 class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {

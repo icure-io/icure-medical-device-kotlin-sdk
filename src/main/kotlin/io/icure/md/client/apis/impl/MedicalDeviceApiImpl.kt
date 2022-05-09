@@ -14,12 +14,11 @@ import io.icure.md.client.models.MedicalDevice
 import io.icure.md.client.models.PaginatedListMedicalDevice
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlin.time.ExperimentalTime
 
 @ExperimentalCoroutinesApi
 @ExperimentalStdlibApi
+@ExperimentalUnsignedTypes
 @FlowPreview
-@ExperimentalTime
 class MedicalDeviceApiImpl(private val medTechApi: MedTechApi) : MedicalDeviceApi {
 
     /**
