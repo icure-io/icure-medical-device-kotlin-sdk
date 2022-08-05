@@ -193,7 +193,7 @@ fun FilterBuilder<HealthcareElement>.healthcareElementsWithLabel(type: String, c
             type,
             code,
             null,
-            null,
+            null
         )
     }
 }
@@ -207,10 +207,9 @@ fun FilterBuilder<DataSample>.dataSamplesWithLabel(type: String, code: String?) 
             type,
             code,
             null,
-            null,
+            null
         )
     }
-
 }
 
 fun FilterBuilder<DataSample>.dataSamplesWithCode(type: String, code: String?) {
@@ -222,7 +221,7 @@ fun FilterBuilder<DataSample>.dataSamplesWithCode(type: String, code: String?) {
             null,
             null,
             type,
-            code,
+            code
         )
     }
 }
@@ -235,7 +234,7 @@ fun FilterBuilder<HealthcareElement>.healthcareElementsWithCode(type: String, co
             null,
             null,
             type,
-            code,
+            code
         )
     }
 }
@@ -252,11 +251,11 @@ suspend fun FilterBuilder<DataSample>.dataSamplesOfPatients(localCrypto: LocalCr
                 localCrypto.decryptEncryptionKeys(
                     dataOwnerId,
                     it.systemMetaData?.delegations?.mapValues { (k, v) -> v.map { it.toDelegationDto() }.toSet() }
-                        ?: emptyMap())
+                        ?: emptyMap()
+                )
             }.toSet()
         )
     }
-
 }
 
 @ExperimentalCoroutinesApi
@@ -274,7 +273,8 @@ suspend fun FilterBuilder<HealthcareElement>.healthcareElementsOfPatients(
                 localCrypto.decryptEncryptionKeys(
                     dataOwnerId,
                     it.systemMetaData?.delegations?.mapValues { (k, v) -> v.map { it.toDelegationDto() }.toSet() }
-                        ?: emptyMap())
+                        ?: emptyMap()
+                )
             }.toSet()
         )
     }
@@ -388,7 +388,7 @@ fun FilterBuilder<Patient>.byName(name: String) {
             null,
             name,
             dataOwnerId
-                ?: throw IllegalArgumentException("PatientByHealthcarePartyAndIdentifiersFilter needs a dataOwner to be registered in the builder using a forDataOwner call"),
+                ?: throw IllegalArgumentException("PatientByHealthcarePartyAndIdentifiersFilter needs a dataOwner to be registered in the builder using a forDataOwner call")
         )
     }
 }
@@ -399,7 +399,7 @@ fun FilterBuilder<Patient>.byFuzzyName(name: String) {
             null,
             name,
             dataOwnerId
-                ?: throw IllegalArgumentException("PatientByHealthcarePartyAndIdentifiersFilter needs a dataOwner to be registered in the builder using a forDataOwner call"),
+                ?: throw IllegalArgumentException("PatientByHealthcarePartyAndIdentifiersFilter needs a dataOwner to be registered in the builder using a forDataOwner call")
         )
     }
 }
@@ -407,7 +407,7 @@ fun FilterBuilder<Patient>.byFuzzyName(name: String) {
 fun FilterBuilder<Patient>.byGenderEducation(gender: Patient.Gender, education: String) =
     PatientByHealthcarePartyGenderEducationProfessionBuilder(
         gender,
-        education,
+        education
     ).also {
         this.registerInParent { dataOwnerId -> it.forDataOwner(dataOwnerId).build() }
     }
@@ -424,7 +424,7 @@ class PatientByHealthcarePartyGenderEducationProfessionBuilder(
             dataOwnerId
                 ?: throw IllegalArgumentException("PatientByHealthcarePartyAndIdentifiersFilter needs a dataOwner to be registered in the builder using a forDataOwner call"),
             gender,
-            education,
+            education
         )
     }
 }
@@ -435,7 +435,7 @@ fun FilterBuilder<Patient>.byDateOfBirth(after: LocalDateTime?, before: LocalDat
         PatientByHealthcarePartyDateOfBirthBetweenFilter(
             null,
             after?.format(formatter)?.toInt(),
-            before?.format(formatter)?.toInt(),
+            before?.format(formatter)?.toInt()
         )
     }
 }
@@ -454,4 +454,3 @@ fun FilterBuilder<User>.allUsers() {
 fun FilterBuilder<User>.usersByIds(vararg ids: String) {
     this.registerInParent { dataOwnerId -> UserByIdsFilter(ids.toSet(), null) }
 }
-

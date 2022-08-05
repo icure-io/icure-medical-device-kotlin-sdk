@@ -37,7 +37,6 @@ configure<KtToTsConfig> {
     this.pathCreateFiles = "./models-ts/filters/"
 }
 
-
 val gitVersion: String? by project
 
 group = "io.icure"
@@ -108,7 +107,6 @@ dependencies {
     testImplementation(group = "io.icure", name = "diff-utils", version = "0.1.3-959d0c98a9")
 }
 
-
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
@@ -126,17 +124,17 @@ tasks.getByName("publish") {
 }
 
 tasks.register("apiGenerate", Jar::class) {
-    inputs.files(fileTree("openApiTemplates"), File("${rootDir}/icure-medical-device-spec.json"))
+    inputs.files(fileTree("openApiTemplates"), File("$rootDir/icure-medical-device-spec.json"))
         .withPropertyName("sourceFiles")
         .withPathSensitivity(PathSensitivity.RELATIVE)
     doLast {
         javaexec {
             main = "-jar"
             args = listOf(
-                "${rootDir}/openapi-generator-cli.jar",
+                "$rootDir/openapi-generator-cli.jar",
                 "generate",
                 "-i",
-                "${rootDir}/icure-medical-device-spec.json",
+                "$rootDir/icure-medical-device-spec.json",
                 "-g",
                 "kotlin",
                 "-o",
@@ -167,7 +165,7 @@ tasks.register("apiGenerate", Jar::class) {
 
 tasks.register("download-openapi-spec") {
     doLast {
-        val destFile = File("${rootDir}/icure-medical-device-spec.json")
+        val destFile = File("$rootDir/icure-medical-device-spec.json")
         val url = "${System.getProperty("API_URL")}/v3/api-docs/v2"
         ant.invokeMethod("get", mapOf("src" to url, "dest" to destFile))
     }
@@ -183,9 +181,9 @@ tasks.register("apply-custom-fixes") {
 
         // in Folders
         val folders = listOf(
-            "${rootDir}/src/main/kotlin/io/icure/md/client/apis",
-            "${rootDir}/docs",
-            "${rootDir}/src/main/kotlin/io/icure/md/client/models"
+            "$rootDir/src/main/kotlin/io/icure/md/client/apis",
+            "$rootDir/docs",
+            "$rootDir/src/main/kotlin/io/icure/md/client/models"
         )
 
         for (folder in folders) {
@@ -208,7 +206,7 @@ tasks.register("apply-custom-fixes") {
             ant.withGroovyBuilder {
                 "replaceregexp"(
                     "match" to ": Filter(?!<)",
-                    "replace" to ": Filter<${clazz}>",
+                    "replace" to ": Filter<$clazz>",
                     "flags" to "g",
                     "byline" to "true"
                 ) {
@@ -240,10 +238,8 @@ tasks.test {
     useJUnitPlatform()
 }
 
-
 tasks.jacocoTestReport {
     reports {
         xml.isEnabled = true
     }
 }
-

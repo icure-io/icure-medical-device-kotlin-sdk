@@ -12,7 +12,7 @@ fun CodeDto.toCoding() = Coding(
     type = this.type,
     code = this.code,
     version = this.version,
-    description = this.label,
+    description = this.label
 )
 
 fun Coding.toCodeDto() = CodeDto(
@@ -23,5 +23,5 @@ fun Coding.toCodeDto() = CodeDto(
     type = this.type,
     code = this.code,
     version = this.version,
-    label = this.description,
+    label = this.description
 )

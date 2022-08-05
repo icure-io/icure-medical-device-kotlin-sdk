@@ -32,8 +32,8 @@ When modifying a data sample, you can&#39;t update the patient of it : For this,
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
-val patientId : kotlin.String = patientId_example // kotlin.String | 
-val dataSample : DataSample =  // DataSample | 
+val patientId : kotlin.String = patientId_example // kotlin.String |
+val dataSample : DataSample =  // DataSample |
 try {
     val result : DataSample = apiInstance.createOrModifyDataSampleFor(patientId, dataSample)
     println(result)
@@ -72,7 +72,7 @@ No authorization required
 
 Create or update a batch of [DataSample] for a patient
 
-All the provided data samples will be created in the same batch. If you are trying to update some data samples, then those ones need to come from the same batch.                  When modifying a data sample, you can&#39;t update the patient of it : For this, you need to delete the faulty data sample and create a new one. When modifying the data sample, you also need to keep the same batchId : It is not possible to change the batch of a data sample.                 
+All the provided data samples will be created in the same batch. If you are trying to update some data samples, then those ones need to come from the same batch.                  When modifying a data sample, you can&#39;t update the patient of it : For this, you need to delete the faulty data sample and create a new one. When modifying the data sample, you also need to keep the same batchId : It is not possible to change the batch of a data sample.
 
 ### Example
 ```kotlin
@@ -81,8 +81,8 @@ All the provided data samples will be created in the same batch. If you are tryi
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
-val patientId : kotlin.String = patientId_example // kotlin.String | 
-val dataSample : kotlin.collections.List<DataSample> =  // kotlin.collections.List<DataSample> | 
+val patientId : kotlin.String = patientId_example // kotlin.String |
+val dataSample : kotlin.collections.List<DataSample> =  // kotlin.collections.List<DataSample> |
 try {
     val result : kotlin.collections.List<DataSample> = apiInstance.createOrModifyDataSamplesFor(patientId, dataSample)
     println(result)
@@ -130,8 +130,8 @@ Deletes an attachment, using its corresponding documentId
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
-val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String | 
-val documentId : kotlin.String = documentId_example // kotlin.String | 
+val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String |
+val documentId : kotlin.String = documentId_example // kotlin.String |
 try {
     val result : kotlin.String = apiInstance.deleteAttachment(dataSampleId, documentId)
     println(result)
@@ -179,7 +179,7 @@ Deletes the data sample identified by the provided unique [dataSampleId].
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
-val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String | 
+val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String |
 try {
     val result : kotlin.String = apiInstance.deleteDataSample(dataSampleId)
     println(result)
@@ -226,7 +226,7 @@ Deletes the batch of data samples identified by the provided [dataSampleIds]. Th
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
-val requestBody : kotlin.collections.List<kotlin.String> =  // kotlin.collections.List<kotlin.String> | 
+val requestBody : kotlin.collections.List<kotlin.String> =  // kotlin.collections.List<kotlin.String> |
 try {
     val result : kotlin.collections.List<kotlin.String> = apiInstance.deleteDataSamples(requestBody)
     println(result)
@@ -324,7 +324,7 @@ Each data sample is uniquely identified by a data sample id which is a UUID. Thi
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
-val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String | 
+val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String |
 try {
     val result : DataSample = apiInstance.getDataSample(dataSampleId)
     println(result)
@@ -371,9 +371,9 @@ Data Samples may contain attachments such as prescriptions, reports, ... Use thi
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
-val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String | 
-val documentId : kotlin.String = documentId_example // kotlin.String | 
-val attachmentId : kotlin.String = attachmentId_example // kotlin.String | 
+val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String |
+val documentId : kotlin.String = documentId_example // kotlin.String |
+val attachmentId : kotlin.String = attachmentId_example // kotlin.String |
 try {
     val result : kotlinx.coroutines.flow.Flow<java.nio.ByteBuffer> = apiInstance.getDataSampleAttachmentContent(dataSampleId, documentId, attachmentId)
     println(result)
@@ -422,8 +422,8 @@ Data Samples may contain attachments such as prescriptions, reports, ... Use thi
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
-val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String | 
-val documentId : kotlin.String = documentId_example // kotlin.String | 
+val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String |
+val documentId : kotlin.String = documentId_example // kotlin.String |
 try {
     val result : Document = apiInstance.getDataSampleAttachmentDocument(dataSampleId, documentId)
     println(result)
@@ -518,12 +518,12 @@ Link an attachment or update the attachment of a data sample
 //import io.icure.md.client.models.*
 
 val apiInstance = DataSampleApi()
-val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String | 
-val body : kotlinx.coroutines.flow.Flow<java.nio.ByteBuffer> = BINARY_DATA_HERE // kotlinx.coroutines.flow.Flow<java.nio.ByteBuffer> | 
-val documentName : kotlin.String = documentName_example // kotlin.String | 
-val documentVersion : kotlin.String = documentVersion_example // kotlin.String | 
-val documentExternalUuid : kotlin.String = documentExternalUuid_example // kotlin.String | 
-val documentLanguage : kotlin.String = documentLanguage_example // kotlin.String | 
+val dataSampleId : kotlin.String = dataSampleId_example // kotlin.String |
+val body : kotlinx.coroutines.flow.Flow<java.nio.ByteBuffer> = BINARY_DATA_HERE // kotlinx.coroutines.flow.Flow<java.nio.ByteBuffer> |
+val documentName : kotlin.String = documentName_example // kotlin.String |
+val documentVersion : kotlin.String = documentVersion_example // kotlin.String |
+val documentExternalUuid : kotlin.String = documentExternalUuid_example // kotlin.String |
+val documentLanguage : kotlin.String = documentLanguage_example // kotlin.String |
 try {
     val result : Document = apiInstance.setDataSampleAttachment(dataSampleId, body, documentName, documentVersion, documentExternalUuid, documentLanguage)
     println(result)
@@ -559,4 +559,3 @@ No authorization required
 
  - **Content-Type**: application/json, application/xml
  - **Accept**: */*
-

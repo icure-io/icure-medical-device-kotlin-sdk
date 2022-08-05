@@ -27,7 +27,7 @@ When modifying an healthcare element, you must ensure that the rev obtained when
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareElementApi()
-val patientId : kotlin.String = patientId_example // kotlin.String | 
+val patientId : kotlin.String = patientId_example // kotlin.String |
 val healthcareElement : HealthcareElement =  // HealthcareElement | The healthcare element that must be created in the database.
 try {
     val result : HealthcareElement = apiInstance.createOrModifyHealthcareElement(patientId, healthcareElement)
@@ -76,7 +76,7 @@ When modifying an healthcare element, you must ensure that the rev obtained when
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareElementApi()
-val patientId : kotlin.String = patientId_example // kotlin.String | 
+val patientId : kotlin.String = patientId_example // kotlin.String |
 val healthcareElement : kotlin.collections.List<HealthcareElement> =  // kotlin.collections.List<HealthcareElement> | The healthcare element that must be created in the database.
 try {
     val result : kotlin.collections.List<HealthcareElement> = apiInstance.createOrModifyHealthcareElements(patientId, healthcareElement)
@@ -125,7 +125,7 @@ Deletes the healthcare element identified by the provided unique [healthElementI
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareElementApi()
-val healthElementId : kotlin.String = healthElementId_example // kotlin.String | 
+val healthElementId : kotlin.String = healthElementId_example // kotlin.String |
 try {
     val result : kotlin.String = apiInstance.deleteHealthcareElement(healthElementId)
     println(result)
@@ -223,7 +223,7 @@ Each [HealthcareElement] is uniquely identified by a healthcare element id. The 
 //import io.icure.md.client.models.*
 
 val apiInstance = HealthcareElementApi()
-val healthcareElementId : kotlin.String = healthcareElementId_example // kotlin.String | 
+val healthcareElementId : kotlin.String = healthcareElementId_example // kotlin.String |
 try {
     val result : HealthcareElement = apiInstance.getHealthcareElement(healthcareElementId)
     println(result)
@@ -301,4 +301,3 @@ No authorization required
 
  - **Content-Type**: application/json, application/xml
  - **Accept**: */*
-

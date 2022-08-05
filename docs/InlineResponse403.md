@@ -12,6 +12,3 @@ Name | Type | Description | Notes
 **double** | **kotlin.Double** |  |  [optional]
 **direct** | **kotlin.Boolean** |  |  [optional]
 **readOnly** | **kotlin.Boolean** |  |  [optional]
-
-
-

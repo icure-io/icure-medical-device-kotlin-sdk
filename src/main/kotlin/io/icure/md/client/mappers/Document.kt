@@ -21,7 +21,7 @@ fun DocumentDto.toDocument() = Document(
     externalUuid = this.externalUuid,
     propertySize = this.propertySize,
     hash = this.hash,
-    attachmentId = this.attachmentId,
+    attachmentId = this.attachmentId
 )
 
 fun Document.toDocumentDto() = DocumentDto(
@@ -47,5 +47,5 @@ fun Document.toDocumentDto() = DocumentDto(
     externalUuid = this.externalUuid,
     propertySize = this.propertySize,
     hash = this.hash,
-    attachmentId = this.attachmentId,
+    attachmentId = this.attachmentId
 )

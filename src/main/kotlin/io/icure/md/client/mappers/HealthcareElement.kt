@@ -66,5 +66,5 @@ fun HealthcareElement.toHealthcareElementDto() = HealthElementDto(
     delegations = this.systemMetaData?.delegations?.mapValues { (k, v) -> v.map { it.toDelegationDto() }.toSet() }
         ?: emptyMap(),
     encryptionKeys = this.systemMetaData?.encryptionKeys?.mapValues { (k, v) -> v.map { it.toDelegationDto() }.toSet() }
-        ?: emptyMap(),
+        ?: emptyMap()
 )

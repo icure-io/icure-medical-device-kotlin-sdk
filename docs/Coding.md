@@ -10,8 +10,5 @@ Name | Type | Description | Notes
 **code** | **kotlin.String** |  |  [optional]
 **version** | **kotlin.String** | Must be lexicographically searchable |  [optional]
 **description** | **kotlin.collections.Map&lt;kotlin.String, kotlin.String&gt;** | Description (ex: {en: Rheumatic Aortic Stenosis, fr: Sténose rhumatoïde de l&#39;Aorte}) |  [optional]
-**qualifiedLinks** | **kotlin.collections.Map&lt;kotlin.String, kotlin.collections.List&lt;kotlin.String&gt;&gt;** | Links towards related codes | 
-**searchTerms** | **kotlin.collections.Map&lt;kotlin.String, kotlin.collections.Set&lt;kotlin.String&gt;&gt;** | Extra search terms/ language | 
-
-
-
+**qualifiedLinks** | **kotlin.collections.Map&lt;kotlin.String, kotlin.collections.List&lt;kotlin.String&gt;&gt;** | Links towards related codes |
+**searchTerms** | **kotlin.collections.Map&lt;kotlin.String, kotlin.collections.Set&lt;kotlin.String&gt;&gt;** | Extra search terms/ language |

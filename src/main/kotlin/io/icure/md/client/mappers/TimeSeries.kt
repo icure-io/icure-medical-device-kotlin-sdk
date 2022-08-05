@@ -10,7 +10,7 @@ fun TimeSeriesDto.toTimeSeries() = TimeSeries(
     max = this.max,
     mean = this.mean,
     median = this.median,
-    variance = this.variance,
+    variance = this.variance
 )
 
 fun TimeSeries.toTimeSeriesDto() = TimeSeriesDto(
@@ -20,5 +20,5 @@ fun TimeSeries.toTimeSeriesDto() = TimeSeriesDto(
     max = this.max,
     mean = this.mean,
     median = this.median,
-    variance = this.variance,
+    variance = this.variance
 )

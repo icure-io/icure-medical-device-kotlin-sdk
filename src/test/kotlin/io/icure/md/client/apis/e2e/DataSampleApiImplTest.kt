@@ -159,8 +159,12 @@ internal class DataSampleApiImplTest {
             // When
             val documentExternalUuid = UUID.randomUUID().toString()
             val createdDocument = medTechApi.dataSampleApi().setDataSampleAttachment(
-                createdDataSample.id!!, flowOf(ByteBuffer.wrap(documentToAdd)),
-                null, "1.0.0", documentExternalUuid, "en"
+                createdDataSample.id!!,
+                flowOf(ByteBuffer.wrap(documentToAdd)),
+                null,
+                "1.0.0",
+                documentExternalUuid,
+                "en"
             )
 
             // Then
@@ -190,8 +194,12 @@ internal class DataSampleApiImplTest {
             val attachmentToAdd =
                 Files.readAllBytes(Paths.get("src/test/resources/io/icure/md/client/attachments/data_sample_attachment_note.xml"))
             val createdDocument = medTechApi.dataSampleApi().setDataSampleAttachment(
-                createdDataSample.id!!, flowOf(ByteBuffer.wrap(attachmentToAdd)),
-                null, "1.0.0", UUID.randomUUID().toString(), "en"
+                createdDataSample.id!!,
+                flowOf(ByteBuffer.wrap(attachmentToAdd)),
+                null,
+                "1.0.0",
+                UUID.randomUUID().toString(),
+                "en"
             )
 
             // When
@@ -225,8 +233,12 @@ internal class DataSampleApiImplTest {
             val attachmentToAdd =
                 Files.readAllBytes(Paths.get("src/test/resources/io/icure/md/client/attachments/data_sample_attachment_note.xml"))
             val createdDocument = medTechApi.dataSampleApi().setDataSampleAttachment(
-                createdDataSample.id!!, flowOf(ByteBuffer.wrap(attachmentToAdd)),
-                null, "1.0.0", UUID.randomUUID().toString(), "en"
+                createdDataSample.id!!,
+                flowOf(ByteBuffer.wrap(attachmentToAdd)),
+                null,
+                "1.0.0",
+                UUID.randomUUID().toString(),
+                "en"
             )
 
             // When

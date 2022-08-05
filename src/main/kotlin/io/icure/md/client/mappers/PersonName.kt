@@ -11,7 +11,7 @@ fun PersonNameDto.toPersonName() = PersonName(
     start = this.start,
     end = this.end,
     text = this.text,
-    use = this.use?.toPersonNameUse(),
+    use = this.use?.toPersonNameUse()
 )
 
 private fun PersonNameDto.Use.toPersonNameUse() = PersonName.Use.valueOf(this.name)
@@ -24,7 +24,7 @@ fun PersonName.toPersonNameDto() = PersonNameDto(
     start = this.start,
     end = this.end,
     text = this.text,
-    use = this.use?.toPersonNameDtoUse(),
+    use = this.use?.toPersonNameDtoUse()
 )
 
 private fun PersonName.Use.toPersonNameDtoUse() = PersonNameDto.Use.valueOf(this.name)

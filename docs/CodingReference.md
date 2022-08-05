@@ -8,6 +8,3 @@ Name | Type | Description | Notes
 **type** | **kotlin.String** |  |  [optional]
 **code** | **kotlin.String** |  |  [optional]
 **version** | **kotlin.String** |  |  [optional]
-
-
-

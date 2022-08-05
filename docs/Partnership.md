@@ -21,6 +21,3 @@ type | primary_contact, primary_contact_for, family, friend, counselor, contact,
 Name | Value
 ---- | -----
 status | active, complicated, past
-
-
-

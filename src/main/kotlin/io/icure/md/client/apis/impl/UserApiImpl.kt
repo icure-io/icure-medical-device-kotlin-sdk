@@ -22,8 +22,10 @@ class UserApiImpl(private val medTechApi: MedTechApi) : UserApi {
         medTechApi.baseUserApi.checkTokenValidity(userId, token)
 
     override suspend fun createOrModifyUser(user: User) =
-        (user.rev?.let { medTechApi.baseUserApi.modifyUser(user.toUserDto()) } ?: medTechApi.baseUserApi
-            .createUser(user.toUserDto())).toUser()
+        (
+            user.rev?.let { medTechApi.baseUserApi.modifyUser(user.toUserDto()) } ?: medTechApi.baseUserApi
+                .createUser(user.toUserDto())
+            ).toUser()
 
     override suspend fun createToken(userId: String) =
         medTechApi.baseUserApi.getToken(userId, UUID.randomUUID().toString(), 3600 * 24 * 30)

@@ -23,7 +23,7 @@ fun UserDto.toUser() = User(
     patientId = this.patientId,
     deviceId = this.deviceId,
     email = this.email,
-    mobilePhone = this.mobilePhone,
+    mobilePhone = this.mobilePhone
 )
 
 fun User.toUserDto() = UserDto(
@@ -51,7 +51,7 @@ fun User.toUserDto() = UserDto(
     patientId = this.patientId,
     deviceId = this.deviceId,
     email = this.email,
-    mobilePhone = this.mobilePhone,
+    mobilePhone = this.mobilePhone
 )
 
 fun UserDto.dataOwnerId(): String {

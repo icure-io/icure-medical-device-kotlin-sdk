@@ -7,12 +7,12 @@ fun CodeStubDto.toCodingReference() = CodingReference(
     id = this.id ?: "${this.type}|${this.code}|${this.version}",
     type = this.type,
     code = this.code,
-    version = this.version,
+    version = this.version
 )
 
 fun CodingReference.toCodeStubDto() = CodeStubDto(
     id = this.id,
     type = this.type,
     code = this.code,
-    version = this.version,
+    version = this.version
 )

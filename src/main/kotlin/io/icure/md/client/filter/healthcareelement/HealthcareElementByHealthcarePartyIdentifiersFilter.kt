@@ -11,5 +11,5 @@ import io.icure.md.client.models.Identifier
 data class HealthcareElementByHealthcarePartyIdentifiersFilter(
     override val description: String? = null,
     val healthcarePartyId: String? = null,
-    val identifiers: List<Identifier> = emptyList(),
+    val identifiers: List<Identifier> = emptyList()
 ) : Filter<HealthcareElement>

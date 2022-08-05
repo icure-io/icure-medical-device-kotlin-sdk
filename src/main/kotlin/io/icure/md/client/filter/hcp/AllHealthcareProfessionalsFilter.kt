@@ -26,6 +26,5 @@ import io.icure.md.client.models.HealthcareProfessional
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class AllHealthcareProfessionalsFilter(
-    override val description: String? = null,
+    override val description: String? = null
 ) : Filter<HealthcareProfessional>
-

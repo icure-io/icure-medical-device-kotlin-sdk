@@ -391,4 +391,3 @@ No authorization required
 
  - **Content-Type**: application/json, application/xml
  - **Accept**: */*
-

@@ -26,7 +26,7 @@ When modifying a patient, you must ensure that the rev obtained when getting or 
 //import io.icure.md.client.models.*
 
 val apiInstance = PatientApi()
-val patient : Patient =  // Patient | 
+val patient : Patient =  // Patient |
 try {
     val result : Patient = apiInstance.createOrModifyPatient(patient)
     println(result)
@@ -73,7 +73,7 @@ Deletes the patient identified by the provided unique [patientId].
 //import io.icure.md.client.models.*
 
 val apiInstance = PatientApi()
-val patientId : kotlin.String = patientId_example // kotlin.String | 
+val patientId : kotlin.String = patientId_example // kotlin.String |
 try {
     val result : kotlin.String = apiInstance.deletePatient(patientId)
     println(result)
@@ -171,7 +171,7 @@ Each patient is uniquely identified by a patient id. The patient id is a UUID. T
 //import io.icure.md.client.models.*
 
 val apiInstance = PatientApi()
-val patientId : kotlin.String = patientId_example // kotlin.String | 
+val patientId : kotlin.String = patientId_example // kotlin.String |
 try {
     val result : Patient = apiInstance.getPatient(patientId)
     println(result)
@@ -249,4 +249,3 @@ No authorization required
 
  - **Content-Type**: application/json, application/xml
  - **Accept**: */*
-

@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**type** | [**inline**](#TypeEnum) |  | 
+**type** | [**inline**](#TypeEnum) |  |
 **healthcarePartyId** | **kotlin.String** |  |  [optional]
 
 
@@ -13,6 +13,3 @@ Name | Type | Description | Notes
 Name | Value
 ---- | -----
 type | doctor, referral, medicalhouse, retirementhome, hospital, other, referringphysician, managingorganization
-
-
-

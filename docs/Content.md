@@ -16,6 +16,3 @@ Name | Type | Description | Notes
 **compoundValue** | [**kotlin.collections.List&lt;DataSample&gt;**](DataSample.md) |  |  [optional]
 **ratio** | [**kotlin.collections.List&lt;Measure&gt;**](Measure.md) |  |  [optional]
 **range** | [**kotlin.collections.List&lt;Measure&gt;**](Measure.md) |  |  [optional]
-
-
-

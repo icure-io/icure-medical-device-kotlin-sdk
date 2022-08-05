@@ -24,7 +24,7 @@ private fun AddressDto.AddressType.toAddressType() = Address.AddressType.valueOf
 private fun TelecomDto.toTelecom() = Telecom(
     telecomType = this.telecomType?.toTelecomType(),
     telecomNumber = this.telecomNumber,
-    telecomDescription = this.telecomDescription,
+    telecomDescription = this.telecomDescription
 )
 
 private fun TelecomDto.TelecomType.toTelecomType() = Telecom.TelecomType.valueOf(this.name)
@@ -48,7 +48,7 @@ private fun Address.AddressType.toAddressTypeDto() = AddressDto.AddressType.valu
 private fun Telecom.toTelecomDto() = TelecomDto(
     telecomType = this.telecomType?.toTelecomTypeDto(),
     telecomNumber = this.telecomNumber,
-    telecomDescription = this.telecomDescription,
+    telecomDescription = this.telecomDescription
 )
 
 private fun Telecom.TelecomType.toTelecomTypeDto() = TelecomDto.TelecomType.valueOf(this.name)

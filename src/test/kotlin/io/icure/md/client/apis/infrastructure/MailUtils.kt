@@ -46,7 +46,7 @@ object MailUtils {
         val md = MessageDigest.getInstance("MD5")
         val emailMd5 = BigInteger(1, md.digest(email.toByteArray())).toString(16).padStart(32, '0')
 
-        return httpClient.get().uri("https://privatix-temp-mail-v1.p.rapidapi.com/request/mail/id/${emailMd5}/")
+        return httpClient.get().uri("https://privatix-temp-mail-v1.p.rapidapi.com/request/mail/id/$emailMd5/")
             .responseSingle { response, bytes ->
                 if (response.status().code() < 400) {
                     bytes.asString().map { objectMapper.readValue(it, object : TypeReference<Array<Email>>() {})!! }
