@@ -88,7 +88,7 @@ class AuthenticationApiImpl(
         val body = objectMapper.writeValueAsString(params)
 
         val response = client().post()
-            .uri("${authServerUrl}/process/${authProcessId}/$requestId")
+            .uri("$authServerUrl/process/$authProcessId/$requestId")
             .send(ByteBufFlux.fromString(Mono.just(body)))
             .response()
             .awaitFirstOrNull()
@@ -111,7 +111,7 @@ class AuthenticationApiImpl(
         tokenAndKeyPairProvider: (String, String) -> Triple<String, String, String>?
     ): AuthenticationResult {
         val response = client().get()
-            .uri("${authServerUrl}/process/validate/${process.requestId}-$validationCode")
+            .uri("$authServerUrl/process/validate/${process.requestId}-$validationCode")
             .response()
             .awaitFirst()
 
@@ -162,7 +162,8 @@ class AuthenticationApiImpl(
         return api to ApiInitialisationResult(
             currentUser,
             token,
-            fromProvider?.let { KeyPair(it.third.toPublicKey(), it.second.toPrivateKey()) })
+            fromProvider?.let { KeyPair(it.third.toPublicKey(), it.second.toPrivateKey()) }
+        )
     }
 
     private suspend fun initUserCrypto(

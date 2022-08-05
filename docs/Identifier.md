@@ -12,6 +12,3 @@ Name | Type | Description | Notes
 **type** | [**CodingReference**](CodingReference.md) |  |  [optional]
 **use** | **kotlin.String** |  |  [optional]
 **&#x60;value&#x60;** | **kotlin.String** |  |  [optional]
-
-
-

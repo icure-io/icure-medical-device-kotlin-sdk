@@ -6,7 +6,7 @@ import io.icure.md.client.models.Partnership
 fun PartnershipDto.toPartnership() = Partnership(
     type = this.type?.toPartnershipType(),
     status = this.status?.toPartnershipStatus(),
-    partnerId = this.partnerId,
+    partnerId = this.partnerId
 )
 
 private fun PartnershipDto.Status.toPartnershipStatus() = Partnership.Status.valueOf(this.name)
@@ -15,7 +15,7 @@ private fun PartnershipDto.Type.toPartnershipType() = Partnership.Type.valueOf(t
 fun Partnership.toPartnershipDto() = PartnershipDto(
     type = this.type?.toPartnershipType(),
     status = this.status?.toPartnershipStatus(),
-    partnerId = this.partnerId,
+    partnerId = this.partnerId
 )
 
 private fun Partnership.Status.toPartnershipStatus() = PartnershipDto.Status.valueOf(this.name)

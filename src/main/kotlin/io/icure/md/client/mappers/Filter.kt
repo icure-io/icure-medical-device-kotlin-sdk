@@ -127,7 +127,7 @@ fun Filter<HealthcareElement>.healthcareElementFilterToAbstractHealthElementFilt
         is HealthcareElementByHealthcarePartyFilter -> this.toHealthcareElementByHealthcarePartyFilterDto()
         is HealthcareElementByHealthcarePartyIdentifiersFilter -> this.toHealthcareElementByHealthcarePartyIdentifiersFilterDto()
         is HealthcareElementByHealthcarePartyLabelCodeFilter -> this.toHealthcareElementByHealthcarePartyLabelCodeFilterDto()
-        //is HealthcareElementByIdsFilter -> this.toHealthcareElementByIdsFilterDto()
+        // is HealthcareElementByIdsFilter -> this.toHealthcareElementByIdsFilterDto()
         else -> throw IllegalArgumentException("Unsupported filter ${this::class}")
     }
 
@@ -156,7 +156,6 @@ fun Filter<User>.userFilterToAbstractUserFilterDto(): AbstractFilterDto<UserDto>
 
 fun AllCodingsFilter.toAllCodesFilterDto(): io.icure.kraken.client.models.filter.code.AllCodesFilter {
     return io.icure.kraken.client.models.filter.code.AllCodesFilter(this.description)
-
 }
 
 fun CodingByIdsFilter.toCodeByIdsFilterDto(): io.icure.kraken.client.models.filter.code.CodeByIdsFilter {
@@ -181,7 +180,8 @@ fun DataSampleByHealthcarePartyIdentifiersFilter.toServiceByHcPartyIdentifiersFi
     return io.icure.kraken.client.models.filter.service.ServiceByHcPartyIdentifiersFilter(
         this.healthcarePartyId,
         this.description,
-        this.identifiers.map { it.toIdentifierDto() })
+        this.identifiers.map { it.toIdentifierDto() }
+    )
 }
 
 fun DataSampleByHealthcarePartyHealthcareElementIdsFilter.toServiceByHcPartyHealthElementIdsFilterDto(): ServiceByHcPartyHealthElementIdsFilter {
@@ -242,7 +242,8 @@ fun HealthcareElementByHealthcarePartyIdentifiersFilter.toHealthcareElementByHea
     return io.icure.kraken.client.models.filter.healthelement.HealthElementByHcPartyIdentifiersFilter(
         this.description,
         this.healthcarePartyId,
-        this.identifiers.map { it.toIdentifierDto() })
+        this.identifiers.map { it.toIdentifierDto() }
+    )
 }
 
 fun HealthcareElementByHealthcarePartyLabelCodeFilter.toHealthcareElementByHealthcarePartyLabelCodeFilterDto(): io.icure.kraken.client.models.filter.healthelement.HealthElementByHcPartyTagCodeFilter {
@@ -264,7 +265,8 @@ fun PatientByHealthcarePartyAndIdentifiersFilter.toPatientByHealthcarePartyAndId
     return io.icure.kraken.client.models.filter.patient.PatientByHcPartyAndIdentifiersFilter(
         this.description,
         this.healthcarePartyId,
-        this.identifiers.map { it.toIdentifierDto() })
+        this.identifiers.map { it.toIdentifierDto() }
+    )
 }
 
 fun PatientByHealthcarePartyDateOfBirthBetweenFilter.toPatientByHealthcarePartyDateOfBirthBetweenFilterDto(): io.icure.kraken.client.models.filter.patient.PatientByHcPartyDateOfBirthBetweenFilter {
@@ -342,7 +344,8 @@ fun <F : Any, T : Any> UnionFilter<F>.toUnionFilterDto(
 ): io.icure.kraken.client.models.filter.UnionFilter<T> =
     io.icure.kraken.client.models.filter.UnionFilter(
         this.description,
-        this.filters.map { it.toAbstractFilterDto(from, to) })
+        this.filters.map { it.toAbstractFilterDto(from, to) }
+    )
 
 @Suppress("UNCHECKED_CAST")
 inline fun <reified F : Any, reified T : Any> IntersectionFilter<F>.toIntersectionFilterDto() =
@@ -354,4 +357,5 @@ fun <F : Any, T : Any> IntersectionFilter<F>.toIntersectionFilterDto(
 ): io.icure.kraken.client.models.filter.IntersectionFilter<T> =
     io.icure.kraken.client.models.filter.IntersectionFilter(
         this.description,
-        this.filters.map { it.toAbstractFilterDto(from, to) })
+        this.filters.map { it.toAbstractFilterDto(from, to) }
+    )

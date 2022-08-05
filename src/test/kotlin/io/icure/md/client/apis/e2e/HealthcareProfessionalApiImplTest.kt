@@ -49,5 +49,4 @@ internal class HealthcareProfessionalApiImplTest {
             assert(createdHealthcareProfessional.id != null)
         }
     }
-
 }

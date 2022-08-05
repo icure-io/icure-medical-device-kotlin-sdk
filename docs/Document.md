@@ -16,11 +16,8 @@ Name | Type | Description | Notes
 **mainUti** | **kotlin.String** | The main Uniform Type Identifier of the document (https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/understanding_utis/understand_utis_conc/understand_utis_conc.html#//apple_ref/doc/uid/TP40001319-CH202-CHDHIJDE) |  [optional]
 **name** | **kotlin.String** | Name of the document |  [optional]
 **version** | **kotlin.String** | The document version |  [optional]
-**otherUtis** | **kotlin.collections.Set&lt;kotlin.String&gt;** | Extra Uniform Type Identifiers | 
+**otherUtis** | **kotlin.collections.Set&lt;kotlin.String&gt;** | Extra Uniform Type Identifiers |
 **externalUuid** | **kotlin.String** | A unique external id (from another external source). |  [optional]
 **propertySize** | **kotlin.Long** | Size of the document file |  [optional]
 **hash** | **kotlin.String** | Hashed version of the document |  [optional]
 **attachmentId** | **kotlin.String** | Id of attachment to this document |  [optional]
-
-
-

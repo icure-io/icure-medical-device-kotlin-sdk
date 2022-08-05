@@ -51,7 +51,7 @@ private fun ContentDto.toContent(): Content = Content(
     timeSeries = this.timeSeries?.toTimeSeries(),
     compoundValue = this.compoundValue?.map { it.toDataSample() },
     ratio = this.ratio?.map { it.toMeasure() },
-    range = this.ratio?.map { it.toMeasure() },
+    range = this.ratio?.map { it.toMeasure() }
 )
 
 private fun MeasureDto.toMeasure() = Measure(
@@ -65,7 +65,7 @@ private fun MeasureDto.toMeasure() = Measure(
     unit = this.unit,
     unitCodes = this.unitCodes?.map { it.toCodingReference() }?.toSet(),
     comment = this.comment,
-    comparator = this.comparator,
+    comparator = this.comparator
 )
 
 fun DataSample.toServiceDto(): ServiceDto = ServiceDto(
@@ -109,7 +109,7 @@ private fun Content.toContentDto(): ContentDto = ContentDto(
     timeSeries = this.timeSeries?.toTimeSeriesDto(),
     compoundValue = this.compoundValue?.map { it.toServiceDto() },
     ratio = this.ratio?.map { it.toMeasureDto() },
-    range = this.ratio?.map { it.toMeasureDto() },
+    range = this.ratio?.map { it.toMeasureDto() }
 )
 
 private fun Measure.toMeasureDto() = MeasureDto(
@@ -123,5 +123,5 @@ private fun Measure.toMeasureDto() = MeasureDto(
     unit = this.unit,
     unitCodes = this.unitCodes?.map { it.toCodeStubDto() }?.toSet(),
     comment = this.comment,
-    comparator = this.comparator,
+    comparator = this.comparator
 )

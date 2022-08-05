@@ -26,7 +26,7 @@ When modifying a coding, you must ensure that the rev obtained when getting or c
 //import io.icure.md.client.models.*
 
 val apiInstance = CodingApi()
-val coding : Coding =  // Coding | 
+val coding : Coding =  // Coding |
 try {
     val result : Coding = apiInstance.createOrModifyCoding(coding)
     println(result)
@@ -73,7 +73,7 @@ When modifying codings, you must ensure that the rev obtained when getting or cr
 //import io.icure.md.client.models.*
 
 val apiInstance = CodingApi()
-val coding : kotlin.collections.List<Coding> =  // kotlin.collections.List<Coding> | 
+val coding : kotlin.collections.List<Coding> =  // kotlin.collections.List<Coding> |
 try {
     val result : kotlin.collections.List<Coding> = apiInstance.createOrModifyCodings(coding)
     println(result)
@@ -171,7 +171,7 @@ Each coding is uniquely identified by a coding id. The coding id is a UUID. This
 //import io.icure.md.client.models.*
 
 val apiInstance = CodingApi()
-val codingId : kotlin.String = codingId_example // kotlin.String | 
+val codingId : kotlin.String = codingId_example // kotlin.String |
 try {
     val result : Coding = apiInstance.getCoding(codingId)
     println(result)
@@ -249,4 +249,3 @@ No authorization required
 
  - **Content-Type**: application/json, application/xml
  - **Accept**: */*
-

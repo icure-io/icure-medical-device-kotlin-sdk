@@ -10,7 +10,7 @@ fun IdentifierDto.toIdentifier() = Identifier(
     end = this.end,
     system = this.system,
     type = this.type?.toCodingReference(),
-    use = this.use,
+    use = this.use
 )
 
 fun Identifier.toIdentifierDto() = IdentifierDto(
@@ -20,5 +20,5 @@ fun Identifier.toIdentifierDto() = IdentifierDto(
     end = this.end,
     system = this.system,
     type = this.type?.toCodeStubDto(),
-    use = this.use,
+    use = this.use
 )

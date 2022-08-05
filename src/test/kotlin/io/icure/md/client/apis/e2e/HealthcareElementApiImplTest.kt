@@ -160,6 +160,6 @@ internal class HealthcareElementApiImplTest {
     }
 
     private fun healthElement() = HealthcareElement(
-        note = "Stay hungry. Stay foolish",
+        note = "Stay hungry. Stay foolish"
     )
 }

@@ -15,6 +15,3 @@ Name | Type | Description | Notes
 **unitCodes** | [**kotlin.collections.Set&lt;CodingReference&gt;**](CodingReference.md) |  |  [optional]
 **comment** | **kotlin.String** |  |  [optional]
 **comparator** | **kotlin.String** |  |  [optional]
-
-
-

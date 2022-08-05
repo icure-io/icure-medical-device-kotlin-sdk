@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **state** | **kotlin.String** |  |  [optional]
 **country** | **kotlin.String** |  |  [optional]
 **note** | **kotlin.String** |  |  [optional]
-**telecoms** | [**kotlin.collections.List&lt;Telecom&gt;**](Telecom.md) |  | 
+**telecoms** | [**kotlin.collections.List&lt;Telecom&gt;**](Telecom.md) |  |
 
 
 <a name="AddressTypeEnum"></a>
@@ -22,6 +22,3 @@ Name | Type | Description | Notes
 Name | Value
 ---- | -----
 addressType | home, work, vacation, hospital, clinic, hq, other, temporary, postal, diplomatic, reference
-
-
-

@@ -55,8 +55,10 @@ class MedicalDeviceApiImpl(private val medTechApi: MedTechApi) : MedicalDeviceAp
         val devicesToCreate = medicalDevicesToCreate.map { device -> device.toDeviceDto() }
         val devicesToUpdate = medicalDevicesToUpdate.map { device -> device.toDeviceDto() }
 
-        return (medTechApi.baseDeviceApi.createDevices(devicesToCreate) + medTechApi.baseDeviceApi
-            .updateDevices(devicesToUpdate)).mapNotNull { it.id }.let { ids ->
+        return (
+            medTechApi.baseDeviceApi.createDevices(devicesToCreate) + medTechApi.baseDeviceApi
+                .updateDevices(devicesToUpdate)
+            ).mapNotNull { it.id }.let { ids ->
             medTechApi.baseDeviceApi.getDevices(ListOfIdsDto(ids)).map { deviceDto -> deviceDto.toMedicalDevice() }
         }
     }

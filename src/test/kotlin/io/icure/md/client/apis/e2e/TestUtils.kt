@@ -84,7 +84,9 @@ object TestUtils {
         creds: String = basicAuthFrom(
             System.getenv("TEST_PAT_USERNAME"),
             System.getenv("TEST_PAT_PASSWORD")
-        ), patId: String = System.getenv("TEST_PAT_ID"), patPrivateKey: String = System.getenv("TEST_PAT_PRIV_KEY")
+        ),
+        patId: String = System.getenv("TEST_PAT_ID"),
+        patPrivateKey: String = System.getenv("TEST_PAT_PRIV_KEY")
     ): MedTechApi {
         val iCurePath = System.getenv("TEST_ICURE_URL") ?: "https://kraken.icure.dev"
         val patPublicKey =

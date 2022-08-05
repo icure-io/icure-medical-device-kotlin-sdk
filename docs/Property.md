@@ -8,6 +8,3 @@ Name | Type | Description | Notes
 **type** | [**PropertyType**](PropertyType.md) |  |  [optional]
 **typedValue** | [**TypedValueObject**](TypedValueObject.md) |  |  [optional]
 **deleted** | **kotlin.Long** |  |  [optional]
-
-
-

@@ -28,7 +28,7 @@ When modifying a device, you must ensure that the rev obtained when getting or c
 //import io.icure.md.client.models.*
 
 val apiInstance = MedicalDeviceApi()
-val medicalDevice : MedicalDevice =  // MedicalDevice | 
+val medicalDevice : MedicalDevice =  // MedicalDevice |
 try {
     val result : MedicalDevice = apiInstance.createOrModifyMedicalDevice(medicalDevice)
     println(result)
@@ -75,7 +75,7 @@ When modifying a device, you must ensure that the rev obtained when getting or c
 //import io.icure.md.client.models.*
 
 val apiInstance = MedicalDeviceApi()
-val medicalDevice : kotlin.collections.List<MedicalDevice> =  // kotlin.collections.List<MedicalDevice> | 
+val medicalDevice : kotlin.collections.List<MedicalDevice> =  // kotlin.collections.List<MedicalDevice> |
 try {
     val result : kotlin.collections.List<MedicalDevice> = apiInstance.createOrModifyMedicalDevices(medicalDevice)
     println(result)
@@ -122,7 +122,7 @@ Deletes the medical device identified by the provided unique [medicalDeviceId].
 //import io.icure.md.client.models.*
 
 val apiInstance = MedicalDeviceApi()
-val medicalDeviceId : kotlin.String = medicalDeviceId_example // kotlin.String | 
+val medicalDeviceId : kotlin.String = medicalDeviceId_example // kotlin.String |
 try {
     val result : kotlin.String = apiInstance.deleteMedicalDevice(medicalDeviceId)
     println(result)
@@ -169,7 +169,7 @@ Deletes the batch of medical device identified by the provided [medicalDeviceIds
 //import io.icure.md.client.models.*
 
 val apiInstance = MedicalDeviceApi()
-val requestBody : kotlin.collections.List<kotlin.String> =  // kotlin.collections.List<kotlin.String> | 
+val requestBody : kotlin.collections.List<kotlin.String> =  // kotlin.collections.List<kotlin.String> |
 try {
     val result : kotlin.collections.List<kotlin.String> = apiInstance.deleteMedicalDevices(requestBody)
     println(result)
@@ -267,7 +267,7 @@ Each medical device is uniquely identified by a device id. The device id is a UU
 //import io.icure.md.client.models.*
 
 val apiInstance = MedicalDeviceApi()
-val medicalDeviceId : kotlin.String = medicalDeviceId_example // kotlin.String | 
+val medicalDeviceId : kotlin.String = medicalDeviceId_example // kotlin.String |
 try {
     val result : MedicalDevice = apiInstance.getMedicalDevice(medicalDeviceId)
     println(result)
@@ -345,4 +345,3 @@ No authorization required
 
  - **Content-Type**: application/json, application/xml
  - **Accept**: */*
-

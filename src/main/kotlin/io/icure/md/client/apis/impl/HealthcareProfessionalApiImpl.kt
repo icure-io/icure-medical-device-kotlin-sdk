@@ -19,10 +19,12 @@ import kotlinx.coroutines.FlowPreview
 @FlowPreview
 class HealthcareProfessionalApiImpl(private val medTechApi: MedTechApi) : HealthcareProfessionalApi {
     override suspend fun createOrModifyHealthcareProfessional(healthcareProfessional: HealthcareProfessional) =
-        (healthcareProfessional.rev?.let {
-            medTechApi.baseHcpApi.modifyHealthcareParty(healthcareProfessional.toHealthcarePartyDto())
-        } ?: medTechApi.baseHcpApi
-            .createHealthcareParty(healthcareProfessional.toHealthcarePartyDto())).toHealthcareProfessional()
+        (
+            healthcareProfessional.rev?.let {
+                medTechApi.baseHcpApi.modifyHealthcareParty(healthcareProfessional.toHealthcarePartyDto())
+            } ?: medTechApi.baseHcpApi
+                .createHealthcareParty(healthcareProfessional.toHealthcarePartyDto())
+            ).toHealthcareProfessional()
 
     override suspend fun deleteHealthcareProfessional(hcpId: String) =
         medTechApi.baseHcpApi.deleteHealthcareParties(ListOfIdsDto(ids = listOf(hcpId))).firstOrNull()?.rev

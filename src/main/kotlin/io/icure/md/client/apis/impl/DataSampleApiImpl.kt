@@ -139,7 +139,8 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
                 it.toDataSample(
                     batchId = createdOrModifiedContact.id,
                     responsible = createdOrModifiedContact.responsible,
-                    subContacts = createdOrModifiedContact.subContacts.filter { subContactDto -> subContactDto.services.any { service -> service.serviceId == it.id } })
+                    subContacts = createdOrModifiedContact.subContacts.filter { subContactDto -> subContactDto.services.any { service -> service.serviceId == it.id } }
+                )
             }
     }
 
@@ -178,9 +179,9 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
             if (foundHealthElementIds.size != distinctHealthElementIds.size) {
                 throw IllegalStateException(
                     "Health elements [${
-                        (distinctHealthElementIds - foundHealthElementIds).joinToString(
-                            ", "
-                        )
+                    (distinctHealthElementIds - foundHealthElementIds).joinToString(
+                        ", "
+                    )
                     }] do not exist or user ${currentUser.id} may not access them"
                 )
             }
@@ -200,13 +201,15 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
             ?.takeUnless { byPassCache }
             ?.let { contactsCache.getIfPresent(currentUser.id to it) }
             ?.let { true to it }
-            ?: (false to dataSample.batchId?.let { contactId ->
-                getContactFromICure(
-                    localCrypto,
-                    currentUser,
-                    contactId
+            ?: (
+                false to dataSample.batchId?.let { contactId ->
+                    getContactFromICure(
+                        localCrypto,
+                        currentUser,
+                        contactId
+                    )
+                }
                 )
-            })
     }
 
     private suspend fun getContactFromICure(
@@ -259,7 +262,6 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         dataSamples: List<DataSample>,
         existingContact: ContactDto? = null
     ): ContactDto {
-
         val servicesToCreate = dataSamples.map { it.toServiceDto().copy(modified = null) }
         val subContacts = createPotentialSubContactsForHealthElements(servicesToCreate, currentUser)
         val baseContact =
@@ -272,7 +274,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
             openingDate = servicesToCreate.mapNotNull { it.openingDate ?: it.valueDate }
                 .minOfOrNull { it },
             closingDate = servicesToCreate.mapNotNull { it.closingDate ?: it.valueDate }
-                .maxOfOrNull { it },
+                .maxOfOrNull { it }
         )
     }
 
@@ -349,8 +351,12 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
         return if (dataSampleIdsToSearch.isNotEmpty()) {
             val notCachedContacts = medTechApi.baseContactApi
                 .filterContactsBy(
-                    currentUser, FilterChain(ContactByServiceIdsFilter(ids = dataSampleIdsToSearch)), null, null,
-                    dataSampleIds.size, contactCryptoConfig(localCrypto, currentUser)
+                    currentUser,
+                    FilterChain(ContactByServiceIdsFilter(ids = dataSampleIdsToSearch)),
+                    null,
+                    null,
+                    dataSampleIds.size,
+                    contactCryptoConfig(localCrypto, currentUser)
                 )
                 .rows
                 .sortedByDescending { it.modified }
@@ -473,7 +479,7 @@ class DataSampleApiImpl(private val medTechApi: MedTechApi) : DataSampleApi {
             id = UUID.randomUUID().toString(),
             name = documentName,
             version = documentVersion,
-            externalUuid = documentExternalUuid,
+            externalUuid = documentExternalUuid
         )
 
         val documentConfig = documentCryptoConfig(localCrypto)

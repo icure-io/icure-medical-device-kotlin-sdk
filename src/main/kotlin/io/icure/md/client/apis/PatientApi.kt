@@ -116,5 +116,4 @@ interface PatientApi {
     @Suppress("UNCHECKED_CAST")
     @Throws(UnsupportedOperationException::class, ClientException::class, ServerException::class)
     suspend fun giveAccessTo(patient: Patient, delegateTo: String): Patient
-
 }

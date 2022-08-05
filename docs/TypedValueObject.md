@@ -17,6 +17,3 @@ Name | Type | Description | Notes
 Name | Value
 ---- | -----
 type | BOOLEAN, INTEGER, DOUBLE, STRING, DATE, CLOB, JSON
-
-
-

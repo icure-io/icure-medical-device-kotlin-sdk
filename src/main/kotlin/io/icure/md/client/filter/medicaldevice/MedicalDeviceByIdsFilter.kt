@@ -28,4 +28,3 @@ data class MedicalDeviceByIdsFilter(
     val ids: Set<String>,
     override val description: String? = null
 ) : Filter<MedicalDevice>
-

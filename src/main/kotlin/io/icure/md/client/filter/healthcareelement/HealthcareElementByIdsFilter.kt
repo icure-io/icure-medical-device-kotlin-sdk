@@ -28,4 +28,3 @@ data class HealthcareElementByIdsFilter(
     val ids: Set<String>,
     override val description: String? = null
 ) : Filter<HealthcareElement>
-

@@ -1,3 +1,4 @@
+/* ktlint-disable filename */
 package io.icure.md.client.mappers
 
 import io.icure.kraken.client.models.TypedValueDtoObject
@@ -9,7 +10,7 @@ fun TypedValueDtoObject.toTypedValueObject() = TypedValueObject(
     integerValue = this.integerValue,
     doubleValue = this.doubleValue,
     stringValue = this.stringValue,
-    dateValue = this.dateValue,
+    dateValue = this.dateValue
 )
 
 private fun TypedValueDtoObject.Type.toTypedValueObjectType() = TypedValueObject.Type.valueOf(this.name)
@@ -20,7 +21,8 @@ fun TypedValueObject.toTypedValueObject() = TypedValueDtoObject(
     integerValue = this.integerValue,
     doubleValue = this.doubleValue,
     stringValue = this.stringValue,
-    dateValue = this.dateValue,
+    dateValue = this.dateValue
 )
 
 private fun TypedValueObject.Type.toTypedValueDtoObjectType() = TypedValueDtoObject.Type.valueOf(this.name)
+/* ktlint-enable filename */
